@@ -47,53 +47,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Checkout design site source
-      run: |
-        git clone --depth 1 https://github.com/Jackson-jjc/De-time.design.git design-site
-
-      - name: Normalize design site links
-      run: |
-        python - << 'PY'
-        from pathlib import Path
-
-        base_js = Path('design-site/site/js/base.js')
-        if base_js.exists():
-          text = base_js.read_text(encoding='utf-8')
-          snippet = """
-
-  // Normalize canonical + repo links for GitHub Pages deployment
-  try {
-    var canonical = window.location.origin + window.location.pathname;
-    document.querySelectorAll('link[rel="canonical"]').forEach(function(node) {
-      node.setAttribute('href', canonical);
-    });
-
-    var repoHref = 'https://github.com/systems-mechanobiology/De-Time';
-    var repoText = 'systems-mechanobiology/De-Time';
-    document.querySelectorAll('a[href="https://github.com/Jackson-jjc/De-time.design"]').forEach(function(node) {
-      node.setAttribute('href', repoHref);
-      node.textContent = repoText;
-    });
-
-    document.querySelectorAll('[href^="/De-time.design/"]').forEach(function(node) {
-      node.setAttribute('href', node.getAttribute('href').replace('/De-time.design/', '/De-Time/'));
-    });
-    document.querySelectorAll('[src^="/De-time.design/"]').forEach(function(node) {
-      node.setAttribute('src', node.getAttribute('src').replace('/De-time.design/', '/De-Time/'));
-    });
-  } catch (err) {
-    // no-op
-  }
-  """
-          if 'Normalize canonical + repo links for GitHub Pages deployment' not in text:
-            base_js.write_text(text + snippet, encoding='utf-8')
-
-        error_page = Path('design-site/site/404.html')
-        if error_page.exists():
-          text = error_page.read_text(encoding='utf-8')
-          text = text.replace('/De-time.design/', '/De-Time/')
-          error_page.write_text(text, encoding='utf-8')
-        PY
+        - name: Checkout design site source
+        run: |
+          git clone --depth 1 https://github.com/Jackson-jjc/De-time.design.git design-site
 
       - name: Set up Python
         uses: actions/setup-python@v5
