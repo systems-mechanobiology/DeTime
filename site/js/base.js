@@ -22,6 +22,30 @@ $(document).ready(function() {
 
     applyTopPadding();
 
+    // Normalize canonical + repo links for GitHub Pages deployment
+    try {
+        var canonical = window.location.origin + window.location.pathname;
+        $('link[rel="canonical"]').attr('href', canonical);
+
+        var repoHref = 'https://github.com/systems-mechanobiology/De-Time';
+        var repoText = 'systems-mechanobiology/De-Time';
+        $('a[href="https://github.com/Jackson-jjc/De-time.design"]').each(function() {
+            $(this).attr('href', repoHref).text(repoText);
+        });
+
+        // Fix any legacy absolute paths from the design host
+        $('[href^="/De-time.design/"]').each(function() {
+            var href = $(this).attr('href');
+            $(this).attr('href', href.replace('/De-time.design/', '/De-Time/'));
+        });
+        $('[src^="/De-time.design/"]').each(function() {
+            var src = $(this).attr('src');
+            $(this).attr('src', src.replace('/De-time.design/', '/De-Time/'));
+        });
+    } catch (err) {
+        // no-op
+    }
+
     var search_term = getSearchTerm(),
         $search_modal = $('#mkdocs_search_modal'),
         $keyboard_modal = $('#mkdocs_keyboard_modal');
