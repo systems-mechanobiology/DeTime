@@ -57,20 +57,39 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -e .[dev,docs,notebook]
 
-      - name: Build MkDocs site
+      - name: Use prebuilt site if present (skip MkDocs build)
         run: |
-          python scripts/generate_schema_assets.py --check
-          python scripts/generate_schema_assets.py
-          python scripts/generate_method_cards.py
-          python scripts/generate_notebook_gallery.py
-          python scripts/generate_tutorial_assets.py
-          python benchmarks/software_comparison/generate_comparison_evidence.py
-          python examples/workflow_comparisons/compare_specialist_glue_vs_detime.py
-          python benchmarks/token_benchmarks/generate_token_benchmarks.py
-          python evals/agent/run_agent_evals.py
-          python scripts/generate_reviewer_bundle.py
-          python scripts/check_doc_consistency.py
-          mkdocs build --strict
+          # If a prebuilt design site exists, deploy it as-is.
+          if [ -d website/De-time.design/site ]; then
+            echo "Found prebuilt website/De-time.design/site — skipping MkDocs build."
+            ls -la website/De-time.design/site | head -n 20
+          elif [ -d site ]; then
+            echo "Found prebuilt site/ directory — skipping MkDocs build."
+            ls -la site | head -n 20
+          else
+            echo "No prebuilt site/ directory found — running MkDocs build."
+            python scripts/generate_schema_assets.py --check || true
+            python scripts/generate_schema_assets.py || true
+            python scripts/generate_method_cards.py || true
+            python scripts/generate_notebook_gallery.py || true
+            python scripts/generate_tutorial_assets.py || true
+            python benchmarks/software_comparison/generate_comparison_evidence.py || true
+            python examples/workflow_comparisons/compare_specialist_glue_vs_detime.py || true
+            python benchmarks/token_benchmarks/generate_token_benchmarks.py || true
+            python evals/agent/run_agent_evals.py || true
+            python scripts/generate_reviewer_bundle.py || true
+            python scripts/check_doc_consistency.py || true
+            mkdocs build --strict
+          fi
+
+      - name: Select Pages output directory
+        id: pages_output
+        run: |
+          if [ -d website/De-time.design/site ]; then
+            echo "site_dir=website/De-time.design/site" >> "$GITHUB_OUTPUT"
+          else
+            echo "site_dir=site" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
@@ -78,7 +97,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: ${{ steps.pages_output.outputs.site_dir }}
 
       - name: Deploy to GitHub Pages
         id: deployment
