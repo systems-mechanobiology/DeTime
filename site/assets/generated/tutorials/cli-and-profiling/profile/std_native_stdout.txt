@@ -1,1 +1,0 @@
-Profile report written to docs/assets/generated/tutorials/cli-and-profiling/profile/std_native.txt

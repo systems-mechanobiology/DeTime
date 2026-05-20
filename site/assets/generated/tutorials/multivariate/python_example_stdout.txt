@@ -1,3 +1,0 @@
-trend shape: (96, 2)
-modes shape: (8, 96, 2)
-backend: python
