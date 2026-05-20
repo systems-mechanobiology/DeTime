@@ -29,7 +29,7 @@ $(document).ready(function() {
 
         var repoHref = 'https://github.com/systems-mechanobiology/De-Time';
         var repoText = 'systems-mechanobiology/De-Time';
-        $('a[href="https://github.com/Jackson-jjc/De-time.design"]').each(function() {
+        $('a[href="https://github.com/systems-mechanobiology/De-Time"]').each(function() {
             $(this).attr('href', repoHref).text(repoText);
         });
 
