@@ -1,35 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="De-Time is workflow-oriented research software for reproducible time-series decomposition.">
         <meta name="author" content="Zipeng Wu">
-        <link rel="canonical" href="https://jackson-jjc.github.io/De-time.design/">
+        <link rel="canonical" href="index.html">
         <link rel="shortcut icon" href="img/favicon.ico">
         <title>De-Time</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/fontawesome.min.css" rel="stylesheet">
+        <link href="css/brands.min.css" rel="stylesheet">
+        <link href="css/solid.min.css" rel="stylesheet">
+        <link href="css/v4-font-face.min.css" rel="stylesheet">
         <link href="css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
         <link href="stylesheets/brand.css" rel="stylesheet">
         <link href="stylesheets/extra.css" rel="stylesheet">
-
-        <script src="js/jquery-1.10.2.min.js" defer></script>
-        <script src="js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
    
+  <link rel="stylesheet" href="stylesheets/extra.css%3Fv=5.css">
 
     </head>
 
     <body class="homepage">
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href=".">De-Time</a>
+                <a class="navbar-brand" href="index.html">De-Time</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -37,176 +39,176 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-                            <li class="navitem active">
-                                <a href="." class="nav-link">Home</a>
+                            <li class="nav-item">
+                                <a href="index.html" class="nav-link active" aria-current="page">Home</a>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Start <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="index.html#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Start</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="install/" class="dropdown-item">Install</a>
+    <a href="install/index.html" class="dropdown-item">Install</a>
 </li>
                                     
 <li>
-    <a href="quickstart/" class="dropdown-item">Quickstart</a>
+    <a href="quickstart/index.html" class="dropdown-item">Quickstart</a>
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Methods <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="index.html#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Methods</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="methods/" class="dropdown-item">Methods & Chooser</a>
+    <a href="methods/index.html" class="dropdown-item">Methods & Chooser</a>
 </li>
                                     
 <li>
-    <a href="method-matrix/" class="dropdown-item">Method Matrix</a>
+    <a href="method-matrix/index.html" class="dropdown-item">Method Matrix</a>
 </li>
                                     
 <li>
-    <a href="method-references/" class="dropdown-item">Method References</a>
+    <a href="method-references/index.html" class="dropdown-item">Method References</a>
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Workflows <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="index.html#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Workflows</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="notebook-gallery/" class="dropdown-item">Notebook Gallery</a>
+    <a href="notebook-gallery/index.html" class="dropdown-item">Notebook Gallery</a>
 </li>
                                     
 <li>
-    <a href="tutorials/univariate/" class="dropdown-item">Univariate Tutorial</a>
+    <a href="tutorials/univariate/index.html" class="dropdown-item">Univariate Tutorial</a>
 </li>
                                     
 <li>
-    <a href="tutorials/multivariate/" class="dropdown-item">Multivariate Tutorial</a>
+    <a href="tutorials/multivariate/index.html" class="dropdown-item">Multivariate Tutorial</a>
 </li>
                                     
 <li>
-    <a href="tutorials/cli-and-profiling/" class="dropdown-item">CLI Guide</a>
+    <a href="tutorials/cli-and-profiling/index.html" class="dropdown-item">CLI Guide</a>
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Gallery <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="index.html#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Gallery</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="gallery/ssa/" class="dropdown-item">SSA</a>
+    <a href="gallery/ssa/index.html" class="dropdown-item">SSA</a>
 </li>
                                     
 <li>
-    <a href="gallery/std/" class="dropdown-item">STD</a>
+    <a href="gallery/std/index.html" class="dropdown-item">STD</a>
 </li>
                                     
 <li>
-    <a href="gallery/stdr/" class="dropdown-item">STDR</a>
+    <a href="gallery/stdr/index.html" class="dropdown-item">STDR</a>
 </li>
                                     
 <li>
-    <a href="gallery/mssa/" class="dropdown-item">MSSA</a>
+    <a href="gallery/mssa/index.html" class="dropdown-item">MSSA</a>
 </li>
                                     
 <li>
-    <a href="gallery/stl/" class="dropdown-item">STL</a>
+    <a href="gallery/stl/index.html" class="dropdown-item">STL</a>
 </li>
                                     
 <li>
-    <a href="gallery/mstl/" class="dropdown-item">MSTL</a>
+    <a href="gallery/mstl/index.html" class="dropdown-item">MSTL</a>
 </li>
                                     
 <li>
-    <a href="gallery/robust-stl/" class="dropdown-item">ROBUST_STL</a>
+    <a href="gallery/robust-stl/index.html" class="dropdown-item">ROBUST_STL</a>
 </li>
                                     
 <li>
-    <a href="gallery/emd/" class="dropdown-item">EMD</a>
+    <a href="gallery/emd/index.html" class="dropdown-item">EMD</a>
 </li>
                                     
 <li>
-    <a href="gallery/ceemdan/" class="dropdown-item">CEEMDAN</a>
+    <a href="gallery/ceemdan/index.html" class="dropdown-item">CEEMDAN</a>
 </li>
                                     
 <li>
-    <a href="gallery/vmd/" class="dropdown-item">VMD</a>
+    <a href="gallery/vmd/index.html" class="dropdown-item">VMD</a>
 </li>
                                     
 <li>
-    <a href="gallery/wavelet/" class="dropdown-item">WAVELET</a>
+    <a href="gallery/wavelet/index.html" class="dropdown-item">WAVELET</a>
 </li>
                                     
 <li>
-    <a href="gallery/ma-baseline/" class="dropdown-item">MA_BASELINE</a>
+    <a href="gallery/ma-baseline/index.html" class="dropdown-item">MA_BASELINE</a>
 </li>
                                     
 <li>
-    <a href="gallery/mvmd/" class="dropdown-item">MVMD</a>
+    <a href="gallery/mvmd/index.html" class="dropdown-item">MVMD</a>
 </li>
                                     
 <li>
-    <a href="gallery/memd/" class="dropdown-item">MEMD</a>
+    <a href="gallery/memd/index.html" class="dropdown-item">MEMD</a>
 </li>
                                     
 <li>
-    <a href="gallery/gabor-cluster/" class="dropdown-item">GABOR_CLUSTER</a>
+    <a href="gallery/gabor-cluster/index.html" class="dropdown-item">GABOR_CLUSTER</a>
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="index.html#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Reference</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="api/" class="dropdown-item">API Overview</a>
+    <a href="api/index.html" class="dropdown-item">API Overview</a>
 </li>
                                     
 <li>
-    <a href="config-reference/" class="dropdown-item">Config Reference</a>
+    <a href="config-reference/index.html" class="dropdown-item">Config Reference</a>
 </li>
                                     
 <li>
-    <a href="machine-api/" class="dropdown-item">Machine API</a>
+    <a href="machine-api/index.html" class="dropdown-item">Machine API</a>
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Project <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="index.html#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Project</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="comparisons/" class="dropdown-item">Compare Alternatives</a>
+    <a href="comparisons/index.html" class="dropdown-item">Compare Alternatives</a>
 </li>
                                     
 <li>
-    <a href="reproducibility/" class="dropdown-item">Reproducibility</a>
+    <a href="reproducibility/index.html" class="dropdown-item">Reproducibility</a>
 </li>
                                     
 <li>
-    <a href="architecture/" class="dropdown-item">Architecture</a>
+    <a href="architecture/index.html" class="dropdown-item">Architecture</a>
 </li>
                                     
 <li>
-    <a href="migration/" class="dropdown-item">Migration from `tsdecomp`</a>
+    <a href="migration/index.html" class="dropdown-item">Migration from `tsdecomp`</a>
 </li>
                                     
 <li>
-    <a href="contributing/" class="dropdown-item">Contributing</a>
+    <a href="contributing/index.html" class="dropdown-item">Contributing</a>
 </li>
                                     
 <li>
-    <a href="citation/" class="dropdown-item">Citation / Release Notes</a>
+    <a href="citation/index.html" class="dropdown-item">Citation / Release Notes</a>
 </li>
                                 </ul>
                             </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="index.html#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
@@ -216,7 +218,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="install/" class="nav-link">
+                                <a rel="next" href="install/index.html" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -230,40 +232,40 @@
 
         <div class="container">
             <div class="row">
-                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
         </button>
     </div>
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#de-time" class="nav-link">De-Time</a>
+            <li class="nav-item" data-bs-level="1"><a href="index.html#de-time" class="nav-link">De-Time</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#data-in-components-out" class="nav-link">Data in, components out</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#why-de-time-exists" class="nav-link">Why De-Time exists</a>
+            <li class="nav-item" data-bs-level="2"><a href="index.html#data-in-components-out" class="nav-link">Data in, components out</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#getting-started" class="nav-link">Getting Started</a>
+            <li class="nav-item" data-bs-level="2"><a href="index.html#why-de-time-exists" class="nav-link">Why De-Time exists</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#core-reference" class="nav-link">Core Reference</a>
+            <li class="nav-item" data-bs-level="2"><a href="index.html#getting-started" class="nav-link">Getting Started</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#workflow-examples" class="nav-link">Workflow Examples</a>
+            <li class="nav-item" data-bs-level="2"><a href="index.html#core-reference" class="nav-link">Core Reference</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#advanced-review" class="nav-link">Advanced / Review</a>
+            <li class="nav-item" data-bs-level="2"><a href="index.html#workflow-examples" class="nav-link">Workflow Examples</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="index.html#advanced-review" class="nav-link">Advanced / Review</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -286,8 +288,8 @@ multichannel decomposition workflows.</p>
     <p class="hero-kicker">One interface for trend, oscillation, residual, and metadata.</p>
     <p>Give De-Time one series or aligned multichannel data. It returns trend, seasonal or oscillatory structure, residuals, method-specific components, and metadata through the same Python and CLI interface.</p>
     <div class="hero-actions">
-      <a href="quickstart/">Run First Example</a>
-      <a class="secondary" href="install/">Install from GitHub</a>
+      <a href="quickstart/index.html">Run First Example</a>
+      <a class="secondary" href="install/index.html">Install from GitHub</a>
     </div>
   </div>
   <div class="hero-visual">
@@ -433,22 +435,22 @@ multichannel decomposition workflows.</p>
 
 <h2 id="getting-started">Getting Started</h2>
 <div class="info-grid">
-  <a class="info-card" href="install/">
+  <a class="info-card" href="install/index.html">
     <span class="card-icon icon-install"></span>
     <h3>Install</h3>
     <p>Current GitHub install path, extras, native build prerequisites, and FAQ.</p>
   </a>
-  <a class="info-card" href="quickstart/">
+  <a class="info-card" href="quickstart/index.html">
     <span class="card-icon icon-quickstart"></span>
     <h3>Quickstart</h3>
     <p>First successful Python and CLI runs with the retained De-Time surface.</p>
   </a>
-  <a class="info-card" href="methods/">
+  <a class="info-card" href="methods/index.html">
     <span class="card-icon icon-methods"></span>
     <h3>Choose a Method</h3>
     <p>Pick a flagship path quickly before dropping into wrappers or optional backends.</p>
   </a>
-  <a class="info-card" href="notebook-gallery/">
+  <a class="info-card" href="notebook-gallery/index.html">
     <span class="card-icon icon-notebook"></span>
     <h3>Notebook Gallery</h3>
     <p>GitHub-visible plots and summaries for the retained decomposition methods.</p>
@@ -457,22 +459,22 @@ multichannel decomposition workflows.</p>
 
 <h2 id="core-reference">Core Reference</h2>
 <div class="info-grid">
-  <a class="info-card" href="methods/">
+  <a class="info-card" href="methods/index.html">
     <span class="card-icon icon-overview"></span>
     <h3>Methods Overview</h3>
     <p>Method families, maturity levels, and where to start on the retained surface.</p>
   </a>
-  <a class="info-card" href="method-matrix/">
+  <a class="info-card" href="method-matrix/index.html">
     <span class="card-icon icon-matrix"></span>
     <h3>Method Matrix</h3>
     <p>Inputs, maturity, parameters, dependencies, outputs, and recommended use in one table.</p>
   </a>
-  <a class="info-card" href="config-reference/">
+  <a class="info-card" href="config-reference/index.html">
     <span class="card-icon icon-config-card"></span>
     <h3>Config Reference</h3>
     <p>Top-level <code>DecompositionConfig</code> fields plus per-method parameter semantics.</p>
   </a>
-  <a class="info-card" href="api/">
+  <a class="info-card" href="api/index.html">
     <span class="card-icon icon-api"></span>
     <h3>API Overview</h3>
     <p>Canonical Python surface, config and result contracts, and CLI summary.</p>
@@ -481,7 +483,7 @@ multichannel decomposition workflows.</p>
 
 <h2 id="workflow-examples">Workflow Examples</h2>
 <div class="showcase-grid">
-  <a class="showcase-card" href="tutorials/univariate/">
+  <a class="showcase-card" href="tutorials/univariate/index.html">
     <img alt="Univariate workflow decomposition" src="assets/generated/home/ssa_components.png">
     <div class="showcase-card-body">
       <span class="card-label">Single-series path</span>
@@ -489,7 +491,7 @@ multichannel decomposition workflows.</p>
       <p>Follow the retained single-series path from example data to plotted components and saved outputs.</p>
     </div>
   </a>
-  <a class="showcase-card" href="tutorials/multivariate/">
+  <a class="showcase-card" href="tutorials/multivariate/index.html">
     <img alt="Multivariate workflow decomposition" src="assets/generated/home/mssa_multivariate.png">
     <div class="showcase-card-body">
       <span class="card-label">Aligned-channel path</span>
@@ -501,22 +503,22 @@ multichannel decomposition workflows.</p>
 
 <h2 id="advanced-review">Advanced / Review</h2>
 <div class="info-grid">
-  <a class="info-card" href="comparisons/">
+  <a class="info-card" href="comparisons/index.html">
     <span class="card-icon icon-compare"></span>
     <h3>Compare Alternatives</h3>
     <p>When to use De-Time and when to use specialist packages directly.</p>
   </a>
-  <a class="info-card" href="reproducibility/">
+  <a class="info-card" href="reproducibility/index.html">
     <span class="card-icon icon-repro"></span>
     <h3>Reproducibility</h3>
     <p>Coverage boundaries, release checks, generated evidence, and validation commands.</p>
   </a>
-  <a class="info-card" href="method-references/">
+  <a class="info-card" href="method-references/index.html">
     <span class="card-icon icon-refs"></span>
     <h3>Method References</h3>
     <p>Primary literature and official upstream package links for retained methods.</p>
   </a>
-  <a class="info-card" href="citation/">
+  <a class="info-card" href="citation/index.html">
     <span class="card-icon icon-cite"></span>
     <h3>Citation / Release Notes</h3>
     <p>Package citation metadata, release notes, and links needed for software review.</p>
@@ -529,19 +531,20 @@ multichannel decomposition workflows.</p>
             <hr>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = ".",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="js/base.js" defer></script>
-        <script src="search/main.js" defer></script>
+        <script src="js/base.js"></script>
+        <script src="search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="searchModalLabel">Search</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p>From here you can search these documents. Enter your search terms below.</p>
@@ -561,7 +564,7 @@ multichannel decomposition workflows.</p>
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <table class="table">
@@ -601,6 +604,6 @@ multichannel decomposition workflows.</p>
 </html>
 
 <!--
-MkDocs version : 1.3.1
-Build Date UTC : 2026-05-18 23:34:43.176537+00:00
+MkDocs version : 1.6.1
+Build Date UTC : 2026-05-19 11:24:12.261733+00:00
 -->

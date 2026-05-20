@@ -1,35 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Zipeng Wu">
-        <link rel="canonical" href="https://jackson-jjc.github.io/De-time.design/config-reference/">
+        <link rel="canonical" href="index.html">
         <link rel="shortcut icon" href="../img/favicon.ico">
         <title>Config Reference - De-Time</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
         <link href="../stylesheets/brand.css" rel="stylesheet">
         <link href="../stylesheets/extra.css" rel="stylesheet">
-
-        <script src="../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
    
+  <link rel="stylesheet" href="../stylesheets/extra.css%3Fv=5.css">
 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="..">De-Time</a>
+                <a class="navbar-brand" href="../index.html">De-Time</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -37,186 +39,186 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-                            <li class="navitem">
-                                <a href=".." class="nav-link">Home</a>
+                            <li class="nav-item">
+                                <a href="../index.html" class="nav-link">Home</a>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Start <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="index.html#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Start</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../install/" class="dropdown-item">Install</a>
+    <a href="../install/index.html" class="dropdown-item">Install</a>
 </li>
                                     
 <li>
-    <a href="../quickstart/" class="dropdown-item">Quickstart</a>
+    <a href="../quickstart/index.html" class="dropdown-item">Quickstart</a>
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Methods <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="index.html#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Methods</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../methods/" class="dropdown-item">Methods & Chooser</a>
+    <a href="../methods/index.html" class="dropdown-item">Methods & Chooser</a>
 </li>
                                     
 <li>
-    <a href="../method-matrix/" class="dropdown-item">Method Matrix</a>
+    <a href="../method-matrix/index.html" class="dropdown-item">Method Matrix</a>
 </li>
                                     
 <li>
-    <a href="../method-references/" class="dropdown-item">Method References</a>
+    <a href="../method-references/index.html" class="dropdown-item">Method References</a>
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Workflows <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="index.html#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Workflows</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../notebook-gallery/" class="dropdown-item">Notebook Gallery</a>
+    <a href="../notebook-gallery/index.html" class="dropdown-item">Notebook Gallery</a>
 </li>
                                     
 <li>
-    <a href="../tutorials/univariate/" class="dropdown-item">Univariate Tutorial</a>
+    <a href="../tutorials/univariate/index.html" class="dropdown-item">Univariate Tutorial</a>
 </li>
                                     
 <li>
-    <a href="../tutorials/multivariate/" class="dropdown-item">Multivariate Tutorial</a>
+    <a href="../tutorials/multivariate/index.html" class="dropdown-item">Multivariate Tutorial</a>
 </li>
                                     
 <li>
-    <a href="../tutorials/cli-and-profiling/" class="dropdown-item">CLI Guide</a>
+    <a href="../tutorials/cli-and-profiling/index.html" class="dropdown-item">CLI Guide</a>
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Gallery <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="index.html#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Gallery</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../gallery/ssa/" class="dropdown-item">SSA</a>
+    <a href="../gallery/ssa/index.html" class="dropdown-item">SSA</a>
 </li>
                                     
 <li>
-    <a href="../gallery/std/" class="dropdown-item">STD</a>
+    <a href="../gallery/std/index.html" class="dropdown-item">STD</a>
 </li>
                                     
 <li>
-    <a href="../gallery/stdr/" class="dropdown-item">STDR</a>
+    <a href="../gallery/stdr/index.html" class="dropdown-item">STDR</a>
 </li>
                                     
 <li>
-    <a href="../gallery/mssa/" class="dropdown-item">MSSA</a>
+    <a href="../gallery/mssa/index.html" class="dropdown-item">MSSA</a>
 </li>
                                     
 <li>
-    <a href="../gallery/stl/" class="dropdown-item">STL</a>
+    <a href="../gallery/stl/index.html" class="dropdown-item">STL</a>
 </li>
                                     
 <li>
-    <a href="../gallery/mstl/" class="dropdown-item">MSTL</a>
+    <a href="../gallery/mstl/index.html" class="dropdown-item">MSTL</a>
 </li>
                                     
 <li>
-    <a href="../gallery/robust-stl/" class="dropdown-item">ROBUST_STL</a>
+    <a href="../gallery/robust-stl/index.html" class="dropdown-item">ROBUST_STL</a>
 </li>
                                     
 <li>
-    <a href="../gallery/emd/" class="dropdown-item">EMD</a>
+    <a href="../gallery/emd/index.html" class="dropdown-item">EMD</a>
 </li>
                                     
 <li>
-    <a href="../gallery/ceemdan/" class="dropdown-item">CEEMDAN</a>
+    <a href="../gallery/ceemdan/index.html" class="dropdown-item">CEEMDAN</a>
 </li>
                                     
 <li>
-    <a href="../gallery/vmd/" class="dropdown-item">VMD</a>
+    <a href="../gallery/vmd/index.html" class="dropdown-item">VMD</a>
 </li>
                                     
 <li>
-    <a href="../gallery/wavelet/" class="dropdown-item">WAVELET</a>
+    <a href="../gallery/wavelet/index.html" class="dropdown-item">WAVELET</a>
 </li>
                                     
 <li>
-    <a href="../gallery/ma-baseline/" class="dropdown-item">MA_BASELINE</a>
+    <a href="../gallery/ma-baseline/index.html" class="dropdown-item">MA_BASELINE</a>
 </li>
                                     
 <li>
-    <a href="../gallery/mvmd/" class="dropdown-item">MVMD</a>
+    <a href="../gallery/mvmd/index.html" class="dropdown-item">MVMD</a>
 </li>
                                     
 <li>
-    <a href="../gallery/memd/" class="dropdown-item">MEMD</a>
+    <a href="../gallery/memd/index.html" class="dropdown-item">MEMD</a>
 </li>
                                     
 <li>
-    <a href="../gallery/gabor-cluster/" class="dropdown-item">GABOR_CLUSTER</a>
+    <a href="../gallery/gabor-cluster/index.html" class="dropdown-item">GABOR_CLUSTER</a>
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="index.html#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Reference</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../api/" class="dropdown-item">API Overview</a>
+    <a href="../api/index.html" class="dropdown-item">API Overview</a>
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">Config Reference</a>
+    <a href="index.html" class="dropdown-item active" aria-current="page">Config Reference</a>
 </li>
                                     
 <li>
-    <a href="../machine-api/" class="dropdown-item">Machine API</a>
+    <a href="../machine-api/index.html" class="dropdown-item">Machine API</a>
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Project <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="index.html#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Project</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../comparisons/" class="dropdown-item">Compare Alternatives</a>
+    <a href="../comparisons/index.html" class="dropdown-item">Compare Alternatives</a>
 </li>
                                     
 <li>
-    <a href="../reproducibility/" class="dropdown-item">Reproducibility</a>
+    <a href="../reproducibility/index.html" class="dropdown-item">Reproducibility</a>
 </li>
                                     
 <li>
-    <a href="../architecture/" class="dropdown-item">Architecture</a>
+    <a href="../architecture/index.html" class="dropdown-item">Architecture</a>
 </li>
                                     
 <li>
-    <a href="../migration/" class="dropdown-item">Migration from `tsdecomp`</a>
+    <a href="../migration/index.html" class="dropdown-item">Migration from `tsdecomp`</a>
 </li>
                                     
 <li>
-    <a href="../contributing/" class="dropdown-item">Contributing</a>
+    <a href="../contributing/index.html" class="dropdown-item">Contributing</a>
 </li>
                                     
 <li>
-    <a href="../citation/" class="dropdown-item">Citation / Release Notes</a>
+    <a href="../citation/index.html" class="dropdown-item">Citation / Release Notes</a>
 </li>
                                 </ul>
                             </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="index.html#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../api/" class="nav-link">
+                                <a rel="prev" href="../api/index.html" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../machine-api/" class="nav-link">
+                                <a rel="next" href="../machine-api/index.html" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -230,28 +232,28 @@
 
         <div class="container">
             <div class="row">
-                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
         </button>
     </div>
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#config-reference" class="nav-link">Config Reference</a>
+            <li class="nav-item" data-bs-level="1"><a href="index.html#config-reference" class="nav-link">Config Reference</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#top-level-fields" class="nav-link">Top-level fields</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#complete-examples" class="nav-link">Complete examples</a>
+            <li class="nav-item" data-bs-level="2"><a href="index.html#top-level-fields" class="nav-link">Top-level fields</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#method-specific-parameters" class="nav-link">Method-specific parameters</a>
+            <li class="nav-item" data-bs-level="2"><a href="index.html#complete-examples" class="nav-link">Complete examples</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="index.html#method-specific-parameters" class="nav-link">Method-specific parameters</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -392,7 +394,7 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
-<th align="right">Required</th>
+<th style="text-align: right;">Required</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
@@ -401,28 +403,28 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <td><code>trials</code></td>
 <td>int</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>50</code></td>
 <td>Number of noise-assisted ensemble trials.</td>
 </tr>
 <tr>
 <td><code>noise_width</code></td>
 <td>float</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>0.05</code></td>
 <td>Relative width of the injected noise.</td>
 </tr>
 <tr>
 <td><code>primary_period</code></td>
 <td>int | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Period hint for grouping IMFs into season and trend.</td>
 </tr>
 <tr>
 <td><code>fs</code></td>
 <td>float</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>1.0</code></td>
 <td>Sampling frequency used by grouping heuristics.</td>
 </tr>
@@ -449,7 +451,7 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
-<th align="right">Required</th>
+<th style="text-align: right;">Required</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
@@ -458,35 +460,35 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <td><code>n_imfs</code></td>
 <td>int | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Maximum number of intrinsic mode functions to retain.</td>
 </tr>
 <tr>
 <td><code>primary_period</code></td>
 <td>int | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Period hint for grouping IMFs into season and trend.</td>
 </tr>
 <tr>
 <td><code>trend_imfs</code></td>
 <td>list[int] | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Explicit IMF indexes assigned to trend.</td>
 </tr>
 <tr>
 <td><code>season_imfs</code></td>
 <td>list[int] | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Explicit IMF indexes assigned to season.</td>
 </tr>
 <tr>
 <td><code>fs</code></td>
 <td>float</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>1.0</code></td>
 <td>Sampling frequency used by grouping heuristics.</td>
 </tr>
@@ -512,7 +514,7 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
-<th align="right">Required</th>
+<th style="text-align: right;">Required</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
@@ -521,28 +523,28 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <td><code>model</code></td>
 <td>GaborClusterModel | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>In-memory trained clustering model.</td>
 </tr>
 <tr>
 <td><code>model_path</code></td>
 <td>str | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Path to a serialized trained clustering model.</td>
 </tr>
 <tr>
 <td><code>max_clusters</code></td>
 <td>int | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Optional cap on clusters used during reconstruction.</td>
 </tr>
 <tr>
 <td><code>trend_freq_thr</code></td>
 <td>float | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Frequency threshold used for trend-like atoms.</td>
 </tr>
@@ -567,7 +569,7 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
-<th align="right">Required</th>
+<th style="text-align: right;">Required</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
@@ -576,14 +578,14 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <td><code>trend_window</code></td>
 <td>int</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>7</code></td>
 <td>Moving-average window used for the trend estimate.</td>
 </tr>
 <tr>
 <td><code>season_period</code></td>
 <td>int | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Optional period for a simple seasonal average.</td>
 </tr>
@@ -609,7 +611,7 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
-<th align="right">Required</th>
+<th style="text-align: right;">Required</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
@@ -618,28 +620,28 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <td><code>primary_period</code></td>
 <td>int | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Shared period hint for grouping multivariate IMFs.</td>
 </tr>
 <tr>
 <td><code>trend_modes</code></td>
 <td>list[int] | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Explicit mode indexes assigned to trend.</td>
 </tr>
 <tr>
 <td><code>season_modes</code></td>
 <td>list[int] | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Explicit mode indexes assigned to season.</td>
 </tr>
 <tr>
 <td><code>fs</code></td>
 <td>float</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>1.0</code></td>
 <td>Sampling frequency used by grouping heuristics.</td>
 </tr>
@@ -664,7 +666,7 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
-<th align="right">Required</th>
+<th style="text-align: right;">Required</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
@@ -673,42 +675,42 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <td><code>window</code></td>
 <td>int</td>
-<td align="right">yes</td>
+<td style="text-align: right;">yes</td>
 <td>required</td>
 <td>Shared embedding window length for aligned channels.</td>
 </tr>
 <tr>
 <td><code>rank</code></td>
 <td>int | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Number of shared elementary components to retain.</td>
 </tr>
 <tr>
 <td><code>primary_period</code></td>
 <td>int | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Dominant shared period used by automatic grouping.</td>
 </tr>
 <tr>
 <td><code>fs</code></td>
 <td>float</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>1.0</code></td>
 <td>Sampling frequency used by frequency-based grouping.</td>
 </tr>
 <tr>
 <td><code>trend_components</code></td>
 <td>list[int] | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Explicit component indexes assigned to trend.</td>
 </tr>
 <tr>
 <td><code>season_components</code></td>
 <td>list[int] | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Explicit component indexes assigned to season.</td>
 </tr>
@@ -742,7 +744,7 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
-<th align="right">Required</th>
+<th style="text-align: right;">Required</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
@@ -751,21 +753,21 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <td><code>periods</code></td>
 <td>list[int]</td>
-<td align="right">yes</td>
+<td style="text-align: right;">yes</td>
 <td>required</td>
 <td>One or more seasonal periods passed to statsmodels MSTL.</td>
 </tr>
 <tr>
 <td><code>windows</code></td>
 <td>list[int] | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Optional smoother windows aligned with periods.</td>
 </tr>
 <tr>
 <td><code>stl_kwargs</code></td>
 <td>dict | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Additional statsmodels STL keyword arguments.</td>
 </tr>
@@ -793,7 +795,7 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
-<th align="right">Required</th>
+<th style="text-align: right;">Required</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
@@ -802,28 +804,28 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <td><code>K</code></td>
 <td>int</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>4</code></td>
 <td>Number of shared variational modes requested from PySDKit.</td>
 </tr>
 <tr>
 <td><code>alpha</code></td>
 <td>float</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>2000.0</code></td>
 <td>Bandwidth penalty parameter for the MVMD backend.</td>
 </tr>
 <tr>
 <td><code>primary_period</code></td>
 <td>int | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Shared period hint for grouping modes.</td>
 </tr>
 <tr>
 <td><code>fs</code></td>
 <td>float</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>1.0</code></td>
 <td>Sampling frequency used by grouping heuristics.</td>
 </tr>
@@ -850,7 +852,7 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
-<th align="right">Required</th>
+<th style="text-align: right;">Required</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
@@ -859,21 +861,21 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <td><code>period</code></td>
 <td>int</td>
-<td align="right">yes</td>
+<td style="text-align: right;">yes</td>
 <td>required</td>
 <td>Seasonal period passed to robust statsmodels STL.</td>
 </tr>
 <tr>
 <td><code>seasonal</code></td>
 <td>int | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Odd LOESS seasonal smoother length.</td>
 </tr>
 <tr>
 <td><code>trend</code></td>
 <td>int | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Odd LOESS trend smoother length.</td>
 </tr>
@@ -898,7 +900,7 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
-<th align="right">Required</th>
+<th style="text-align: right;">Required</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
@@ -907,49 +909,49 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <td><code>window</code></td>
 <td>int</td>
-<td align="right">yes</td>
+<td style="text-align: right;">yes</td>
 <td>required</td>
 <td>Embedding window length for trajectory-matrix construction.</td>
 </tr>
 <tr>
 <td><code>rank</code></td>
 <td>int | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Number of elementary components to retain before grouping.</td>
 </tr>
 <tr>
 <td><code>primary_period</code></td>
 <td>int | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Dominant seasonal period used by automatic grouping.</td>
 </tr>
 <tr>
 <td><code>fs</code></td>
 <td>float</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>1.0</code></td>
 <td>Sampling frequency used by frequency-based grouping.</td>
 </tr>
 <tr>
 <td><code>trend_components</code></td>
 <td>list[int] | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Explicit component indexes assigned to trend.</td>
 </tr>
 <tr>
 <td><code>season_components</code></td>
 <td>list[int] | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Explicit component indexes assigned to season.</td>
 </tr>
 <tr>
 <td><code>power_iterations</code></td>
 <td>int</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>4</code></td>
 <td>Fast native mode iteration count when speed_mode='fast'.</td>
 </tr>
@@ -979,7 +981,7 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
-<th align="right">Required</th>
+<th style="text-align: right;">Required</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
@@ -988,21 +990,21 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <td><code>period</code></td>
 <td>int</td>
-<td align="right">yes</td>
+<td style="text-align: right;">yes</td>
 <td>required</td>
 <td>Seasonal period in samples.</td>
 </tr>
 <tr>
 <td><code>max_period_search</code></td>
 <td>int | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Optional search horizon when period inference is enabled.</td>
 </tr>
 <tr>
 <td><code>eps</code></td>
 <td>float</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>1e-08</code></td>
 <td>Small numerical guard for dispersion calculations.</td>
 </tr>
@@ -1029,7 +1031,7 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
-<th align="right">Required</th>
+<th style="text-align: right;">Required</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
@@ -1038,21 +1040,21 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <td><code>period</code></td>
 <td>int</td>
-<td align="right">yes</td>
+<td style="text-align: right;">yes</td>
 <td>required</td>
 <td>Seasonal period in samples.</td>
 </tr>
 <tr>
 <td><code>max_period_search</code></td>
 <td>int | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Optional search horizon when period inference is enabled.</td>
 </tr>
 <tr>
 <td><code>eps</code></td>
 <td>float</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>1e-08</code></td>
 <td>Small numerical guard for robust dispersion calculations.</td>
 </tr>
@@ -1079,7 +1081,7 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
-<th align="right">Required</th>
+<th style="text-align: right;">Required</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
@@ -1088,28 +1090,28 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <td><code>period</code></td>
 <td>int</td>
-<td align="right">yes</td>
+<td style="text-align: right;">yes</td>
 <td>required</td>
 <td>Seasonal period passed to statsmodels STL.</td>
 </tr>
 <tr>
 <td><code>seasonal</code></td>
 <td>int | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Odd LOESS seasonal smoother length.</td>
 </tr>
 <tr>
 <td><code>trend</code></td>
 <td>int | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Odd LOESS trend smoother length.</td>
 </tr>
 <tr>
 <td><code>robust</code></td>
 <td>bool</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>false</code></td>
 <td>Whether to use robust LOESS fitting.</td>
 </tr>
@@ -1134,7 +1136,7 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
-<th align="right">Required</th>
+<th style="text-align: right;">Required</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
@@ -1143,49 +1145,49 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <td><code>K</code></td>
 <td>int</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>4</code></td>
 <td>Number of variational modes.</td>
 </tr>
 <tr>
 <td><code>alpha</code></td>
 <td>float</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>2000.0</code></td>
 <td>Bandwidth penalty parameter.</td>
 </tr>
 <tr>
 <td><code>tau</code></td>
 <td>float</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>0.0</code></td>
 <td>Dual ascent time step.</td>
 </tr>
 <tr>
 <td><code>DC</code></td>
 <td>bool</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>false</code></td>
 <td>Keep the first mode at zero frequency.</td>
 </tr>
 <tr>
 <td><code>init</code></td>
 <td>int</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>1</code></td>
 <td>Initialization policy used by the VMD backend.</td>
 </tr>
 <tr>
 <td><code>tol</code></td>
 <td>float</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>1e-07</code></td>
 <td>Convergence tolerance.</td>
 </tr>
 <tr>
 <td><code>primary_period</code></td>
 <td>int | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Period hint for grouping modes into season and trend.</td>
 </tr>
@@ -1212,7 +1214,7 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
-<th align="right">Required</th>
+<th style="text-align: right;">Required</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
@@ -1221,28 +1223,28 @@ docs examples, and machine-facing schema exports.</p>
 <tr>
 <td><code>wavelet</code></td>
 <td>str</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>"db4"</code></td>
 <td>PyWavelets wavelet family name.</td>
 </tr>
 <tr>
 <td><code>level</code></td>
 <td>int | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Decomposition depth. Defaults to PyWavelets maximum usable level.</td>
 </tr>
 <tr>
 <td><code>trend_levels</code></td>
 <td>list[int] | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Detail levels assigned to trend reconstruction.</td>
 </tr>
 <tr>
 <td><code>season_levels</code></td>
 <td>list[int] | None</td>
-<td align="right">no</td>
+<td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Detail levels assigned to seasonal reconstruction.</td>
 </tr>
@@ -1264,19 +1266,20 @@ docs examples, and machine-facing schema exports.</p>
             <hr>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../js/base.js" defer></script>
-        <script src="../search/main.js" defer></script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="searchModalLabel">Search</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p>From here you can search these documents. Enter your search terms below.</p>
@@ -1296,7 +1299,7 @@ docs examples, and machine-facing schema exports.</p>
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <table class="table">
