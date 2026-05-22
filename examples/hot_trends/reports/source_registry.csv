@@ -6,4 +6,4 @@ GitHub REST API,https://api.github.com/repos/{owner}/{repo}/stargazers,04,live p
 Wikimedia Analytics API,https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/...,05,live public API,daily/weekly,pageviews reflect public attention during the selected period
 DeFiLlama stablecoin API,https://stablecoins.llama.fi/stablecoins?includePrices=true,06,live public API,daily/weekly,stablecoin endpoint schema should be checked during refresh
 CoinGecko API,https://api.coingecko.com/api/v3/coins/{id}/market_chart,06,live public API,per run,rate limits and plan limits apply
-Yahoo Finance via yfinance,yfinance.download,07,live public market data via yfinance,per run,tutorial-grade source; use licensed vendor for production
+Yahoo Finance via yfinance,yfinance.download,07,live public market data via yfinance,per run,unofficial public wrapper; use licensed point-in-time vendor for production

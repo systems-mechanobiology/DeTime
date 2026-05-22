@@ -131,7 +131,7 @@ pd.DataFrame({"article": articles})
 </div>
 </div>
 
-## 2. Fetch real pageviews
+## 2. Fetch pageviews
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [3]</div>
@@ -361,7 +361,7 @@ views.head(20)
 </div>
 </div>
 
-## 3. Audit the real pageview table
+## 3. Audit the pageview table
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [4]</div>

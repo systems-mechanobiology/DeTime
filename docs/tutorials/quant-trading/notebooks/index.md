@@ -14,4 +14,4 @@ These pages render the Quant Trading notebooks as documentation pages, including
 | [Style and Sector ETF Rotation with bt](06_style_sector_asset_rotation_bt.md) | `06_style_sector_asset_rotation_bt.ipynb` |
 | [Korea, US, and Crypto Multi-Market Decomposition](07_korea_us_crypto_multimarket.md) | `07_korea_us_crypto_multimarket.ipynb` |
 | [Backtesting Framework Adapters](08_backtesting_framework_adapters.md) | `08_backtesting_framework_adapters.ipynb` |
-| [Walk-Forward Validation and Audit](09_walkforward_validation_and_audit.md) | `09_walkforward_validation_and_audit.ipynb` |
+| [Validation First: Walk-Forward Validation and Audit](09_walkforward_validation_and_audit.md) | `09_walkforward_validation_and_audit.ipynb` |

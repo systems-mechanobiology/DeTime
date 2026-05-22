@@ -147,7 +147,7 @@ pd.DataFrame([{"topic": k, "query": v} for k, v in topic_queries.items()])
 </div>
 </div>
 
-## 2. Fetch real monthly topic counts
+## 2. Fetch monthly topic counts
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [3]</div>
@@ -1180,7 +1180,7 @@ outline
     <tr>
       <th>3</th>
       <td>Interpretation scope</td>
-      <td>arXiv counts measure preprint volume, not rese...</td>
+      <td>arXiv counts measure preprint volume; quality ...</td>
     </tr>
   </tbody>
 </table>

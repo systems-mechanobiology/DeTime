@@ -5,9 +5,9 @@
   <strong>Rendered notebook transcript.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/De-Time/blob/main/examples/notebooks/hot_trends/04_github_ai_agent_star_velocity.ipynb"><code>examples/notebooks/hot_trends/04_github_ai_agent_star_velocity.ipynb</code></a> and includes code cells plus captured outputs from the committed notebook.
 </div>
 
-This notebook uses real GitHub API data to track developer attention for AI-agent and developer-tool repositories.
+This notebook asks how much developer attention is visible in a sampled set of GitHub stargazer timestamps. Star velocity is useful for launch and attention analysis, but it is sensitive to repository choice, token limits, pagination depth, bots, and the covered window.
 
-Stars are a public repository-interest signal for the selected period.
+The main output is a repo basket, a source card, a coverage table, and a residual-event view over the fetched stargazer window.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [1]</div>
@@ -58,7 +58,7 @@ def save_table(df, name):
 
 ## 1. Select repositories
 
-Use a small list for unauthenticated runs. Set `GITHUB_TOKEN` for higher rate limits.
+Use a small basket for unauthenticated runs. Set `GITHUB_TOKEN` for higher rate limits and record the repository list because basket selection changes the result.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [2]</div>
@@ -143,6 +143,7 @@ for repo in repos:
         "open_issues": meta.get("open_issues_count"),
         "pushed_at": meta.get("pushed_at"),
         "source": "GitHub REST API",
+        "endpoint": f"https://api.github.com/repos/{repo}",
     })
 metadata = pd.DataFrame(metadata_rows).sort_values("stars", ascending=False)
 metadata
@@ -175,53 +176,59 @@ metadata
       <th>open_issues</th>
       <th>pushed_at</th>
       <th>source</th>
+      <th>endpoint</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
       <td>langchain-ai/langchain</td>
-      <td>137407</td>
-      <td>22730</td>
-      <td>582</td>
-      <td>2026-05-22T18:30:27Z</td>
+      <td>137416</td>
+      <td>22731</td>
+      <td>581</td>
+      <td>2026-05-22T21:27:05Z</td>
       <td>GitHub REST API</td>
+      <td>https://api.github.com/repos/langchain-ai/lang...</td>
     </tr>
     <tr>
       <th>3</th>
       <td>browser-use/browser-use</td>
-      <td>95116</td>
-      <td>10714</td>
+      <td>95129</td>
+      <td>10715</td>
       <td>227</td>
-      <td>2026-05-22T18:54:53Z</td>
+      <td>2026-05-22T20:58:44Z</td>
       <td>GitHub REST API</td>
+      <td>https://api.github.com/repos/browser-use/brows...</td>
     </tr>
     <tr>
       <th>4</th>
       <td>modelcontextprotocol/servers</td>
-      <td>86091</td>
+      <td>86094</td>
       <td>10787</td>
-      <td>509</td>
+      <td>510</td>
       <td>2026-05-21T18:10:38Z</td>
       <td>GitHub REST API</td>
+      <td>https://api.github.com/repos/modelcontextproto...</td>
     </tr>
     <tr>
       <th>1</th>
       <td>microsoft/autogen</td>
-      <td>58296</td>
-      <td>8802</td>
-      <td>845</td>
+      <td>58298</td>
+      <td>8804</td>
+      <td>846</td>
       <td>2026-04-15T11:59:09Z</td>
       <td>GitHub REST API</td>
+      <td>https://api.github.com/repos/microsoft/autogen</td>
     </tr>
     <tr>
       <th>2</th>
       <td>crewAIInc/crewAI</td>
-      <td>51975</td>
-      <td>7205</td>
-      <td>354</td>
-      <td>2026-05-22T18:36:45Z</td>
+      <td>51979</td>
+      <td>7204</td>
+      <td>353</td>
+      <td>2026-05-22T19:50:26Z</td>
       <td>GitHub REST API</td>
+      <td>https://api.github.com/repos/crewAIInc/crewAI</td>
     </tr>
   </tbody>
 </table>
@@ -230,23 +237,79 @@ metadata
 </div>
 </div>
 
-## 3. Fetch stargazer timestamps
+## 3. Fetch sampled stargazer timestamps
 
-The endpoint returns the latest pages by default. For full histories, paginate further or use a scheduled snapshot system.
+This notebook fetches a bounded number of stargazer pages for each repository. The result is a sampled history window, not complete production adoption. Increase pages or run a scheduled collection for deeper coverage.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [4]</div>
 
 ```python
+STARGAZER_PAGES = 3
+PER_PAGE = 100
+source_card = pd.DataFrame([{
+    "source": "GitHub REST API",
+    "endpoint": "https://api.github.com/repos/{repo}/stargazers",
+    "access_date": pd.Timestamp.today().date().isoformat(),
+    "query_params": f"repos={len(repos)}; pages={STARGAZER_PAGES}; per_page={PER_PAGE}; token_used={bool(token)}",
+    "time_range": "derived from fetched starred_at timestamps below",
+    "cache_path": "not cached; outputs saved to examples/hot_trends/outputs",
+    "interpretation_scope": "star velocity measures developer attention in the fetched window; stars are not production usage",
+}])
 star_rows = []
 for repo in repos:
-    sg = fetch_github_stargazers(repo, pages=3, token=token)
+    sg = fetch_github_stargazers(repo, pages=STARGAZER_PAGES, per_page=PER_PAGE, token=token)
     star_rows.append(sg)
 stars = pd.concat(star_rows, ignore_index=True)
+display(source_card)
 stars.head(20)
 ```
 
 <div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>source</th>
+      <th>endpoint</th>
+      <th>access_date</th>
+      <th>query_params</th>
+      <th>time_range</th>
+      <th>cache_path</th>
+      <th>interpretation_scope</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>GitHub REST API</td>
+      <td>https://api.github.com/repos/{repo}/stargazers</td>
+      <td>2026-05-22</td>
+      <td>repos=5; pages=3; per_page=100; token_used=False</td>
+      <td>derived from fetched starred_at timestamps below</td>
+      <td>not cached; outputs saved to examples/hot_tren...</td>
+      <td>star velocity measures developer attention in ...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
 <div class="notebook-output-label">text/html</div>
 <div class="notebook-html-output">
 <div>
@@ -448,8 +511,17 @@ stars.head(20)
 <div class="notebook-input-label">In [5]</div>
 
 ```python
-stars["date"] = pd.to_datetime(stars["starred_at"]).dt.date.astype(str)
-daily = stars.groupby(["repo", "date"]).size().reset_index(name="count")
+stars["date"] = pd.to_datetime(stars["starred_at"]).dt.normalize()
+raw_daily = stars.groupby(["repo", "date"]).size().reset_index(name="count")
+calendar_rows = []
+for repo, sub in raw_daily.groupby("repo"):
+    calendar = pd.date_range(sub["date"].min(), sub["date"].max(), freq="D")
+    filled = sub.set_index("date").reindex(calendar, fill_value=0).rename_axis("date").reset_index()
+    filled["repo"] = repo
+    calendar_rows.append(filled[["repo", "date", "count"]])
+daily = pd.concat(calendar_rows, ignore_index=True)
+daily["date"] = daily["date"].dt.date.astype(str)
+raw_daily["date"] = raw_daily["date"].dt.date.astype(str)
 daily.head(20)
 ```
 
@@ -507,98 +579,98 @@ daily.head(20)
     <tr>
       <th>4</th>
       <td>crewAIInc/crewAI</td>
+      <td>2023-11-16</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>crewAIInc/crewAI</td>
+      <td>2023-11-17</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>crewAIInc/crewAI</td>
+      <td>2023-11-18</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>crewAIInc/crewAI</td>
+      <td>2023-11-19</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>crewAIInc/crewAI</td>
+      <td>2023-11-20</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>crewAIInc/crewAI</td>
+      <td>2023-11-21</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>crewAIInc/crewAI</td>
+      <td>2023-11-22</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>crewAIInc/crewAI</td>
+      <td>2023-11-23</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>crewAIInc/crewAI</td>
       <td>2023-11-24</td>
       <td>13</td>
     </tr>
     <tr>
-      <th>5</th>
+      <th>13</th>
       <td>crewAIInc/crewAI</td>
       <td>2023-11-25</td>
       <td>25</td>
     </tr>
     <tr>
-      <th>6</th>
+      <th>14</th>
       <td>crewAIInc/crewAI</td>
       <td>2023-11-26</td>
       <td>21</td>
     </tr>
     <tr>
-      <th>7</th>
+      <th>15</th>
       <td>crewAIInc/crewAI</td>
       <td>2023-11-27</td>
       <td>10</td>
     </tr>
     <tr>
-      <th>8</th>
+      <th>16</th>
       <td>crewAIInc/crewAI</td>
       <td>2023-11-28</td>
       <td>7</td>
     </tr>
     <tr>
-      <th>9</th>
+      <th>17</th>
       <td>crewAIInc/crewAI</td>
       <td>2023-11-29</td>
       <td>1</td>
     </tr>
     <tr>
-      <th>10</th>
+      <th>18</th>
       <td>crewAIInc/crewAI</td>
       <td>2023-11-30</td>
       <td>3</td>
     </tr>
     <tr>
-      <th>11</th>
+      <th>19</th>
       <td>crewAIInc/crewAI</td>
       <td>2023-12-01</td>
       <td>2</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>crewAIInc/crewAI</td>
-      <td>2023-12-02</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>crewAIInc/crewAI</td>
-      <td>2023-12-03</td>
-      <td>37</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>crewAIInc/crewAI</td>
-      <td>2023-12-04</td>
-      <td>14</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>crewAIInc/crewAI</td>
-      <td>2023-12-05</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>crewAIInc/crewAI</td>
-      <td>2023-12-06</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>crewAIInc/crewAI</td>
-      <td>2023-12-07</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>crewAIInc/crewAI</td>
-      <td>2023-12-08</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>crewAIInc/crewAI</td>
-      <td>2023-12-09</td>
-      <td>1</td>
     </tr>
   </tbody>
 </table>
@@ -609,7 +681,7 @@ daily.head(20)
 
 ## Visualization: GitHub star velocity
 
-The rolling star-velocity chart turns raw stargazer timestamps into a comparable attention signal.
+The x-axis is the fetched stargazer window and the y-axis is stars per day after missing calendar days are filled with zero. Treat the line as attention in the sampled window; do not compare repositories without checking coverage.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [6]</div>
@@ -637,15 +709,19 @@ plt.show()
 <div class="notebook-input-label">In [7]</div>
 
 ```python
-coverage = source_audit_table(daily, value_col="count", entity_col="repo", time_col="date")
-ready = coverage.loc[coverage["observations"] >= 14, "series"].tolist()
+coverage = source_audit_table(raw_daily, value_col="count", entity_col="repo", time_col="date")
+calendar_coverage = daily.groupby("repo").agg(calendar_days=("date", "nunique"), total_fetched_stars=("count", "sum")).reset_index().rename(columns={"repo": "series"})
+coverage = coverage.merge(calendar_coverage, on="series", how="left")
+coverage["pages_per_repo"] = STARGAZER_PAGES
+coverage["per_page"] = PER_PAGE
+ready = coverage.loc[coverage["calendar_days"] >= 14, "series"].tolist()
 if ready:
     components = decompose_table(daily[daily["repo"].isin(ready)], entity_col="repo", time_col="date", value_col="count", method="MA_BASELINE", period=7, trend_window=5, transform="log1p")
     summary = editorial_priority(component_summary(components, entity_col="repo", time_col="date"), entity_col="repo")
-    events = residual_event_table(components, entity_col="repo", time_col="date", top_n=20)
+    events = residual_event_table(components, entity_col="repo", time_col="date", top_n=20, trim_edges=7)
 else:
     components = pd.DataFrame()
-    summary = pd.DataFrame([{"status": "not_enough_real_stargazer_days", "required": "increase pages or run repeated snapshots"}])
+    summary = pd.DataFrame([{"status": "not_enough_stargazer_calendar_days", "required": "increase pages or run repeated snapshots"}])
     events = pd.DataFrame()
 coverage
 ```
@@ -678,6 +754,10 @@ coverage
       <th>missing_ratio</th>
       <th>min_value</th>
       <th>max_value</th>
+      <th>calendar_days</th>
+      <th>total_fetched_stars</th>
+      <th>pages_per_repo</th>
+      <th>per_page</th>
     </tr>
   </thead>
   <tbody>
@@ -690,6 +770,10 @@ coverage
       <td>0.0</td>
       <td>134.0</td>
       <td>166.0</td>
+      <td>2</td>
+      <td>300</td>
+      <td>3</td>
+      <td>100</td>
     </tr>
     <tr>
       <th>1</th>
@@ -700,6 +784,10 @@ coverage
       <td>0.0</td>
       <td>1.0</td>
       <td>38.0</td>
+      <td>39</td>
+      <td>300</td>
+      <td>3</td>
+      <td>100</td>
     </tr>
     <tr>
       <th>2</th>
@@ -710,6 +798,10 @@ coverage
       <td>0.0</td>
       <td>3.0</td>
       <td>45.0</td>
+      <td>23</td>
+      <td>300</td>
+      <td>3</td>
+      <td>100</td>
     </tr>
     <tr>
       <th>3</th>
@@ -720,6 +812,10 @@ coverage
       <td>0.0</td>
       <td>1.0</td>
       <td>138.0</td>
+      <td>30</td>
+      <td>300</td>
+      <td>3</td>
+      <td>100</td>
     </tr>
     <tr>
       <th>4</th>
@@ -730,6 +826,10 @@ coverage
       <td>0.0</td>
       <td>300.0</td>
       <td>300.0</td>
+      <td>1</td>
+      <td>300</td>
+      <td>3</td>
+      <td>100</td>
     </tr>
   </tbody>
 </table>
@@ -740,7 +840,7 @@ coverage
 
 ## Visualization: GitHub coverage and residual events
 
-Coverage bars show whether there is enough stargazer history for decomposition; the event plot highlights unusually large residual days when available.
+Coverage bars show fetched stargazer days by repository. The residual panel highlights unusually large deviations after calendar zero-fill and edge trimming; inspect the event date before treating it as launch evidence.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [8]</div>
@@ -822,19 +922,36 @@ summary
     <tr>
       <th>2</th>
       <td>microsoft/autogen</td>
-      <td>14</td>
+      <td>30</td>
       <td>2023-08-29 00:00:00</td>
       <td>2023-09-27 00:00:00</td>
       <td>2.523944</td>
-      <td>0.189074</td>
-      <td>0.822358</td>
-      <td>0.608372</td>
-      <td>4.844275</td>
+      <td>0.070044</td>
+      <td>0.822280</td>
+      <td>0.540199</td>
+      <td>4.627360</td>
       <td>MA_BASELINE</td>
       <td>1.000000</td>
       <td>1.000000</td>
       <td>1.000000</td>
-      <td>1.00</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>crewAIInc/crewAI</td>
+      <td>39</td>
+      <td>2023-11-14 00:00:00</td>
+      <td>2023-12-22 00:00:00</td>
+      <td>1.499108</td>
+      <td>0.043173</td>
+      <td>0.629650</td>
+      <td>0.701591</td>
+      <td>2.245717</td>
+      <td>MA_BASELINE</td>
+      <td>0.666667</td>
+      <td>0.666667</td>
+      <td>0.333333</td>
+      <td>0.516667</td>
     </tr>
     <tr>
       <th>1</th>
@@ -849,26 +966,9 @@ summary
       <td>3.217347</td>
       <td>MA_BASELINE</td>
       <td>0.333333</td>
-      <td>0.666667</td>
-      <td>0.666667</td>
-      <td>0.55</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>crewAIInc/crewAI</td>
-      <td>31</td>
-      <td>2023-11-14 00:00:00</td>
-      <td>2023-12-22 00:00:00</td>
-      <td>1.499108</td>
-      <td>0.002265</td>
-      <td>0.556729</td>
-      <td>0.634456</td>
-      <td>2.080745</td>
-      <td>MA_BASELINE</td>
-      <td>0.666667</td>
       <td>0.333333</td>
-      <td>0.333333</td>
-      <td>0.45</td>
+      <td>0.666667</td>
+      <td>0.483333</td>
     </tr>
   </tbody>
 </table>
@@ -877,7 +977,7 @@ summary
 </div>
 </div>
 
-## 6. Article-safe interpretation
+## 6. Publication language
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [10]</div>
@@ -921,16 +1021,16 @@ phrasing
     <tr>
       <th>1</th>
       <td>This model is better because it has more downl...</td>
-      <td>Downloads are a public adoption proxy and shou...</td>
+      <td>Downloads are a public adoption proxy interpre...</td>
     </tr>
     <tr>
       <th>2</th>
       <td>This repo is winning because stars are rising.</td>
-      <td>Star velocity measures developer attention, no...</td>
+      <td>Star velocity measures developer attention for...</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>This pageview spike proves importance.</td>
+      <td>This pageview spike shows the topic matters most.</td>
       <td>Pageviews measure public attention during the ...</td>
     </tr>
     <tr>
@@ -949,6 +1049,7 @@ phrasing
 <div class="notebook-input-label">In [11]</div>
 
 ```python
+save_table(source_card, "04_github_source_card")
 save_table(metadata, "04_github_repo_metadata")
 save_table(coverage, "04_github_stargazer_coverage")
 save_table(daily, "04_github_star_velocity_daily")
@@ -961,6 +1062,7 @@ save_table(phrasing, "04_github_publication_phrasing")
 <div class="gallery-out notebook-output">
 <div class="notebook-output-label">stdout</div>
 ```text
+saved: examples/hot_trends/outputs/04_github_source_card.csv
 saved: examples/hot_trends/outputs/04_github_repo_metadata.csv
 saved: examples/hot_trends/outputs/04_github_stargazer_coverage.csv
 saved: examples/hot_trends/outputs/04_github_star_velocity_daily.csv

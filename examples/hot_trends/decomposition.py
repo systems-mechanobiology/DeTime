@@ -138,8 +138,17 @@ def residual_event_table(
     entity_col: str,
     time_col: str,
     top_n: int = 20,
+    trim_edges: int = 0,
 ) -> pd.DataFrame:
     out = components.copy()
+    if int(trim_edges) > 0:
+        trim = int(trim_edges)
+        pieces = []
+        for _, sub in out.sort_values(time_col).groupby(entity_col):
+            if len(sub) <= trim * 2:
+                continue
+            pieces.append(sub.iloc[trim:-trim])
+        out = pd.concat(pieces, ignore_index=True) if pieces else out.iloc[0:0].copy()
     out["residual_z"] = out.groupby(entity_col)["residual"].transform(_robust_zscore)
     out["abs_residual_z"] = out["residual_z"].abs()
     cols = [time_col, entity_col, "observed", "trend", "season", "residual", "residual_z", "abs_residual_z", "method"]

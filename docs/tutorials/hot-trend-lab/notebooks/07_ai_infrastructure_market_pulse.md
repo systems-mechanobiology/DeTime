@@ -5,9 +5,9 @@
   <strong>Rendered notebook transcript.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/De-Time/blob/main/examples/notebooks/hot_trends/07_ai_infrastructure_market_pulse.ipynb"><code>examples/notebooks/hot_trends/07_ai_infrastructure_market_pulse.ipynb</code></a> and includes code cells plus captured outputs from the committed notebook.
 </div>
 
-This notebook uses public market-price data as a proxy for market attention around AI infrastructure. Revenue, capex, and valuation require separate official data.
+This notebook asks how a defined AI-infrastructure market-price basket moved over the selected window. The basket is a public price proxy for attention around compute, cloud, chips, platforms, and adjacent high-interest names.
 
-Market prices are downloaded through yfinance and summarized with a source audit table.
+The output is a basket definition, a source card, trend-index figures, return-versus-trend comparison, and edge-trimmed residual events. Revenue, capex, margins, and valuation require official financial data.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [1]</div>
@@ -56,7 +56,7 @@ def save_table(df, name):
 ```
 </div>
 
-## 1. Fetch real prices through yfinance
+## 1. Fetch prices through yfinance
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [2]</div>
@@ -67,16 +67,106 @@ try:
 except Exception as exc:
     raise ImportError("Install yfinance to run this notebook: python -m pip install yfinance") from exc
 
-tickers = ["NVDA", "AMD", "AVGO", "MSFT", "GOOGL", "AMZN", "META", "TSLA"]
-raw = yf.download(tickers, start="2024-01-01", progress=False, auto_adjust=True)["Close"]
+basket_definition = pd.DataFrame([
+    {"ticker": "NVDA", "role": "GPU accelerator supplier", "boundary": "large-cap chip proxy, not pure infrastructure revenue"},
+    {"ticker": "AMD", "role": "GPU/CPU accelerator challenger", "boundary": "mixed client, data-center, and gaming exposure"},
+    {"ticker": "AVGO", "role": "networking and custom silicon", "boundary": "diversified semiconductor and software exposure"},
+    {"ticker": "MSFT", "role": "cloud and AI platform", "boundary": "large diversified software/cloud company"},
+    {"ticker": "GOOGL", "role": "cloud, TPU, and AI platform", "boundary": "advertising remains a major business line"},
+    {"ticker": "AMZN", "role": "cloud infrastructure", "boundary": "retail and marketplace exposure included"},
+    {"ticker": "META", "role": "AI compute demand and model deployment", "boundary": "advertising platform, not infrastructure vendor"},
+    {"ticker": "TSLA", "role": "AI narrative and autonomous systems proxy", "boundary": "auto and energy exposure dominates fundamentals"},
+])
+tickers = basket_definition["ticker"].tolist()
+start_date = "2024-01-01"
+raw = yf.download(tickers, start=start_date, progress=False, auto_adjust=True)["Close"]
 if raw.empty:
-    raise HotTrendDataError("yfinance returned no real market data")
+    raise HotTrendDataError("yfinance returned no market data")
 prices = raw.reset_index().melt(id_vars="Date", var_name="ticker", value_name="price").rename(columns={"Date": "date"})
 prices = prices.dropna(subset=["price"])
+display(basket_definition)
 prices.head(20)
 ```
 
 <div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ticker</th>
+      <th>role</th>
+      <th>boundary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NVDA</td>
+      <td>GPU accelerator supplier</td>
+      <td>large-cap chip proxy, not pure infrastructure ...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>AMD</td>
+      <td>GPU/CPU accelerator challenger</td>
+      <td>mixed client, data-center, and gaming exposure</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>AVGO</td>
+      <td>networking and custom silicon</td>
+      <td>diversified semiconductor and software exposure</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>MSFT</td>
+      <td>cloud and AI platform</td>
+      <td>large diversified software/cloud company</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>GOOGL</td>
+      <td>cloud, TPU, and AI platform</td>
+      <td>advertising remains a major business line</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>AMZN</td>
+      <td>cloud infrastructure</td>
+      <td>retail and marketplace exposure included</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>META</td>
+      <td>AI compute demand and model deployment</td>
+      <td>advertising platform, not infrastructure vendor</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>TSLA</td>
+      <td>AI narrative and autonomous systems proxy</td>
+      <td>auto and energy exposure dominates fundamentals</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
 <div class="notebook-output-label">text/html</div>
 <div class="notebook-html-output">
 <div>
@@ -230,17 +320,71 @@ prices.head(20)
 </div>
 </div>
 
-## 2. Audit real price table
+## 2. Source card and price audit
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [3]</div>
 
 ```python
 audit = source_audit_table(prices, value_col="price", entity_col="ticker", time_col="date")
+source_card = pd.DataFrame([{
+    "source": "Yahoo Finance through yfinance",
+    "endpoint": "yfinance.download",
+    "access_date": pd.Timestamp.today().date().isoformat(),
+    "query_params": f"tickers={','.join(tickers)}; start={start_date}; auto_adjust=True; field=Close",
+    "time_range": f"{pd.to_datetime(prices['date']).min().date()} to {pd.to_datetime(prices['date']).max().date()}",
+    "cache_path": "not cached; outputs saved to examples/hot_trends/outputs",
+    "interpretation_scope": "public market-price proxy for a defined basket; not fundamentals, valuation, or investment advice",
+}])
+display(source_card)
 audit
 ```
 
 <div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>source</th>
+      <th>endpoint</th>
+      <th>access_date</th>
+      <th>query_params</th>
+      <th>time_range</th>
+      <th>cache_path</th>
+      <th>interpretation_scope</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Yahoo Finance through yfinance</td>
+      <td>yfinance.download</td>
+      <td>2026-05-22</td>
+      <td>tickers=NVDA,AMD,AVGO,MSFT,GOOGL,AMZN,META,TSL...</td>
+      <td>2024-01-02 to 2026-05-22</td>
+      <td>not cached; outputs saved to examples/hot_tren...</td>
+      <td>public market-price proxy for a defined basket...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
 <div class="notebook-output-label">text/html</div>
 <div class="notebook-html-output">
 <div>
@@ -279,7 +423,7 @@ audit
       <td>600</td>
       <td>0.0</td>
       <td>78.209999</td>
-      <td>468.660004</td>
+      <td>467.510010</td>
     </tr>
     <tr>
       <th>1</th>
@@ -298,7 +442,7 @@ audit
       <td>2026-05-22 00:00:00</td>
       <td>600</td>
       <td>0.0</td>
-      <td>102.365150</td>
+      <td>102.365158</td>
       <td>439.790009</td>
     </tr>
     <tr>
@@ -328,8 +472,8 @@ audit
       <td>2026-05-22 00:00:00</td>
       <td>600</td>
       <td>0.0</td>
-      <td>351.105804</td>
-      <td>538.658569</td>
+      <td>351.105774</td>
+      <td>538.658508</td>
     </tr>
     <tr>
       <th>6</th>
@@ -338,7 +482,7 @@ audit
       <td>2026-05-22 00:00:00</td>
       <td>600</td>
       <td>0.0</td>
-      <td>47.539940</td>
+      <td>47.539936</td>
       <td>235.740005</td>
     </tr>
     <tr>
@@ -413,11 +557,11 @@ summary
       <td>600</td>
       <td>2024-01-02 00:00:00</td>
       <td>2026-05-22 00:00:00</td>
-      <td>3.055930</td>
+      <td>3.056002</td>
       <td>0.002033</td>
-      <td>-0.515508</td>
-      <td>0.492217</td>
-      <td>31.525257</td>
+      <td>-0.515611</td>
+      <td>0.492248</td>
+      <td>31.542094</td>
       <td>MA_BASELINE</td>
       <td>1.000</td>
       <td>1.000</td>
@@ -430,11 +574,11 @@ summary
       <td>600</td>
       <td>2024-01-02 00:00:00</td>
       <td>2026-05-22 00:00:00</td>
-      <td>2.996389</td>
+      <td>2.996327</td>
       <td>0.001351</td>
-      <td>-1.894456</td>
-      <td>0.500745</td>
-      <td>38.958102</td>
+      <td>-1.894425</td>
+      <td>0.500717</td>
+      <td>38.908369</td>
       <td>MA_BASELINE</td>
       <td>0.625</td>
       <td>0.500</td>
@@ -447,11 +591,11 @@ summary
       <td>600</td>
       <td>2024-01-02 00:00:00</td>
       <td>2026-05-22 00:00:00</td>
-      <td>2.710921</td>
+      <td>2.710889</td>
       <td>0.001477</td>
-      <td>-0.730965</td>
-      <td>0.425031</td>
-      <td>30.495657</td>
+      <td>-0.730896</td>
+      <td>0.425016</td>
+      <td>30.472988</td>
       <td>MA_BASELINE</td>
       <td>0.750</td>
       <td>0.875</td>
@@ -464,11 +608,11 @@ summary
       <td>600</td>
       <td>2024-01-02 00:00:00</td>
       <td>2026-05-22 00:00:00</td>
-      <td>3.037998</td>
+      <td>3.037916</td>
       <td>0.001532</td>
-      <td>-1.560162</td>
-      <td>0.528252</td>
-      <td>30.491361</td>
+      <td>-1.559972</td>
+      <td>0.528218</td>
+      <td>30.440903</td>
       <td>MA_BASELINE</td>
       <td>0.875</td>
       <td>0.750</td>
@@ -481,11 +625,11 @@ summary
       <td>600</td>
       <td>2024-01-02 00:00:00</td>
       <td>2026-05-22 00:00:00</td>
-      <td>3.277545</td>
+      <td>3.277547</td>
       <td>0.000695</td>
-      <td>-8.994832</td>
-      <td>0.545158</td>
-      <td>34.032693</td>
+      <td>-8.994860</td>
+      <td>0.545159</td>
+      <td>34.034109</td>
       <td>MA_BASELINE</td>
       <td>0.500</td>
       <td>0.375</td>
@@ -498,11 +642,11 @@ summary
       <td>600</td>
       <td>2024-01-02 00:00:00</td>
       <td>2026-05-22 00:00:00</td>
-      <td>2.824356</td>
+      <td>2.824287</td>
       <td>0.000536</td>
-      <td>-12.698540</td>
-      <td>0.480000</td>
-      <td>38.387741</td>
+      <td>-12.700004</td>
+      <td>0.479970</td>
+      <td>38.328541</td>
       <td>MA_BASELINE</td>
       <td>0.250</td>
       <td>0.250</td>
@@ -515,11 +659,11 @@ summary
       <td>600</td>
       <td>2024-01-02 00:00:00</td>
       <td>2026-05-22 00:00:00</td>
-      <td>3.058485</td>
+      <td>3.058471</td>
       <td>0.000199</td>
-      <td>-28.798835</td>
-      <td>0.536869</td>
-      <td>38.792557</td>
+      <td>-28.797940</td>
+      <td>0.536863</td>
+      <td>38.792840</td>
       <td>MA_BASELINE</td>
       <td>0.125</td>
       <td>0.125</td>
@@ -532,11 +676,11 @@ summary
       <td>600</td>
       <td>2024-01-02 00:00:00</td>
       <td>2026-05-22 00:00:00</td>
-      <td>2.973972</td>
+      <td>2.973933</td>
       <td>0.000667</td>
-      <td>-1.836695</td>
-      <td>0.521761</td>
-      <td>29.779490</td>
+      <td>-1.836756</td>
+      <td>0.521744</td>
+      <td>29.756925</td>
       <td>MA_BASELINE</td>
       <td>0.375</td>
       <td>0.625</td>
@@ -552,7 +696,7 @@ summary
 
 ## Visualization: AI infrastructure price trend index
 
-Observed and trend components are exponentiated into comparable index levels for the leading tickers.
+The y-axis is an index with each ticker starting at 1. Solid trend lines make basket movement comparable across different share prices. This is a price-proxy view; benchmark and financial-statement evidence are needed before performance or valuation claims.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [5]</div>
@@ -627,65 +771,65 @@ returns.sort_values("total_return_proxy", ascending=False)
       <th>6</th>
       <td>2026-05-22</td>
       <td>NVDA</td>
-      <td>215.770004</td>
+      <td>215.330002</td>
       <td>48.138569</td>
-      <td>3.482269</td>
+      <td>3.473128</td>
     </tr>
     <tr>
       <th>3</th>
       <td>2026-05-22</td>
       <td>AVGO</td>
-      <td>412.281189</td>
-      <td>105.914238</td>
-      <td>2.892595</td>
+      <td>414.140015</td>
+      <td>105.914253</td>
+      <td>2.910144</td>
     </tr>
     <tr>
       <th>5</th>
       <td>2026-05-22</td>
       <td>AMD</td>
-      <td>468.660004</td>
+      <td>467.510010</td>
       <td>138.580002</td>
-      <td>2.381873</td>
+      <td>2.373575</td>
     </tr>
     <tr>
       <th>0</th>
       <td>2026-05-22</td>
       <td>GOOGL</td>
-      <td>384.470001</td>
-      <td>137.037399</td>
-      <td>1.805584</td>
+      <td>382.970001</td>
+      <td>137.037384</td>
+      <td>1.794639</td>
     </tr>
     <tr>
       <th>4</th>
       <td>2026-05-22</td>
       <td>AMZN</td>
-      <td>267.480011</td>
+      <td>266.320007</td>
       <td>149.929993</td>
-      <td>0.784033</td>
+      <td>0.776296</td>
     </tr>
     <tr>
       <th>2</th>
       <td>2026-05-22</td>
       <td>META</td>
-      <td>610.179993</td>
-      <td>343.593628</td>
-      <td>0.775877</td>
+      <td>610.260010</td>
+      <td>343.593658</td>
+      <td>0.776110</td>
     </tr>
     <tr>
       <th>7</th>
       <td>2026-05-22</td>
       <td>TSLA</td>
-      <td>428.209991</td>
+      <td>426.010010</td>
       <td>248.419998</td>
-      <td>0.723734</td>
+      <td>0.714878</td>
     </tr>
     <tr>
       <th>1</th>
       <td>2026-05-22</td>
       <td>MSFT</td>
-      <td>418.934998</td>
-      <td>363.801453</td>
-      <td>0.151548</td>
+      <td>418.570007</td>
+      <td>363.801514</td>
+      <td>0.150545</td>
     </tr>
   </tbody>
 </table>
@@ -696,7 +840,7 @@ returns.sort_values("total_return_proxy", ascending=False)
 
 ## Visualization: return versus trend slope
 
-The scatter compares simple market return with the De-Time trend slope and residual shock size.
+The x-axis is simple total return over the sampled window. The y-axis is De-Time trend slope; marker size reflects residual shock magnitude. Read the scatter as a basket diagnostic, not as a recommendation.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [7]</div>
@@ -735,7 +879,7 @@ plt.show()
 <div class="notebook-input-label">In [8]</div>
 
 ```python
-events = residual_event_table(components, entity_col="ticker", time_col="date", top_n=25)
+events = residual_event_table(components, entity_col="ticker", time_col="date", top_n=25, trim_edges=63)
 events
 ```
 
@@ -774,302 +918,302 @@ events
   <tbody>
     <tr>
       <th>0</th>
-      <td>2026-05-22</td>
-      <td>GOOGL</td>
-      <td>5.951866</td>
-      <td>2.996389</td>
-      <td>0.040764</td>
-      <td>2.914713</td>
-      <td>38.958102</td>
-      <td>38.958102</td>
+      <td>2025-04-04</td>
+      <td>AVGO</td>
+      <td>4.977521</td>
+      <td>5.241958</td>
+      <td>0.014480</td>
+      <td>-0.278917</td>
+      <td>-3.450883</td>
+      <td>3.450883</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>2026-05-22</td>
-      <td>MSFT</td>
-      <td>6.037716</td>
-      <td>3.058485</td>
-      <td>0.041976</td>
-      <td>2.937254</td>
-      <td>38.792557</td>
-      <td>38.792557</td>
+      <td>2025-03-10</td>
+      <td>TSLA</td>
+      <td>5.403353</td>
+      <td>5.674217</td>
+      <td>0.017037</td>
+      <td>-0.287901</td>
+      <td>-3.276988</td>
+      <td>3.276988</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>2026-05-22</td>
-      <td>AMZN</td>
-      <td>5.589045</td>
-      <td>2.824356</td>
-      <td>0.033642</td>
-      <td>2.731047</td>
-      <td>38.387741</td>
-      <td>38.387741</td>
+      <td>2025-04-08</td>
+      <td>AMD</td>
+      <td>4.359398</td>
+      <td>4.608465</td>
+      <td>0.031801</td>
+      <td>-0.280868</td>
+      <td>-3.153715</td>
+      <td>3.153715</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>2026-05-21</td>
-      <td>GOOGL</td>
-      <td>5.960129</td>
-      <td>3.087816</td>
-      <td>0.038749</td>
-      <td>2.833564</td>
-      <td>37.869965</td>
-      <td>37.869965</td>
+      <td>2025-10-29</td>
+      <td>AMD</td>
+      <td>5.577198</td>
+      <td>5.362060</td>
+      <td>-0.050298</td>
+      <td>0.265437</td>
+      <td>3.070146</td>
+      <td>3.070146</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>2026-05-21</td>
-      <td>MSFT</td>
-      <td>6.038086</td>
-      <td>3.152501</td>
-      <td>0.042170</td>
-      <td>2.843415</td>
-      <td>37.552506</td>
-      <td>37.552506</td>
+      <td>2025-10-27</td>
+      <td>AMD</td>
+      <td>5.559412</td>
+      <td>5.352499</td>
+      <td>-0.053735</td>
+      <td>0.260648</td>
+      <td>3.015589</td>
+      <td>3.015589</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>2024-01-02</td>
-      <td>MSFT</td>
-      <td>5.896608</td>
-      <td>3.028852</td>
-      <td>0.032678</td>
-      <td>2.835078</td>
-      <td>37.442343</td>
-      <td>37.442343</td>
+      <td>2025-04-21</td>
+      <td>META</td>
+      <td>6.180333</td>
+      <td>6.374351</td>
+      <td>0.038095</td>
+      <td>-0.232114</td>
+      <td>-2.988468</td>
+      <td>2.988468</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>2026-05-21</td>
-      <td>AMZN</td>
-      <td>5.592702</td>
-      <td>2.910059</td>
-      <td>0.032498</td>
-      <td>2.650145</td>
-      <td>37.245690</td>
-      <td>37.245690</td>
+      <td>2025-04-21</td>
+      <td>NVDA</td>
+      <td>4.573547</td>
+      <td>4.756973</td>
+      <td>0.037131</td>
+      <td>-0.220557</td>
+      <td>-2.987761</td>
+      <td>2.987761</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>2026-05-20</td>
-      <td>GOOGL</td>
-      <td>5.963348</td>
-      <td>3.178638</td>
-      <td>0.035737</td>
-      <td>2.748972</td>
-      <td>36.735665</td>
-      <td>36.735665</td>
+      <td>2025-03-18</td>
+      <td>TSLA</td>
+      <td>5.417477</td>
+      <td>5.640343</td>
+      <td>0.039234</td>
+      <td>-0.262100</td>
+      <td>-2.980770</td>
+      <td>2.980770</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>2026-05-20</td>
-      <td>MSFT</td>
-      <td>6.040612</td>
-      <td>3.246430</td>
-      <td>0.042988</td>
-      <td>2.751195</td>
-      <td>36.333850</td>
-      <td>36.333850</td>
+      <td>2024-12-26</td>
+      <td>AVGO</td>
+      <td>5.491635</td>
+      <td>5.313243</td>
+      <td>-0.052179</td>
+      <td>0.230571</td>
+      <td>2.932011</td>
+      <td>2.932011</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>2024-01-03</td>
-      <td>MSFT</td>
-      <td>5.895880</td>
-      <td>3.123838</td>
-      <td>0.029370</td>
-      <td>2.742672</td>
-      <td>36.221224</td>
-      <td>36.221224</td>
+      <td>2025-04-07</td>
+      <td>AVGO</td>
+      <td>5.029791</td>
+      <td>5.242214</td>
+      <td>0.021533</td>
+      <td>-0.233956</td>
+      <td>-2.887612</td>
+      <td>2.887612</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>10</th>
-      <td>2026-05-20</td>
-      <td>AMZN</td>
-      <td>5.579768</td>
-      <td>2.995216</td>
-      <td>0.033704</td>
-      <td>2.550848</td>
-      <td>35.843974</td>
-      <td>35.843974</td>
+      <td>2025-03-11</td>
+      <td>TSLA</td>
+      <td>5.440598</td>
+      <td>5.666866</td>
+      <td>0.025627</td>
+      <td>-0.251895</td>
+      <td>-2.863608</td>
+      <td>2.863608</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>11</th>
-      <td>2026-05-19</td>
-      <td>GOOGL</td>
-      <td>5.960129</td>
-      <td>3.269174</td>
-      <td>0.038827</td>
-      <td>2.652128</td>
-      <td>35.437061</td>
-      <td>35.437061</td>
+      <td>2025-10-28</td>
+      <td>AMD</td>
+      <td>5.552998</td>
+      <td>5.357799</td>
+      <td>-0.051031</td>
+      <td>0.246231</td>
+      <td>2.851335</td>
+      <td>2.851335</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>12</th>
-      <td>2026-05-19</td>
-      <td>MSFT</td>
-      <td>6.031929</td>
-      <td>3.340383</td>
-      <td>0.042945</td>
-      <td>2.648601</td>
-      <td>34.978115</td>
-      <td>34.978115</td>
+      <td>2025-04-22</td>
+      <td>NVDA</td>
+      <td>4.593772</td>
+      <td>4.760719</td>
+      <td>0.043200</td>
+      <td>-0.210147</td>
+      <td>-2.847072</td>
+      <td>2.847072</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>13</th>
-      <td>2024-01-04</td>
-      <td>MSFT</td>
-      <td>5.888677</td>
-      <td>3.218775</td>
-      <td>0.030656</td>
-      <td>2.639245</td>
-      <td>34.854485</td>
-      <td>34.854485</td>
+      <td>2025-11-03</td>
+      <td>AMD</td>
+      <td>5.559335</td>
+      <td>5.374082</td>
+      <td>-0.059731</td>
+      <td>0.244983</td>
+      <td>2.837123</td>
+      <td>2.837123</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>14</th>
-      <td>2026-05-18</td>
-      <td>GOOGL</td>
-      <td>5.983785</td>
-      <td>3.359485</td>
-      <td>0.042644</td>
-      <td>2.581656</td>
-      <td>34.492098</td>
-      <td>34.492098</td>
+      <td>2025-04-21</td>
+      <td>TSLA</td>
+      <td>5.427150</td>
+      <td>5.630702</td>
+      <td>0.045379</td>
+      <td>-0.248931</td>
+      <td>-2.829580</td>
+      <td>2.829580</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>15</th>
-      <td>2026-05-19</td>
-      <td>AMZN</td>
-      <td>5.558140</td>
-      <td>3.080300</td>
-      <td>0.036506</td>
-      <td>2.441334</td>
-      <td>34.298027</td>
-      <td>34.298027</td>
+      <td>2025-04-08</td>
+      <td>AVGO</td>
+      <td>5.041978</td>
+      <td>5.243101</td>
+      <td>0.027997</td>
+      <td>-0.229120</td>
+      <td>-2.827026</td>
+      <td>2.827026</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>16</th>
-      <td>2026-05-22</td>
-      <td>META</td>
-      <td>6.413754</td>
-      <td>3.277545</td>
-      <td>0.040105</td>
-      <td>3.096105</td>
-      <td>34.032693</td>
-      <td>34.032693</td>
+      <td>2024-12-27</td>
+      <td>AVGO</td>
+      <td>5.476813</td>
+      <td>5.317668</td>
+      <td>-0.058443</td>
+      <td>0.217588</td>
+      <td>2.769348</td>
+      <td>2.769348</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>17</th>
-      <td>2026-05-18</td>
-      <td>MSFT</td>
-      <td>6.046484</td>
-      <td>3.434362</td>
-      <td>0.043560</td>
-      <td>2.568563</td>
-      <td>33.920444</td>
-      <td>33.920444</td>
+      <td>2024-08-07</td>
+      <td>NVDA</td>
+      <td>4.593728</td>
+      <td>4.769571</td>
+      <td>0.025590</td>
+      <td>-0.201433</td>
+      <td>-2.729309</td>
+      <td>2.729309</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>18</th>
-      <td>2024-01-02</td>
-      <td>AMZN</td>
-      <td>5.010168</td>
-      <td>2.574437</td>
-      <td>0.028646</td>
-      <td>2.407085</td>
-      <td>33.814548</td>
-      <td>33.814548</td>
+      <td>2025-10-24</td>
+      <td>AMD</td>
+      <td>5.533073</td>
+      <td>5.346906</td>
+      <td>-0.049174</td>
+      <td>0.235340</td>
+      <td>2.727268</td>
+      <td>2.727268</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>19</th>
-      <td>2024-01-05</td>
-      <td>MSFT</td>
-      <td>5.888160</td>
-      <td>3.313688</td>
-      <td>0.032802</td>
-      <td>2.541670</td>
-      <td>33.565058</td>
-      <td>33.565058</td>
+      <td>2025-04-21</td>
+      <td>AMZN</td>
+      <td>5.119908</td>
+      <td>5.262709</td>
+      <td>0.032507</td>
+      <td>-0.175308</td>
+      <td>-2.700299</td>
+      <td>2.700299</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>20</th>
-      <td>2026-05-18</td>
-      <td>AMZN</td>
-      <td>5.579201</td>
-      <td>3.165157</td>
-      <td>0.040406</td>
-      <td>2.373637</td>
-      <td>33.342393</td>
-      <td>33.342393</td>
+      <td>2026-01-23</td>
+      <td>AMD</td>
+      <td>5.559450</td>
+      <td>5.373623</td>
+      <td>-0.045048</td>
+      <td>0.230875</td>
+      <td>2.676396</td>
+      <td>2.676396</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>21</th>
-      <td>2026-05-15</td>
-      <td>GOOGL</td>
-      <td>5.983382</td>
-      <td>3.449882</td>
-      <td>0.040457</td>
-      <td>2.493043</td>
-      <td>33.303866</td>
-      <td>33.303866</td>
+      <td>2024-12-24</td>
+      <td>AVGO</td>
+      <td>5.468213</td>
+      <td>5.309195</td>
+      <td>-0.050958</td>
+      <td>0.209977</td>
+      <td>2.673997</td>
+      <td>2.673997</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>22</th>
-      <td>2026-05-21</td>
-      <td>META</td>
-      <td>6.409155</td>
-      <td>3.379409</td>
-      <td>0.038096</td>
-      <td>2.991651</td>
-      <td>32.881577</td>
-      <td>32.881577</td>
+      <td>2025-05-27</td>
+      <td>TSLA</td>
+      <td>5.894100</td>
+      <td>5.719977</td>
+      <td>-0.055374</td>
+      <td>0.229497</td>
+      <td>2.663114</td>
+      <td>2.663114</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>23</th>
-      <td>2026-05-15</td>
-      <td>MSFT</td>
-      <td>6.042652</td>
-      <td>3.528166</td>
-      <td>0.044403</td>
-      <td>2.470084</td>
-      <td>32.619080</td>
-      <td>32.619080</td>
+      <td>2025-04-04</td>
+      <td>NVDA</td>
+      <td>4.546352</td>
+      <td>4.743817</td>
+      <td>-0.001253</td>
+      <td>-0.196213</td>
+      <td>-2.658758</td>
+      <td>2.658758</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>24</th>
-      <td>2024-01-08</td>
-      <td>MSFT</td>
-      <td>5.906856</td>
-      <td>3.408970</td>
-      <td>0.035795</td>
-      <td>2.462091</td>
-      <td>32.513452</td>
-      <td>32.513452</td>
+      <td>2025-04-08</td>
+      <td>NVDA</td>
+      <td>4.567233</td>
+      <td>4.742659</td>
+      <td>0.020547</td>
+      <td>-0.195974</td>
+      <td>-2.655528</td>
+      <td>2.655528</td>
       <td>MA_BASELINE</td>
     </tr>
   </tbody>
@@ -1081,7 +1225,7 @@ events
 
 ## Visualization: AI infrastructure residual heatmap
 
-The residual heatmap shows when market-price deviations cluster across tickers.
+The heatmap shows weekly residual z-scores by ticker after decomposition. Clusters suggest dates worth matching against launches, earnings, or macro events; edge-trimmed residual tables reduce first/last-window artifacts.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [9]</div>
@@ -1115,7 +1259,7 @@ plt.show()
 </div>
 </div>
 
-## 6. Guardrails
+## 6. Publication language
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [10]</div>
@@ -1159,16 +1303,16 @@ phrasing
     <tr>
       <th>1</th>
       <td>This model is better because it has more downl...</td>
-      <td>Downloads are a public adoption proxy and shou...</td>
+      <td>Downloads are a public adoption proxy interpre...</td>
     </tr>
     <tr>
       <th>2</th>
       <td>This repo is winning because stars are rising.</td>
-      <td>Star velocity measures developer attention, no...</td>
+      <td>Star velocity measures developer attention for...</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>This pageview spike proves importance.</td>
+      <td>This pageview spike shows the topic matters most.</td>
       <td>Pageviews measure public attention during the ...</td>
     </tr>
     <tr>
@@ -1187,6 +1331,8 @@ phrasing
 <div class="notebook-input-label">In [11]</div>
 
 ```python
+save_table(source_card, "07_ai_infra_source_card")
+save_table(basket_definition, "07_ai_infra_basket_definition")
 save_table(audit, "07_ai_infra_market_audit")
 save_table(summary, "07_ai_infra_component_summary")
 save_table(returns, "07_ai_infra_return_proxy")
@@ -1197,6 +1343,8 @@ save_table(phrasing, "07_ai_infra_publication_phrasing")
 <div class="gallery-out notebook-output">
 <div class="notebook-output-label">stdout</div>
 ```text
+saved: examples/hot_trends/outputs/07_ai_infra_source_card.csv
+saved: examples/hot_trends/outputs/07_ai_infra_basket_definition.csv
 saved: examples/hot_trends/outputs/07_ai_infra_market_audit.csv
 saved: examples/hot_trends/outputs/07_ai_infra_component_summary.csv
 saved: examples/hot_trends/outputs/07_ai_infra_return_proxy.csv

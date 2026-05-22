@@ -5,7 +5,9 @@
   <strong>Rendered notebook transcript.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/De-Time/blob/main/examples/notebooks/quant_trading/05_cross_sectional_factor_selection.ipynb"><code>examples/notebooks/quant_trading/05_cross_sectional_factor_selection.ipynb</code></a> and includes code cells plus captured outputs from the committed notebook.
 </div>
 
-This notebook turns De-Time features into cross-sectional alpha candidates. The score combines trend strength, cheap residual pullback, cycle slope, and a penalty for noisy decompositions.
+This notebook asks whether De-Time factor candidates improve a cross-sectional rotation after costs. It ranks a fixed US large-cap universe using walk-forward trend, residual, cycle, and reconstruction-error features.
+
+The output is a baseline comparison, not a standalone success claim. Read the tables for the sample window, parameters, after-cost metrics, turnover, and whether the result clears equal-weight, benchmark, momentum-only, and random top-N checks.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [1]</div>
@@ -38,11 +40,67 @@ DATA_CACHE = Path("examples/quant_trading/data/cache")
 
 ```python
 universe = DEFAULT_UNIVERSES["us_large_cap"][:10]
-prices = fetch_yahoo_prices(universe, start="2017-01-01", cache_dir=DATA_CACHE)
+start_date = "2017-01-01"
+top_n = 3
+fee_bps = 1.0
+slippage_bps = 3.0
+
+prices = fetch_yahoo_prices(universe, start=start_date, cache_dir=DATA_CACHE)
 features = walkforward_decompose(prices, method="STL", period=63, train_window=252, step=21)
-weights = cross_sectional_rotation_weights(prices, features, top_n=3, vol_target=0.15)
-result = backtest_weights(prices, weights, fee_bps=1.0, slippage_bps=3.0)
-result.stats_frame()
+weights = cross_sectional_rotation_weights(prices, features, top_n=top_n, vol_target=0.15)
+result = backtest_weights(prices, weights, fee_bps=fee_bps, slippage_bps=slippage_bps)
+
+def equal_weight_panel(frame):
+    return pd.DataFrame(1.0 / frame.shape[1], index=frame.index, columns=frame.columns)
+
+def momentum_topn_weights(frame, lookback=63, top_n=3):
+    score = frame.pct_change(lookback)
+    out = pd.DataFrame(0.0, index=frame.index, columns=frame.columns)
+    for dt, row in score.iterrows():
+        valid = row.dropna()
+        if valid.empty:
+            continue
+        names = valid.nlargest(min(top_n, len(valid))).index
+        out.loc[dt, names] = 1.0 / len(names)
+    return out
+
+def random_topn_weights(frame, top_n=3, rebalance=21, seed=42):
+    rng = np.random.default_rng(seed)
+    out = pd.DataFrame(0.0, index=frame.index, columns=frame.columns)
+    current = pd.Series(0.0, index=frame.columns)
+    for i, dt in enumerate(frame.index):
+        if i >= 252 and i % rebalance == 0:
+            valid = frame.loc[:dt].dropna(axis=1, how="all").columns.to_list()
+            chosen = rng.choice(valid, size=min(top_n, len(valid)), replace=False) if valid else []
+            current = pd.Series(0.0, index=frame.columns)
+            if len(chosen):
+                current.loc[chosen] = 1.0 / len(chosen)
+        out.loc[dt] = current
+    return out
+
+baseline_weights = {
+    "equal_weight_same_universe": equal_weight_panel(prices),
+    "momentum_top3_same_universe": momentum_topn_weights(prices, top_n=top_n),
+    "random_top3_same_universe": random_topn_weights(prices, top_n=top_n),
+}
+baseline_results = {
+    name: backtest_weights(prices, w, fee_bps=fee_bps, slippage_bps=slippage_bps)
+    for name, w in baseline_weights.items()
+}
+
+benchmark_prices = fetch_yahoo_prices(["SPY", "QQQ"], start=start_date, cache_dir=DATA_CACHE)
+benchmark_weights = equal_weight_panel(benchmark_prices)
+benchmark_result = backtest_weights(benchmark_prices, benchmark_weights, fee_bps=fee_bps, slippage_bps=slippage_bps)
+baseline_results["SPY_QQQ_equal_weight"] = benchmark_result
+
+comparison = pd.DataFrame({"detime_rotation": result.stats, **{name: bt.stats for name, bt in baseline_results.items()}}).T
+comparison["sample_start"] = str(prices.index.min().date())
+comparison["sample_end"] = str(prices.index.max().date())
+comparison["top_n"] = top_n
+comparison["fee_bps"] = fee_bps
+comparison["slippage_bps"] = slippage_bps
+metric_cols = ["total_return", "cagr", "volatility", "sharpe", "max_drawdown", "average_turnover", "fee_bps", "slippage_bps", "sample_start", "sample_end", "top_n"]
+comparison[metric_cols]
 ```
 
 <div class="gallery-out notebook-output">
@@ -66,57 +124,89 @@ result.stats_frame()
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>value</th>
+      <th>total_return</th>
+      <th>cagr</th>
+      <th>volatility</th>
+      <th>sharpe</th>
+      <th>max_drawdown</th>
+      <th>average_turnover</th>
+      <th>fee_bps</th>
+      <th>slippage_bps</th>
+      <th>sample_start</th>
+      <th>sample_end</th>
+      <th>top_n</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>total_return</th>
+      <th>detime_rotation</th>
       <td>4.418421</td>
-    </tr>
-    <tr>
-      <th>cagr</th>
       <td>0.197740</td>
-    </tr>
-    <tr>
-      <th>volatility</th>
       <td>0.157338</td>
-    </tr>
-    <tr>
-      <th>sharpe</th>
       <td>1.225659</td>
-    </tr>
-    <tr>
-      <th>max_drawdown</th>
       <td>-0.287963</td>
-    </tr>
-    <tr>
-      <th>calmar</th>
-      <td>0.686687</td>
-    </tr>
-    <tr>
-      <th>hit_rate</th>
-      <td>0.491949</td>
-    </tr>
-    <tr>
-      <th>average_turnover</th>
       <td>0.040126</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>2017-01-03</td>
+      <td>2026-05-22</td>
+      <td>3</td>
     </tr>
     <tr>
-      <th>average_gross_exposure</th>
-      <td>0.533525</td>
+      <th>equal_weight_same_universe</th>
+      <td>11.676372</td>
+      <td>0.311528</td>
+      <td>0.242462</td>
+      <td>1.240710</td>
+      <td>-0.347250</td>
+      <td>0.000000</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>2017-01-03</td>
+      <td>2026-05-22</td>
+      <td>3</td>
     </tr>
     <tr>
-      <th>fee_bps</th>
-      <td>1.000000</td>
+      <th>momentum_top3_same_universe</th>
+      <td>25.735403</td>
+      <td>0.420312</td>
+      <td>0.304583</td>
+      <td>1.305883</td>
+      <td>-0.442538</td>
+      <td>0.178672</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>2017-01-03</td>
+      <td>2026-05-22</td>
+      <td>3</td>
     </tr>
     <tr>
-      <th>slippage_bps</th>
-      <td>3.000000</td>
+      <th>random_top3_same_universe</th>
+      <td>9.526774</td>
+      <td>0.285761</td>
+      <td>0.274255</td>
+      <td>1.054014</td>
+      <td>-0.399496</td>
+      <td>0.060593</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>2017-01-03</td>
+      <td>2026-05-22</td>
+      <td>3</td>
     </tr>
     <tr>
-      <th>periods_per_year</th>
-      <td>252.000000</td>
+      <th>SPY_QQQ_equal_weight</th>
+      <td>3.993285</td>
+      <td>0.187336</td>
+      <td>0.201920</td>
+      <td>0.951881</td>
+      <td>-0.308583</td>
+      <td>0.000000</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>2017-01-03</td>
+      <td>2026-05-22</td>
+      <td>3</td>
     </tr>
   </tbody>
 </table>
@@ -129,10 +219,66 @@ result.stats_frame()
 <div class="notebook-input-label">In [3]</div>
 
 ```python
+baseline_sharpe = comparison.drop(index="detime_rotation")["sharpe"].max()
+baseline_cagr = comparison.drop(index="detime_rotation")["cagr"].max()
+result_boundary = pd.DataFrame([{
+    "research_question": "Do De-Time factor candidates beat simple baselines after costs?",
+    "detime_sharpe": comparison.loc["detime_rotation", "sharpe"],
+    "best_baseline_sharpe": baseline_sharpe,
+    "detime_cagr": comparison.loc["detime_rotation", "cagr"],
+    "best_baseline_cagr": baseline_cagr,
+    "status": "confirming" if (comparison.loc["detime_rotation", "sharpe"] > baseline_sharpe and comparison.loc["detime_rotation", "cagr"] > baseline_cagr) else "inconclusive_or_failed",
+    "boundary": "No factor claim unless the strategy beats equal-weight, benchmark, momentum-only, and random top-N baselines after costs across walk-forward folds.",
+}])
+display(result_boundary)
 weights.tail(10)
 ```
 
 <div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>research_question</th>
+      <th>detime_sharpe</th>
+      <th>best_baseline_sharpe</th>
+      <th>detime_cagr</th>
+      <th>best_baseline_cagr</th>
+      <th>status</th>
+      <th>boundary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Do De-Time factor candidates beat simple basel...</td>
+      <td>1.225659</td>
+      <td>1.305883</td>
+      <td>0.19774</td>
+      <td>0.420312</td>
+      <td>inconclusive_or_failed</td>
+      <td>No factor claim unless the strategy beats equa...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
 <div class="notebook-output-label">text/html</div>
 <div class="notebook-html-output">
 <div>
@@ -318,7 +464,7 @@ weights.tail(10)
 
 ## Visualization: cross-sectional allocation snapshot
 
-The latest allocation and the recent weight history make the factor-selection surface visible.
+The left axis shows the latest target weight by ticker. The right panel shows how those weights changed over roughly the last trading year. Concentration or rapid allocation churn is a warning sign because a strong equity curve can come from one mega-cap or one short regime.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [4]</div>
@@ -344,7 +490,13 @@ plt.show()
 <div class="notebook-input-label">In [5]</div>
 
 ```python
-result.equity.plot(figsize=(10, 4), title="Cross-sectional De-Time rotation")
+equity_curves = pd.concat(
+    {"detime_rotation": result.equity, **{name: bt.equity for name, bt in baseline_results.items()}},
+    axis=1,
+).dropna(how="all")
+equity_curves.plot(figsize=(10, 4), title="Cross-sectional rotation versus baselines")
+plt.ylabel("equity")
+plt.tight_layout()
 plt.show()
 ```
 
@@ -356,16 +508,16 @@ plt.show()
 
 ## Visualization: rotation drawdown
 
-A drawdown panel keeps the headline equity curve tied to risk.
+The drawdown panel compares risk across the same after-cost runs. A De-Time result that only improves return while taking much deeper drawdowns should be treated as inconclusive until the risk model is tightened.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [6]</div>
 
 ```python
-drawdown = result.equity / result.equity.cummax() - 1.0
-fig, axes = plt.subplots(2, 1, figsize=(10, 5.2), sharex=True)
-result.equity.plot(ax=axes[0], title="Cross-sectional De-Time rotation equity")
-drawdown.plot(ax=axes[1], color="tab:red", title="Cross-sectional rotation drawdown")
+drawdowns = equity_curves / equity_curves.cummax() - 1.0
+fig, axes = plt.subplots(2, 1, figsize=(10, 5.8), sharex=True)
+equity_curves.plot(ax=axes[0], title="Cross-sectional rotation and baseline equity")
+drawdowns.plot(ax=axes[1], title="Drawdown comparison")
 axes[0].set_ylabel("equity")
 axes[1].set_ylabel("drawdown")
 plt.tight_layout()
@@ -377,3 +529,7 @@ plt.show()
 <img src="../../../../assets/generated/notebooks/columns/quant-trading/05_cross_sectional_factor_selection/cell-010-output-01.png" alt="Notebook output cell 10" class="notebook-output-image">
 </div>
 </div>
+
+## Interpretation boundary
+
+This sample uses a current US mega-cap universe from a public data source. A strong result can reflect survivorship, mega-cap concentration, one market regime, or parameter fit. Treat the notebook as a validation template unless the result clears the baseline set in independent walk-forward folds.

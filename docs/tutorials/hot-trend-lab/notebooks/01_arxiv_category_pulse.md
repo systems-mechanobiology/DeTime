@@ -155,7 +155,7 @@ watchlist
 </div>
 </div>
 
-## 2. Fetch real monthly counts
+## 2. Fetch monthly counts
 
 The default window is intentionally modest so the notebook can run without hammering the API. Increase the window for a full article.
 
@@ -374,7 +374,7 @@ counts.head(16)
 </div>
 </div>
 
-## 3. Audit the real source table
+## 3. Audit the source table
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [4]</div>
@@ -1384,16 +1384,16 @@ phrasing
     <tr>
       <th>1</th>
       <td>This model is better because it has more downl...</td>
-      <td>Downloads are a public adoption proxy and shou...</td>
+      <td>Downloads are a public adoption proxy interpre...</td>
     </tr>
     <tr>
       <th>2</th>
       <td>This repo is winning because stars are rising.</td>
-      <td>Star velocity measures developer attention, no...</td>
+      <td>Star velocity measures developer attention for...</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>This pageview spike proves importance.</td>
+      <td>This pageview spike shows the topic matters most.</td>
       <td>Pageviews measure public attention during the ...</td>
     </tr>
     <tr>

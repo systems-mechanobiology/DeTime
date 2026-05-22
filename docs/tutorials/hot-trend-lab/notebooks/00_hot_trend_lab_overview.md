@@ -114,14 +114,14 @@ registry
       <td>00,01</td>
       <td>official public stats page</td>
       <td>monthly</td>
-      <td>global totals are separate from category-level time series</td>
+      <td>global totals are separate from category-level...</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Hugging Face Hub API</td>
       <td>https://huggingface.co/api/models</td>
       <td>03</td>
-      <td>live public API; repeated snapshots needed for...</td>
+      <td>live public API; repeated snapshots support ti...</td>
       <td>daily/weekly</td>
       <td>downloads and likes are public adoption proxies</td>
     </tr>
@@ -141,7 +141,7 @@ registry
       <td>05</td>
       <td>live public API</td>
       <td>daily/weekly</td>
-      <td>pageviews reflect public attention during the selected period</td>
+      <td>pageviews reflect public attention during the ...</td>
     </tr>
     <tr>
       <th>5</th>
@@ -150,7 +150,7 @@ registry
       <td>06</td>
       <td>live public API</td>
       <td>daily/weekly</td>
-      <td>API schema should be checked before publication</td>
+      <td>stablecoin endpoint schema should be checked d...</td>
     </tr>
     <tr>
       <th>6</th>
@@ -166,9 +166,9 @@ registry
       <td>Yahoo Finance via yfinance</td>
       <td>yfinance.download</td>
       <td>07</td>
-      <td>live public market data via yfinance; no price...</td>
+      <td>live public market data via yfinance</td>
       <td>per run</td>
-      <td>tutorial-grade source; use licensed vendor for...</td>
+      <td>unofficial public wrapper; use licensed point-...</td>
     </tr>
   </tbody>
 </table>
@@ -455,16 +455,16 @@ article_publication_phrasing()
     <tr>
       <th>1</th>
       <td>This model is better because it has more downl...</td>
-      <td>Downloads are a public adoption proxy and shou...</td>
+      <td>Downloads are a public adoption proxy interpre...</td>
     </tr>
     <tr>
       <th>2</th>
       <td>This repo is winning because stars are rising.</td>
-      <td>Star velocity measures developer attention, no...</td>
+      <td>Star velocity measures developer attention for...</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>This pageview spike proves importance.</td>
+      <td>This pageview spike shows the topic matters most.</td>
       <td>Pageviews measure public attention during the ...</td>
     </tr>
     <tr>

@@ -5,9 +5,9 @@
   <strong>Rendered notebook transcript.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/De-Time/blob/main/examples/notebooks/hot_trends/03_huggingface_open_model_pulse.ipynb"><code>examples/notebooks/hot_trends/03_huggingface_open_model_pulse.ipynb</code></a> and includes code cells plus captured outputs from the committed notebook.
 </div>
 
-This notebook tracks real Hugging Face model metadata snapshots. A single snapshot is a cross-sectional table; repeated snapshots become a time series.
+This notebook asks what a dated Hugging Face public snapshot can and cannot say about open-model attention. A single snapshot supports a current adoption-proxy table; repeated snapshots are required before discussing momentum, acceleration, or retention.
 
-Data source: Hugging Face Hub API, with a snapshot audit table recorded below.
+The main output is a source card, a snapshot ranking, and, when enough dated snapshots exist, a decomposition of repeated download observations.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [1]</div>
@@ -56,13 +56,17 @@ def save_table(df, name):
 ```
 </div>
 
-## 1. Fetch a real model snapshot
+## 1. Fetch a model snapshot
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [2]</div>
 
 ```python
-snapshot = fetch_huggingface_models(limit=50, sort="downloads", direction=-1)
+HF_LIMIT = 50
+HF_SORT = "downloads"
+HF_DIRECTION = -1
+hf_endpoint = f"https://huggingface.co/api/models?limit={HF_LIMIT}&sort={HF_SORT}&direction={HF_DIRECTION}"
+snapshot = fetch_huggingface_models(limit=HF_LIMIT, sort=HF_SORT, direction=HF_DIRECTION)
 snapshot.head(20)
 ```
 
@@ -105,7 +109,7 @@ snapshot.head(20)
       <td>sentence-transformers/all-MiniLM-L6-v2</td>
       <td>sentence-similarity</td>
       <td>260087615</td>
-      <td>4819</td>
+      <td>4820</td>
       <td>None</td>
       <td>False</td>
       <td>Hugging Face Hub API</td>
@@ -117,7 +121,7 @@ snapshot.head(20)
       <td>Qwen/Qwen3-VL-2B-Instruct</td>
       <td>image-text-to-text</td>
       <td>89788352</td>
-      <td>410</td>
+      <td>411</td>
       <td>None</td>
       <td>False</td>
       <td>Hugging Face Hub API</td>
@@ -213,7 +217,7 @@ snapshot.head(20)
       <td>BAAI/bge-m3</td>
       <td>sentence-similarity</td>
       <td>28332931</td>
-      <td>3030</td>
+      <td>3031</td>
       <td>None</td>
       <td>False</td>
       <td>Hugging Face Hub API</td>
@@ -285,7 +289,7 @@ snapshot.head(20)
       <td>Qwen/Qwen3-0.6B</td>
       <td>text-generation</td>
       <td>18331817</td>
-      <td>1261</td>
+      <td>1262</td>
       <td>None</td>
       <td>False</td>
       <td>Hugging Face Hub API</td>
@@ -346,23 +350,83 @@ snapshot.head(20)
 </div>
 </div>
 
-## 2. Audit the snapshot
+## 2. Source card and snapshot audit
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [3]</div>
 
 ```python
+source_card = pd.DataFrame([{
+    "source": "Hugging Face Hub API",
+    "endpoint": hf_endpoint,
+    "access_date": snapshot["snapshot_date"].iloc[0],
+    "query_params": f"limit={HF_LIMIT}; sort={HF_SORT}; direction={HF_DIRECTION}",
+    "time_range": f"snapshot_date={snapshot['snapshot_date'].iloc[0]}",
+    "cache_path": "examples/hot_trends/cache/hf_model_snapshot_log.csv",
+    "metric_semantics": "downloads and likes are public Hub metadata fields in a dated API response",
+    "interpretation_scope": "single snapshot = current public adoption proxy; repeated snapshots required for momentum",
+}])
 snapshot_audit = pd.DataFrame([{
     "snapshot_date": snapshot["snapshot_date"].iloc[0],
     "models": int(len(snapshot)),
     "non_null_downloads": int(snapshot["downloads"].notna().sum()),
     "non_null_likes": int(snapshot["likes"].notna().sum()),
     "source": "Hugging Face Hub API",
+    "endpoint": hf_endpoint,
+    "query_params": source_card.loc[0, "query_params"],
+    "interpretation_scope": source_card.loc[0, "interpretation_scope"],
 }])
+display(source_card)
 snapshot_audit
 ```
 
 <div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>source</th>
+      <th>endpoint</th>
+      <th>access_date</th>
+      <th>query_params</th>
+      <th>time_range</th>
+      <th>cache_path</th>
+      <th>metric_semantics</th>
+      <th>interpretation_scope</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Hugging Face Hub API</td>
+      <td>https://huggingface.co/api/models?limit=50&amp;sor...</td>
+      <td>2026-05-22</td>
+      <td>limit=50; sort=downloads; direction=-1</td>
+      <td>snapshot_date=2026-05-22</td>
+      <td>examples/hot_trends/cache/hf_model_snapshot_lo...</td>
+      <td>downloads and likes are public Hub metadata fi...</td>
+      <td>single snapshot = current public adoption prox...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
 <div class="notebook-output-label">text/html</div>
 <div class="notebook-html-output">
 <div>
@@ -388,6 +452,9 @@ snapshot_audit
       <th>non_null_downloads</th>
       <th>non_null_likes</th>
       <th>source</th>
+      <th>endpoint</th>
+      <th>query_params</th>
+      <th>interpretation_scope</th>
     </tr>
   </thead>
   <tbody>
@@ -398,6 +465,9 @@ snapshot_audit
       <td>50</td>
       <td>50</td>
       <td>Hugging Face Hub API</td>
+      <td>https://huggingface.co/api/models?limit=50&amp;sor...</td>
+      <td>limit=50; sort=downloads; direction=-1</td>
+      <td>single snapshot = current public adoption prox...</td>
     </tr>
   </tbody>
 </table>
@@ -406,16 +476,19 @@ snapshot_audit
 </div>
 </div>
 
-## 3. Append snapshot to a real local log
+## 3. Append snapshot to a dated local log
 
-Each row records a Hugging Face API snapshot. It may contain just one snapshot on first run; collect daily or weekly snapshots to decompose adoption momentum.
+Each row records a Hugging Face API snapshot. The notebook deduplicates same-day `(snapshot_date, model_id)` rows before writing the log so repeated runs do not create false momentum.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [4]</div>
 
 ```python
 log_path = CACHE_DIR / "hf_model_snapshot_log.csv"
-log = append_real_snapshot(snapshot, log_path)
+snapshot_for_log = snapshot.sort_values("last_modified").drop_duplicates(["snapshot_date", "model_id"], keep="last")
+log = append_real_snapshot(snapshot_for_log, log_path)
+log = log.drop_duplicates(["snapshot_date", "model_id"], keep="last").sort_values(["snapshot_date", "model_id"])
+log.to_csv(log_path, index=False)
 log.tail(20)
 ```
 
@@ -453,115 +526,7 @@ log.tail(20)
   </thead>
   <tbody>
     <tr>
-      <th>230</th>
-      <td>2026-05-22</td>
-      <td>meta-llama/Llama-3.1-8B-Instruct</td>
-      <td>text-generation</td>
-      <td>10815581</td>
-      <td>5873</td>
-      <td>None</td>
-      <td>False</td>
-      <td>Hugging Face Hub API</td>
-      <td>public_api_snapshot</td>
-    </tr>
-    <tr>
-      <th>231</th>
-      <td>2026-05-22</td>
-      <td>hexgrad/Kokoro-82M</td>
-      <td>text-to-speech</td>
-      <td>10756374</td>
-      <td>6191</td>
-      <td>None</td>
-      <td>False</td>
-      <td>Hugging Face Hub API</td>
-      <td>public_api_snapshot</td>
-    </tr>
-    <tr>
-      <th>232</th>
-      <td>2026-05-22</td>
-      <td>argmaxinc/whisperkit-coreml</td>
-      <td>automatic-speech-recognition</td>
-      <td>10697399</td>
-      <td>181</td>
-      <td>None</td>
-      <td>False</td>
-      <td>Hugging Face Hub API</td>
-      <td>public_api_snapshot</td>
-    </tr>
-    <tr>
-      <th>233</th>
-      <td>2026-05-22</td>
-      <td>pyannote/wespeaker-voxceleb-resnet34-LM</td>
-      <td>None</td>
-      <td>10673775</td>
-      <td>133</td>
-      <td>None</td>
-      <td>False</td>
-      <td>Hugging Face Hub API</td>
-      <td>public_api_snapshot</td>
-    </tr>
-    <tr>
-      <th>234</th>
-      <td>2026-05-22</td>
-      <td>google/gemma-4-31B-it</td>
-      <td>image-text-to-text</td>
-      <td>10283716</td>
-      <td>2729</td>
-      <td>None</td>
-      <td>False</td>
-      <td>Hugging Face Hub API</td>
-      <td>public_api_snapshot</td>
-    </tr>
-    <tr>
-      <th>235</th>
-      <td>2026-05-22</td>
-      <td>pyannote/speaker-diarization-3.1</td>
-      <td>automatic-speech-recognition</td>
-      <td>10263344</td>
-      <td>1921</td>
-      <td>None</td>
-      <td>False</td>
-      <td>Hugging Face Hub API</td>
-      <td>public_api_snapshot</td>
-    </tr>
-    <tr>
-      <th>236</th>
-      <td>2026-05-22</td>
-      <td>Qwen/Qwen2.5-3B-Instruct</td>
-      <td>text-generation</td>
-      <td>10075457</td>
-      <td>463</td>
-      <td>None</td>
-      <td>False</td>
-      <td>Hugging Face Hub API</td>
-      <td>public_api_snapshot</td>
-    </tr>
-    <tr>
-      <th>237</th>
-      <td>2026-05-22</td>
-      <td>Qwen/Qwen3-4B</td>
-      <td>text-generation</td>
-      <td>9938728</td>
-      <td>615</td>
-      <td>None</td>
-      <td>False</td>
-      <td>Hugging Face Hub API</td>
-      <td>public_api_snapshot</td>
-    </tr>
-    <tr>
-      <th>238</th>
-      <td>2026-05-22</td>
-      <td>facebook/opt-125m</td>
-      <td>text-generation</td>
-      <td>9876800</td>
-      <td>253</td>
-      <td>None</td>
-      <td>False</td>
-      <td>Hugging Face Hub API</td>
-      <td>public_api_snapshot</td>
-    </tr>
-    <tr>
-      <th>239</th>
+      <th>289</th>
       <td>2026-05-22</td>
       <td>google/gemma-4-26B-A4B-it</td>
       <td>image-text-to-text</td>
@@ -573,43 +538,31 @@ log.tail(20)
       <td>public_api_snapshot</td>
     </tr>
     <tr>
-      <th>240</th>
+      <th>284</th>
       <td>2026-05-22</td>
-      <td>pyannote/segmentation-3.0</td>
-      <td>voice-activity-detection</td>
-      <td>9734596</td>
-      <td>1007</td>
+      <td>google/gemma-4-31B-it</td>
+      <td>image-text-to-text</td>
+      <td>10283716</td>
+      <td>2730</td>
       <td>None</td>
       <td>False</td>
       <td>Hugging Face Hub API</td>
       <td>public_api_snapshot</td>
     </tr>
     <tr>
-      <th>241</th>
+      <th>281</th>
       <td>2026-05-22</td>
-      <td>BAAI/bge-base-en-v1.5</td>
-      <td>feature-extraction</td>
-      <td>9243998</td>
-      <td>425</td>
-      <td>None</td>
-      <td>False</td>
-      <td>Hugging Face Hub API</td>
-      <td>public_api_snapshot</td>
-    </tr>
-    <tr>
-      <th>242</th>
-      <td>2026-05-22</td>
-      <td>coqui/XTTS-v2</td>
+      <td>hexgrad/Kokoro-82M</td>
       <td>text-to-speech</td>
-      <td>8833759</td>
-      <td>3554</td>
+      <td>10756374</td>
+      <td>6192</td>
       <td>None</td>
       <td>False</td>
       <td>Hugging Face Hub API</td>
       <td>public_api_snapshot</td>
     </tr>
     <tr>
-      <th>243</th>
+      <th>293</th>
       <td>2026-05-22</td>
       <td>intfloat/multilingual-e5-small</td>
       <td>sentence-similarity</td>
@@ -621,43 +574,103 @@ log.tail(20)
       <td>public_api_snapshot</td>
     </tr>
     <tr>
-      <th>244</th>
+      <th>263</th>
       <td>2026-05-22</td>
-      <td>Falconsai/nsfw_image_detection</td>
-      <td>image-classification</td>
-      <td>8500275</td>
-      <td>1077</td>
+      <td>laion/clap-htsat-fused</td>
+      <td>audio-classification</td>
+      <td>20521489</td>
+      <td>90</td>
       <td>None</td>
       <td>False</td>
       <td>Hugging Face Hub API</td>
       <td>public_api_snapshot</td>
     </tr>
     <tr>
-      <th>245</th>
+      <th>274</th>
       <td>2026-05-22</td>
-      <td>Qwen/Qwen3.5-4B</td>
-      <td>image-text-to-text</td>
-      <td>8078482</td>
-      <td>552</td>
+      <td>lpiccinelli/unidepth-v2-vitl14</td>
+      <td>None</td>
+      <td>13797346</td>
+      <td>19</td>
       <td>None</td>
       <td>False</td>
       <td>Hugging Face Hub API</td>
       <td>public_api_snapshot</td>
     </tr>
     <tr>
-      <th>246</th>
+      <th>280</th>
+      <td>2026-05-22</td>
+      <td>meta-llama/Llama-3.1-8B-Instruct</td>
+      <td>text-generation</td>
+      <td>10815581</td>
+      <td>5874</td>
+      <td>None</td>
+      <td>False</td>
+      <td>Hugging Face Hub API</td>
+      <td>public_api_snapshot</td>
+    </tr>
+    <tr>
+      <th>296</th>
       <td>2026-05-22</td>
       <td>meta-llama/Llama-3.2-1B-Instruct</td>
       <td>text-generation</td>
       <td>8034700</td>
-      <td>1420</td>
+      <td>1421</td>
       <td>None</td>
       <td>False</td>
       <td>Hugging Face Hub API</td>
       <td>public_api_snapshot</td>
     </tr>
     <tr>
-      <th>247</th>
+      <th>267</th>
+      <td>2026-05-22</td>
+      <td>nomic-ai/nomic-embed-text-v1.5</td>
+      <td>sentence-similarity</td>
+      <td>17123670</td>
+      <td>833</td>
+      <td>None</td>
+      <td>False</td>
+      <td>Hugging Face Hub API</td>
+      <td>public_api_snapshot</td>
+    </tr>
+    <tr>
+      <th>266</th>
+      <td>2026-05-22</td>
+      <td>openai-community/gpt2</td>
+      <td>text-generation</td>
+      <td>17502119</td>
+      <td>3255</td>
+      <td>None</td>
+      <td>False</td>
+      <td>Hugging Face Hub API</td>
+      <td>public_api_snapshot</td>
+    </tr>
+    <tr>
+      <th>261</th>
+      <td>2026-05-22</td>
+      <td>openai/clip-vit-base-patch32</td>
+      <td>zero-shot-image-classification</td>
+      <td>21761723</td>
+      <td>939</td>
+      <td>None</td>
+      <td>False</td>
+      <td>Hugging Face Hub API</td>
+      <td>public_api_snapshot</td>
+    </tr>
+    <tr>
+      <th>258</th>
+      <td>2026-05-22</td>
+      <td>openai/clip-vit-large-patch14</td>
+      <td>zero-shot-image-classification</td>
+      <td>31831707</td>
+      <td>2014</td>
+      <td>None</td>
+      <td>False</td>
+      <td>Hugging Face Hub API</td>
+      <td>public_api_snapshot</td>
+    </tr>
+    <tr>
+      <th>297</th>
       <td>2026-05-22</td>
       <td>openai/gpt-oss-20b</td>
       <td>text-generation</td>
@@ -669,24 +682,84 @@ log.tail(20)
       <td>public_api_snapshot</td>
     </tr>
     <tr>
-      <th>248</th>
+      <th>290</th>
       <td>2026-05-22</td>
-      <td>Qwen/Qwen3.5-9B</td>
-      <td>image-text-to-text</td>
-      <td>7968791</td>
-      <td>1470</td>
+      <td>pyannote/segmentation-3.0</td>
+      <td>voice-activity-detection</td>
+      <td>9734596</td>
+      <td>1008</td>
       <td>None</td>
       <td>False</td>
       <td>Hugging Face Hub API</td>
       <td>public_api_snapshot</td>
     </tr>
     <tr>
-      <th>249</th>
+      <th>285</th>
       <td>2026-05-22</td>
-      <td>facebook/contriever</td>
+      <td>pyannote/speaker-diarization-3.1</td>
+      <td>automatic-speech-recognition</td>
+      <td>10263344</td>
+      <td>1924</td>
       <td>None</td>
-      <td>7825978</td>
-      <td>89</td>
+      <td>False</td>
+      <td>Hugging Face Hub API</td>
+      <td>public_api_snapshot</td>
+    </tr>
+    <tr>
+      <th>283</th>
+      <td>2026-05-22</td>
+      <td>pyannote/wespeaker-voxceleb-resnet34-LM</td>
+      <td>None</td>
+      <td>10673775</td>
+      <td>133</td>
+      <td>None</td>
+      <td>False</td>
+      <td>Hugging Face Hub API</td>
+      <td>public_api_snapshot</td>
+    </tr>
+    <tr>
+      <th>250</th>
+      <td>2026-05-22</td>
+      <td>sentence-transformers/all-MiniLM-L6-v2</td>
+      <td>sentence-similarity</td>
+      <td>260087615</td>
+      <td>4820</td>
+      <td>None</td>
+      <td>False</td>
+      <td>Hugging Face Hub API</td>
+      <td>public_api_snapshot</td>
+    </tr>
+    <tr>
+      <th>257</th>
+      <td>2026-05-22</td>
+      <td>sentence-transformers/all-mpnet-base-v2</td>
+      <td>sentence-similarity</td>
+      <td>35311317</td>
+      <td>1294</td>
+      <td>None</td>
+      <td>False</td>
+      <td>Hugging Face Hub API</td>
+      <td>public_api_snapshot</td>
+    </tr>
+    <tr>
+      <th>255</th>
+      <td>2026-05-22</td>
+      <td>sentence-transformers/paraphrase-multilingual-...</td>
+      <td>sentence-similarity</td>
+      <td>48940452</td>
+      <td>1234</td>
+      <td>None</td>
+      <td>False</td>
+      <td>Hugging Face Hub API</td>
+      <td>public_api_snapshot</td>
+    </tr>
+    <tr>
+      <th>275</th>
+      <td>2026-05-22</td>
+      <td>timm/mobilenetv3_small_100.lamb_in1k</td>
+      <td>image-classification</td>
+      <td>13766094</td>
+      <td>73</td>
       <td>None</td>
       <td>False</td>
       <td>Hugging Face Hub API</td>
@@ -708,8 +781,6 @@ log.tail(20)
 log["snapshot_date"] = pd.to_datetime(log["snapshot_date"])
 log["downloads"] = pd.to_numeric(log["downloads"], errors="coerce")
 series_log = log.dropna(subset=["model_id", "downloads"]).sort_values(["model_id", "snapshot_date"])
-# Hugging Face downloads are a snapshot metric rather than a guaranteed cumulative counter.
-# Use repeated observed download levels to estimate the latest delta.
 ready_models = series_log.groupby("model_id")["snapshot_date"].nunique().loc[lambda s: s >= 4].index.tolist()
 ready_models[:10], len(ready_models)
 ```
@@ -722,9 +793,9 @@ ready_models[:10], len(ready_models)
 </div>
 </div>
 
-## 5. Decompose only if repeated real snapshots exist
+## 5. Decompose only after repeated snapshots exist
 
-The notebook starts decomposition after enough dated snapshots are available. On first run, it exports the snapshot and asks the reader to collect more dated snapshots.
+The chart becomes a momentum read only after the same API query has been collected across enough dates. Until then, the notebook publishes the current snapshot table and the collection-depth chart.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [6]</div>
@@ -735,10 +806,10 @@ if ready_models:
     decomp_input = decomp_input.dropna(subset=["count"])
     components = decompose_table(decomp_input, entity_col="series", time_col="date", value_col="count", method="MA_BASELINE", period=7, trend_window=3, transform="log1p")
     summary = editorial_priority(component_summary(components, entity_col="series", time_col="date"), entity_col="series")
-    events = residual_event_table(components, entity_col="series", time_col="date", top_n=20)
+    events = residual_event_table(components, entity_col="series", time_col="date", top_n=20, trim_edges=1)
 else:
     components = pd.DataFrame()
-    summary = pd.DataFrame([{"status": "not_enough_real_snapshots", "required": "collect at least 4 snapshot dates per model before decomposition"}])
+    summary = pd.DataFrame([{"status": "not_enough_snapshots", "required": "collect at least 4 snapshot dates per model before decomposition"}])
     events = pd.DataFrame()
 summary
 ```
@@ -771,7 +842,7 @@ summary
   <tbody>
     <tr>
       <th>0</th>
-      <td>not_enough_real_snapshots</td>
+      <td>not_enough_snapshots</td>
       <td>collect at least 4 snapshot dates per model be...</td>
     </tr>
   </tbody>
@@ -783,7 +854,7 @@ summary
 
 ## 6. Snapshot ranking for immediate publication
 
-This cross-sectional snapshot provides a current source table; decomposition requires repeated snapshots.
+This table is cross-sectional. The axes to read are downloads and likes in the selected API response; do not read the ranking as momentum or model quality.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [7]</div>
@@ -828,7 +899,7 @@ snapshot_rank[["model_id", "pipeline_tag", "downloads", "likes", "last_modified"
       <td>sentence-transformers/all-MiniLM-L6-v2</td>
       <td>sentence-similarity</td>
       <td>260087615</td>
-      <td>4819</td>
+      <td>4820</td>
       <td>None</td>
       <td>Hugging Face Hub API</td>
     </tr>
@@ -837,7 +908,7 @@ snapshot_rank[["model_id", "pipeline_tag", "downloads", "likes", "last_modified"
       <td>Qwen/Qwen3-VL-2B-Instruct</td>
       <td>image-text-to-text</td>
       <td>89788352</td>
-      <td>410</td>
+      <td>411</td>
       <td>None</td>
       <td>Hugging Face Hub API</td>
     </tr>
@@ -909,7 +980,7 @@ snapshot_rank[["model_id", "pipeline_tag", "downloads", "likes", "last_modified"
       <td>BAAI/bge-m3</td>
       <td>sentence-similarity</td>
       <td>28332931</td>
-      <td>3030</td>
+      <td>3031</td>
       <td>None</td>
       <td>Hugging Face Hub API</td>
     </tr>
@@ -963,7 +1034,7 @@ snapshot_rank[["model_id", "pipeline_tag", "downloads", "likes", "last_modified"
       <td>Qwen/Qwen3-0.6B</td>
       <td>text-generation</td>
       <td>18331817</td>
-      <td>1261</td>
+      <td>1262</td>
       <td>None</td>
       <td>Hugging Face Hub API</td>
     </tr>
@@ -1057,7 +1128,7 @@ snapshot_rank[["model_id", "pipeline_tag", "downloads", "likes", "last_modified"
 
 ## Visualization: Hugging Face snapshot status
 
-When repeated snapshots are not yet deep enough for decomposition, the notebook still shows real snapshot depth and current model attention.
+The left panel reports snapshot depth by model. The dashed line is the minimum repeated-snapshot threshold used before decomposition. The right panel reports current downloads from one dated snapshot, which is useful for a source table but not for retention claims.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [8]</div>
@@ -1094,7 +1165,7 @@ plt.show()
 </div>
 </div>
 
-## 7. Guardrails
+## 7. Publication language
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [9]</div>
@@ -1138,16 +1209,16 @@ phrasing
     <tr>
       <th>1</th>
       <td>This model is better because it has more downl...</td>
-      <td>Downloads are a public adoption proxy and shou...</td>
+      <td>Downloads are a public adoption proxy interpre...</td>
     </tr>
     <tr>
       <th>2</th>
       <td>This repo is winning because stars are rising.</td>
-      <td>Star velocity measures developer attention, no...</td>
+      <td>Star velocity measures developer attention for...</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>This pageview spike proves importance.</td>
+      <td>This pageview spike shows the topic matters most.</td>
       <td>Pageviews measure public attention during the ...</td>
     </tr>
     <tr>
@@ -1166,6 +1237,7 @@ phrasing
 <div class="notebook-input-label">In [10]</div>
 
 ```python
+save_table(source_card, "03_hf_source_card")
 save_table(snapshot_audit, "03_hf_snapshot_audit")
 save_table(snapshot_rank, "03_hf_snapshot_rank")
 save_table(summary, "03_hf_decomposition_or_collection_status")
@@ -1177,6 +1249,7 @@ save_table(phrasing, "03_hf_publication_phrasing")
 <div class="gallery-out notebook-output">
 <div class="notebook-output-label">stdout</div>
 ```text
+saved: examples/hot_trends/outputs/03_hf_source_card.csv
 saved: examples/hot_trends/outputs/03_hf_snapshot_audit.csv
 saved: examples/hot_trends/outputs/03_hf_snapshot_rank.csv
 saved: examples/hot_trends/outputs/03_hf_decomposition_or_collection_status.csv

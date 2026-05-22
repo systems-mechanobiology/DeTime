@@ -5,14 +5,9 @@
   <strong>Rendered notebook transcript.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/De-Time/blob/main/examples/notebooks/hot_trends/06_crypto_stablecoin_liquidity_pulse.ipynb"><code>examples/notebooks/hot_trends/06_crypto_stablecoin_liquidity_pulse.ipynb</code></a> and includes code cells plus captured outputs from the committed notebook.
 </div>
 
-This notebook uses public crypto-market and DeFi liquidity data to describe recent market structure.
+This notebook asks whether BTC/ETH price residuals line up with current stablecoin liquidity context. It is a market-structure read, not a trading model.
 
-Sources:
-
-- CoinGecko market chart for BTC/ETH price history;
-- DeFiLlama stablecoin data for liquidity context.
-
-Data sources are recorded in the source audit table.
+The output is a CoinGecko source card, price decomposition, edge-trimmed residual events, and a current DeFiLlama stablecoin chain context table.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [1]</div>
@@ -61,7 +56,7 @@ def save_table(df, name):
 ```
 </div>
 
-## 1. Fetch real BTC and ETH market charts
+## 1. Fetch BTC and ETH market charts
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [2]</div>
@@ -269,17 +264,71 @@ prices.head(20)
 </div>
 </div>
 
-## 2. Audit real price table
+## 2. Source card and price audit
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [3]</div>
 
 ```python
 audit = source_audit_table(prices, value_col="price", entity_col="coin_id", time_col="date")
+source_card = pd.DataFrame([{
+    "source": "CoinGecko API",
+    "endpoint": "https://api.coingecko.com/api/v3/coins/{coin_id}/market_chart",
+    "access_date": pd.Timestamp.today().date().isoformat(),
+    "query_params": f"coins={','.join(coins)}; vs_currency=usd; days=365",
+    "time_range": f"{prices['date'].min()} to {prices['date'].max()}",
+    "cache_path": "not cached; outputs saved to examples/hot_trends/outputs",
+    "interpretation_scope": "public BTC/ETH price history for market-structure context; not a trading signal",
+}])
+display(source_card)
 audit
 ```
 
 <div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>source</th>
+      <th>endpoint</th>
+      <th>access_date</th>
+      <th>query_params</th>
+      <th>time_range</th>
+      <th>cache_path</th>
+      <th>interpretation_scope</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>CoinGecko API</td>
+      <td>https://api.coingecko.com/api/v3/coins/{coin_i...</td>
+      <td>2026-05-22</td>
+      <td>coins=bitcoin,ethereum; vs_currency=usd; days=365</td>
+      <td>2025-05-23 to 2026-05-22</td>
+      <td>not cached; outputs saved to examples/hot_tren...</td>
+      <td>public BTC/ETH price history for market-struct...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
 <div class="notebook-output-label">text/html</div>
 <div class="notebook-html-output">
 <div>
@@ -392,11 +441,11 @@ summary
       <td>366</td>
       <td>2025-05-23 00:00:00</td>
       <td>2026-05-22 00:00:00</td>
-      <td>4.025442</td>
+      <td>4.024828</td>
       <td>-0.001398</td>
-      <td>-2.727087</td>
-      <td>0.523240</td>
-      <td>64.191978</td>
+      <td>-2.723404</td>
+      <td>0.523068</td>
+      <td>64.310751</td>
       <td>MA_BASELINE</td>
       <td>1.0</td>
       <td>1.0</td>
@@ -409,11 +458,11 @@ summary
       <td>366</td>
       <td>2025-05-23 00:00:00</td>
       <td>2026-05-22 00:00:00</td>
-      <td>5.901926</td>
+      <td>5.901470</td>
       <td>-0.001547</td>
-      <td>-14.437076</td>
-      <td>0.770724</td>
-      <td>125.712740</td>
+      <td>-14.428352</td>
+      <td>0.770613</td>
+      <td>125.749236</td>
       <td>MA_BASELINE</td>
       <td>0.5</td>
       <td>0.5</td>
@@ -429,7 +478,7 @@ summary
 
 ## Visualization: crypto price components
 
-BTC and ETH are plotted as transformed price components so trend and residual shocks are visible.
+The left panels plot transformed observed price and trend by coin. The right panels plot residuals from the smooth baseline. Large bars mark dates for follow-up research; they are not entry or exit rules.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [5]</div>
@@ -462,7 +511,7 @@ plt.show()
 <div class="notebook-input-label">In [6]</div>
 
 ```python
-events = residual_event_table(components, entity_col="coin_id", time_col="date", top_n=20)
+events = residual_event_table(components, entity_col="coin_id", time_col="date", top_n=20, trim_edges=21)
 events
 ```
 
@@ -501,242 +550,242 @@ events
   <tbody>
     <tr>
       <th>0</th>
-      <td>2025-05-23</td>
+      <td>2026-02-06</td>
       <td>bitcoin</td>
-      <td>11.622321</td>
-      <td>6.068095</td>
-      <td>0.080769</td>
-      <td>5.473457</td>
-      <td>125.712740</td>
-      <td>125.712740</td>
+      <td>11.048565</td>
+      <td>11.217366</td>
+      <td>0.080617</td>
+      <td>-0.249418</td>
+      <td>-5.836389</td>
+      <td>5.836389</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>2026-05-22</td>
-      <td>bitcoin</td>
-      <td>11.258631</td>
-      <td>5.901926</td>
-      <td>0.079347</td>
-      <td>5.277358</td>
-      <td>121.189134</td>
-      <td>121.189134</td>
+      <td>2026-02-06</td>
+      <td>ethereum</td>
+      <td>7.506905</td>
+      <td>7.724144</td>
+      <td>0.052559</td>
+      <td>-0.269798</td>
+      <td>-4.931441</td>
+      <td>4.931441</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>2025-05-24</td>
+      <td>2025-11-22</td>
       <td>bitcoin</td>
-      <td>11.582607</td>
-      <td>6.619053</td>
-      <td>0.079347</td>
-      <td>4.884207</td>
-      <td>112.119937</td>
-      <td>112.119937</td>
+      <td>11.351016</td>
+      <td>11.423804</td>
+      <td>0.079376</td>
+      <td>-0.152163</td>
+      <td>-3.705549</td>
+      <td>3.705549</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>2026-05-22</td>
+      <td>2025-11-21</td>
       <td>bitcoin</td>
-      <td>11.243608</td>
-      <td>6.440551</td>
-      <td>0.080769</td>
-      <td>4.722288</td>
-      <td>108.384780</td>
-      <td>108.384780</td>
+      <td>11.369632</td>
+      <td>11.433564</td>
+      <td>0.080617</td>
+      <td>-0.144549</td>
+      <td>-3.538715</td>
+      <td>3.538715</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>2025-05-25</td>
+      <td>2025-09-26</td>
       <td>bitcoin</td>
-      <td>11.588324</td>
-      <td>7.169807</td>
-      <td>-0.031227</td>
-      <td>4.449744</td>
-      <td>102.097739</td>
-      <td>102.097739</td>
+      <td>11.598769</td>
+      <td>11.656836</td>
+      <td>0.080617</td>
+      <td>-0.138685</td>
+      <td>-3.410229</td>
+      <td>3.410229</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>2026-05-21</td>
+      <td>2025-09-27</td>
       <td>bitcoin</td>
-      <td>11.257516</td>
-      <td>6.979420</td>
-      <td>-0.022145</td>
-      <td>4.300241</td>
-      <td>98.649005</td>
-      <td>98.649005</td>
+      <td>11.605598</td>
+      <td>11.660556</td>
+      <td>0.079376</td>
+      <td>-0.134334</td>
+      <td>-3.314907</td>
+      <td>3.314907</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>2025-05-26</td>
+      <td>2025-10-18</td>
       <td>bitcoin</td>
-      <td>11.597835</td>
-      <td>7.720280</td>
-      <td>-0.039315</td>
-      <td>3.916869</td>
-      <td>89.805382</td>
-      <td>89.805382</td>
+      <td>11.575371</td>
+      <td>11.630168</td>
+      <td>0.079376</td>
+      <td>-0.134173</td>
+      <td>-3.311382</td>
+      <td>3.311382</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>2026-05-20</td>
+      <td>2025-10-17</td>
       <td>bitcoin</td>
-      <td>11.249075</td>
-      <td>7.517430</td>
-      <td>-0.036103</td>
-      <td>3.767747</td>
-      <td>86.365433</td>
-      <td>86.365433</td>
+      <td>11.590597</td>
+      <td>11.634392</td>
+      <td>0.080617</td>
+      <td>-0.124412</td>
+      <td>-3.097521</td>
+      <td>3.097521</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>2025-05-27</td>
+      <td>2026-02-13</td>
       <td>bitcoin</td>
-      <td>11.602562</td>
-      <td>8.269294</td>
-      <td>-0.034406</td>
-      <td>3.367674</td>
-      <td>77.136548</td>
-      <td>77.136548</td>
+      <td>11.100203</td>
+      <td>11.143801</td>
+      <td>0.080617</td>
+      <td>-0.124215</td>
+      <td>-3.093204</td>
+      <td>3.093204</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>2026-05-19</td>
-      <td>bitcoin</td>
-      <td>11.250940</td>
-      <td>8.055151</td>
-      <td>-0.034406</td>
-      <td>3.230195</td>
-      <td>73.965169</td>
-      <td>73.965169</td>
+      <td>2025-09-26</td>
+      <td>ethereum</td>
+      <td>8.259216</td>
+      <td>8.371748</td>
+      <td>0.052559</td>
+      <td>-0.165091</td>
+      <td>-3.043532</td>
+      <td>3.043532</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>10</th>
-      <td>2025-05-28</td>
+      <td>2026-02-07</td>
       <td>bitcoin</td>
-      <td>11.599731</td>
-      <td>8.819584</td>
-      <td>-0.036103</td>
-      <td>2.816250</td>
-      <td>64.416296</td>
-      <td>64.416296</td>
+      <td>11.163708</td>
+      <td>11.205553</td>
+      <td>0.079376</td>
+      <td>-0.121221</td>
+      <td>-3.027601</td>
+      <td>3.027601</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>11</th>
-      <td>2025-05-23</td>
-      <td>ethereum</td>
-      <td>7.885016</td>
-      <td>4.114704</td>
-      <td>0.052519</td>
-      <td>3.717793</td>
-      <td>64.191978</td>
-      <td>64.191978</td>
+      <td>2025-12-19</td>
+      <td>bitcoin</td>
+      <td>11.355691</td>
+      <td>11.391919</td>
+      <td>0.080617</td>
+      <td>-0.116846</td>
+      <td>-2.931733</td>
+      <td>2.931733</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>12</th>
-      <td>2026-05-18</td>
+      <td>2026-03-28</td>
       <td>bitcoin</td>
-      <td>11.257074</td>
-      <td>8.592773</td>
-      <td>-0.039315</td>
-      <td>2.703616</td>
-      <td>61.818053</td>
-      <td>61.818053</td>
+      <td>11.102262</td>
+      <td>11.138202</td>
+      <td>0.079376</td>
+      <td>-0.115315</td>
+      <td>-2.898206</td>
+      <td>2.898206</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>13</th>
-      <td>2026-05-22</td>
-      <td>ethereum</td>
-      <td>7.647484</td>
-      <td>4.025442</td>
-      <td>0.050701</td>
-      <td>3.571341</td>
-      <td>61.657767</td>
-      <td>61.657767</td>
+      <td>2026-04-04</td>
+      <td>bitcoin</td>
+      <td>11.111547</td>
+      <td>11.146993</td>
+      <td>0.079376</td>
+      <td>-0.114821</td>
+      <td>-2.887373</td>
+      <td>2.887373</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>14</th>
-      <td>2025-05-24</td>
-      <td>ethereum</td>
-      <td>7.831940</td>
-      <td>4.489323</td>
-      <td>0.050701</td>
-      <td>3.291916</td>
-      <td>56.822568</td>
-      <td>56.822568</td>
+      <td>2026-04-03</td>
+      <td>bitcoin</td>
+      <td>11.110830</td>
+      <td>11.144620</td>
+      <td>0.080617</td>
+      <td>-0.114407</td>
+      <td>-2.878312</td>
+      <td>2.878312</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>15</th>
-      <td>2026-05-22</td>
-      <td>ethereum</td>
-      <td>7.664672</td>
-      <td>4.394858</td>
-      <td>0.052519</td>
-      <td>3.217295</td>
-      <td>55.531332</td>
-      <td>55.531332</td>
+      <td>2025-08-02</td>
+      <td>bitcoin</td>
+      <td>11.637217</td>
+      <td>11.668642</td>
+      <td>0.079376</td>
+      <td>-0.110801</td>
+      <td>-2.799291</td>
+      <td>2.799291</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>16</th>
-      <td>2025-05-25</td>
-      <td>ethereum</td>
-      <td>7.835754</td>
-      <td>4.863681</td>
-      <td>-0.024403</td>
-      <td>2.996476</td>
-      <td>51.710261</td>
-      <td>51.710261</td>
+      <td>2025-11-07</td>
+      <td>bitcoin</td>
+      <td>11.526065</td>
+      <td>11.555237</td>
+      <td>0.080617</td>
+      <td>-0.109789</td>
+      <td>-2.777114</td>
+      <td>2.777114</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>17</th>
-      <td>2025-05-29</td>
+      <td>2026-05-01</td>
       <td>bitcoin</td>
-      <td>11.588387</td>
-      <td>9.370450</td>
-      <td>-0.022145</td>
-      <td>2.240082</td>
-      <td>51.125251</td>
-      <td>51.125251</td>
+      <td>11.242252</td>
+      <td>11.270734</td>
+      <td>0.080617</td>
+      <td>-0.109099</td>
+      <td>-2.762009</td>
+      <td>2.762009</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>18</th>
-      <td>2026-05-21</td>
-      <td>ethereum</td>
-      <td>7.662606</td>
-      <td>4.764865</td>
-      <td>-0.008157</td>
-      <td>2.905898</td>
-      <td>50.142890</td>
-      <td>50.142890</td>
+      <td>2025-08-30</td>
+      <td>bitcoin</td>
+      <td>11.594324</td>
+      <td>11.622299</td>
+      <td>0.079376</td>
+      <td>-0.107350</td>
+      <td>-2.723693</td>
+      <td>2.723693</td>
       <td>MA_BASELINE</td>
     </tr>
     <tr>
       <th>19</th>
-      <td>2026-05-17</td>
+      <td>2025-06-21</td>
       <td>bitcoin</td>
-      <td>11.266194</td>
-      <td>9.131222</td>
-      <td>-0.031227</td>
-      <td>2.166198</td>
-      <td>49.420905</td>
-      <td>49.420905</td>
+      <td>11.545297</td>
+      <td>11.570234</td>
+      <td>0.079376</td>
+      <td>-0.104313</td>
+      <td>-2.657139</td>
+      <td>2.657139</td>
       <td>MA_BASELINE</td>
     </tr>
   </tbody>
@@ -746,19 +795,73 @@ events
 </div>
 </div>
 
-## 5. Fetch stablecoin context from DeFiLlama
+## 5. Fetch current stablecoin context from DeFiLlama
 
-This cell reads the DeFiLlama stablecoin endpoint schema and records the table used for the liquidity summary.
+This cell reads the current DeFiLlama stablecoin endpoint schema and records the table used for the liquidity context. It does not measure historical stablecoin-supply change.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [7]</div>
 
 ```python
+stablecoin_source_card = pd.DataFrame([{
+    "source": "DeFiLlama stablecoin API",
+    "endpoint": "https://stablecoins.llama.fi/stablecoins?includePrices=true",
+    "access_date": pd.Timestamp.today().date().isoformat(),
+    "query_params": "includePrices=true",
+    "time_range": "current endpoint snapshot",
+    "cache_path": "not cached; outputs saved to examples/hot_trends/outputs",
+    "interpretation_scope": "current stablecoin chain supply context; not executable liquidity or a trading signal",
+}])
 stable_chains = fetch_defillama_stablecoin_chains()
+display(stablecoin_source_card)
 stable_chains.head(20)
 ```
 
 <div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>source</th>
+      <th>endpoint</th>
+      <th>access_date</th>
+      <th>query_params</th>
+      <th>time_range</th>
+      <th>cache_path</th>
+      <th>interpretation_scope</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>DeFiLlama stablecoin API</td>
+      <td>https://stablecoins.llama.fi/stablecoins?inclu...</td>
+      <td>2026-05-22</td>
+      <td>includePrices=true</td>
+      <td>current endpoint snapshot</td>
+      <td>not cached; outputs saved to examples/hot_tren...</td>
+      <td>current stablecoin chain supply context; not e...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
 <div class="notebook-output-label">text/html</div>
 <div class="notebook-html-output">
 <div>
@@ -786,102 +889,102 @@ stable_chains.head(20)
   <tbody>
     <tr>
       <th>0</th>
-      <td>{'peggedUSD': 7237463.781202499}</td>
+      <td>{'peggedUSD': 7231293.297661571}</td>
       <td>Manta</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>{'peggedUSD': 475476.28307619924}</td>
+      <td>{'peggedUSD': 475472.9230870892}</td>
       <td>ThunderCore</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>{'peggedUSD': 39708803.407568865}</td>
+      <td>{'peggedUSD': 39708611.36492221}</td>
       <td>Movement</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>{'peggedUSD': 32708.273900759646}</td>
+      <td>{'peggedUSD': 32717.41461544214}</td>
       <td>Shiden</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>{'peggedUSD': 138881.13092658969}</td>
+      <td>{'peggedUSD': 138869.81749023663}</td>
       <td>Corn</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>{'peggedUSD': 345654711.1928391}</td>
+      <td>{'peggedUSD': 346081964.99845433}</td>
       <td>Starknet</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>{'peggedUSD': 90335688671.02623, 'peggedREAL':...</td>
+      <td>{'peggedUSD': 90328483811.95787, 'peggedREAL':...</td>
       <td>Tron</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>{'peggedUSD': 3535202.247888792}</td>
+      <td>{'peggedUSD': 3539355.889837592}</td>
       <td>CORE</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>{'peggedUSD': 317388.2763332}</td>
+      <td>{'peggedUSD': 285081.514346732}</td>
       <td>ApeChain</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>{'peggedUSD': 3777058.8377104434, 'peggedSGD':...</td>
+      <td>{'peggedUSD': 3776681.058702138, 'peggedSGD': ...</td>
       <td>Zilliqa</td>
     </tr>
     <tr>
       <th>10</th>
+      <td>{'peggedUSD': 1064183.4439790852}</td>
+      <td>Peaq</td>
+    </tr>
+    <tr>
+      <th>11</th>
       <td>{'peggedUSD': 0}</td>
       <td>Evmos</td>
     </tr>
     <tr>
-      <th>11</th>
-      <td>{'peggedUSD': 1063902.7240750329}</td>
-      <td>Peaq</td>
-    </tr>
-    <tr>
       <th>12</th>
       <td>{'peggedUSD': 0}</td>
-      <td>SX Network</td>
+      <td>Milkomeda C1 (Deprecated)</td>
     </tr>
     <tr>
       <th>13</th>
-      <td>{'peggedUSD': 407274914.7011687}</td>
+      <td>{'peggedUSD': 407198921.19447505}</td>
       <td>Monad</td>
     </tr>
     <tr>
       <th>14</th>
       <td>{'peggedUSD': 0}</td>
-      <td>Milkomeda C1 (Deprecated)</td>
+      <td>SX Network</td>
     </tr>
     <tr>
       <th>15</th>
-      <td>{'peggedUSD': 1821463252.2487824}</td>
+      <td>{'peggedUSD': 1825106351.7395616}</td>
       <td>Aptos</td>
     </tr>
     <tr>
       <th>16</th>
-      <td>{'peggedUSD': 55287256.14413411, 'peggedCHF': ...</td>
+      <td>{'peggedUSD': 54455011.663982846, 'peggedCHF':...</td>
       <td>Tezos</td>
     </tr>
     <tr>
       <th>17</th>
-      <td>{'peggedUSD': 33564267.44852235}</td>
+      <td>{'peggedUSD': 33546534.18344099}</td>
       <td>PulseChain</td>
     </tr>
     <tr>
       <th>18</th>
-      <td>{'peggedUSD': 239482.05728876762}</td>
+      <td>{'peggedUSD': 239458.1044466233}</td>
       <td>Kusama</td>
     </tr>
     <tr>
       <th>19</th>
-      <td>{'peggedUSD': 11657747.161148407}</td>
+      <td>{'peggedUSD': 11658640.89012045}</td>
       <td>Immutable zkEVM</td>
     </tr>
   </tbody>
@@ -891,9 +994,9 @@ stable_chains.head(20)
 </div>
 </div>
 
-## Visualization: stablecoin chain context
+## Visualization: current stablecoin chain context
 
-The DeFiLlama context chart adds liquidity scale around the BTC/ETH residual events.
+The x-axis is current pegged USD by chain from DeFiLlama. Use it to size the liquidity backdrop around BTC/ETH residual dates; do not read it as historical flow or available execution depth.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [8]</div>
@@ -919,7 +1022,7 @@ plt.show()
 </div>
 </div>
 
-## 6. Publication phrasing
+## 6. Publication language
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [9]</div>
@@ -963,16 +1066,16 @@ phrasing
     <tr>
       <th>1</th>
       <td>This model is better because it has more downl...</td>
-      <td>Downloads are a public adoption proxy and shou...</td>
+      <td>Downloads are a public adoption proxy interpre...</td>
     </tr>
     <tr>
       <th>2</th>
       <td>This repo is winning because stars are rising.</td>
-      <td>Star velocity measures developer attention, no...</td>
+      <td>Star velocity measures developer attention for...</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>This pageview spike proves importance.</td>
+      <td>This pageview spike shows the topic matters most.</td>
       <td>Pageviews measure public attention during the ...</td>
     </tr>
     <tr>
@@ -991,6 +1094,8 @@ phrasing
 <div class="notebook-input-label">In [10]</div>
 
 ```python
+save_table(source_card, "06_coingecko_source_card")
+save_table(stablecoin_source_card, "06_defillama_source_card")
 save_table(audit, "06_crypto_price_audit")
 save_table(summary, "06_crypto_price_summary")
 save_table(events, "06_crypto_price_residual_events")
@@ -1001,6 +1106,8 @@ save_table(phrasing, "06_crypto_publication_phrasing")
 <div class="gallery-out notebook-output">
 <div class="notebook-output-label">stdout</div>
 ```text
+saved: examples/hot_trends/outputs/06_coingecko_source_card.csv
+saved: examples/hot_trends/outputs/06_defillama_source_card.csv
 saved: examples/hot_trends/outputs/06_crypto_price_audit.csv
 saved: examples/hot_trends/outputs/06_crypto_price_summary.csv
 saved: examples/hot_trends/outputs/06_crypto_price_residual_events.csv
