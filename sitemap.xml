@@ -145,6 +145,42 @@
          <lastmod>2026-05-22</lastmod>
     </url>
     <url>
+         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/notebooks/</loc>
+         <lastmod>2026-05-22</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/notebooks/00_hot_trend_lab_overview/</loc>
+         <lastmod>2026-05-22</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/notebooks/01_arxiv_category_pulse/</loc>
+         <lastmod>2026-05-22</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/notebooks/02_arxiv_agent_research_pulse/</loc>
+         <lastmod>2026-05-22</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/notebooks/03_huggingface_open_model_pulse/</loc>
+         <lastmod>2026-05-22</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/notebooks/04_github_ai_agent_star_velocity/</loc>
+         <lastmod>2026-05-22</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/notebooks/05_wikipedia_attention_hype_decay/</loc>
+         <lastmod>2026-05-22</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/notebooks/06_crypto_stablecoin_liquidity_pulse/</loc>
+         <lastmod>2026-05-22</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/notebooks/07_ai_infrastructure_market_pulse/</loc>
+         <lastmod>2026-05-22</lastmod>
+    </url>
+    <url>
          <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/backtesting-frameworks/</loc>
          <lastmod>2026-05-22</lastmod>
     </url>
@@ -158,6 +194,50 @@
     </url>
     <url>
          <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/walkforward/</loc>
+         <lastmod>2026-05-22</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/notebooks/</loc>
+         <lastmod>2026-05-22</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/notebooks/00_quant_trading_column_overview/</loc>
+         <lastmod>2026-05-22</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/notebooks/01_real_market_data_and_detime_features/</loc>
+         <lastmod>2026-05-22</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/notebooks/02_single_asset_timing_vectorbt/</loc>
+         <lastmod>2026-05-22</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/notebooks/03_turtle_donchian_trend_filter/</loc>
+         <lastmod>2026-05-22</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/notebooks/04_pairs_trading_residual_cycle/</loc>
+         <lastmod>2026-05-22</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/notebooks/05_cross_sectional_factor_selection/</loc>
+         <lastmod>2026-05-22</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/notebooks/06_style_sector_asset_rotation_bt/</loc>
+         <lastmod>2026-05-22</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/notebooks/07_korea_us_crypto_multimarket/</loc>
+         <lastmod>2026-05-22</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/notebooks/08_backtesting_framework_adapters/</loc>
+         <lastmod>2026-05-22</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/notebooks/09_walkforward_validation_and_audit/</loc>
          <lastmod>2026-05-22</lastmod>
     </url>
 </urlset>

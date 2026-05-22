@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Zipeng Wu">
+        <link rel="canonical" href="https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/notebooks/00_hot_trend_lab_overview/">
+        <link rel="shortcut icon" href="../../../../img/favicon.ico">
+        <title>00 Column Overview - De-Time</title>
+        <link href="../../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../../../stylesheets/brand.css" rel="stylesheet">
+        <link href="../../../../stylesheets/extra.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+   
+
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../../..">De-Time</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../../../../install/" class="nav-link">Install</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../../../quickstart/" class="nav-link">Quickstart</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Methods</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../../methods/" class="dropdown-item">Methods & Chooser</a>
+</li>
+                                    
+<li>
+    <a href="../../../../method-matrix/" class="dropdown-item">Method Matrix</a>
+</li>
+                                    
+<li>
+    <a href="../../../../method-references/" class="dropdown-item">Method References</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../../notebook-gallery/" class="dropdown-item">Notebook Gallery</a>
+</li>
+                                    
+<li>
+    <a href="../../../univariate/" class="dropdown-item">Univariate Tutorial</a>
+</li>
+                                    
+<li>
+    <a href="../../../multivariate/" class="dropdown-item">Multivariate Tutorial</a>
+</li>
+                                    
+<li>
+    <a href="../../../cli-and-profiling/" class="dropdown-item">CLI Guide</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Quant Trading</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../quant-trading/" class="dropdown-item">Overview</a>
+</li>
+                                    
+<li>
+    <a href="../../../quant-trading/notebooks/" class="dropdown-item">Notebook Outputs</a>
+</li>
+                                    
+<li>
+    <a href="../../../quant-trading/notebooks/00_quant_trading_column_overview/" class="dropdown-item">00 Column Overview</a>
+</li>
+                                    
+<li>
+    <a href="../../../quant-trading/notebooks/01_real_market_data_and_detime_features/" class="dropdown-item">01 Real Market Data and Features</a>
+</li>
+                                    
+<li>
+    <a href="../../../quant-trading/notebooks/02_single_asset_timing_vectorbt/" class="dropdown-item">02 Single-Asset Timing</a>
+</li>
+                                    
+<li>
+    <a href="../../../quant-trading/notebooks/03_turtle_donchian_trend_filter/" class="dropdown-item">03 Turtle Donchian Trend Filter</a>
+</li>
+                                    
+<li>
+    <a href="../../../quant-trading/notebooks/04_pairs_trading_residual_cycle/" class="dropdown-item">04 Pairs Trading Residual Cycle</a>
+</li>
+                                    
+<li>
+    <a href="../../../quant-trading/notebooks/05_cross_sectional_factor_selection/" class="dropdown-item">05 Cross-Sectional Factor Selection</a>
+</li>
+                                    
+<li>
+    <a href="../../../quant-trading/notebooks/06_style_sector_asset_rotation_bt/" class="dropdown-item">06 Style and Sector Rotation</a>
+</li>
+                                    
+<li>
+    <a href="../../../quant-trading/notebooks/07_korea_us_crypto_multimarket/" class="dropdown-item">07 Korea, US, and Crypto</a>
+</li>
+                                    
+<li>
+    <a href="../../../quant-trading/notebooks/08_backtesting_framework_adapters/" class="dropdown-item">08 Framework Adapters</a>
+</li>
+                                    
+<li>
+    <a href="../../../quant-trading/notebooks/09_walkforward_validation_and_audit/" class="dropdown-item">09 Walk-Forward Audit</a>
+</li>
+                                    
+<li>
+    <a href="../../../quant-trading/data/" class="dropdown-item">Real Data and Universes</a>
+</li>
+                                    
+<li>
+    <a href="../../../quant-trading/strategy-map/" class="dropdown-item">Strategy Map</a>
+</li>
+                                    
+<li>
+    <a href="../../../quant-trading/backtesting-frameworks/" class="dropdown-item">Backtesting Frameworks</a>
+</li>
+                                    
+<li>
+    <a href="../../../quant-trading/walkforward/" class="dropdown-item">Walk-Forward Validation</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Hot Trend Lab</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../" class="dropdown-item">Overview</a>
+</li>
+                                    
+<li>
+    <a href="../" class="dropdown-item">Notebook Outputs</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">00 Column Overview</a>
+</li>
+                                    
+<li>
+    <a href="../01_arxiv_category_pulse/" class="dropdown-item">01 arXiv Category Pulse</a>
+</li>
+                                    
+<li>
+    <a href="../02_arxiv_agent_research_pulse/" class="dropdown-item">02 arXiv Agent Research Pulse</a>
+</li>
+                                    
+<li>
+    <a href="../03_huggingface_open_model_pulse/" class="dropdown-item">03 Hugging Face Open-Model Pulse</a>
+</li>
+                                    
+<li>
+    <a href="../04_github_ai_agent_star_velocity/" class="dropdown-item">04 GitHub Star Velocity</a>
+</li>
+                                    
+<li>
+    <a href="../05_wikipedia_attention_hype_decay/" class="dropdown-item">05 Wikipedia Attention Decay</a>
+</li>
+                                    
+<li>
+    <a href="../06_crypto_stablecoin_liquidity_pulse/" class="dropdown-item">06 Crypto Stablecoin Liquidity</a>
+</li>
+                                    
+<li>
+    <a href="../07_ai_infrastructure_market_pulse/" class="dropdown-item">07 AI Infrastructure Market Pulse</a>
+</li>
+                                    
+<li>
+    <a href="../../data-sources/" class="dropdown-item">Real Data Sources</a>
+</li>
+                                    
+<li>
+    <a href="../../arxiv-research-pulse/" class="dropdown-item">arXiv Research Pulse</a>
+</li>
+                                    
+<li>
+    <a href="../../open-model-and-developer-attention/" class="dropdown-item">Open Models and Developer Attention</a>
+</li>
+                                    
+<li>
+    <a href="../../wiki-market-crypto-attention/" class="dropdown-item">Public Attention, Markets, and Crypto</a>
+</li>
+                                    
+<li>
+    <a href="../../release-calendar/" class="dropdown-item">Release Calendar</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">API</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../../api/" class="dropdown-item">API Overview</a>
+</li>
+                                    
+<li>
+    <a href="../../../../config-reference/" class="dropdown-item">Config Reference</a>
+</li>
+                                    
+<li>
+    <a href="../../../../machine-api/" class="dropdown-item">Machine API</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Project</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../../comparisons/" class="dropdown-item">Compare Alternatives</a>
+</li>
+                                    
+<li>
+    <a href="../../../../reproducibility/" class="dropdown-item">Reproducibility</a>
+</li>
+                                    
+<li>
+    <a href="../../../../architecture/" class="dropdown-item">Architecture</a>
+</li>
+                                    
+<li>
+    <a href="../../../../migration/" class="dropdown-item">Migration from `tsdecomp`</a>
+</li>
+                                    
+<li>
+    <a href="../../../../contributing/" class="dropdown-item">Contributing</a>
+</li>
+                                    
+<li>
+    <a href="../../../../citation/" class="dropdown-item">Citation / Release Notes</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../01_arxiv_category_pulse/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/systems-mechanobiology/De-Time/edit/master/docs/tutorials/hot-trend-lab/notebooks/00_hot_trend_lab_overview.md" class="nav-link">Edit on systems-mechanobiology/De-Time
+                                    </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#hot-trend-lab-overview" class="nav-link">Hot Trend Lab Overview</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#1-source-registry" class="nav-link">1. Source registry</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#2-column-priority-matrix" class="nav-link">2. Column priority matrix</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#3-de-time-output-contract" class="nav-link">3. De-Time output contract</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#4-language-guardrails" class="nav-link">4. Language guardrails</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<!-- Generated by scripts/generate_column_notebook_pages.py; do not edit manually. -->
+<h1 id="hot-trend-lab-overview">Hot Trend Lab Overview</h1>
+<div class="gallery-note notebook-transcript-note">
+  <strong>Rendered notebook transcript.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/De-Time/blob/main/examples/notebooks/hot_trends/00_hot_trend_lab_overview.ipynb"><code>examples/notebooks/hot_trends/00_hot_trend_lab_overview.ipynb</code></a> and includes code cells plus captured outputs from the committed notebook.
+</div>
+
+<p>This notebook is the executable entry point for the Hot Trend Lab column. It verifies the source registry, the real-data policy, the De-Time component contract, and the editorial scoring logic.</p>
+<p>The column does not use synthetic fallback data. Every case notebook fetches real public data at runtime or stops with an explicit error.</p>
+<div class="notebook-cell">
+<div class="notebook-input-label">In [1]</div>
+
+
+<pre><code class="language-python">from pathlib import Path
+import os
+import sys
+
+import numpy as np
+import pandas as pd
+
+# Prefer the checkout when this notebook is run inside the repository.
+repo_root = Path.cwd()
+for candidate in [Path.cwd(), Path.cwd().parent, Path.cwd().parent.parent, Path.cwd().parent.parent.parent]:
+    if (candidate / &quot;src&quot; / &quot;detime&quot;).exists():
+        repo_root = candidate
+        break
+sys.path.insert(0, str(repo_root / &quot;src&quot;))
+sys.path.insert(0, str(repo_root))
+
+from examples.hot_trends.data import (
+    HotTrendDataError,
+    append_real_snapshot,
+    build_arxiv_monthly_counts,
+    fetch_coingecko_market_chart,
+    fetch_defillama_stablecoin_chains,
+    fetch_github_repo_metadata,
+    fetch_github_stargazers,
+    fetch_huggingface_models,
+    fetch_wikipedia_pageviews,
+    source_audit_table,
+)
+from examples.hot_trends.decomposition import (
+    component_summary,
+    decompose_table,
+    editorial_priority,
+    residual_event_table,
+)
+from examples.hot_trends.scoring import article_language_guardrails
+
+pd.set_option(&quot;display.max_columns&quot;, 80)
+pd.set_option(&quot;display.max_rows&quot;, 80)
+
+CACHE_DIR = repo_root / &quot;examples&quot; / &quot;hot_trends&quot; / &quot;cache&quot;
+OUTPUT_DIR = repo_root / &quot;examples&quot; / &quot;hot_trends&quot; / &quot;outputs&quot;
+CACHE_DIR.mkdir(parents=True, exist_ok=True)
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+def save_table(df, name):
+    path = OUTPUT_DIR / f&quot;{name}.csv&quot;
+    df.to_csv(path, index=False)
+    relative_path = path.relative_to(repo_root).as_posix()
+    print(f&quot;saved: {relative_path}&quot;)
+</code></pre>
+
+</div>
+
+<h2 id="1-source-registry">1. Source registry</h2>
+<p>The source registry is the minimum evidence object for this column. It tells readers what is being measured and what not to overclaim.</p>
+<div class="notebook-cell">
+<div class="notebook-input-label">In [2]</div>
+
+
+<pre><code class="language-python">registry = pd.read_csv(repo_root / &quot;examples&quot; / &quot;hot_trends&quot; / &quot;reports&quot; / &quot;source_registry.csv&quot;)
+registry
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>source</th>
+      <th>endpoint</th>
+      <th>notebooks</th>
+      <th>real_data_policy</th>
+      <th>freshness</th>
+      <th>caveat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>arXiv API</td>
+      <td>https://export.arxiv.org/api/query</td>
+      <td>01,02</td>
+      <td>live public API; no synthetic fallback</td>
+      <td>weekly/monthly</td>
+      <td>preprints are not peer-reviewed; cross-listing...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>arXiv monthly submissions</td>
+      <td>https://arxiv.org/show_monthly_submissions</td>
+      <td>00,01</td>
+      <td>official public stats page</td>
+      <td>monthly</td>
+      <td>global totals, not category-level time series</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Hugging Face Hub API</td>
+      <td>https://huggingface.co/api/models</td>
+      <td>03</td>
+      <td>live public API; repeated snapshots needed for...</td>
+      <td>daily/weekly</td>
+      <td>downloads and likes are adoption proxies</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>GitHub REST API</td>
+      <td>https://api.github.com/repos/{owner}/{repo}/st...</td>
+      <td>04</td>
+      <td>live public API; token recommended</td>
+      <td>weekly</td>
+      <td>stars are attention, not usage</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Wikimedia Analytics API</td>
+      <td>https://wikimedia.org/api/rest_v1/metrics/page...</td>
+      <td>05</td>
+      <td>live public API</td>
+      <td>daily/weekly</td>
+      <td>pageviews are attention, not importance</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>DeFiLlama stablecoin API</td>
+      <td>https://stablecoins.llama.fi/stablecoins?inclu...</td>
+      <td>06</td>
+      <td>live public API</td>
+      <td>daily/weekly</td>
+      <td>API schema should be checked before publication</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>CoinGecko API</td>
+      <td>https://api.coingecko.com/api/v3/coins/{id}/ma...</td>
+      <td>06</td>
+      <td>live public API</td>
+      <td>per run</td>
+      <td>rate limits and plan limits apply</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Yahoo Finance via yfinance</td>
+      <td>yfinance.download</td>
+      <td>07</td>
+      <td>live public market data via yfinance; no price...</td>
+      <td>per run</td>
+      <td>tutorial-grade source; use licensed vendor for...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<h2 id="2-column-priority-matrix">2. Column priority matrix</h2>
+<p>The strongest first wave is arXiv because it combines public data, academic relevance, high AI traffic, and a clean trend/cycle/residual story.</p>
+<div class="notebook-cell">
+<div class="notebook-input-label">In [3]</div>
+
+
+<pre><code class="language-python">priority = pd.DataFrame([
+    {&quot;rank&quot;: 1, &quot;case&quot;: &quot;arXiv category pulse&quot;, &quot;why_it_can_pop&quot;: &quot;AI paper growth is controversial, measurable, and easy to refresh.&quot;, &quot;rendered_page&quot;: &quot;notebooks/01_arxiv_category_pulse/&quot;},
+    {&quot;rank&quot;: 2, &quot;case&quot;: &quot;AI agent research pulse&quot;, &quot;why_it_can_pop&quot;: &quot;Agent and coding-agent papers move quickly and map to active product debates.&quot;, &quot;rendered_page&quot;: &quot;notebooks/02_arxiv_agent_research_pulse/&quot;},
+    {&quot;rank&quot;: 3, &quot;case&quot;: &quot;Hugging Face open-model pulse&quot;, &quot;why_it_can_pop&quot;: &quot;Open-model releases create visible download and like snapshots.&quot;, &quot;rendered_page&quot;: &quot;notebooks/03_huggingface_open_model_pulse/&quot;},
+    {&quot;rank&quot;: 4, &quot;case&quot;: &quot;GitHub AI-agent star velocity&quot;, &quot;why_it_can_pop&quot;: &quot;Developer attention is high-signal for tooling narratives.&quot;, &quot;rendered_page&quot;: &quot;notebooks/04_github_ai_agent_star_velocity/&quot;},
+    {&quot;rank&quot;: 5, &quot;case&quot;: &quot;Wikimedia attention decay&quot;, &quot;why_it_can_pop&quot;: &quot;Pageviews turn public hype into a measurable time series.&quot;, &quot;rendered_page&quot;: &quot;notebooks/05_wikipedia_attention_hype_decay/&quot;},
+    {&quot;rank&quot;: 6, &quot;case&quot;: &quot;Crypto and stablecoin liquidity pulse&quot;, &quot;why_it_can_pop&quot;: &quot;Crypto liquidity moves fast and has strong public attention.&quot;, &quot;rendered_page&quot;: &quot;notebooks/06_crypto_stablecoin_liquidity_pulse/&quot;},
+    {&quot;rank&quot;: 7, &quot;case&quot;: &quot;AI infrastructure market pulse&quot;, &quot;why_it_can_pop&quot;: &quot;AI infrastructure remains a major market narrative.&quot;, &quot;rendered_page&quot;: &quot;notebooks/07_ai_infrastructure_market_pulse/&quot;},
+])
+priority
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rank</th>
+      <th>case</th>
+      <th>why_it_can_pop</th>
+      <th>rendered_page</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>arXiv category pulse</td>
+      <td>AI paper growth is controversial, measurable, ...</td>
+      <td>notebooks/01_arxiv_category_pulse/</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>AI agent research pulse</td>
+      <td>Agent and coding-agent papers move quickly and...</td>
+      <td>notebooks/02_arxiv_agent_research_pulse/</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Hugging Face open-model pulse</td>
+      <td>Open-model releases create visible download an...</td>
+      <td>notebooks/03_huggingface_open_model_pulse/</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>GitHub AI-agent star velocity</td>
+      <td>Developer attention is high-signal for tooling...</td>
+      <td>notebooks/04_github_ai_agent_star_velocity/</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Wikimedia attention decay</td>
+      <td>Pageviews turn public hype into a measurable t...</td>
+      <td>notebooks/05_wikipedia_attention_hype_decay/</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>Crypto and stablecoin liquidity pulse</td>
+      <td>Crypto liquidity moves fast and has strong pub...</td>
+      <td>notebooks/06_crypto_stablecoin_liquidity_pulse/</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>AI infrastructure market pulse</td>
+      <td>AI infrastructure remains a major market narra...</td>
+      <td>notebooks/07_ai_infrastructure_market_pulse/</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<h2 id="3-de-time-output-contract">3. De-Time output contract</h2>
+<p>Each notebook exports the same table types: source audit, component summary, residual events, and publication guardrails.</p>
+<div class="notebook-cell">
+<div class="notebook-input-label">In [4]</div>
+
+
+<pre><code class="language-python">output_contract = pd.DataFrame([
+    {&quot;table&quot;: &quot;source_audit&quot;, &quot;purpose&quot;: &quot;proves the table came from a real source and records coverage&quot;},
+    {&quot;table&quot;: &quot;component_summary&quot;, &quot;purpose&quot;: &quot;trend slope, cycle strength, residual shock score&quot;},
+    {&quot;table&quot;: &quot;residual_events&quot;, &quot;purpose&quot;: &quot;event-like deviations for article hooks&quot;},
+    {&quot;table&quot;: &quot;language_guardrails&quot;, &quot;purpose&quot;: &quot;safe wording for public posts&quot;},
+])
+output_contract
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>table</th>
+      <th>purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>source_audit</td>
+      <td>proves the table came from a real source and r...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>component_summary</td>
+      <td>trend slope, cycle strength, residual shock score</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>residual_events</td>
+      <td>event-like deviations for article hooks</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>language_guardrails</td>
+      <td>safe wording for public posts</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<h2 id="4-language-guardrails">4. Language guardrails</h2>
+<div class="notebook-cell">
+<div class="notebook-input-label">In [5]</div>
+
+
+<pre><code class="language-python">article_language_guardrails()
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>unsafe</th>
+      <th>safer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>This trend predicts the next price move.</td>
+      <td>This trend summarizes the observed public seri...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>This model is better because it has more downl...</td>
+      <td>Downloads are a public adoption proxy and shou...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>This repo is winning because stars are rising.</td>
+      <td>Star velocity measures developer attention, no...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>This pageview spike proves importance.</td>
+      <td>Pageviews measure public attention during the ...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>This residual is a buy signal.</td>
+      <td>This residual marks an event-like deviation fr...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [6]</div>
+
+
+<pre><code class="language-python">save_table(registry, &quot;00_source_registry&quot;)
+save_table(priority, &quot;00_hot_trend_priority&quot;)
+save_table(output_contract, &quot;00_output_contract&quot;)
+save_table(article_language_guardrails(), &quot;00_language_guardrails&quot;)
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">stdout</div>
+
+<pre><code class="language-text">saved: examples/hot_trends/outputs/00_source_registry.csv
+saved: examples/hot_trends/outputs/00_hot_trend_priority.csv
+saved: examples/hot_trends/outputs/00_output_contract.csv
+saved: examples/hot_trends/outputs/00_language_guardrails.csv
+</code></pre>
+
+</div>
+</div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../../js/base.js"></script>
+        <script src="../../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
