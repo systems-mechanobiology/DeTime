@@ -3,6 +3,13 @@
 Start with the four retained flagship paths. Move to wrappers only when the
 data or comparison need points there.
 
+<div class="method-signature-banner">
+  <span>Observed</span>
+  <span>Trend</span>
+  <span>Seasonal</span>
+  <span>Residual</span>
+</div>
+
 ## Flagship method cards
 
 <div class="method-use-grid">

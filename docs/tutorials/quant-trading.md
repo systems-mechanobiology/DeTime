@@ -1,0 +1,207 @@
+# Quant Trading Column: Decomposition Signals with Real Market Data
+
+This tutorial column shows how to use De-Time as a decomposition layer for
+quantitative trading research. The core idea is simple:
+
+<div class="quant-column-stage">
+  <div class="quant-column-copy">
+    <span class="section-kicker">Notebook research column</span>
+    <h2>Expose trend, cycle, and residual before the signal layer.</h2>
+    <p>Each tutorial keeps the De-Time interface visible while market data, strategy logic, backtest adapters, and validation remain explicit research steps.</p>
+    <div class="quant-stage-metrics">
+      <span><b>10</b> notebooks</span>
+      <span><b>4</b> guide pages</span>
+      <span><b>1</b> result contract</span>
+    </div>
+  </div>
+  <div class="quant-research-ui" aria-label="De-Time quantitative trading tutorial interface">
+    <div class="quant-ui-bar">
+      <strong>Quant column</strong>
+      <span>features.py</span>
+      <i>real market input</i>
+    </div>
+    <div class="quant-ui-body">
+      <div class="quant-ui-rail">
+        <b>Data</b>
+        <span>US</span>
+        <span>Korea</span>
+        <span>ETF</span>
+        <span>Crypto</span>
+      </div>
+      <div class="quant-ui-canvas">
+        <div class="quant-timeline">
+          <span>252d train</span>
+          <span>21d step</span>
+          <span>costs on</span>
+        </div>
+        <div class="quant-price-chart"><span>Price</span><i></i></div>
+        <div class="quant-component trend"><span>Trend slope</span><i></i></div>
+        <div class="quant-component seasonal"><span>Cycle timing</span><i></i></div>
+        <div class="quant-component residual"><span>Residual stress</span><i></i></div>
+      </div>
+      <div class="quant-ui-cards">
+        <span><b>Signal</b> trend pullback</span>
+        <span><b>Adapter</b> pandas -> vectorbt</span>
+        <span><b>Audit</b> shift and cost check</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pipeline-panel">
+  <div class="pipeline-flow">
+    <div class="pipeline-step">
+      <strong>Price</strong>
+      <span>US equities, Korea equities, ETFs, crypto</span>
+    </div>
+    <div class="pipeline-step">
+      <strong>De-Time</strong>
+      <span><code>trend</code>, <code>season</code>, <code>residual</code></span>
+    </div>
+    <div class="pipeline-step">
+      <strong>Signal</strong>
+      <span>timing, pairs, factors, rotation, risk filter</span>
+    </div>
+    <div class="pipeline-step">
+      <strong>Backtest</strong>
+      <span>pandas, vectorbt, backtesting.py, bt, Backtrader, Zipline, QuantStats</span>
+    </div>
+  </div>
+</div>
+
+## Real-data policy
+
+The column uses real market data downloaded at runtime through `yfinance`.
+It does not create artificial price data. If the vendor request fails, the
+notebook stops with a data error instead of silently replacing market data.
+The example universes include US large-cap stocks, US style and sector ETFs,
+Korean equities using `.KS` / `.KQ` symbols, and crypto pairs such as
+`BTC-USD` and `ETH-USD`.
+
+For production research, replace the tutorial data source with a licensed,
+point-in-time vendor and document the calendar, corporate-action adjustment,
+borrow, liquidity, FX, and execution assumptions.
+
+## Why decomposition matters to a trader
+
+Raw prices mix several structures that should not always drive the same action.
+De-Time returns a common `DecompResult` with `trend`, `season`, `residual`,
+method-specific `components`, and `meta`. The same result contract is then used
+to derive practical trading features:
+
+| Component | Trading interpretation | Example signal |
+|---|---|---|
+| `trend` | Direction and persistence | only trade long breakouts when `trend_slope > 0` |
+| `season` | Timing, cycle, oscillatory rhythm | enter when the cycle turns upward |
+| `residual` | Deviation from modeled structure | buy pullbacks or mean-revert pair spread residuals |
+| reconstruction error / residual stress | reliability and risk | reduce exposure when `residual_abs_z` is extreme |
+
+## Column map
+
+<div class="info-grid">
+  <a class="info-card" href="data/">
+    <h3>Real Data and Universes</h3>
+    <p>US, Korea, ETF, and crypto market data loading with explicit validation and no artificial fallback.</p>
+  </a>
+  <a class="info-card" href="strategy-map/">
+    <h3>Strategy Map</h3>
+    <p>Trend following, Turtle/Donchian, residual mean reversion, pairs, factors, rotation, crypto regimes.</p>
+  </a>
+  <a class="info-card" href="backtesting-frameworks/">
+    <h3>Backtesting Frameworks</h3>
+    <p>Adapters for pandas, vectorbt, backtesting.py, bt, Backtrader, Zipline-Reloaded, and QuantStats.</p>
+  </a>
+  <a class="info-card" href="walkforward/">
+    <h3>Walk-Forward Validation</h3>
+    <p>How to avoid full-sample decomposition leakage, unrealistic costs, and hidden benchmark reduction.</p>
+  </a>
+</div>
+
+## Notebook series
+
+The GitHub-rendered notebooks live in `examples/notebooks/quant_trading/`.
+
+| Notebook | Topic | Main asset class |
+|---|---|---|
+| `00_quant_trading_column_overview.ipynb` | column roadmap and setup | all |
+| `01_real_market_data_and_detime_features.ipynb` | real data download and feature factory | US, Korea, crypto |
+| `02_single_asset_timing_vectorbt.ipynb` | trend pullback and residual timing | SPY / QQQ |
+| `03_turtle_donchian_trend_filter.ipynb` | Turtle/Donchian trend filter | ETFs |
+| `04_pairs_trading_residual_cycle.ipynb` | spread decomposition for pairs | US equities |
+| `05_cross_sectional_factor_selection.ipynb` | decomposition alpha features | US stocks |
+| `06_style_sector_asset_rotation_bt.ipynb` | style/sector ETF rotation | ETFs |
+| `07_korea_us_crypto_multimarket.ipynb` | multi-market cycle and regime ideas | Korea, US, crypto |
+| `08_backtesting_framework_adapters.ipynb` | framework adapters | all |
+| `09_walkforward_validation_and_audit.ipynb` | validation and audit protocol | all |
+
+<div class="quant-notebook-grid">
+  <a href="notebooks/#column-overview">
+    <span>00</span>
+    <strong>Column Overview</strong>
+    <small>Setup, reading order, and the decomposition-to-signal map.</small>
+  </a>
+  <a href="notebooks/#real-data-features">
+    <span>01</span>
+    <strong>Real Data Features</strong>
+    <small>Market downloads, audits, and De-Time feature construction.</small>
+  </a>
+  <a href="notebooks/#single-asset-timing">
+    <span>02</span>
+    <strong>Single Asset Timing</strong>
+    <small>Trend pullbacks and residual timing with vectorbt routing.</small>
+  </a>
+  <a href="notebooks/#turtle-trend-filter">
+    <span>03</span>
+    <strong>Turtle Trend Filter</strong>
+    <small>Donchian breakouts gated by decomposition trend context.</small>
+  </a>
+  <a href="notebooks/#pairs-residual-cycle">
+    <span>04</span>
+    <strong>Pairs Residual Cycle</strong>
+    <small>Spread features with trend drift and residual checks.</small>
+  </a>
+  <a href="notebooks/#factor-selection">
+    <span>05</span>
+    <strong>Factor Selection</strong>
+    <small>Cross-sectional ranking from decomposition alpha features.</small>
+  </a>
+  <a href="notebooks/#etf-rotation">
+    <span>06</span>
+    <strong>ETF Rotation</strong>
+    <small>Style and sector target weights for portfolio research.</small>
+  </a>
+  <a href="notebooks/#multi-market-regimes">
+    <span>07</span>
+    <strong>Multi-Market Regimes</strong>
+    <small>Korea, US, and crypto cycle and stress examples.</small>
+  </a>
+  <a href="notebooks/#framework-adapters">
+    <span>08</span>
+    <strong>Framework Adapters</strong>
+    <small>Route signals into pandas and optional backtesting tools.</small>
+  </a>
+  <a href="notebooks/#validation-audit">
+    <span>09</span>
+    <strong>Validation Audit</strong>
+    <small>Walk-forward features, position shifting, and failure logs.</small>
+  </a>
+</div>
+
+## Install the optional tutorial dependencies
+
+```bash
+python -m pip install -e .[dev,docs,notebook]
+python -m pip install -r examples/quant_trading/requirements.txt
+```
+
+Then open:
+
+```bash
+jupyter lab examples/notebooks/quant_trading
+```
+
+## Important boundary
+
+This is a research tutorial, not investment advice. The examples are intended
+to help readers understand how decomposition features can be transformed into
+signals. They do not claim live-trading profitability.

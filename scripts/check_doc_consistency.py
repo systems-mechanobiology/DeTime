@@ -148,10 +148,17 @@ def main() -> int:
 
     for relative_path, patterns in BANNED_PATTERNS.items():
         path = ROOT / relative_path
+        if relative_path.startswith("submission/") and not path.exists():
+            # Manuscript/submission materials may be distributed separately from
+            # the documentation repository. Skip these paper-only checks when
+            # the submission bundle is intentionally absent.
+            continue
         failures.extend(_check_patterns(path, patterns, expect_present=False))
 
     for relative_path, patterns in REQUIRED_PATTERNS.items():
         path = ROOT / relative_path
+        if relative_path.startswith("submission/") and not path.exists():
+            continue
         failures.extend(_check_patterns(path, patterns, expect_present=True))
 
     for relative_path in PUBLIC_DOCS:
