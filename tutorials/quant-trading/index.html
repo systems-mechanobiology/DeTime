@@ -22,6 +22,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
         <script>hljs.highlightAll();</script>
    
+  <link rel="stylesheet" href="../../stylesheets/extra.css?v=7">
 
     </head>
 
@@ -39,10 +40,20 @@
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
                             <li class="nav-item">
-                                <a href="../../install/" class="nav-link">Install</a>
+                                <a href="../.." class="nav-link">Home</a>
                             </li>
-                            <li class="nav-item">
-                                <a href="../../quickstart/" class="nav-link">Quickstart</a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Start</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../install/" class="dropdown-item">Install</a>
+</li>
+                                    
+<li>
+    <a href="../../quickstart/" class="dropdown-item">Quickstart</a>
+</li>
+                                </ul>
                             </li>
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Methods</a>
@@ -62,7 +73,7 @@
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials</a>
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Workflows</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -80,144 +91,211 @@
 <li>
     <a href="../cli-and-profiling/" class="dropdown-item">CLI Guide</a>
 </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Quant Trading</a>
-                                <ul class="dropdown-menu">
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Quant Trading Column</a>
+    <ul class="dropdown-menu">
+            
 <li>
     <a href="./" class="dropdown-item active" aria-current="page">Overview</a>
 </li>
-                                    
+            
 <li>
-    <a href="notebooks/" class="dropdown-item">Notebook Outputs</a>
+    <a href="notebooks/" class="dropdown-item">Rendered Notebooks</a>
 </li>
-                                    
+            
 <li>
     <a href="notebooks/00_quant_trading_column_overview/" class="dropdown-item">00 Column Overview</a>
 </li>
-                                    
+            
 <li>
     <a href="notebooks/01_real_market_data_and_detime_features/" class="dropdown-item">01 Real Market Data and Features</a>
 </li>
-                                    
+            
 <li>
     <a href="notebooks/02_single_asset_timing_vectorbt/" class="dropdown-item">02 Single-Asset Timing</a>
 </li>
-                                    
+            
 <li>
     <a href="notebooks/03_turtle_donchian_trend_filter/" class="dropdown-item">03 Turtle Donchian Trend Filter</a>
 </li>
-                                    
+            
 <li>
     <a href="notebooks/04_pairs_trading_residual_cycle/" class="dropdown-item">04 Pairs Trading Residual Cycle</a>
 </li>
-                                    
+            
 <li>
     <a href="notebooks/05_cross_sectional_factor_selection/" class="dropdown-item">05 Cross-Sectional Factor Selection</a>
 </li>
-                                    
+            
 <li>
     <a href="notebooks/06_style_sector_asset_rotation_bt/" class="dropdown-item">06 Style and Sector Rotation</a>
 </li>
-                                    
+            
 <li>
     <a href="notebooks/07_korea_us_crypto_multimarket/" class="dropdown-item">07 Korea, US, and Crypto</a>
 </li>
-                                    
+            
 <li>
     <a href="notebooks/08_backtesting_framework_adapters/" class="dropdown-item">08 Framework Adapters</a>
 </li>
-                                    
+            
 <li>
-    <a href="notebooks/09_walkforward_validation_and_audit/" class="dropdown-item">09 Walk-Forward Audit</a>
+    <a href="notebooks/09_walkforward_validation_and_audit/" class="dropdown-item">09 Walk-Forward Validation</a>
 </li>
-                                    
+            
 <li>
     <a href="data/" class="dropdown-item">Real Data and Universes</a>
 </li>
-                                    
+            
 <li>
     <a href="strategy-map/" class="dropdown-item">Strategy Map</a>
 </li>
-                                    
+            
 <li>
     <a href="backtesting-frameworks/" class="dropdown-item">Backtesting Frameworks</a>
 </li>
-                                    
+            
 <li>
     <a href="walkforward/" class="dropdown-item">Walk-Forward Validation</a>
 </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Hot Trend Lab</a>
-                                <ul class="dropdown-menu">
+    </ul>
+  </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Hot Trend Lab</a>
+    <ul class="dropdown-menu">
+            
 <li>
     <a href="../hot-trend-lab/" class="dropdown-item">Overview</a>
 </li>
-                                    
+            
 <li>
-    <a href="../hot-trend-lab/notebooks/" class="dropdown-item">Notebook Outputs</a>
+    <a href="../hot-trend-lab/notebooks/" class="dropdown-item">Rendered Notebooks</a>
 </li>
-                                    
+            
 <li>
     <a href="../hot-trend-lab/notebooks/00_hot_trend_lab_overview/" class="dropdown-item">00 Column Overview</a>
 </li>
-                                    
+            
 <li>
     <a href="../hot-trend-lab/notebooks/01_arxiv_category_pulse/" class="dropdown-item">01 arXiv Category Pulse</a>
 </li>
-                                    
+            
 <li>
     <a href="../hot-trend-lab/notebooks/02_arxiv_agent_research_pulse/" class="dropdown-item">02 arXiv Agent Research Pulse</a>
 </li>
-                                    
+            
 <li>
     <a href="../hot-trend-lab/notebooks/03_huggingface_open_model_pulse/" class="dropdown-item">03 Hugging Face Open-Model Pulse</a>
 </li>
-                                    
+            
 <li>
     <a href="../hot-trend-lab/notebooks/04_github_ai_agent_star_velocity/" class="dropdown-item">04 GitHub Star Velocity</a>
 </li>
-                                    
+            
 <li>
     <a href="../hot-trend-lab/notebooks/05_wikipedia_attention_hype_decay/" class="dropdown-item">05 Wikipedia Attention Decay</a>
 </li>
-                                    
+            
 <li>
     <a href="../hot-trend-lab/notebooks/06_crypto_stablecoin_liquidity_pulse/" class="dropdown-item">06 Crypto Stablecoin Liquidity</a>
 </li>
-                                    
+            
 <li>
     <a href="../hot-trend-lab/notebooks/07_ai_infrastructure_market_pulse/" class="dropdown-item">07 AI Infrastructure Market Pulse</a>
 </li>
-                                    
+            
 <li>
     <a href="../hot-trend-lab/data-sources/" class="dropdown-item">Real Data Sources</a>
 </li>
-                                    
+            
 <li>
     <a href="../hot-trend-lab/arxiv-research-pulse/" class="dropdown-item">arXiv Research Pulse</a>
 </li>
-                                    
+            
 <li>
     <a href="../hot-trend-lab/open-model-and-developer-attention/" class="dropdown-item">Open Models and Developer Attention</a>
 </li>
-                                    
+            
 <li>
     <a href="../hot-trend-lab/wiki-market-crypto-attention/" class="dropdown-item">Public Attention, Markets, and Crypto</a>
 </li>
-                                    
+            
 <li>
     <a href="../hot-trend-lab/release-calendar/" class="dropdown-item">Release Calendar</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Gallery</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../gallery/ssa/" class="dropdown-item">SSA</a>
+</li>
+                                    
+<li>
+    <a href="../../gallery/std/" class="dropdown-item">STD</a>
+</li>
+                                    
+<li>
+    <a href="../../gallery/stdr/" class="dropdown-item">STDR</a>
+</li>
+                                    
+<li>
+    <a href="../../gallery/mssa/" class="dropdown-item">MSSA</a>
+</li>
+                                    
+<li>
+    <a href="../../gallery/stl/" class="dropdown-item">STL</a>
+</li>
+                                    
+<li>
+    <a href="../../gallery/mstl/" class="dropdown-item">MSTL</a>
+</li>
+                                    
+<li>
+    <a href="../../gallery/robust-stl/" class="dropdown-item">ROBUST_STL</a>
+</li>
+                                    
+<li>
+    <a href="../../gallery/emd/" class="dropdown-item">EMD</a>
+</li>
+                                    
+<li>
+    <a href="../../gallery/ceemdan/" class="dropdown-item">CEEMDAN</a>
+</li>
+                                    
+<li>
+    <a href="../../gallery/vmd/" class="dropdown-item">VMD</a>
+</li>
+                                    
+<li>
+    <a href="../../gallery/wavelet/" class="dropdown-item">WAVELET</a>
+</li>
+                                    
+<li>
+    <a href="../../gallery/ma-baseline/" class="dropdown-item">MA_BASELINE</a>
+</li>
+                                    
+<li>
+    <a href="../../gallery/mvmd/" class="dropdown-item">MVMD</a>
+</li>
+                                    
+<li>
+    <a href="../../gallery/memd/" class="dropdown-item">MEMD</a>
+</li>
+                                    
+<li>
+    <a href="../../gallery/gabor-cluster/" class="dropdown-item">GABOR_CLUSTER</a>
 </li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">API</a>
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Reference</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -281,8 +359,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="https://github.com/systems-mechanobiology/De-Time/edit/master/docs/tutorials/quant-trading.md" class="nav-link">Edit on systems-mechanobiology/De-Time
-                                    </a>
+                                <a href="https://github.com/systems-mechanobiology/De-Time" class="nav-link">systems-mechanobiology/De-Time</a>
                             </li>
                     </ul>
                 </div>
@@ -304,7 +381,7 @@
             
             <li class="nav-item" data-bs-level="1"><a href="#quant-trading-column-decomposition-signals-with-real-market-data" class="nav-link">Quant Trading Column: Decomposition Signals with Real Market Data</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#real-data-policy" class="nav-link">Real-data policy</a>
+            <li class="nav-item" data-bs-level="2"><a href="#market-data-sources" class="nav-link">Market Data Sources</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -324,7 +401,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#important-boundary" class="nav-link">Important boundary</a>
+            <li class="nav-item" data-bs-level="2"><a href="#research-scope" class="nav-link">Research Scope</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -338,6 +415,51 @@
 <h1 id="quant-trading-column-decomposition-signals-with-real-market-data">Quant Trading Column: Decomposition Signals with Real Market Data</h1>
 <p>This tutorial column shows how to use De-Time as a decomposition layer for
 quantitative trading research. The core idea is simple:</p>
+<div class="quant-column-stage">
+  <div class="quant-column-copy">
+    <span class="section-kicker">Notebook research column</span>
+    <h2>Expose trend, cycle, and residual before the signal layer.</h2>
+    <p>Each tutorial keeps the De-Time interface visible while market data, strategy logic, backtest adapters, and validation remain explicit research steps.</p>
+    <div class="quant-stage-metrics">
+      <span><b>10</b> notebooks</span>
+      <span><b>4</b> guide pages</span>
+      <span><b>1</b> result contract</span>
+    </div>
+  </div>
+  <div class="quant-research-ui" aria-label="De-Time quantitative trading tutorial interface">
+    <div class="quant-ui-bar">
+      <strong>Quant column</strong>
+      <span>features.py</span>
+      <i>real market input</i>
+    </div>
+    <div class="quant-ui-body">
+      <div class="quant-ui-rail">
+        <b>Data</b>
+        <span>US</span>
+        <span>Korea</span>
+        <span>ETF</span>
+        <span>Crypto</span>
+      </div>
+      <div class="quant-ui-canvas">
+        <div class="quant-timeline">
+          <span>252d train</span>
+          <span>21d step</span>
+          <span>costs on</span>
+        </div>
+        <div class="quant-price-chart"><span>Price</span><i></i></div>
+        <div class="quant-component trend"><span>Trend slope</span><i></i></div>
+        <div class="quant-component seasonal"><span>Cycle timing</span><i></i></div>
+        <div class="quant-component residual"><span>Residual stress</span><i></i></div>
+      </div>
+      <div class="quant-ui-cards">
+        <span><b>Signal</b> trend pullback</span>
+        <span><b>Adapter</b> pandas -> vectorbt</span>
+        <span><b>Audit</b> shift and cost check</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="pipeline-panel">
   <div class="pipeline-flow">
     <div class="pipeline-step">
@@ -359,10 +481,10 @@ quantitative trading research. The core idea is simple:</p>
   </div>
 </div>
 
-<h2 id="real-data-policy">Real-data policy</h2>
-<p>The column uses real market data downloaded at runtime through <code>yfinance</code>.
-It does not create artificial price data. If the vendor request fails, the
-notebook stops with a data error instead of silently replacing market data.
+<h2 id="market-data-sources">Market Data Sources</h2>
+<p>The column downloads market data at runtime through <code>yfinance</code>, validates the
+returned tables, and records the ticker universe, date window, and data source
+used by each notebook.
 The example universes include US large-cap stocks, US style and sector ETFs,
 Korean equities using <code>.KS</code> / <code>.KQ</code> symbols, and crypto pairs such as
 <code>BTC-USD</code> and <code>ETH-USD</code>.</p>
@@ -409,7 +531,7 @@ to derive practical trading features:</p>
 <div class="info-grid">
   <a class="info-card" href="data/">
     <h3>Real Data and Universes</h3>
-    <p>US, Korea, ETF, and crypto market data loading with explicit validation and no artificial fallback.</p>
+    <p>US, Korea, ETF, and crypto market data loading with source and table validation.</p>
   </a>
   <a class="info-card" href="strategy-map/">
     <h3>Strategy Map</h3>
@@ -421,7 +543,7 @@ to derive practical trading features:</p>
   </a>
   <a class="info-card" href="walkforward/">
     <h3>Walk-Forward Validation</h3>
-    <p>How to avoid full-sample decomposition leakage, unrealistic costs, and hidden benchmark reduction.</p>
+    <p>Walk-forward alignment, transaction costs, and benchmark reporting.</p>
   </a>
 </div>
 
@@ -484,12 +606,65 @@ documentation. The original executable notebooks remain in
 <td>all</td>
 </tr>
 <tr>
-<td><a href="notebooks/09_walkforward_validation_and_audit/">09 walk-forward validation and audit</a></td>
-<td>validation and audit protocol</td>
+<td><a href="notebooks/09_walkforward_validation_and_audit/">09 walk-forward validation</a></td>
+<td>validation and reporting protocol</td>
 <td>all</td>
 </tr>
 </tbody>
 </table>
+<div class="quant-notebook-grid">
+  <a href="notebooks/00_quant_trading_column_overview/">
+    <span>00</span>
+    <strong>Column Overview</strong>
+    <small>Setup, reading order, and the decomposition-to-signal map.</small>
+  </a>
+  <a href="notebooks/01_real_market_data_and_detime_features/">
+    <span>01</span>
+    <strong>Real Data Features</strong>
+    <small>Market downloads, audits, and De-Time feature construction.</small>
+  </a>
+  <a href="notebooks/02_single_asset_timing_vectorbt/">
+    <span>02</span>
+    <strong>Single Asset Timing</strong>
+    <small>Trend pullbacks and residual timing with vectorbt routing.</small>
+  </a>
+  <a href="notebooks/03_turtle_donchian_trend_filter/">
+    <span>03</span>
+    <strong>Turtle Trend Filter</strong>
+    <small>Donchian breakouts gated by decomposition trend context.</small>
+  </a>
+  <a href="notebooks/04_pairs_trading_residual_cycle/">
+    <span>04</span>
+    <strong>Pairs Residual Cycle</strong>
+    <small>Spread features with trend drift and residual checks.</small>
+  </a>
+  <a href="notebooks/05_cross_sectional_factor_selection/">
+    <span>05</span>
+    <strong>Factor Selection</strong>
+    <small>Cross-sectional ranking from decomposition alpha features.</small>
+  </a>
+  <a href="notebooks/06_style_sector_asset_rotation_bt/">
+    <span>06</span>
+    <strong>ETF Rotation</strong>
+    <small>Style and sector target weights for portfolio research.</small>
+  </a>
+  <a href="notebooks/07_korea_us_crypto_multimarket/">
+    <span>07</span>
+    <strong>Multi-Market Regimes</strong>
+    <small>Korea, US, and crypto cycle and stress examples.</small>
+  </a>
+  <a href="notebooks/08_backtesting_framework_adapters/">
+    <span>08</span>
+    <strong>Framework Adapters</strong>
+    <small>Route signals into pandas and optional backtesting tools.</small>
+  </a>
+  <a href="notebooks/09_walkforward_validation_and_audit/">
+    <span>09</span>
+    <strong>Validation Audit</strong>
+    <small>Walk-forward features, position shifting, and failure logs.</small>
+  </a>
+</div>
+
 <h2 id="install-the-optional-tutorial-dependencies">Install the optional tutorial dependencies</h2>
 <pre><code class="language-bash">python -m pip install -e .[dev,docs,notebook]
 python -m pip install -r examples/quant_trading/requirements.txt
@@ -497,10 +672,10 @@ python -m pip install -r examples/quant_trading/requirements.txt
 <p>Then open:</p>
 <pre><code class="language-bash">jupyter lab examples/notebooks/quant_trading
 </code></pre>
-<h2 id="important-boundary">Important boundary</h2>
-<p>This is a research tutorial, not investment advice. The examples are intended
-to help readers understand how decomposition features can be transformed into
-signals. They do not claim live-trading profitability.</p></div>
+<h2 id="research-scope">Research Scope</h2>
+<p>Use these examples to understand how decomposition features can become research
+signals. Live-trading evaluation requires point-in-time data, realistic costs,
+execution modeling, risk controls, and independent validation.</p></div>
             </div>
         </div>
 
