@@ -22,16 +22,18 @@ Data policy:
 Local checks performed:
 
 ```bash
-PYTHONPATH=src:examples python examples/quant_trading/scripts/smoke_quant_trading.py
-PYTHONPATH=src:examples python -m compileall -q examples/quant_trading
-python - <<'PY'
+$env:PYTHONPATH='src;examples'
+python examples/quant_trading/scripts/smoke_quant_trading.py
+python -m compileall -q examples/quant_trading
+@'
 from pathlib import Path
 import nbformat
 for p in Path('examples/notebooks/quant_trading').glob('*.ipynb'):
     nbformat.read(p, as_version=4)
 print('notebooks valid')
-PY
-PYTHONPATH=src python scripts/check_doc_consistency.py
+'@ | python -
+$env:PYTHONPATH='src'
+python scripts/check_doc_consistency.py
 ```
 
 `mkdocs build --strict` was not executed in this container because MkDocs was not installed in the runtime environment.

@@ -31,9 +31,6 @@ permissions:
   pages: write
   id-token: write
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 concurrency:
   group: pages
   cancel-in-progress: true
@@ -60,9 +57,8 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -e .[dev,docs,notebook]
 
-      - name: Build MkDocs site
+      - name: Build documentation
         run: |
-          python scripts/generate_schema_assets.py --check
           python scripts/generate_schema_assets.py
           python scripts/generate_method_cards.py
           python scripts/generate_notebook_gallery.py

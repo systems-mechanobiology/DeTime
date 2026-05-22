@@ -29,13 +29,14 @@ nav:
       - CLI Guide: tutorials/cli-and-profiling.md
       - Quant Trading Column:
           - Overview: tutorials/quant-trading.md
-          - Notebook Series: tutorials/quant-trading/notebooks.md
+          - Notebook Outputs: tutorials/quant-trading/notebooks/index.md
           - Real Data and Universes: tutorials/quant-trading/data.md
           - Strategy Map: tutorials/quant-trading/strategy-map.md
           - Backtesting Frameworks: tutorials/quant-trading/backtesting-frameworks.md
           - Walk-Forward Validation: tutorials/quant-trading/walkforward.md
       - Hot Trend Lab:
           - Overview: tutorials/hot-trend-lab.md
+          - Notebook Outputs: tutorials/hot-trend-lab/notebooks/index.md
           - Real Data Sources: tutorials/hot-trend-lab/data-sources.md
           - arXiv Research Pulse: tutorials/hot-trend-lab/arxiv-research-pulse.md
           - Open Models and Developer Attention: tutorials/hot-trend-lab/open-model-and-developer-attention.md

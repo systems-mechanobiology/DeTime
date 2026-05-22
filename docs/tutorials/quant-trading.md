@@ -119,68 +119,70 @@ to derive practical trading features:
 
 ## Notebook series
 
-The GitHub-rendered notebooks live in `examples/notebooks/quant_trading/`.
+The pages below render the notebook code and captured outputs directly in the
+documentation. The original executable notebooks remain in
+`examples/notebooks/quant_trading/`.
 
-| Notebook | Topic | Main asset class |
+| Rendered page | Topic | Main asset class |
 |---|---|---|
-| `00_quant_trading_column_overview.ipynb` | column roadmap and setup | all |
-| `01_real_market_data_and_detime_features.ipynb` | real data download and feature factory | US, Korea, crypto |
-| `02_single_asset_timing_vectorbt.ipynb` | trend pullback and residual timing | SPY / QQQ |
-| `03_turtle_donchian_trend_filter.ipynb` | Turtle/Donchian trend filter | ETFs |
-| `04_pairs_trading_residual_cycle.ipynb` | spread decomposition for pairs | US equities |
-| `05_cross_sectional_factor_selection.ipynb` | decomposition alpha features | US stocks |
-| `06_style_sector_asset_rotation_bt.ipynb` | style/sector ETF rotation | ETFs |
-| `07_korea_us_crypto_multimarket.ipynb` | multi-market cycle and regime ideas | Korea, US, crypto |
-| `08_backtesting_framework_adapters.ipynb` | framework adapters | all |
-| `09_walkforward_validation_and_audit.ipynb` | validation and audit protocol | all |
+| [00 quant trading column overview](quant-trading/notebooks/00_quant_trading_column_overview.md) | column roadmap and setup | all |
+| [01 real market data and De-Time features](quant-trading/notebooks/01_real_market_data_and_detime_features.md) | real data download and feature factory | US, Korea, crypto |
+| [02 single-asset timing with vectorbt](quant-trading/notebooks/02_single_asset_timing_vectorbt.md) | trend pullback and residual timing | SPY / QQQ |
+| [03 Turtle Donchian trend filter](quant-trading/notebooks/03_turtle_donchian_trend_filter.md) | Turtle/Donchian trend filter | ETFs |
+| [04 pairs trading residual cycle](quant-trading/notebooks/04_pairs_trading_residual_cycle.md) | spread decomposition for pairs | US equities |
+| [05 cross-sectional factor selection](quant-trading/notebooks/05_cross_sectional_factor_selection.md) | decomposition alpha features | US stocks |
+| [06 style and sector rotation](quant-trading/notebooks/06_style_sector_asset_rotation_bt.md) | style/sector ETF rotation | ETFs |
+| [07 Korea, US, and crypto multimarket](quant-trading/notebooks/07_korea_us_crypto_multimarket.md) | multi-market cycle and regime ideas | Korea, US, crypto |
+| [08 backtesting framework adapters](quant-trading/notebooks/08_backtesting_framework_adapters.md) | framework adapters | all |
+| [09 walk-forward validation and audit](quant-trading/notebooks/09_walkforward_validation_and_audit.md) | validation and audit protocol | all |
 
 <div class="quant-notebook-grid">
-  <a href="notebooks/#column-overview">
+  <a href="notebooks/00_quant_trading_column_overview/">
     <span>00</span>
     <strong>Column Overview</strong>
     <small>Setup, reading order, and the decomposition-to-signal map.</small>
   </a>
-  <a href="notebooks/#real-data-features">
+  <a href="notebooks/01_real_market_data_and_detime_features/">
     <span>01</span>
     <strong>Real Data Features</strong>
     <small>Market downloads, audits, and De-Time feature construction.</small>
   </a>
-  <a href="notebooks/#single-asset-timing">
+  <a href="notebooks/02_single_asset_timing_vectorbt/">
     <span>02</span>
     <strong>Single Asset Timing</strong>
     <small>Trend pullbacks and residual timing with vectorbt routing.</small>
   </a>
-  <a href="notebooks/#turtle-trend-filter">
+  <a href="notebooks/03_turtle_donchian_trend_filter/">
     <span>03</span>
     <strong>Turtle Trend Filter</strong>
     <small>Donchian breakouts gated by decomposition trend context.</small>
   </a>
-  <a href="notebooks/#pairs-residual-cycle">
+  <a href="notebooks/04_pairs_trading_residual_cycle/">
     <span>04</span>
     <strong>Pairs Residual Cycle</strong>
     <small>Spread features with trend drift and residual checks.</small>
   </a>
-  <a href="notebooks/#factor-selection">
+  <a href="notebooks/05_cross_sectional_factor_selection/">
     <span>05</span>
     <strong>Factor Selection</strong>
     <small>Cross-sectional ranking from decomposition alpha features.</small>
   </a>
-  <a href="notebooks/#etf-rotation">
+  <a href="notebooks/06_style_sector_asset_rotation_bt/">
     <span>06</span>
     <strong>ETF Rotation</strong>
     <small>Style and sector target weights for portfolio research.</small>
   </a>
-  <a href="notebooks/#multi-market-regimes">
+  <a href="notebooks/07_korea_us_crypto_multimarket/">
     <span>07</span>
     <strong>Multi-Market Regimes</strong>
     <small>Korea, US, and crypto cycle and stress examples.</small>
   </a>
-  <a href="notebooks/#framework-adapters">
+  <a href="notebooks/08_backtesting_framework_adapters/">
     <span>08</span>
     <strong>Framework Adapters</strong>
     <small>Route signals into pandas and optional backtesting tools.</small>
   </a>
-  <a href="notebooks/#validation-audit">
+  <a href="notebooks/09_walkforward_validation_and_audit/">
     <span>09</span>
     <strong>Validation Audit</strong>
     <small>Walk-forward features, position shifting, and failure logs.</small>

@@ -26,14 +26,15 @@ Data policy:
 Local checks performed in this packaging environment:
 
 ```bash
-PYTHONPATH=src:examples python -m compileall -q examples/hot_trends
-python - <<'PY'
+$env:PYTHONPATH='src;examples'
+python -m compileall -q examples/hot_trends
+@'
 from pathlib import Path
 import json
 for p in Path('examples/notebooks/hot_trends').glob('*.ipynb'):
     json.loads(p.read_text())
 print('hot trend notebooks valid JSON')
-PY
+'@ | python -
 ```
 
 Network notebooks were not executed in this packaging environment because external network access was unavailable to the container.
