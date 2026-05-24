@@ -466,12 +466,190 @@ weights.tail(10)
 </div>
 </div>
 
+## Decomposition-to-rank bridge
+
+The rotation score is built from four decomposition-derived ingredients. This table shows the latest cross-section so readers can see whether the target weights come from trend strength, residual pullback, cycle tilt, or a reconstruction penalty.
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [4]</div>
+
+```python
+score_date = weights.abs().sum(axis=1).replace(0.0, np.nan).dropna().index[-1]
+trend_rank = features["trend_slope"].loc[score_date].rank(pct=True)
+pullback_rank = (-features["residual_z"].loc[score_date]).rank(pct=True)
+cycle_rank = features["season_slope"].loc[score_date].rank(pct=True)
+noise_penalty = features["reconstruction_error"].loc[score_date].rank(pct=True)
+score_parts = pd.DataFrame({
+    "trend_rank": trend_rank,
+    "residual_pullback_rank": pullback_rank,
+    "cycle_rank": cycle_rank,
+    "reconstruction_penalty": noise_penalty,
+})
+score_parts["final_score"] = score_parts["trend_rank"] + score_parts["residual_pullback_rank"] + score_parts["cycle_rank"] - 0.25 * score_parts["reconstruction_penalty"]
+score_parts["target_weight"] = weights.loc[score_date]
+score_parts.sort_values("final_score", ascending=False).style.format("{:.3f}")
+```
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<style type="text/css">
+</style>
+<table id="T_522c6">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_522c6_level0_col0" class="col_heading level0 col0" >trend_rank</th>
+      <th id="T_522c6_level0_col1" class="col_heading level0 col1" >residual_pullback_rank</th>
+      <th id="T_522c6_level0_col2" class="col_heading level0 col2" >cycle_rank</th>
+      <th id="T_522c6_level0_col3" class="col_heading level0 col3" >reconstruction_penalty</th>
+      <th id="T_522c6_level0_col4" class="col_heading level0 col4" >final_score</th>
+      <th id="T_522c6_level0_col5" class="col_heading level0 col5" >target_weight</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_522c6_level0_row0" class="row_heading level0 row0" >AAPL</th>
+      <td id="T_522c6_row0_col0" class="data row0 col0" >0.700</td>
+      <td id="T_522c6_row0_col1" class="data row0 col1" >0.800</td>
+      <td id="T_522c6_row0_col2" class="data row0 col2" >0.700</td>
+      <td id="T_522c6_row0_col3" class="data row0 col3" >0.500</td>
+      <td id="T_522c6_row0_col4" class="data row0 col4" >2.075</td>
+      <td id="T_522c6_row0_col5" class="data row0 col5" >0.311</td>
+    </tr>
+    <tr>
+      <th id="T_522c6_level0_row1" class="row_heading level0 row1" >NVDA</th>
+      <td id="T_522c6_row1_col0" class="data row1 col0" >0.800</td>
+      <td id="T_522c6_row1_col1" class="data row1 col1" >0.500</td>
+      <td id="T_522c6_row1_col2" class="data row1 col2" >0.800</td>
+      <td id="T_522c6_row1_col3" class="data row1 col3" >0.500</td>
+      <td id="T_522c6_row1_col4" class="data row1 col4" >1.975</td>
+      <td id="T_522c6_row1_col5" class="data row1 col5" >0.311</td>
+    </tr>
+    <tr>
+      <th id="T_522c6_level0_row2" class="row_heading level0 row2" >UNH</th>
+      <td id="T_522c6_row2_col0" class="data row2 col0" >0.300</td>
+      <td id="T_522c6_row2_col1" class="data row2 col1" >0.700</td>
+      <td id="T_522c6_row2_col2" class="data row2 col2" >1.000</td>
+      <td id="T_522c6_row2_col3" class="data row2 col3" >0.500</td>
+      <td id="T_522c6_row2_col4" class="data row2 col4" >1.875</td>
+      <td id="T_522c6_row2_col5" class="data row2 col5" >0.000</td>
+    </tr>
+    <tr>
+      <th id="T_522c6_level0_row3" class="row_heading level0 row3" >JPM</th>
+      <td id="T_522c6_row3_col0" class="data row3 col0" >0.600</td>
+      <td id="T_522c6_row3_col1" class="data row3 col1" >1.000</td>
+      <td id="T_522c6_row3_col2" class="data row3 col2" >0.400</td>
+      <td id="T_522c6_row3_col3" class="data row3 col3" >0.500</td>
+      <td id="T_522c6_row3_col4" class="data row3 col4" >1.875</td>
+      <td id="T_522c6_row3_col5" class="data row3 col5" >0.311</td>
+    </tr>
+    <tr>
+      <th id="T_522c6_level0_row4" class="row_heading level0 row4" >XOM</th>
+      <td id="T_522c6_row4_col0" class="data row4 col0" >1.000</td>
+      <td id="T_522c6_row4_col1" class="data row4 col1" >0.300</td>
+      <td id="T_522c6_row4_col2" class="data row4 col2" >0.600</td>
+      <td id="T_522c6_row4_col3" class="data row4 col3" >0.500</td>
+      <td id="T_522c6_row4_col4" class="data row4 col4" >1.775</td>
+      <td id="T_522c6_row4_col5" class="data row4 col5" >0.000</td>
+    </tr>
+    <tr>
+      <th id="T_522c6_level0_row5" class="row_heading level0 row5" >META</th>
+      <td id="T_522c6_row5_col0" class="data row5 col0" >0.400</td>
+      <td id="T_522c6_row5_col1" class="data row5 col1" >0.900</td>
+      <td id="T_522c6_row5_col2" class="data row5 col2" >0.300</td>
+      <td id="T_522c6_row5_col3" class="data row5 col3" >0.500</td>
+      <td id="T_522c6_row5_col4" class="data row5 col4" >1.475</td>
+      <td id="T_522c6_row5_col5" class="data row5 col5" >0.000</td>
+    </tr>
+    <tr>
+      <th id="T_522c6_level0_row6" class="row_heading level0 row6" >MSFT</th>
+      <td id="T_522c6_row6_col0" class="data row6 col0" >0.200</td>
+      <td id="T_522c6_row6_col1" class="data row6 col1" >0.600</td>
+      <td id="T_522c6_row6_col2" class="data row6 col2" >0.500</td>
+      <td id="T_522c6_row6_col3" class="data row6 col3" >0.500</td>
+      <td id="T_522c6_row6_col4" class="data row6 col4" >1.175</td>
+      <td id="T_522c6_row6_col5" class="data row6 col5" >0.000</td>
+    </tr>
+    <tr>
+      <th id="T_522c6_level0_row7" class="row_heading level0 row7" >GOOGL</th>
+      <td id="T_522c6_row7_col0" class="data row7 col0" >0.900</td>
+      <td id="T_522c6_row7_col1" class="data row7 col1" >0.400</td>
+      <td id="T_522c6_row7_col2" class="data row7 col2" >0.100</td>
+      <td id="T_522c6_row7_col3" class="data row7 col3" >1.000</td>
+      <td id="T_522c6_row7_col4" class="data row7 col4" >1.150</td>
+      <td id="T_522c6_row7_col5" class="data row7 col5" >0.000</td>
+    </tr>
+    <tr>
+      <th id="T_522c6_level0_row8" class="row_heading level0 row8" >TSLA</th>
+      <td id="T_522c6_row8_col0" class="data row8 col0" >0.100</td>
+      <td id="T_522c6_row8_col1" class="data row8 col1" >0.100</td>
+      <td id="T_522c6_row8_col2" class="data row8 col2" >0.900</td>
+      <td id="T_522c6_row8_col3" class="data row8 col3" >0.500</td>
+      <td id="T_522c6_row8_col4" class="data row8 col4" >0.975</td>
+      <td id="T_522c6_row8_col5" class="data row8 col5" >0.000</td>
+    </tr>
+    <tr>
+      <th id="T_522c6_level0_row9" class="row_heading level0 row9" >AMZN</th>
+      <td id="T_522c6_row9_col0" class="data row9 col0" >0.500</td>
+      <td id="T_522c6_row9_col1" class="data row9 col1" >0.200</td>
+      <td id="T_522c6_row9_col2" class="data row9 col2" >0.200</td>
+      <td id="T_522c6_row9_col3" class="data row9 col3" >0.500</td>
+      <td id="T_522c6_row9_col4" class="data row9 col4" >0.775</td>
+      <td id="T_522c6_row9_col5" class="data row9 col5" >0.000</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+</div>
+</div>
+
+## Visualization: score ingredients and selected asset decomposition
+
+The bar chart shows which component ranks support the latest allocation. The lower panels then inspect the highest-weight asset so the decomposition behind the allocation can be checked before interpreting the backtest.
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [5]</div>
+
+```python
+plot_parts = score_parts.sort_values("final_score").tail(10)
+stacked = plot_parts[["trend_rank", "residual_pullback_rank", "cycle_rank"]].copy()
+stacked["reconstruction_penalty"] = -0.25 * plot_parts["reconstruction_penalty"]
+selected_asset = score_parts["target_weight"].idxmax() if score_parts["target_weight"].max() > 0 else score_parts["final_score"].idxmax()
+window = prices.index[-504:]
+trend_level = np.exp(features["trend"][selected_asset]).reindex(window)
+residual_z = features["residual_z"][selected_asset].reindex(window)
+asset_weight = weights[selected_asset].reindex(window)
+
+fig, axes = plt.subplots(3, 1, figsize=(10, 8.2))
+stacked.plot(kind="barh", stacked=True, ax=axes[0], title=f"Latest score ingredients on {score_date.date()}")
+axes[0].set_xlabel("rank contribution")
+prices[selected_asset].reindex(window).plot(ax=axes[1], color="tab:blue", label=f"{selected_asset} price")
+trend_level.plot(ax=axes[1], color="tab:orange", label="walk-forward trend")
+axes[1].set_title(f"{selected_asset} price and trend behind latest allocation")
+axes[1].legend(loc="best")
+residual_z.plot(ax=axes[2], color="tab:red", label="residual z-score")
+asset_weight.plot(ax=axes[2], color="tab:green", secondary_y=True, label="target weight")
+axes[2].axhline(0.0, color="0.35", linestyle="--", linewidth=0.8)
+axes[2].set_title(f"{selected_asset} residual state and target weight")
+axes[2].set_ylabel("residual z")
+plt.tight_layout()
+plt.show()
+```
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">image/png</div>
+<img src="../../../../assets/generated/notebooks/columns/quant-trading/05_cross_sectional_factor_selection/cell-009-output-01.png" alt="Notebook output cell 9" class="notebook-output-image">
+</div>
+</div>
+
 ## Visualization: cross-sectional allocation snapshot
 
 The left axis shows the latest target weight by ticker. The right panel shows how those weights changed over roughly the last trading year. Concentration or rapid allocation churn is a warning sign because a strong equity curve can come from one mega-cap or one short regime.
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [4]</div>
+<div class="notebook-input-label">In [6]</div>
 
 ```python
 latest_weights = weights.dropna(how="all").tail(1).T.iloc[:, 0].sort_values()
@@ -486,12 +664,12 @@ plt.show()
 
 <div class="gallery-out notebook-output">
 <div class="notebook-output-label">image/png</div>
-<img src="../../../../assets/generated/notebooks/columns/quant-trading/05_cross_sectional_factor_selection/cell-007-output-01.png" alt="Notebook output cell 7" class="notebook-output-image">
+<img src="../../../../assets/generated/notebooks/columns/quant-trading/05_cross_sectional_factor_selection/cell-011-output-01.png" alt="Notebook output cell 11" class="notebook-output-image">
 </div>
 </div>
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [5]</div>
+<div class="notebook-input-label">In [7]</div>
 
 ```python
 equity_curves = pd.concat(
@@ -506,7 +684,7 @@ plt.show()
 
 <div class="gallery-out notebook-output">
 <div class="notebook-output-label">image/png</div>
-<img src="../../../../assets/generated/notebooks/columns/quant-trading/05_cross_sectional_factor_selection/cell-008-output-01.png" alt="Notebook output cell 8" class="notebook-output-image">
+<img src="../../../../assets/generated/notebooks/columns/quant-trading/05_cross_sectional_factor_selection/cell-012-output-01.png" alt="Notebook output cell 12" class="notebook-output-image">
 </div>
 </div>
 
@@ -515,7 +693,7 @@ plt.show()
 The drawdown panel compares risk across the same after-cost runs. A De-Time result that only improves return while taking much deeper drawdowns should be treated as inconclusive until the risk model is tightened.
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [6]</div>
+<div class="notebook-input-label">In [8]</div>
 
 ```python
 drawdowns = equity_curves / equity_curves.cummax() - 1.0
@@ -530,7 +708,7 @@ plt.show()
 
 <div class="gallery-out notebook-output">
 <div class="notebook-output-label">image/png</div>
-<img src="../../../../assets/generated/notebooks/columns/quant-trading/05_cross_sectional_factor_selection/cell-010-output-01.png" alt="Notebook output cell 10" class="notebook-output-image">
+<img src="../../../../assets/generated/notebooks/columns/quant-trading/05_cross_sectional_factor_selection/cell-014-output-01.png" alt="Notebook output cell 14" class="notebook-output-image">
 </div>
 </div>
 

@@ -229,12 +229,122 @@ comparison
 </div>
 </div>
 
+## Validation feature map
+
+Validation starts by naming the decomposition fields used by the strategy. If a field is unavailable, stale, or only beats the baseline before costs, the correct output is a failed-run finding rather than a polished strategy claim.
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [5]</div>
+
+```python
+pd.DataFrame([
+    {"feature": "trend_slope", "strategy_role": "long-direction gate", "validation_question": "Was it computed walk-forward before the signal date?"},
+    {"feature": "residual_z", "strategy_role": "pullback entry and exit state", "validation_question": "Does it mean-revert after costs or just follow price down?"},
+    {"feature": "feature_coverage", "strategy_role": "availability gate", "validation_question": "Are enough tickers covered to compare against equal weight?"},
+    {"feature": "turnover and costs", "strategy_role": "implementation boundary", "validation_question": "Does the component signal survive realistic fee/slippage assumptions?"},
+])
+```
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>feature</th>
+      <th>strategy_role</th>
+      <th>validation_question</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>trend_slope</td>
+      <td>long-direction gate</td>
+      <td>Was it computed walk-forward before the signal...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>residual_z</td>
+      <td>pullback entry and exit state</td>
+      <td>Does it mean-revert after costs or just follow...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>feature_coverage</td>
+      <td>availability gate</td>
+      <td>Are enough tickers covered to compare against ...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>turnover and costs</td>
+      <td>implementation boundary</td>
+      <td>Does the component signal survive realistic fe...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+## Visualization: audited signal ingredients
+
+The panel shows the same features that create the trend-pullback validation run. This is the first place to look when the strategy underperforms the baseline: the residual may not mean-revert, the trend filter may be late, or the position may churn around noisy component updates.
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [6]</div>
+
+```python
+asset = "SPY"
+window = prices.index[-504:]
+trend_level = np.exp(features["trend"][asset]).reindex(window)
+residual_z = features["residual_z"][asset].reindex(window)
+position = result.weights[asset].reindex(window)
+
+fig, axes = plt.subplots(3, 1, figsize=(10, 7), sharex=True)
+prices[asset].reindex(window).plot(ax=axes[0], color="tab:blue", label=f"{asset} price")
+trend_level.plot(ax=axes[0], color="tab:orange", label="walk-forward trend")
+axes[0].set_title("Validated price/trend input")
+axes[0].legend(loc="best")
+residual_z.plot(ax=axes[1], color="tab:red", label="residual z-score")
+for level in [-1.0, 0.25]:
+    axes[1].axhline(level, color="0.35", linestyle="--", linewidth=0.8)
+axes[1].set_title("Residual pullback bands used by the validation rule")
+axes[1].legend(loc="best")
+position.plot(ax=axes[2], color="tab:green", title="Target weight created from validated features")
+axes[2].set_ylabel("weight")
+plt.tight_layout()
+plt.show()
+```
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">image/png</div>
+<img src="../../../../assets/generated/notebooks/columns/quant-trading/09_walkforward_validation_and_audit/cell-011-output-01.png" alt="Notebook output cell 11" class="notebook-output-image">
+</div>
+</div>
+
 ## Visualization: walk-forward coverage and risk
 
 The top panel shows the share of tickers with available walk-forward trend features. The middle and lower panels show after-cost equity and drawdown. Coverage gaps or drawdown spikes are validation findings, even when the strategy line rises.
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [5]</div>
+<div class="notebook-input-label">In [7]</div>
 
 ```python
 feature_coverage = features["trend_slope"].notna().mean(axis=1)
@@ -252,12 +362,12 @@ plt.show()
 
 <div class="gallery-out notebook-output">
 <div class="notebook-output-label">image/png</div>
-<img src="../../../../assets/generated/notebooks/columns/quant-trading/09_walkforward_validation_and_audit/cell-009-output-01.png" alt="Notebook output cell 9" class="notebook-output-image">
+<img src="../../../../assets/generated/notebooks/columns/quant-trading/09_walkforward_validation_and_audit/cell-013-output-01.png" alt="Notebook output cell 13" class="notebook-output-image">
 </div>
 </div>
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [6]</div>
+<div class="notebook-input-label">In [8]</div>
 
 ```python
 coverage_pass = bool((audit["missing_ratio"] <= 0.05).all() and (audit["observations"] >= 252).all())

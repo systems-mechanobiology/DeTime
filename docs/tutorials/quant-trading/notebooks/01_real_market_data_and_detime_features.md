@@ -414,8 +414,95 @@ plt.show()
 
 The diagnostic view separates trend gap, seasonal z-score, and residual z-score so the signal ingredients are visible.
 
+## From components to strategy inputs
+
+The feature factory is useful only if the downstream rule names what it consumes. The table below is the contract used by the strategy notebooks.
+
 <div class="notebook-cell">
 <div class="notebook-input-label">In [7]</div>
+
+```python
+pd.DataFrame([
+    {"component": "trend", "feature": "trend_slope", "used_by": "trend pullback, Donchian filter, rotation", "read_as": "directional bias; positive values support long exposure"},
+    {"component": "season / cycle", "feature": "season_slope or season_z", "used_by": "rotation and research diagnostics", "read_as": "short-cycle tilt; useful for timing checks, not a standalone trade"},
+    {"component": "residual", "feature": "residual_z", "used_by": "pullback entries and pairs spread stretch", "read_as": "temporary deviation from modeled structure"},
+    {"component": "residual", "feature": "residual_abs_z", "used_by": "risk filters and regime maps", "read_as": "stress flag; high values can disable or shrink exposure"},
+    {"component": "reconstruction", "feature": "reconstruction_error", "used_by": "rotation reliability penalty", "read_as": "decomposition quality warning, not alpha by itself"},
+])
+```
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>component</th>
+      <th>feature</th>
+      <th>used_by</th>
+      <th>read_as</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>trend</td>
+      <td>trend_slope</td>
+      <td>trend pullback, Donchian filter, rotation</td>
+      <td>directional bias; positive values support long...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>season / cycle</td>
+      <td>season_slope or season_z</td>
+      <td>rotation and research diagnostics</td>
+      <td>short-cycle tilt; useful for timing checks, no...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>residual</td>
+      <td>residual_z</td>
+      <td>pullback entries and pairs spread stretch</td>
+      <td>temporary deviation from modeled structure</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>residual</td>
+      <td>residual_abs_z</td>
+      <td>risk filters and regime maps</td>
+      <td>stress flag; high values can disable or shrink...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>reconstruction</td>
+      <td>reconstruction_error</td>
+      <td>rotation reliability penalty</td>
+      <td>decomposition quality warning, not alpha by it...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [8]</div>
 
 ```python
 fig, axes = plt.subplots(3, 1, figsize=(10, 6), sharex=True)
@@ -433,7 +520,7 @@ plt.show()
 
 <div class="gallery-out notebook-output">
 <div class="notebook-output-label">image/png</div>
-<img src="../../../../assets/generated/notebooks/columns/quant-trading/01_real_market_data_and_detime_features/cell-012-output-01.png" alt="Notebook output cell 12" class="notebook-output-image">
+<img src="../../../../assets/generated/notebooks/columns/quant-trading/01_real_market_data_and_detime_features/cell-014-output-01.png" alt="Notebook output cell 14" class="notebook-output-image">
 </div>
 </div>
 
@@ -442,7 +529,7 @@ plt.show()
 This step recomputes De-Time on rolling historical windows and keeps only the last row of each window. The resulting feature rows use only data available within each rolling window.
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [8]</div>
+<div class="notebook-input-label">In [9]</div>
 
 ```python
 features = walkforward_decompose(
@@ -674,7 +761,7 @@ feature_table.tail()
 The latest feature snapshot shows how trend strength, residual state, and reconstruction error differ across assets.
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [9]</div>
+<div class="notebook-input-label">In [10]</div>
 
 ```python
 latest_feature_slice = feature_table.dropna(how="all").iloc[-1].unstack(0)
@@ -689,6 +776,6 @@ plt.show()
 
 <div class="gallery-out notebook-output">
 <div class="notebook-output-label">image/png</div>
-<img src="../../../../assets/generated/notebooks/columns/quant-trading/01_real_market_data_and_detime_features/cell-016-output-01.png" alt="Notebook output cell 16" class="notebook-output-image">
+<img src="../../../../assets/generated/notebooks/columns/quant-trading/01_real_market_data_and_detime_features/cell-018-output-01.png" alt="Notebook output cell 18" class="notebook-output-image">
 </div>
 </div>

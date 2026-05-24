@@ -261,12 +261,138 @@ regime.tail()
 </div>
 </div>
 
+## Decomposition regime map
+
+This notebook is not a trading signal by itself. It uses decomposition as a regime diagnostic: residual stress marks periods where market structure, calendar alignment, or risk exposure should be reviewed before a strategy is allowed to trade.
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [4]</div>
+
+```python
+latest_regime_date = regime.dropna(how="all").index[-1]
+regime_snapshot = pd.DataFrame({
+    "trend_slope": features["trend_slope"].loc[latest_regime_date],
+    "residual_z": features["residual_z"].loc[latest_regime_date],
+    "residual_abs_z": features["residual_abs_z"].loc[latest_regime_date],
+    "passes_stress_filter": regime.loc[latest_regime_date],
+})
+regime_snapshot.sort_values("residual_abs_z", ascending=False).style.format({"trend_slope": "{:.4f}", "residual_z": "{:.2f}", "residual_abs_z": "{:.2f}"})
+```
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<style type="text/css">
+</style>
+<table id="T_77738">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_77738_level0_col0" class="col_heading level0 col0" >trend_slope</th>
+      <th id="T_77738_level0_col1" class="col_heading level0 col1" >residual_z</th>
+      <th id="T_77738_level0_col2" class="col_heading level0 col2" >residual_abs_z</th>
+      <th id="T_77738_level0_col3" class="col_heading level0 col3" >passes_stress_filter</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_77738_level0_row0" class="row_heading level0 row0" >ETH-USD</th>
+      <td id="T_77738_row0_col0" class="data row0 col0" >-0.0018</td>
+      <td id="T_77738_row0_col1" class="data row0 col1" >0.97</td>
+      <td id="T_77738_row0_col2" class="data row0 col2" >0.97</td>
+      <td id="T_77738_row0_col3" class="data row0 col3" >True</td>
+    </tr>
+    <tr>
+      <th id="T_77738_level0_row1" class="row_heading level0 row1" >BTC-USD</th>
+      <td id="T_77738_row1_col0" class="data row1 col0" >-0.0003</td>
+      <td id="T_77738_row1_col1" class="data row1 col1" >0.77</td>
+      <td id="T_77738_row1_col2" class="data row1 col2" >0.77</td>
+      <td id="T_77738_row1_col3" class="data row1 col3" >True</td>
+    </tr>
+    <tr>
+      <th id="T_77738_level0_row2" class="row_heading level0 row2" >QQQ</th>
+      <td id="T_77738_row2_col0" class="data row2 col0" >0.0006</td>
+      <td id="T_77738_row2_col1" class="data row2 col1" >0.51</td>
+      <td id="T_77738_row2_col2" class="data row2 col2" >0.51</td>
+      <td id="T_77738_row2_col3" class="data row2 col3" >True</td>
+    </tr>
+    <tr>
+      <th id="T_77738_level0_row3" class="row_heading level0 row3" >005930.KS</th>
+      <td id="T_77738_row3_col0" class="data row3 col0" >0.0035</td>
+      <td id="T_77738_row3_col1" class="data row3 col1" >0.37</td>
+      <td id="T_77738_row3_col2" class="data row3 col2" >0.37</td>
+      <td id="T_77738_row3_col3" class="data row3 col3" >True</td>
+    </tr>
+    <tr>
+      <th id="T_77738_level0_row4" class="row_heading level0 row4" >000660.KS</th>
+      <td id="T_77738_row4_col0" class="data row4 col0" >0.0044</td>
+      <td id="T_77738_row4_col1" class="data row4 col1" >-0.31</td>
+      <td id="T_77738_row4_col2" class="data row4 col2" >0.31</td>
+      <td id="T_77738_row4_col3" class="data row4 col3" >True</td>
+    </tr>
+    <tr>
+      <th id="T_77738_level0_row5" class="row_heading level0 row5" >035420.KS</th>
+      <td id="T_77738_row5_col0" class="data row5 col0" >-0.0021</td>
+      <td id="T_77738_row5_col1" class="data row5 col1" >-0.16</td>
+      <td id="T_77738_row5_col2" class="data row5 col2" >0.16</td>
+      <td id="T_77738_row5_col3" class="data row5 col3" >True</td>
+    </tr>
+    <tr>
+      <th id="T_77738_level0_row6" class="row_heading level0 row6" >SPY</th>
+      <td id="T_77738_row6_col0" class="data row6 col0" >0.0003</td>
+      <td id="T_77738_row6_col1" class="data row6 col1" >0.00</td>
+      <td id="T_77738_row6_col2" class="data row6 col2" >0.00</td>
+      <td id="T_77738_row6_col3" class="data row6 col3" >True</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+</div>
+</div>
+
+## Visualization: residual and trend inputs behind the regime filter
+
+The residual heatmap shows the stress measure before it is converted into a pass/fail filter. The trend-sign heatmap adds context: a high residual during a falling trend is a different research problem from a high residual during a stable uptrend.
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [5]</div>
+
+```python
+recent_residual = features["residual_z"].tail(252).T.clip(-4, 4)
+recent_trend_sign = np.sign(features["trend_slope"].tail(252)).T
+fig, axes = plt.subplots(2, 1, figsize=(10, 6.4), sharex=True)
+absmax = max(float(np.nanmax(np.abs(recent_residual.to_numpy()))), 1e-9)
+im0 = axes[0].imshow(recent_residual.to_numpy(), aspect="auto", cmap="RdBu_r", vmin=-absmax, vmax=absmax)
+axes[0].set_yticks(range(len(recent_residual.index)))
+axes[0].set_yticklabels(recent_residual.index)
+axes[0].set_title("Recent residual z-score by market")
+fig.colorbar(im0, ax=axes[0], label="residual z")
+im1 = axes[1].imshow(recent_trend_sign.to_numpy(), aspect="auto", cmap="PiYG", vmin=-1, vmax=1)
+axes[1].set_yticks(range(len(recent_trend_sign.index)))
+axes[1].set_yticklabels(recent_trend_sign.index)
+axes[1].set_title("Recent trend-slope sign by market")
+tick_step = max(1, len(recent_residual.columns) // 8)
+xticks = list(range(0, len(recent_residual.columns), tick_step))
+axes[1].set_xticks(xticks)
+axes[1].set_xticklabels([str(recent_residual.columns[i].date()) if hasattr(recent_residual.columns[i], "date") else str(recent_residual.columns[i])[:10] for i in xticks], rotation=45, ha="right")
+fig.colorbar(im1, ax=axes[1], label="trend sign")
+plt.tight_layout()
+plt.show()
+```
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">image/png</div>
+<img src="../../../../assets/generated/notebooks/columns/quant-trading/07_korea_us_crypto_multimarket/cell-009-output-01.png" alt="Notebook output cell 9" class="notebook-output-image">
+</div>
+</div>
+
 ## Visualization: residual-stress regime map
 
 The heatmap shows when each asset passes or fails the residual-stress filter across markets.
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [4]</div>
+<div class="notebook-input-label">In [6]</div>
 
 ```python
 recent_regime = regime.tail(252).astype(float).T
@@ -286,12 +412,12 @@ plt.show()
 
 <div class="gallery-out notebook-output">
 <div class="notebook-output-label">image/png</div>
-<img src="../../../../assets/generated/notebooks/columns/quant-trading/07_korea_us_crypto_multimarket/cell-007-output-01.png" alt="Notebook output cell 7" class="notebook-output-image">
+<img src="../../../../assets/generated/notebooks/columns/quant-trading/07_korea_us_crypto_multimarket/cell-011-output-01.png" alt="Notebook output cell 11" class="notebook-output-image">
 </div>
 </div>
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [5]</div>
+<div class="notebook-input-label">In [7]</div>
 
 ```python
 normalized = prices / prices.iloc[0]
@@ -301,7 +427,7 @@ plt.show()
 
 <div class="gallery-out notebook-output">
 <div class="notebook-output-label">image/png</div>
-<img src="../../../../assets/generated/notebooks/columns/quant-trading/07_korea_us_crypto_multimarket/cell-008-output-01.png" alt="Notebook output cell 8" class="notebook-output-image">
+<img src="../../../../assets/generated/notebooks/columns/quant-trading/07_korea_us_crypto_multimarket/cell-012-output-01.png" alt="Notebook output cell 12" class="notebook-output-image">
 </div>
 </div>
 
@@ -310,7 +436,7 @@ plt.show()
 The correlation heatmap makes the Korea, US, and crypto alignment assumptions visible.
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [6]</div>
+<div class="notebook-input-label">In [8]</div>
 
 ```python
 correlation = prices.pct_change().replace([np.inf, -np.inf], np.nan).dropna(how="all").corr()
@@ -329,7 +455,7 @@ plt.show()
 
 <div class="gallery-out notebook-output">
 <div class="notebook-output-label">image/png</div>
-<img src="../../../../assets/generated/notebooks/columns/quant-trading/07_korea_us_crypto_multimarket/cell-010-output-01.png" alt="Notebook output cell 10" class="notebook-output-image">
+<img src="../../../../assets/generated/notebooks/columns/quant-trading/07_korea_us_crypto_multimarket/cell-014-output-01.png" alt="Notebook output cell 14" class="notebook-output-image">
 </div>
 </div>
 

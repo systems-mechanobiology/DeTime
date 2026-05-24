@@ -5,7 +5,9 @@
   <strong>Rendered notebook transcript.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/De-Time/blob/main/examples/notebooks/quant_trading/02_single_asset_timing_vectorbt.ipynb"><code>examples/notebooks/quant_trading/02_single_asset_timing_vectorbt.ipynb</code></a> and includes code cells plus captured outputs from the committed notebook.
 </div>
 
-This notebook builds a single-asset timing signal: trade long when the trend is positive and the residual is temporarily cheap. It runs through a transparent pandas backtest first and then shows how to route the same signal to vectorbt.
+This notebook builds a single-asset timing signal: trade long when the trend is positive and the residual is temporarily cheap. The decomposition is the rule input, not an after-the-fact chart: `trend_slope` gates direction and `residual_z` defines the pullback.
+
+It runs through a transparent pandas backtest first and then shows how to route the same signal to vectorbt.
 
 **Default decomposition:** `ROBUST_STL` with a 63-trading-day period, computed walk-forward where signals are backtested.
 
@@ -128,12 +130,136 @@ result.stats_frame()
 </div>
 </div>
 
+## Decomposition rule map
+
+The rule deliberately uses only two components. Cycle features are left out here so the notebook can isolate whether trend plus residual timing adds anything before extra parameters are introduced.
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [3]</div>
+
+```python
+pd.DataFrame([
+    {"component": "trend", "feature": "trend_slope > 0", "rule_role": "permission to be long", "strategy_effect": "avoid buying pullbacks inside a falling decomposed trend"},
+    {"component": "residual", "feature": "residual_z < -1.0", "rule_role": "entry trigger", "strategy_effect": "buy only when price is below the modeled trend/cycle structure"},
+    {"component": "residual", "feature": "residual_z > 0.25", "rule_role": "exit trigger", "strategy_effect": "leave after the pullback mean-reverts toward the modeled path"},
+    {"component": "season / cycle", "feature": "not used", "rule_role": "future extension", "strategy_effect": "inspect before adding a cycle-timing parameter"},
+])
+```
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>component</th>
+      <th>feature</th>
+      <th>rule_role</th>
+      <th>strategy_effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>trend</td>
+      <td>trend_slope &gt; 0</td>
+      <td>permission to be long</td>
+      <td>avoid buying pullbacks inside a falling decomp...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>residual</td>
+      <td>residual_z &lt; -1.0</td>
+      <td>entry trigger</td>
+      <td>buy only when price is below the modeled trend...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>residual</td>
+      <td>residual_z &gt; 0.25</td>
+      <td>exit trigger</td>
+      <td>leave after the pullback mean-reverts toward t...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>season / cycle</td>
+      <td>not used</td>
+      <td>future extension</td>
+      <td>inspect before adding a cycle-timing parameter</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+## Visualization: decomposition inputs behind the signal
+
+The top panel compares price with the walk-forward trend level. The middle panel shows the residual z-score bands that create entries and exits. The bottom panel shows the resulting target weight after the signal has consumed those features.
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [4]</div>
+
+```python
+asset = "SPY"
+window = prices.index[-504:]
+price_line = prices.loc[window, asset]
+trend_level = np.exp(features["trend"][asset]).reindex(window)
+residual_z = features["residual_z"][asset].reindex(window)
+position = result.weights[asset].reindex(window)
+entry_points = entries.loc[window, asset].fillna(False).astype(bool)
+exit_points = exits.loc[window, asset].fillna(False).astype(bool)
+
+fig, axes = plt.subplots(3, 1, figsize=(10, 7), sharex=True)
+price_line.plot(ax=axes[0], color="tab:blue", linewidth=1.4, label="SPY price")
+trend_level.plot(ax=axes[0], color="tab:orange", linewidth=1.2, label="walk-forward De-Time trend")
+axes[0].set_title("SPY price and walk-forward trend input")
+axes[0].set_ylabel("price")
+axes[0].legend(loc="best")
+
+residual_z.plot(ax=axes[1], color="tab:red", linewidth=1.1, label="residual z-score")
+for level, label in [(-1.0, "entry band"), (0.25, "exit band")]:
+    axes[1].axhline(level, color="0.35", linestyle="--", linewidth=0.8, label=label)
+axes[1].scatter(entry_points[entry_points].index, residual_z.loc[entry_points[entry_points].index], marker="^", color="tab:green", s=35, zorder=3, label="entry")
+axes[1].scatter(exit_points[exit_points].index, residual_z.loc[exit_points[exit_points].index], marker="v", color="tab:purple", s=35, zorder=3, label="exit")
+axes[1].set_title("Residual pullback signal")
+axes[1].set_ylabel("z-score")
+axes[1].legend(loc="best")
+
+position.plot(ax=axes[2], color="tab:green", linewidth=1.2, title="Target weight after trend and residual rules")
+axes[2].set_ylabel("weight")
+plt.tight_layout()
+plt.show()
+```
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">image/png</div>
+<img src="../../../../assets/generated/notebooks/columns/quant-trading/02_single_asset_timing_vectorbt/cell-008-output-01.png" alt="Notebook output cell 8" class="notebook-output-image">
+</div>
+</div>
+
 ## Visualization: SPY signal overlay
 
 Entries and exits are drawn on recent SPY prices to make the trend-pullback timing rule inspectable.
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [3]</div>
+<div class="notebook-input-label">In [5]</div>
 
 ```python
 asset = "SPY"
@@ -153,12 +279,12 @@ plt.show()
 
 <div class="gallery-out notebook-output">
 <div class="notebook-output-label">image/png</div>
-<img src="../../../../assets/generated/notebooks/columns/quant-trading/02_single_asset_timing_vectorbt/cell-006-output-01.png" alt="Notebook output cell 6" class="notebook-output-image">
+<img src="../../../../assets/generated/notebooks/columns/quant-trading/02_single_asset_timing_vectorbt/cell-010-output-01.png" alt="Notebook output cell 10" class="notebook-output-image">
 </div>
 </div>
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [4]</div>
+<div class="notebook-input-label">In [6]</div>
 
 ```python
 ax = result.equity.plot(figsize=(10, 4), title="Trend-pullback timing equity curve")
@@ -168,7 +294,7 @@ plt.show()
 
 <div class="gallery-out notebook-output">
 <div class="notebook-output-label">image/png</div>
-<img src="../../../../assets/generated/notebooks/columns/quant-trading/02_single_asset_timing_vectorbt/cell-007-output-01.png" alt="Notebook output cell 7" class="notebook-output-image">
+<img src="../../../../assets/generated/notebooks/columns/quant-trading/02_single_asset_timing_vectorbt/cell-011-output-01.png" alt="Notebook output cell 11" class="notebook-output-image">
 </div>
 </div>
 
@@ -177,7 +303,7 @@ plt.show()
 The equity curve is paired with underwater drawdown and turnover to reveal risk and implementation pressure.
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [5]</div>
+<div class="notebook-input-label">In [7]</div>
 
 ```python
 drawdown = result.equity / result.equity.cummax() - 1.0
@@ -192,7 +318,7 @@ plt.show()
 
 <div class="gallery-out notebook-output">
 <div class="notebook-output-label">image/png</div>
-<img src="../../../../assets/generated/notebooks/columns/quant-trading/02_single_asset_timing_vectorbt/cell-009-output-01.png" alt="Notebook output cell 9" class="notebook-output-image">
+<img src="../../../../assets/generated/notebooks/columns/quant-trading/02_single_asset_timing_vectorbt/cell-013-output-01.png" alt="Notebook output cell 13" class="notebook-output-image">
 </div>
 </div>
 
@@ -201,7 +327,7 @@ plt.show()
 Install vectorbt first if needed. The same entry/exit matrices can be passed to `Portfolio.from_signals` through the adapter.
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [6]</div>
+<div class="notebook-input-label">In [8]</div>
 
 ```python
 from examples.quant_trading.frameworks import run_vectorbt_from_signals

@@ -46,12 +46,124 @@ De-Time returns `trend`, `season`, and `residual` under a common result contract
 - `residual` controls deviation, pullback, mean reversion, and risk stress;
 - reconstruction error helps decide when the decomposition is unreliable.
 
+## Strategy use map
+
+Read each strategy notebook through this bridge: inspect the decomposition first, then inspect the rule that consumes one or more components. Sometimes the component improves a rule; sometimes it explains why a rule should be rejected or changed.
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [2]</div>
+
+```python
+pd.DataFrame([
+    {
+        "notebook": "02 trend pullback",
+        "decomposition_input": "trend_slope + residual_z",
+        "strategy_use": "trade only with a rising trend and enter when residual is temporarily cheap",
+        "failure_signal": "trend gate is late, residual stays directional, or turnover rises after costs",
+    },
+    {
+        "notebook": "03 Donchian breakout",
+        "decomposition_input": "trend_slope",
+        "strategy_use": "filter raw channel breakouts so price strength agrees with decomposed trend",
+        "failure_signal": "filter blocks too many winners or only confirms after the move is mature",
+    },
+    {
+        "notebook": "04 pairs trading",
+        "decomposition_input": "walk-forward spread residual_z and spread trend",
+        "strategy_use": "trade relative-value stretch from residual, and treat persistent spread trend as drift risk",
+        "failure_signal": "spread trend keeps moving or residual bands fire during structural divergence",
+    },
+    {
+        "notebook": "05/06 rotation",
+        "decomposition_input": "trend_slope, residual_z, season_slope, reconstruction_error",
+        "strategy_use": "rank assets by trend, pullback, cycle tilt, and decomposition reliability penalty",
+        "failure_signal": "rank comes from one mega-cap, one sector, or a noisy reconstruction penalty",
+    },
+    {
+        "notebook": "07 multi-market regime",
+        "decomposition_input": "residual_abs_z plus optional trend_slope",
+        "strategy_use": "mark stress regimes where exposure should be reduced or calendar/data assumptions reviewed",
+        "failure_signal": "crypto/equity calendar mismatch creates false residual stress",
+    },
+])
+```
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>notebook</th>
+      <th>decomposition_input</th>
+      <th>strategy_use</th>
+      <th>failure_signal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>02 trend pullback</td>
+      <td>trend_slope + residual_z</td>
+      <td>trade only with a rising trend and enter when ...</td>
+      <td>trend gate is late, residual stays directional...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>03 Donchian breakout</td>
+      <td>trend_slope</td>
+      <td>filter raw channel breakouts so price strength...</td>
+      <td>filter blocks too many winners or only confirm...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>04 pairs trading</td>
+      <td>walk-forward spread residual_z and spread trend</td>
+      <td>trade relative-value stretch from residual, an...</td>
+      <td>spread trend keeps moving or residual bands fi...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>05/06 rotation</td>
+      <td>trend_slope, residual_z, season_slope, reconst...</td>
+      <td>rank assets by trend, pullback, cycle tilt, an...</td>
+      <td>rank comes from one mega-cap, one sector, or a...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>07 multi-market regime</td>
+      <td>residual_abs_z plus optional trend_slope</td>
+      <td>mark stress regimes where exposure should be r...</td>
+      <td>crypto/equity calendar mismatch creates false ...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
 ## Default decomposition choice
 
 The Quant notebooks use `ROBUST_STL` as the default market-data decomposition. It keeps the same trend/season/residual contract as STL but is less sensitive to one-off market shocks and edge effects. Use `STL`, `SSA`, or `WAVELET` as sensitivity checks when the research question is specifically about method choice.
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [2]</div>
+<div class="notebook-input-label">In [3]</div>
 
 ```python
 pd.DataFrame([
@@ -121,7 +233,7 @@ pd.DataFrame([
 </div>
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [3]</div>
+<div class="notebook-input-label">In [4]</div>
 
 ```python
 pd.DataFrame({
@@ -206,7 +318,7 @@ pd.DataFrame({
 The bar chart makes the tutorial universe breadth visible before any strategy notebook runs.
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [4]</div>
+<div class="notebook-input-label">In [5]</div>
 
 ```python
 universe_counts = pd.Series(
@@ -222,7 +334,7 @@ plt.show()
 
 <div class="gallery-out notebook-output">
 <div class="notebook-output-label">image/png</div>
-<img src="../../../../assets/generated/notebooks/columns/quant-trading/00_quant_trading_column_overview/cell-009-output-01.png" alt="Notebook output cell 9" class="notebook-output-image">
+<img src="../../../../assets/generated/notebooks/columns/quant-trading/00_quant_trading_column_overview/cell-011-output-01.png" alt="Notebook output cell 11" class="notebook-output-image">
 </div>
 </div>
 
@@ -239,7 +351,7 @@ plt.show()
 9. Walk-forward validation and audit.
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [5]</div>
+<div class="notebook-input-label">In [6]</div>
 
 ```python
 # Optional dependency installation, run in a shell:

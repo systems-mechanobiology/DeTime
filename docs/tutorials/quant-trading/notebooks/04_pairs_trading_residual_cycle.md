@@ -5,7 +5,7 @@
   <strong>Rendered notebook transcript.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/De-Time/blob/main/examples/notebooks/quant_trading/04_pairs_trading_residual_cycle.ipynb"><code>examples/notebooks/quant_trading/04_pairs_trading_residual_cycle.ipynb</code></a> and includes code cells plus captured outputs from the committed notebook.
 </div>
 
-Pairs trading usually starts with a spread z-score. De-Time can help separate spread trend drift from residual mean reversion. A spread that trends persistently is often a broken relative-value trade, not a cheap entry.
+Pairs trading usually starts with a spread z-score. This notebook changes that rule to use a walk-forward De-Time residual z-score for the tradable stretch, while the spread trend is inspected as drift risk. A spread that trends persistently is often a broken relative-value trade, not a cheap entry.
 
 **Default decomposition:** `ROBUST_STL` with a 63-trading-day period, computed walk-forward where signals are backtested.
 
@@ -42,9 +42,23 @@ QUANT_PERIOD = 63
 
 ```python
 pair_prices = fetch_yahoo_prices(["KO", "PEP"], start="2016-01-01", cache_dir=DATA_CACHE)
-weights = pair_trading_weights(pair_prices["KO"], pair_prices["PEP"], lookback=120, entry_z=1.5, exit_z=0.25)
+spread = np.log(pair_prices["KO"]) - np.log(pair_prices["PEP"])
+spread_panel = pd.DataFrame({"KO_PEP_spread": spread.add(100.0)})
+spread_features = walkforward_decompose(
+    spread_panel,
+    method=QUANT_METHOD,
+    period=QUANT_PERIOD,
+    train_window=252,
+    step=21,
+    use_log_price=False,
+)
+spread_residual_z = spread_features["residual_z"]["KO_PEP_spread"].reindex(pair_prices.index).ffill()
+weights = pair_trading_weights(pair_prices["KO"], pair_prices["PEP"], lookback=120, entry_z=1.5, exit_z=0.25, spread_residual_z=spread_residual_z)
+classic_weights = pair_trading_weights(pair_prices["KO"], pair_prices["PEP"], lookback=120, entry_z=1.5, exit_z=0.25)
 result = backtest_weights(pair_prices, weights, fee_bps=1.0, slippage_bps=2.0)
-result.stats_frame()
+classic_result = backtest_weights(pair_prices, classic_weights, fee_bps=1.0, slippage_bps=2.0)
+pair_comparison = pd.DataFrame({"detime_residual_spread": result.stats, "classic_spread_z": classic_result.stats}).T
+pair_comparison
 ```
 
 <div class="gallery-out notebook-output">
@@ -68,57 +82,129 @@ result.stats_frame()
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>value</th>
+      <th>total_return</th>
+      <th>cagr</th>
+      <th>volatility</th>
+      <th>sharpe</th>
+      <th>max_drawdown</th>
+      <th>calmar</th>
+      <th>hit_rate</th>
+      <th>average_turnover</th>
+      <th>average_gross_exposure</th>
+      <th>fee_bps</th>
+      <th>slippage_bps</th>
+      <th>periods_per_year</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>total_return</th>
+      <th>detime_residual_spread</th>
+      <td>0.113587</td>
+      <td>0.010434</td>
+      <td>0.034873</td>
+      <td>0.315006</td>
+      <td>-0.077011</td>
+      <td>0.135484</td>
+      <td>0.114855</td>
+      <td>0.012657</td>
+      <td>0.240046</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>252.0</td>
+    </tr>
+    <tr>
+      <th>classic_spread_z</th>
       <td>0.082358</td>
-    </tr>
-    <tr>
-      <th>cagr</th>
       <td>0.007665</td>
-    </tr>
-    <tr>
-      <th>volatility</th>
       <td>0.064502</td>
-    </tr>
-    <tr>
-      <th>sharpe</th>
       <td>0.150697</td>
-    </tr>
-    <tr>
-      <th>max_drawdown</th>
       <td>-0.195764</td>
-    </tr>
-    <tr>
-      <th>calmar</th>
       <td>0.039152</td>
-    </tr>
-    <tr>
-      <th>hit_rate</th>
       <td>0.351838</td>
-    </tr>
-    <tr>
-      <th>average_turnover</th>
       <td>0.021288</td>
-    </tr>
-    <tr>
-      <th>average_gross_exposure</th>
       <td>0.707887</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>252.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+## Decomposition rule map
+
+The tradable stretch comes from the walk-forward spread residual, not from a full-sample decomposition. The trend is still plotted because persistent spread drift is a warning that the pair relationship may have changed.
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [3]</div>
+
+```python
+pd.DataFrame([
+    {"component": "spread trend", "feature": "walkforward_trend", "rule_role": "drift diagnostic", "strategy_effect": "persistent drift argues for shrinking or disabling the pair"},
+    {"component": "spread residual", "feature": "residual_z > 1.5", "rule_role": "short KO / long PEP", "strategy_effect": "trade rich KO relative to PEP after removing trend/cycle structure"},
+    {"component": "spread residual", "feature": "residual_z < -1.5", "rule_role": "long KO / short PEP", "strategy_effect": "trade cheap KO relative to PEP after removing trend/cycle structure"},
+    {"component": "spread cycle", "feature": "season", "rule_role": "diagnostic", "strategy_effect": "check whether repeated calendar/cycle effects are driving residual entries"},
+])
+```
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>component</th>
+      <th>feature</th>
+      <th>rule_role</th>
+      <th>strategy_effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>spread trend</td>
+      <td>walkforward_trend</td>
+      <td>drift diagnostic</td>
+      <td>persistent drift argues for shrinking or disab...</td>
     </tr>
     <tr>
-      <th>fee_bps</th>
-      <td>1.000000</td>
+      <th>1</th>
+      <td>spread residual</td>
+      <td>residual_z &gt; 1.5</td>
+      <td>short KO / long PEP</td>
+      <td>trade rich KO relative to PEP after removing t...</td>
     </tr>
     <tr>
-      <th>slippage_bps</th>
-      <td>2.000000</td>
+      <th>2</th>
+      <td>spread residual</td>
+      <td>residual_z &lt; -1.5</td>
+      <td>long KO / short PEP</td>
+      <td>trade cheap KO relative to PEP after removing ...</td>
     </tr>
     <tr>
-      <th>periods_per_year</th>
-      <td>252.000000</td>
+      <th>3</th>
+      <td>spread cycle</td>
+      <td>season</td>
+      <td>diagnostic</td>
+      <td>check whether repeated calendar/cycle effects ...</td>
     </tr>
   </tbody>
 </table>
@@ -128,12 +214,16 @@ result.stats_frame()
 </div>
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [3]</div>
+<div class="notebook-input-label">In [4]</div>
 
 ```python
-spread = np.log(pair_prices["KO"]) - np.log(pair_prices["PEP"])
-spread_frame = decompose_one_series(spread.add(100.0), method=QUANT_METHOD, period=QUANT_PERIOD, use_log_price=False)
-spread_frame[["transformed_price", "trend", "residual", "residual_z"]].tail()
+spread_view = pd.DataFrame({
+    "spread_plus_100": spread_panel["KO_PEP_spread"],
+    "walkforward_trend": spread_features["trend"]["KO_PEP_spread"],
+    "walkforward_season": spread_features["season"]["KO_PEP_spread"],
+    "walkforward_residual_z": spread_residual_z,
+})
+spread_view.tail()
 ```
 
 <div class="gallery-out notebook-output">
@@ -157,10 +247,10 @@ spread_frame[["transformed_price", "trend", "residual", "residual_z"]].tail()
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>transformed_price</th>
-      <th>trend</th>
-      <th>residual</th>
-      <th>residual_z</th>
+      <th>spread_plus_100</th>
+      <th>walkforward_trend</th>
+      <th>walkforward_season</th>
+      <th>walkforward_residual_z</th>
     </tr>
     <tr>
       <th>Date</th>
@@ -174,37 +264,37 @@ spread_frame[["transformed_price", "trend", "residual", "residual_z"]].tail()
     <tr>
       <th>2026-05-18</th>
       <td>99.392566</td>
-      <td>99.299185</td>
-      <td>-0.000544</td>
-      <td>0.132783</td>
+      <td>99.287975</td>
+      <td>0.071523</td>
+      <td>0.049968</td>
     </tr>
     <tr>
       <th>2026-05-19</th>
       <td>99.392644</td>
-      <td>99.299255</td>
-      <td>-0.000599</td>
-      <td>0.050232</td>
+      <td>99.287975</td>
+      <td>0.071523</td>
+      <td>0.049968</td>
     </tr>
     <tr>
       <th>2026-05-20</th>
       <td>99.395326</td>
-      <td>99.299325</td>
-      <td>0.146865</td>
-      <td>6.573691</td>
+      <td>99.287975</td>
+      <td>0.071523</td>
+      <td>0.049968</td>
     </tr>
     <tr>
       <th>2026-05-21</th>
       <td>99.393607</td>
-      <td>99.299395</td>
-      <td>0.133593</td>
-      <td>4.711388</td>
+      <td>99.287975</td>
+      <td>0.071523</td>
+      <td>0.049968</td>
     </tr>
     <tr>
       <th>2026-05-22</th>
       <td>99.391160</td>
-      <td>99.299465</td>
-      <td>0.007093</td>
-      <td>0.095920</td>
+      <td>99.287975</td>
+      <td>0.071523</td>
+      <td>0.049968</td>
     </tr>
   </tbody>
 </table>
@@ -214,16 +304,17 @@ spread_frame[["transformed_price", "trend", "residual", "residual_z"]].tail()
 </div>
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [4]</div>
+<div class="notebook-input-label">In [5]</div>
 
 ```python
-spread_frame[["transformed_price", "trend"]].plot(figsize=(10, 4), title="KO/PEP spread and De-Time trend")
+spread_view[["spread_plus_100", "walkforward_trend"]].plot(figsize=(10, 4), title="KO/PEP spread and walk-forward De-Time trend")
+plt.ylabel("spread + 100")
 plt.show()
 ```
 
 <div class="gallery-out notebook-output">
 <div class="notebook-output-label">image/png</div>
-<img src="../../../../assets/generated/notebooks/columns/quant-trading/04_pairs_trading_residual_cycle/cell-006-output-01.png" alt="Notebook output cell 6" class="notebook-output-image">
+<img src="../../../../assets/generated/notebooks/columns/quant-trading/04_pairs_trading_residual_cycle/cell-008-output-01.png" alt="Notebook output cell 8" class="notebook-output-image">
 </div>
 </div>
 
@@ -232,24 +323,26 @@ plt.show()
 Residual bands show where the pair is stretched; target weights show how the backtest responds.
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [5]</div>
+<div class="notebook-input-label">In [6]</div>
 
 ```python
-fig, axes = plt.subplots(3, 1, figsize=(10, 7), sharex=False)
-spread_frame[["transformed_price", "trend"]].plot(ax=axes[0], title="KO/PEP spread and De-Time trend")
-spread_frame["residual_z"].plot(ax=axes[1], color="tab:red", title="KO/PEP residual z-score")
+fig, axes = plt.subplots(4, 1, figsize=(10, 8.5), sharex=False)
+spread_view[["spread_plus_100", "walkforward_trend"]].plot(ax=axes[0], title="KO/PEP spread and walk-forward De-Time trend")
+spread_view["walkforward_residual_z"].plot(ax=axes[1], color="tab:red", title="Walk-forward spread residual z-score used by the rule")
 for level, style in [(1.5, "--"), (-1.5, "--"), (0.25, ":"), (-0.25, ":")]:
     axes[1].axhline(level, color="0.35", linestyle=style, linewidth=0.8)
-weights.tail(504).plot(ax=axes[2], title="KO/PEP target weights")
+weights.tail(504).plot(ax=axes[2], title="KO/PEP target weights from residual z-score")
+pd.concat({"detime_residual_spread": result.equity, "classic_spread_z": classic_result.equity}, axis=1).plot(ax=axes[3], title="Residual spread rule versus classic spread z-score")
 axes[0].set_xlabel("")
 axes[1].set_xlabel("")
 axes[2].set_ylabel("weight")
+axes[3].set_ylabel("equity")
 plt.tight_layout()
 plt.show()
 ```
 
 <div class="gallery-out notebook-output">
 <div class="notebook-output-label">image/png</div>
-<img src="../../../../assets/generated/notebooks/columns/quant-trading/04_pairs_trading_residual_cycle/cell-008-output-01.png" alt="Notebook output cell 8" class="notebook-output-image">
+<img src="../../../../assets/generated/notebooks/columns/quant-trading/04_pairs_trading_residual_cycle/cell-010-output-01.png" alt="Notebook output cell 10" class="notebook-output-image">
 </div>
 </div>

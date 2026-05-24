@@ -11,6 +11,10 @@ the trend/season/residual contract readable while reducing the edge and shock
 sensitivity that makes simple moving-average-style decomposition unsuitable for
 market prices.
 
+Each strategy notebook now shows the decomposition before the result: which
+component is plotted, which feature is consumed by the rule, and whether that
+feature improves the strategy or simply explains why the rule should be changed.
+
 <div class="pipeline-panel">
   <div class="pipeline-flow">
     <div class="pipeline-step">
@@ -72,6 +76,20 @@ into the smooth trend.
 | `season` | timing or oscillatory rhythm | compare cycle direction with entry timing |
 | `residual` | deviation from modeled structure | screen pullbacks or spread dislocations |
 | residual stress / reconstruction error | reliability warning | reduce exposure or reject a trade |
+
+## How strategies consume the decomposition
+
+The decomposition should not sit beside a strategy as decoration. Each notebook
+links the component view to the rule that consumes it.
+
+| Notebook | Component view | Strategy use |
+|---|---|---|
+| 02 single-asset timing | price versus walk-forward trend, residual z-score bands, target weight | `trend_slope` permits long exposure; `residual_z` creates pullback entries and exits |
+| 03 Donchian breakout | raw breakouts, accepted breakouts, and trend-slope gate | price creates the breakout; De-Time accepts it only when decomposed trend is positive |
+| 04 pairs trading | walk-forward spread trend, spread residual z-score, pair weights | spread residual replaces the classical spread z-score; trend drift is a pair-break warning |
+| 05/06 rotation | score ingredients and selected asset or sector decomposition | trend, residual pullback, cycle slope, and reconstruction penalty become rank contributions |
+| 07 multi-market regime | residual and trend-sign heatmaps | residual stress flags periods for exposure reduction or calendar/data review |
+| 08/09 adapters and validation | signal payload, audited components, coverage, costs, baseline | decomposition features must be timestamped before external backtest routing or result claims |
 
 ## Notebook series
 

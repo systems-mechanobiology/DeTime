@@ -24,6 +24,16 @@ unusable.
 5. Every signal is computed walk-forward before it is backtested.
 6. A strategy is rejected when it fails its baseline or data gate.
 
+## Component-to-rule checks
+
+| Component | Before using it | After using it |
+|---|---|---|
+| Trend | plot price against walk-forward trend and inspect `trend_slope` | check whether it accepts good trades earlier than a price-only baseline |
+| Cycle | inspect `season_z` or `season_slope` around entries | keep it diagnostic unless it improves a baseline out of sample |
+| Residual | plot residual bands and mark entries/exits | verify that residual deviations mean-revert after costs |
+| Residual stress | compare stress spikes with drawdowns and calendar gaps | use it to shrink exposure or reject periods, not to explain losses after the fact |
+| Reconstruction error | inspect noisy assets before ranking them | penalize unreliable decompositions instead of treating every component as alpha |
+
 ## Example: trend pullback
 
 ```python
@@ -44,15 +54,25 @@ checks, not as the headline decomposition.
 ## Example: pair spread residual
 
 ```python
+spread = np.log(prices["KO"]) - np.log(prices["PEP"])
+spread_panel = pd.DataFrame({"KO_PEP_spread": spread.add(100.0)})
+spread_features = walkforward_decompose(
+    spread_panel,
+    method="ROBUST_STL",
+    period=63,
+    use_log_price=False,
+)
+
 weights = pair_trading_weights(
     prices["KO"],
     prices["PEP"],
     lookback=120,
     entry_z=1.5,
     exit_z=0.25,
+    spread_residual_z=spread_features["residual_z"]["KO_PEP_spread"],
 )
 ```
 
-For research use, decompose the spread walk-forward and compare this residual
-version with the classical spread z-score baseline over the same dates and
-costs.
+Compare this residual version with the classical spread z-score baseline over
+the same dates and costs. A persistent spread trend is a failure warning even if
+individual residual entries look attractive.

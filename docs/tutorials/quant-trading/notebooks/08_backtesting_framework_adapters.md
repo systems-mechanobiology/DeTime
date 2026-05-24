@@ -128,12 +128,125 @@ pandas_result.stats_frame()
 </div>
 </div>
 
+## Adapter payload map
+
+Framework adapters should receive already-audited signals or weights. They should not rerun decomposition internally, because that would hide timestamp alignment and make the backtest harder to audit.
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [3]</div>
+
+```python
+pd.DataFrame([
+    {"artifact": "walk-forward features", "contains": "trend_slope and other De-Time components", "adapter_role": "research input only, audited before handoff"},
+    {"artifact": "entries / exits", "contains": "boolean signal matrices created from price plus De-Time trend filter", "adapter_role": "vectorbt/backtesting.py compatible signal payload"},
+    {"artifact": "pandas_result.weights", "contains": "shifted target exposure produced by the transparent backtester", "adapter_role": "reference output for comparing external framework behavior"},
+    {"artifact": "returns / costs / turnover", "contains": "after-cost accounting", "adapter_role": "must match or explain differences after adapter migration"},
+])
+```
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>artifact</th>
+      <th>contains</th>
+      <th>adapter_role</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>walk-forward features</td>
+      <td>trend_slope and other De-Time components</td>
+      <td>research input only, audited before handoff</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>entries / exits</td>
+      <td>boolean signal matrices created from price plu...</td>
+      <td>vectorbt/backtesting.py compatible signal payload</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>pandas_result.weights</td>
+      <td>shifted target exposure produced by the transp...</td>
+      <td>reference output for comparing external framew...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>returns / costs / turnover</td>
+      <td>after-cost accounting</td>
+      <td>must match or explain differences after adapte...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+## Visualization: signal ingredients before framework handoff
+
+Before routing the strategy to vectorbt, bt, or backtesting.py, inspect the decomposed trend filter and the target exposure created by the pandas reference path.
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [4]</div>
+
+```python
+asset = "SPY"
+window = prices.index[-504:]
+trend_level = np.exp(features["trend"][asset]).reindex(window)
+trend_slope = features["trend_slope"][asset].reindex(window)
+position = pandas_result.weights[asset].reindex(window)
+entry_points = entries.loc[window, asset].fillna(False).astype(bool)
+exit_points = exits.loc[window, asset].fillna(False).astype(bool)
+
+fig, axes = plt.subplots(3, 1, figsize=(10, 7), sharex=True)
+prices[asset].reindex(window).plot(ax=axes[0], color="tab:blue", label=f"{asset} price")
+trend_level.plot(ax=axes[0], color="tab:orange", label="walk-forward trend")
+axes[0].set_title("Price and De-Time trend before adapter handoff")
+axes[0].legend(loc="best")
+trend_slope.plot(ax=axes[1], color="tab:purple", label="trend_slope")
+axes[1].axhline(0.0, color="0.35", linestyle="--", linewidth=0.8)
+axes[1].scatter(entry_points[entry_points].index, trend_slope.loc[entry_points[entry_points].index], marker="^", color="tab:green", s=32, label="entry")
+axes[1].scatter(exit_points[exit_points].index, trend_slope.loc[exit_points[exit_points].index], marker="v", color="tab:red", s=32, label="exit")
+axes[1].set_title("Trend filter consumed by the signal")
+axes[1].legend(loc="best")
+position.plot(ax=axes[2], color="tab:green", title="Reference pandas target weight")
+axes[2].set_ylabel("weight")
+plt.tight_layout()
+plt.show()
+```
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">image/png</div>
+<img src="../../../../assets/generated/notebooks/columns/quant-trading/08_backtesting_framework_adapters/cell-008-output-01.png" alt="Notebook output cell 8" class="notebook-output-image">
+</div>
+</div>
+
 ## Visualization: pandas baseline diagnostics
 
 The pandas baseline now shows both risk and signal density before optional framework adapters are introduced.
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [3]</div>
+<div class="notebook-input-label">In [5]</div>
 
 ```python
 drawdown = pandas_result.equity / pandas_result.equity.cummax() - 1.0
@@ -149,12 +262,12 @@ plt.show()
 
 <div class="gallery-out notebook-output">
 <div class="notebook-output-label">image/png</div>
-<img src="../../../../assets/generated/notebooks/columns/quant-trading/08_backtesting_framework_adapters/cell-006-output-01.png" alt="Notebook output cell 6" class="notebook-output-image">
+<img src="../../../../assets/generated/notebooks/columns/quant-trading/08_backtesting_framework_adapters/cell-010-output-01.png" alt="Notebook output cell 10" class="notebook-output-image">
 </div>
 </div>
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [4]</div>
+<div class="notebook-input-label">In [6]</div>
 
 ```python
 from examples.quant_trading.frameworks import (
@@ -210,7 +323,7 @@ pd.DataFrame({"template": [path.as_posix() for path in template_paths]})
 </div>
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In [5]</div>
+<div class="notebook-input-label">In [7]</div>
 
 ```python
 # Optional examples after installing the relevant packages:
