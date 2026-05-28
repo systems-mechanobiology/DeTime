@@ -23,6 +23,38 @@ than as a mixed library-plus-benchmark artifact.
 The release artifacts also exclude transition-era compatibility submodules such
 as `tsdecomp.methods.*`, `tsdecomp.leaderboard`, and `tsdecomp.bench_config`.
 
+## External benchmark bridge
+
+De-Time includes a bridge command for the public Hugging Face bundle
+[`Zipeng365/TSDecompose-Benchmark`](https://huggingface.co/datasets/Zipeng365/TSDecompose-Benchmark).
+The command downloads the bundle's `code/TSDecompose` source snapshot into a
+local cache and invokes its published paper benchmark runner.
+
+Smoke run:
+
+```bash
+detime benchmark --out-dir out/tsdecompose-smoke
+```
+
+Full paper-core run:
+
+```bash
+detime benchmark --full --out-dir out/tsdecompose-paper-core
+```
+
+Python API:
+
+```python
+from detime import run_tsdecompose_benchmark
+
+result = run_tsdecompose_benchmark(smoke=True, out_dir="out/tsdecompose-smoke")
+print(result.leaderboard_path)
+```
+
+This bridge keeps the benchmark source and benchmark-derived methods outside
+the installable De-Time package while still giving readers a direct
+reproduction path for the benchmark claims.
+
 ## Release Checks
 
 <div class="compact-faq">

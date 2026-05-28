@@ -28,6 +28,8 @@ Use this file when you want the shortest path into the product.
   - packaged JSON schema lookup
 - `detime recommend`
   - method shortlisting from workflow constraints
+- `detime benchmark`
+  - bridge runner for the external TSDecompose benchmark bundle
 - `python -m detime.mcp.server`
   - minimal MCP server for tool-based access
 - `docs/token-benchmarks.md`

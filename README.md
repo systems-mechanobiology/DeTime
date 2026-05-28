@@ -153,9 +153,39 @@ The supported commands are:
 - `detime version`
 - `detime schema`
 - `detime recommend`
+- `detime benchmark`
 
 The legacy `tsdecomp` executable calls the same code path but emits a
 deprecation notice.
+
+## TSDecompose benchmark bridge
+
+The benchmark code remains in the external Hugging Face bundle
+[`Zipeng365/TSDecompose-Benchmark`](https://huggingface.co/datasets/Zipeng365/TSDecompose-Benchmark).
+De-Time provides a bridge API and CLI that downloads the bundle's
+`code/TSDecompose` source snapshot into a local cache and runs its published
+paper-core runner.
+
+Fast smoke run:
+
+```bash
+detime benchmark --out-dir out/tsdecompose-smoke
+```
+
+Full paper-core run:
+
+```bash
+detime benchmark --full --out-dir out/tsdecompose-paper-core
+```
+
+Python API:
+
+```python
+from detime import run_tsdecompose_benchmark
+
+result = run_tsdecompose_benchmark(smoke=True, out_dir="out/tsdecompose-smoke")
+print(result.leaderboard_path)
+```
 
 ## Agent-native surface
 
@@ -174,6 +204,9 @@ and examples needed for `detime` itself. Benchmark orchestration, leaderboard
 artifacts, benchmark scenario galleries, and benchmark-derived methods are
 split into the companion repository
 [`systems-mechanobiology/de-time-bench`](https://github.com/systems-mechanobiology/de-time-bench).
+The `detime benchmark` command is a bridge to the external TSDecompose
+benchmark bundle; it does not vendor benchmark-derived methods into the main
+package.
 
 Only the top-level `tsdecomp` import and CLI alias remain packaged for
 compatibility.

@@ -6,6 +6,7 @@ import numpy as np
 import pytest
 
 import detime.cli as cli
+from detime.benchmark import BenchmarkRunResult
 from detime.core import DecompResult
 
 
@@ -428,3 +429,44 @@ def test_recommend_command_outputs_json(capsys):
     captured = capsys.readouterr()
     assert '"recommendations"' in captured.out
     assert "MSSA" in captured.out
+
+
+def test_benchmark_command_outputs_json(monkeypatch, tmp_path, capsys):
+    def fake_run_tsdecompose_benchmark(**kwargs):
+        assert kwargs["smoke"] is True
+        assert kwargs["methods"] == "stl"
+        assert kwargs["out_dir"] == str(tmp_path / "bench")
+        return BenchmarkRunResult(
+            benchmark_dir=tmp_path / "source",
+            output_dir=tmp_path / "bench",
+            command=("python", "runner.py", "--smoke"),
+            returncode=0,
+            stdout="ok\n",
+            stderr="",
+            leaderboard_path=tmp_path / "bench" / "leaderboard.csv",
+            summary_dir=tmp_path / "bench" / "summary",
+        )
+
+    monkeypatch.setattr(cli, "run_tsdecompose_benchmark", fake_run_tsdecompose_benchmark)
+
+    import sys
+
+    old_argv = sys.argv
+    sys.argv = [
+        "detime",
+        "benchmark",
+        "--methods",
+        "stl",
+        "--out-dir",
+        str(tmp_path / "bench"),
+        "--format",
+        "json",
+    ]
+    try:
+        cli.main()
+    finally:
+        sys.argv = old_argv
+
+    captured = capsys.readouterr()
+    assert '"returncode": 0' in captured.out
+    assert "leaderboard.csv" in captured.out

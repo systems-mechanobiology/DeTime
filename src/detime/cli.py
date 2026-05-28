@@ -369,6 +369,44 @@ def cmd_recommend(args):
         print(f"   reasons: {reason_codes}")
 
 
+def run_tsdecompose_benchmark(*args, **kwargs):
+    from .benchmark import run_tsdecompose_benchmark as _run_tsdecompose_benchmark
+
+    return _run_tsdecompose_benchmark(*args, **kwargs)
+
+
+def cmd_benchmark(args):
+    result = run_tsdecompose_benchmark(
+        benchmark_dir=args.benchmark_dir,
+        cache_dir=args.cache_dir,
+        dataset=args.dataset,
+        revision=args.revision,
+        force_download=args.force_download,
+        smoke=not args.full,
+        methods=args.methods,
+        seeds=args.seeds,
+        n_samples=args.n_samples,
+        length=args.length,
+        dt=args.dt,
+        out_dir=args.out_dir,
+        plots=args.plots,
+        no_aggregate=args.no_aggregate,
+        timeout=args.timeout,
+    )
+    if args.format == "json":
+        print(_json_dump(result.as_dict()))
+        return
+
+    if result.stdout:
+        print(result.stdout, end="" if result.stdout.endswith("\n") else "\n")
+    if result.stderr:
+        print(result.stderr, end="" if result.stderr.endswith("\n") else "\n", file=sys.stderr)
+    print(f"Benchmark output: {result.output_dir}")
+    print(f"Raw leaderboard: {result.leaderboard_path}")
+    if not args.no_aggregate:
+        print(f"Summaries: {result.summary_dir}")
+
+
 def _add_series_column_args(parser: argparse.ArgumentParser) -> None:
     group = parser.add_mutually_exclusive_group()
     group.add_argument("--col", help="Single column name if CSV has multiple columns")
@@ -522,6 +560,61 @@ def main():
     p_recommend.add_argument("--top-k", type=int, default=5, help="Maximum number of suggestions to print")
     p_recommend.add_argument("--format", choices=("json", "text"), default="json")
     p_recommend.set_defaults(func=cmd_recommend)
+
+    p_benchmark = subparsers.add_parser(
+        "benchmark",
+        help="Run the external TSDecompose paper benchmark bundle",
+    )
+    p_benchmark.add_argument(
+        "--benchmark-dir",
+        help="Existing local code/TSDecompose benchmark directory. If omitted, De-Time downloads the HF source snapshot.",
+    )
+    p_benchmark.add_argument(
+        "--cache-dir",
+        help="Cache directory for downloaded benchmark source snapshots.",
+    )
+    p_benchmark.add_argument(
+        "--dataset",
+        default="Zipeng365/TSDecompose-Benchmark",
+        help="Hugging Face dataset repo containing the benchmark source bundle.",
+    )
+    p_benchmark.add_argument("--revision", default="main", help="Dataset revision to download.")
+    p_benchmark.add_argument(
+        "--force-download",
+        action="store_true",
+        help="Refresh the cached benchmark source files before running.",
+    )
+    p_benchmark.add_argument(
+        "--full",
+        action="store_true",
+        help="Run the full paper-core benchmark. The default is the benchmark bundle's smoke run.",
+    )
+    p_benchmark.add_argument(
+        "--methods",
+        help="Comma-separated method list or benchmark preset understood by the external runner.",
+    )
+    p_benchmark.add_argument("--seeds", default="0", help="Seed list, for example 0, 0,1,2, or 0:5.")
+    p_benchmark.add_argument(
+        "--n-samples",
+        type=int,
+        help="Generated draws per scenario. Defaults to 1 for smoke and 50 for full.",
+    )
+    p_benchmark.add_argument("--length", type=int, default=512, help="Synthetic series length.")
+    p_benchmark.add_argument("--dt", type=float, default=1.0, help="Synthetic sampling interval.")
+    p_benchmark.add_argument("--out-dir", help="Output directory for benchmark artifacts.")
+    p_benchmark.add_argument("--plots", action="store_true", help="Ask the external runner to write plots.")
+    p_benchmark.add_argument(
+        "--no-aggregate",
+        action="store_true",
+        help="Skip summary aggregation in the external runner.",
+    )
+    p_benchmark.add_argument(
+        "--timeout",
+        type=float,
+        help="Optional subprocess timeout in seconds.",
+    )
+    p_benchmark.add_argument("--format", choices=("text", "json"), default="text")
+    p_benchmark.set_defaults(func=cmd_benchmark)
 
     args = parser.parse_args()
     args.func(args)

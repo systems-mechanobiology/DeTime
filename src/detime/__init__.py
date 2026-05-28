@@ -2,6 +2,7 @@
 
 from ._native import native_capabilities, native_extension_available
 from ._metadata import installed_version
+from .benchmark import run_tsdecompose_benchmark
 from .core import DecompositionConfig, DecompResult
 from .registry import MethodRegistry, decompose
 
@@ -18,4 +19,5 @@ __all__ = [
     "decompose",
     "native_capabilities",
     "native_extension_available",
+    "run_tsdecompose_benchmark",
 ]
