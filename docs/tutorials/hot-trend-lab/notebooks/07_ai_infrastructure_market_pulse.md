@@ -2,8 +2,10 @@
 # AI Infrastructure Market Pulse
 
 <div class="gallery-note notebook-transcript-note">
-  <strong>Rendered notebook transcript.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/De-Time/blob/main/examples/notebooks/hot_trends/07_ai_infrastructure_market_pulse.ipynb"><code>examples/notebooks/hot_trends/07_ai_infrastructure_market_pulse.ipynb</code></a> and includes code cells plus captured outputs from the committed notebook.
+  <strong>Executed tutorial notebook.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/De-Time/blob/main/examples/notebooks/hot_trends/07_ai_infrastructure_market_pulse.ipynb"><code>examples/notebooks/hot_trends/07_ai_infrastructure_market_pulse.ipynb</code></a> and includes markdown cells, code cells, stdout, tables, and captured figures from the committed notebook.
 </div>
+
+## Executed Notebook
 
 This notebook asks how a defined AI-infrastructure market-price basket moved over the selected window. The basket is a public price proxy for attention around compute, cloud, chips, platforms, and adjacent high-interest names.
 

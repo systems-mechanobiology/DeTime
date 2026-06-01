@@ -1,14 +1,18 @@
-# Decomposition-First Quant Trading with De-Time
+# Decomposition-First Quant Trading Tutorials with De-Time
 
-This tutorial column rebuilds the quant-trading examples around one thesis:
+This tutorial sequence rebuilds the quant-trading examples around one thesis:
 classic technical strategies are rough, implicit estimates of trend, cycle,
 residual deviation, and market participation. De-Time makes those structures
 explicit before the strategy layer.
 
-The revised column uses a six-part path rather than a loose collection of
+The revised tutorial uses a six-part path rather than a loose collection of
 indicator notebooks.
 
-| Column | Status | Topic | Main De-Time role |
+[Open the executed tutorial notebook index](quant-trading/notebooks/index.md)
+to jump directly between Tutorial 00-06, the strategy lab notebooks, and the
+strategy expansion notebooks.
+
+| Tutorial | Status | Topic | Main De-Time role |
 |---|---|---|---|
 | 00 | implemented | roadmap | strategy design map |
 | 01 | implemented | market data and feature factory | price + volume decomposition |
@@ -20,7 +24,7 @@ indicator notebooks.
 
 ## Strategy-lab correction: two concrete trading systems
 
-The clearest entry point is now the strategy lab, not the broad six-column map.
+The clearest entry point is now the strategy lab, not the broad six-tutorial map.
 It implements two complete strategy families:
 
 1. **Trend following**: `trend_slope` and `trend_strength` create the trading signal; `cycle_position`, `residual_abs_z`, and volume decomposition control entry timing and overextension.
@@ -55,7 +59,7 @@ and the companion pages in the same notebook directory.
 
 | Notebook | What it teaches |
 |---|---|
-| `00_decomposition_first_quant_trading_roadmap.ipynb` | Why the column is organized around decomposition rather than isolated indicators. |
+| `00_decomposition_first_quant_trading_roadmap.ipynb` | Why the tutorial is organized around decomposition rather than isolated indicators. |
 | `01_market_data_and_decomposition_feature_factory.ipynb` | OHLCV audit, period estimation, and walk-forward price/volume feature construction. |
 | `02_decomposition_aware_moving_average_macd.ipynb` | Classical buy-and-hold, dual MA, MACD, multi-MA and momentum compared with De-Time rewrites. |
 | `03_residual_mean_reversion_rsi_bollinger.ipynb` | Price z-score, RSI, Bollinger and APO baselines rewritten as residual mean-reversion with cycle timing. |
@@ -119,17 +123,17 @@ The smoke tests run on CPU and write hardware/audit outputs under
 `examples/quant_trading/reports/`.
 
 
-## Latest implemented columns
+## Latest Implemented Tutorials
 
-Columns 03-04 cover single-asset reversion and breakout strategies:
+Tutorials 03-04 cover single-asset reversion and breakout strategies:
 
-- Column 03 keeps familiar entry points, including RSI, Bollinger Bands, APO and price z-score, but changes the traded object from raw price deviation to residual deviation after trend/cycle removal.
-- Column 04 keeps the Donchian/Turtle breakout scaffold but adds trend, cycle, residual-overextension and volume-participation gates.
+- Tutorial 03 keeps familiar entry points, including RSI, Bollinger Bands, APO and price z-score, but changes the traded object from raw price deviation to residual deviation after trend/cycle removal.
+- Tutorial 04 keeps the Donchian/Turtle breakout scaffold but adds trend, cycle, residual-overextension and volume-participation gates.
 
-Columns 05-06 complete the current tutorial arc:
+Tutorials 05-06 complete the current arc:
 
-- Column 05 rewrites pairs trading by decomposing the rolling hedge spread and trading residual deviation only when spread trend drift is controlled.
-- Column 06 turns decomposition outputs into a cross-sectional factor score for top-N, long-short and volatility-targeted rotation portfolios.
+- Tutorial 05 rewrites pairs trading by decomposing the rolling hedge spread and trading residual deviation only when spread trend drift is controlled.
+- Tutorial 06 turns decomposition outputs into a cross-sectional factor score for top-N, long-short and volatility-targeted rotation portfolios.
 
 Run the latest batch on bundled real FX samples:
 
@@ -137,7 +141,7 @@ Run the latest batch on bundled real FX samples:
 make quant-columns-05-06
 ```
 
-Run all implemented columns:
+Run all implemented tutorials:
 
 ```bash
 make quant-columns-01-06

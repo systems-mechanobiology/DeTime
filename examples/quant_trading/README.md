@@ -1,6 +1,6 @@
 # De-Time Quant Trading Column
 
-This directory contains the decomposition-first quant trading tutorial code. The previous indicator-first column has been replaced by a smaller, clearer six-part curriculum. Columns 01-06 are implemented.
+This directory contains the decomposition-first quant trading tutorial code. The previous indicator-first sequence has been replaced by a smaller, clearer six-part curriculum. Tutorials 01-06 are implemented.
 
 ## Implemented now
 
@@ -55,7 +55,7 @@ Run all implemented columns:
 make quant-columns-01-06
 ```
 
-Columns 01-04 smoke tests use the bundled historical GOOG OHLCV sample. Columns 05-06 smoke tests use bundled historical FX samples. They do not generate artificial prices.
+Tutorials 01-04 smoke tests use the bundled historical GOOG OHLCV sample. Tutorials 05-06 smoke tests use bundled historical FX samples. They do not generate artificial prices.
 
 ## Live data usage
 

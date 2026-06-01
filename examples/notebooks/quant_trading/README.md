@@ -4,7 +4,7 @@ Active tutorial sequence:
 
 | Notebook | Status | Role |
 |---|---|---|
-| `00_decomposition_first_quant_trading_roadmap.ipynb` | implemented | Reading order and six-column roadmap. |
+| `00_decomposition_first_quant_trading_roadmap.ipynb` | implemented | Reading order and six-tutorial roadmap. |
 | `01_market_data_and_decomposition_feature_factory.ipynb` | implemented | OHLCV data audit, period estimate, walk-forward price/volume decomposition. |
 | `02_decomposition_aware_moving_average_macd.ipynb` | implemented | Classical MA/MACD baselines and De-Time trend/cycle/residual/volume rewrites. |
 | `03_residual_mean_reversion_rsi_bollinger.ipynb` | implemented | Price z-score, RSI, Bollinger and APO baselines rewritten as residual mean-reversion with cycle timing and volume filters. |

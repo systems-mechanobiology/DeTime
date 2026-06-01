@@ -27,10 +27,10 @@ nav:
       - Univariate Tutorial: tutorials/univariate.md
       - Multivariate Tutorial: tutorials/multivariate.md
       - CLI Guide: tutorials/cli-and-profiling.md
-      - Quant Trading Column:
+      - Quant Trading Tutorial:
           - Overview: tutorials/quant-trading.md
-          - Rendered Notebooks: tutorials/quant-trading/notebooks/index.md
-          - 00 Roadmap: tutorials/quant-trading/notebooks/00_decomposition_first_quant_trading_roadmap.md
+          - Tutorial Notebooks: tutorials/quant-trading/notebooks/index.md
+          - Tutorial 00 Roadmap: tutorials/quant-trading/notebooks/00_decomposition_first_quant_trading_roadmap.md
           - Strategy Lab:
               - Two Strategy Families: tutorials/quant-trading/two-strategy-families.md
               - 01 Trend-Following Lab: tutorials/quant-trading/notebooks/01_detime_trend_following_strategy_lab.md
@@ -39,7 +39,7 @@ nav:
               - Method-Specific Strategy Expansion: tutorials/quant-trading/method-specific-strategy-expansion.md
               - 03 Method-Specific Variants: tutorials/quant-trading/notebooks/03_detime_method_specific_strategy_variants.md
               - 04 Component Pair Trading: tutorials/quant-trading/notebooks/04_detime_component_pair_trading_cointegration.md
-          - Column Foundations:
+          - Tutorial Sequence:
               - 01 Real Market Data and Feature Factory: tutorials/quant-trading/notebooks/01_market_data_and_decomposition_feature_factory.md
               - 02 Decomposition-aware MA and MACD: tutorials/quant-trading/notebooks/02_decomposition_aware_moving_average_macd.md
               - 03 Residual Mean Reversion: tutorials/quant-trading/notebooks/03_residual_mean_reversion_rsi_bollinger.md

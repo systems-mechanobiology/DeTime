@@ -84,24 +84,24 @@ REQUIRED_PATTERNS: dict[str, list[str]] = {
         "hot-trend-lab/notebooks/01_arxiv_category_pulse.md",
     ],
     "docs/tutorials/quant-trading/notebooks/01_market_data_and_decomposition_feature_factory.md": [
-        "Rendered notebook transcript",
+        "Executed tutorial notebook",
         "notebook-cell",
         "notebook-output",
         "```python",
     ],
     "docs/tutorials/quant-trading/notebooks/index.md": [
-        "Quant Trading Notebook Outputs",
+        "Quant Trading Tutorial Notebooks",
         "code cells, stdout, tables",
         "01_market_data_and_decomposition_feature_factory.md",
     ],
     "docs/tutorials/hot-trend-lab/notebooks/03_huggingface_open_model_pulse.md": [
-        "Rendered notebook transcript",
+        "Executed tutorial notebook",
         "notebook-cell",
         "notebook-output",
         "```python",
     ],
     "docs/tutorials/hot-trend-lab/notebooks/index.md": [
-        "Hot Trend Lab Notebook Outputs",
+        "Hot Trend Lab Notebooks",
         "code cells, stdout, tables",
         "01_arxiv_category_pulse.md",
     ],

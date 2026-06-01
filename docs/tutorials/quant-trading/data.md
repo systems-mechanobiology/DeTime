@@ -1,6 +1,6 @@
-# Column 01: Real Data and De-Time Feature Factory
+# Tutorial 01: Real Data and De-Time Feature Factory
 
-Column 01 builds the reusable data and feature layer for the series.
+Tutorial 01 builds the reusable data and feature layer for the series.
 
 ## Live data path
 

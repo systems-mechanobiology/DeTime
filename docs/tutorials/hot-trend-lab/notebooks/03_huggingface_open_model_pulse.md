@@ -2,8 +2,10 @@
 # Hugging Face Open-Model Pulse
 
 <div class="gallery-note notebook-transcript-note">
-  <strong>Rendered notebook transcript.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/De-Time/blob/main/examples/notebooks/hot_trends/03_huggingface_open_model_pulse.ipynb"><code>examples/notebooks/hot_trends/03_huggingface_open_model_pulse.ipynb</code></a> and includes code cells plus captured outputs from the committed notebook.
+  <strong>Executed tutorial notebook.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/De-Time/blob/main/examples/notebooks/hot_trends/03_huggingface_open_model_pulse.ipynb"><code>examples/notebooks/hot_trends/03_huggingface_open_model_pulse.ipynb</code></a> and includes markdown cells, code cells, stdout, tables, and captured figures from the committed notebook.
 </div>
+
+## Executed Notebook
 
 This notebook asks what a dated Hugging Face public snapshot can and cannot say about open-model attention. A single snapshot supports a current adoption-proxy table; repeated snapshots are required before discussing momentum, acceleration, or retention.
 

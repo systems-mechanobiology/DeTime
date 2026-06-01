@@ -1,12 +1,12 @@
-# Quant Trading Column Integration
+# Quant Trading Tutorial Integration
 
-This integration replaces the quant trading tutorial column with the
+This integration replaces the quant trading tutorial sequence with the
 decomposition-first 00-06 sequence, the two-family strategy lab, and the
 method-specific strategy expansion.
 
 Changed existing files:
 
-- `mkdocs.yml`: points the Quant Trading Column navigation to the active 00-06 sequence plus strategy-lab and strategy-expansion pages.
+- `mkdocs.yml`: points the Quant Trading Tutorial navigation to the active 00-06 sequence plus strategy-lab and strategy-expansion pages.
 - `docs/tutorials/quant-trading.md`: describes the revised decomposition-first path and rendered notebook pages.
 - `scripts/check_doc_consistency.py`: checks the active rendered notebook paths.
 - `tests/docs/test_generated_method_docs.py`: validates rendered notebook outputs and generated image assets.
@@ -16,7 +16,7 @@ Added or refreshed directories:
 - `examples/quant_trading/`: reusable data, feature, strategy, validation, and runner code.
 - `examples/notebooks/quant_trading/`: executed tutorial notebooks with committed outputs.
 - `docs/tutorials/quant-trading/`: tutorial pages and rendered notebook transcripts.
-- `docs/assets/generated/notebooks/columns/quant-trading/`: generated notebook PNG outputs.
+- `docs/assets/generated/notebooks/tutorials/quant-trading/`: generated notebook PNG outputs.
 
 Market data sources:
 

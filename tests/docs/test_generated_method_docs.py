@@ -61,16 +61,17 @@ def test_column_notebooks_are_rendered_with_inline_outputs() -> None:
         code_cells = [cell for cell in notebook["cells"] if cell["cell_type"] == "code"]
 
         assert any(cell.get("outputs") for cell in code_cells)
-        assert "Rendered notebook transcript" in page
+        assert "Executed tutorial notebook" in page
         assert "notebook-cell" in page
         assert "notebook-output" in page
         assert "image/png" in page
-        assert '<img src="../../../../assets/generated/notebooks/columns/' in page
+        assert '<img src="../../../../assets/generated/notebooks/' in page
         assert "```python" in page
 
     asset_root = ROOT / "docs" / "assets" / "generated" / "notebooks" / "columns"
+    tutorial_asset_root = ROOT / "docs" / "assets" / "generated" / "notebooks" / "tutorials"
     assert asset_root.is_dir()
-    assert len(list((asset_root / "quant-trading").glob("**/*.png"))) >= 20
+    assert len(list((tutorial_asset_root / "quant-trading").glob("**/*.png"))) >= 20
     assert len(list((asset_root / "hot-trend-lab").glob("**/*.png"))) >= 18
 
 

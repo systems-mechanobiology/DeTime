@@ -2,8 +2,10 @@
 # arXiv Agent and Coding-Agent Research Pulse
 
 <div class="gallery-note notebook-transcript-note">
-  <strong>Rendered notebook transcript.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/De-Time/blob/main/examples/notebooks/hot_trends/02_arxiv_agent_research_pulse.ipynb"><code>examples/notebooks/hot_trends/02_arxiv_agent_research_pulse.ipynb</code></a> and includes code cells plus captured outputs from the committed notebook.
+  <strong>Executed tutorial notebook.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/De-Time/blob/main/examples/notebooks/hot_trends/02_arxiv_agent_research_pulse.ipynb"><code>examples/notebooks/hot_trends/02_arxiv_agent_research_pulse.ipynb</code></a> and includes markdown cells, code cells, stdout, tables, and captured figures from the committed notebook.
 </div>
+
+## Executed Notebook
 
 This notebook tracks query-based research topics on arXiv. It is designed for fast-moving themes where category alone is too broad.
 

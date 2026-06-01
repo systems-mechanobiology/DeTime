@@ -2,8 +2,10 @@
 # GitHub AI-Agent Star Velocity
 
 <div class="gallery-note notebook-transcript-note">
-  <strong>Rendered notebook transcript.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/De-Time/blob/main/examples/notebooks/hot_trends/04_github_ai_agent_star_velocity.ipynb"><code>examples/notebooks/hot_trends/04_github_ai_agent_star_velocity.ipynb</code></a> and includes code cells plus captured outputs from the committed notebook.
+  <strong>Executed tutorial notebook.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/De-Time/blob/main/examples/notebooks/hot_trends/04_github_ai_agent_star_velocity.ipynb"><code>examples/notebooks/hot_trends/04_github_ai_agent_star_velocity.ipynb</code></a> and includes markdown cells, code cells, stdout, tables, and captured figures from the committed notebook.
 </div>
+
+## Executed Notebook
 
 This notebook asks how much developer attention is visible in a sampled set of GitHub stargazer timestamps. Star velocity is useful for launch and attention analysis, but it is sensitive to repository choice, token limits, pagination depth, bots, and the covered window.
 

@@ -2,8 +2,10 @@
 # arXiv Category Pulse
 
 <div class="gallery-note notebook-transcript-note">
-  <strong>Rendered notebook transcript.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/De-Time/blob/main/examples/notebooks/hot_trends/01_arxiv_category_pulse.ipynb"><code>examples/notebooks/hot_trends/01_arxiv_category_pulse.ipynb</code></a> and includes code cells plus captured outputs from the committed notebook.
+  <strong>Executed tutorial notebook.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/De-Time/blob/main/examples/notebooks/hot_trends/01_arxiv_category_pulse.ipynb"><code>examples/notebooks/hot_trends/01_arxiv_category_pulse.ipynb</code></a> and includes markdown cells, code cells, stdout, tables, and captured figures from the committed notebook.
 </div>
+
+## Executed Notebook
 
 This notebook counts real arXiv submissions by category and decomposes the resulting monthly count series.
 

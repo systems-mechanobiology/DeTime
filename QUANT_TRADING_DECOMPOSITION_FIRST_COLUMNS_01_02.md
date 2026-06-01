@@ -1,7 +1,7 @@
-# Quant Trading Decomposition-First Rewrite
+# Quant Trading Decomposition-First Tutorial Rewrite
 
 This pass extends the earlier columns 01-02 rewrite into the current
-decomposition-first quant trading column.
+decomposition-first quant trading tutorial sequence.
 
 Implemented notebooks:
 

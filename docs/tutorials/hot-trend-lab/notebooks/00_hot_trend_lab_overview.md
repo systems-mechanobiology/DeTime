@@ -2,8 +2,10 @@
 # Hot Trend Lab Overview
 
 <div class="gallery-note notebook-transcript-note">
-  <strong>Rendered notebook transcript.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/De-Time/blob/main/examples/notebooks/hot_trends/00_hot_trend_lab_overview.ipynb"><code>examples/notebooks/hot_trends/00_hot_trend_lab_overview.ipynb</code></a> and includes code cells plus captured outputs from the committed notebook.
+  <strong>Executed tutorial notebook.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/De-Time/blob/main/examples/notebooks/hot_trends/00_hot_trend_lab_overview.ipynb"><code>examples/notebooks/hot_trends/00_hot_trend_lab_overview.ipynb</code></a> and includes markdown cells, code cells, stdout, tables, and captured figures from the committed notebook.
 </div>
+
+## Executed Notebook
 
 This notebook is the executable entry point for the Hot Trend Lab column. It reviews the source registry, the De-Time component contract, and the publication scoring logic.
 

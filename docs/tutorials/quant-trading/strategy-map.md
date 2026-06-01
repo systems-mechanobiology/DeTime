@@ -1,19 +1,19 @@
 # Strategy Map: From Classic Indicators to Decomposition-Aware Signals
 
-The revised column does not only improve Bollinger bands. It rewrites several
+The revised tutorial does not only improve Bollinger bands. It rewrites several
 classic strategy families by asking what each indicator was trying to estimate.
 
 | Strategy family | Classical version | De-Time rewrite | Status |
 |---|---|---|---|
-| Feature layer | raw close and raw volume | walk-forward price + volume decomposition | implemented in Column 01 |
-| Dual moving average | fast SMA > slow SMA on price | fast/slow average on extracted trend, gated by residual and volume | implemented in Column 02 |
-| MACD | fast EMA - slow EMA on price | MACD on extracted trend, gated by cycle, residual and volume | implemented in Column 02 |
-| Multi-MA alignment | several raw moving averages aligned | trend state + residual stress + participation filter | implemented in Column 02 |
-| Trend pullback | buy dip in an uptrend | trend intact + residual cheap + volume confirmation | implemented in Column 02 |
-| RSI / Bollinger / price z-score | overbought/oversold on raw price | residual z-score, residual RSI and residual bands with cycle timing | implemented in Column 03 |
-| Turtle / Donchian | breakout above prior high | breakout + trend + cycle + residual-overextension + volume confirmation | implemented in Column 04 |
-| Pairs trading | spread z-score | decompose spread; trade residual only when spread trend is stable and pair volume/news state is acceptable | implemented Column 05 |
-| Rotation | momentum rank | cross-sectional trend/cycle/residual/volume score with volatility targeting | implemented Column 06 |
+| Feature layer | raw close and raw volume | walk-forward price + volume decomposition | implemented in Tutorial 01 |
+| Dual moving average | fast SMA > slow SMA on price | fast/slow average on extracted trend, gated by residual and volume | implemented in Tutorial 02 |
+| MACD | fast EMA - slow EMA on price | MACD on extracted trend, gated by cycle, residual and volume | implemented in Tutorial 02 |
+| Multi-MA alignment | several raw moving averages aligned | trend state + residual stress + participation filter | implemented in Tutorial 02 |
+| Trend pullback | buy dip in an uptrend | trend intact + residual cheap + volume confirmation | implemented in Tutorial 02 |
+| RSI / Bollinger / price z-score | overbought/oversold on raw price | residual z-score, residual RSI and residual bands with cycle timing | implemented in Tutorial 03 |
+| Turtle / Donchian | breakout above prior high | breakout + trend + cycle + residual-overextension + volume confirmation | implemented in Tutorial 04 |
+| Pairs trading | spread z-score | decompose spread; trade residual only when spread trend is stable and pair volume/news state is acceptable | implemented in Tutorial 05 |
+| Rotation | momentum rank | cross-sectional trend/cycle/residual/volume score with volatility targeting | implemented in Tutorial 06 |
 
 ## Implemented examples
 
