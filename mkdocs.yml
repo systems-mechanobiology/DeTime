@@ -46,6 +46,8 @@ nav:
               - 04 Donchian Breakout: tutorials/quant-trading/notebooks/04_turtle_donchian_breakout_volume_confirmation.md
               - 05 Pair-Spread Stat-Arb: tutorials/quant-trading/notebooks/05_pairs_spread_decomposition_stat_arb.md
               - 06 Cross-Sectional Rotation: tutorials/quant-trading/notebooks/06_cross_sectional_rotation_portfolio.md
+          - Native SSA Replay:
+              - 07 Native SSA High-Return / Low-Drawdown: tutorials/quant-trading/notebooks/07_native_ssa_high_return_low_drawdown_tutorial.md
           - Real Data and Universes: tutorials/quant-trading/data.md
           - Strategy Map: tutorials/quant-trading/strategy-map.md
           - Backtesting Frameworks: tutorials/quant-trading/backtesting-frameworks.md

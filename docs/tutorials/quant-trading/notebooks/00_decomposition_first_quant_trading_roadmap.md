@@ -20,6 +20,7 @@
 | Tutorial Sequence | [04 Donchian Breakout](04_turtle_donchian_breakout_volume_confirmation.md) |
 | Tutorial Sequence | [05 Pair-Spread Stat-Arb](05_pairs_spread_decomposition_stat_arb.md) |
 | Tutorial Sequence | [06 Cross-Sectional Rotation](06_cross_sectional_rotation_portfolio.md) |
+| Native SSA Replay | [07 Native SSA High-Return / Low-Drawdown](07_native_ssa_high_return_low_drawdown_tutorial.md) |
 
 ## Executed Notebook
 
@@ -33,12 +34,14 @@ Implemented in this update:
 4. Turtle/Donchian breakout with trend, cycle, residual and volume gates.
 5. Pair spread decomposition and stat-arb.
 6. Cross-sectional rotation and portfolio construction.
+7. Native SSA high-return / low-drawdown strategy replay for selected FX and crypto examples.
 
 Additional strategy labs:
 
 - two concrete strategy families: trend following and oscillation / residual reversion;
 - method-specific strategy variants across STL, SSA and STD;
-- component-level pair trading with decomposition and cointegration diagnostics.
+- component-level pair trading with decomposition and cointegration diagnostics;
+- native SSA dual-trend mean-reversion replay with buy/sell analysis, equity-vs-buy-hold comparison, drawdown curves, and monthly tables.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [1]</div>
@@ -62,7 +65,8 @@ from pathlib import Path
  '04_detime_component_pair_trading_cointegration.ipynb',
  '04_turtle_donchian_breakout_volume_confirmation.ipynb',
  '05_pairs_spread_decomposition_stat_arb.ipynb',
- '06_cross_sectional_rotation_portfolio.ipynb']
+ '06_cross_sectional_rotation_portfolio.ipynb',
+ '07_native_ssa_high_return_low_drawdown_tutorial.ipynb']
 ```
 </div>
 </div>

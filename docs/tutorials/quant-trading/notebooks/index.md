@@ -16,3 +16,4 @@ These pages render the executed Quant Trading tutorial notebooks, including mark
 | [Tutorial 04 - Donchian and Turtle breakout with De-Time volume confirmation](04_turtle_donchian_breakout_volume_confirmation.md) | `04_turtle_donchian_breakout_volume_confirmation.ipynb` |
 | [Tutorial 05 - Pair spread decomposition and stat-arb](05_pairs_spread_decomposition_stat_arb.md) | `05_pairs_spread_decomposition_stat_arb.ipynb` |
 | [Tutorial 06 - Cross-sectional rotation and portfolio construction](06_cross_sectional_rotation_portfolio.md) | `06_cross_sectional_rotation_portfolio.ipynb` |
+| [Native SSA high-return / low-drawdown strategy tutorial](07_native_ssa_high_return_low_drawdown_tutorial.md) | `07_native_ssa_high_return_low_drawdown_tutorial.ipynb` |

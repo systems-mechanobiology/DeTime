@@ -5,11 +5,11 @@ classic technical strategies are rough, implicit estimates of trend, cycle,
 residual deviation, and market participation. De-Time makes those structures
 explicit before the strategy layer.
 
-The revised tutorial uses a six-part path rather than a loose collection of
+The revised tutorial uses a seven-part path rather than a loose collection of
 indicator notebooks.
 
 [Open the executed tutorial notebook index](quant-trading/notebooks/index.md)
-to jump directly between Tutorial 00-06, the strategy lab notebooks, and the
+to jump directly between Tutorial 00-07, the strategy lab notebooks, and the
 strategy expansion notebooks.
 
 | Tutorial | Status | Topic | Main De-Time role |
@@ -21,10 +21,11 @@ strategy expansion notebooks.
 | 04 | implemented | Turtle/Donchian breakout | trend, cycle, residual overextension and volume confirmation |
 | 05 | implemented | pairs trading and stat arb | spread trend drift + spread residual + optional volume news filter |
 | 06 | implemented | cross-sectional rotation | trend/cycle/residual/volume decomposition factor score |
+| 07 | implemented | native SSA high-return / low-drawdown replay | fast/slow SSA trends, next-open fills, drawdown and monthly trade diagnostics |
 
 ## Strategy-lab correction: two concrete trading systems
 
-The clearest entry point is now the strategy lab, not the broad six-tutorial map.
+The clearest entry point is now the strategy lab, not the broad seven-tutorial map.
 It implements two complete strategy families:
 
 1. **Trend following**: `trend_slope` and `trend_strength` create the trading signal; `cycle_position`, `residual_abs_z`, and volume decomposition control entry timing and overextension.
@@ -66,6 +67,7 @@ and the companion pages in the same notebook directory.
 | `04_turtle_donchian_breakout_volume_confirmation.ipynb` | Donchian/Turtle breakout rewritten with trend, cycle, residual and volume confirmation. |
 | `05_pairs_spread_decomposition_stat_arb.ipynb` | Pair z-score and rolling-beta spread baselines rewritten as residual spread trading with spread-trend drift control. |
 | `06_cross_sectional_rotation_portfolio.ipynb` | Momentum, multi-MA and inverse-volatility rotation compared with De-Time cross-sectional scoring. |
+| `07_native_ssa_high_return_low_drawdown_tutorial.ipynb` | Native SSA dual-trend mean-reversion replay for selected high-return FX and crypto strategies under a 20% drawdown constraint. |
 
 ## Core design
 
@@ -130,10 +132,11 @@ Tutorials 03-04 cover single-asset reversion and breakout strategies:
 - Tutorial 03 keeps familiar entry points, including RSI, Bollinger Bands, APO and price z-score, but changes the traded object from raw price deviation to residual deviation after trend/cycle removal.
 - Tutorial 04 keeps the Donchian/Turtle breakout scaffold but adds trend, cycle, residual-overextension and volume-participation gates.
 
-Tutorials 05-06 complete the current arc:
+Tutorials 05-07 complete the current arc:
 
 - Tutorial 05 rewrites pairs trading by decomposing the rolling hedge spread and trading residual deviation only when spread trend drift is controlled.
 - Tutorial 06 turns decomposition outputs into a cross-sectional factor score for top-N, long-short and volatility-targeted rotation portfolios.
+- Tutorial 07 replays selected native SSA dual-trend strategies, including buy/sell markers, strategy-vs-buy-hold equity, drawdown curves, and monthly return / win-rate tables.
 
 Run the latest batch on bundled real FX samples:
 
@@ -141,11 +144,17 @@ Run the latest batch on bundled real FX samples:
 make quant-columns-05-06
 ```
 
-Run all implemented tutorials:
+Run the bundled-sample Tutorial 01-06 batch:
 
 ```bash
 make quant-columns-01-06
 ```
+
+Tutorial 07 is a notebook replay for local 3-minute intraday files. Open it from
+the rendered documentation or run
+`examples/notebooks/quant_trading/07_native_ssa_high_return_low_drawdown_tutorial.ipynb`
+after placing the referenced FX and crypto CSVs under
+`examples/quant_trading/data/intraday_crypto_fx/`.
 
 Live-data versions are available through `make quant-columns-03-04-live` and `make quant-columns-05-06-live`.
 

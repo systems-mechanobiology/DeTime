@@ -58,6 +58,7 @@ QUANT_TUTORIAL_NAV = [
     ("Tutorial Sequence", "04_turtle_donchian_breakout_volume_confirmation", "04 Donchian Breakout"),
     ("Tutorial Sequence", "05_pairs_spread_decomposition_stat_arb", "05 Pair-Spread Stat-Arb"),
     ("Tutorial Sequence", "06_cross_sectional_rotation_portfolio", "06 Cross-Sectional Rotation"),
+    ("Native SSA Replay", "07_native_ssa_high_return_low_drawdown_tutorial", "07 Native SSA High-Return / Low-Drawdown"),
 ]
 
 
