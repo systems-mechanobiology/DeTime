@@ -24,10 +24,6 @@
 
 ## Executed Notebook
 
-This tutorial replays two strategy configurations selected from a BlueBEAR grid search over one year of 3-minute FX and crypto bars.
-
-The selection rule used for this tutorial is simple: maximize total return while keeping maximum drawdown within 20%. The two examples are:
-
 - `GBPJPY`: FX, 2x notional cap, long/short, 8.41% total return, 92.86% trade win rate, -0.95% maximum drawdown in the search replay.
 - `SOLUSDT`: crypto spot, long-only, 38.87% total return, 54.37% trade win rate, -4.42% maximum drawdown in the search replay.
 
@@ -48,12 +44,13 @@ The SSA strategy is a decomposition version of a dual-trend mean-reversion syste
 All trend features are causal walk-forward values. The code only emits the last SSA trend value from each trailing window, then forward-fills it until the next recomputation point.
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In []</div>
+<div class="notebook-input-label">In [1]</div>
 
 ```python
 from __future__ import annotations
 
 from dataclasses import dataclass
+from io import BytesIO
 from pathlib import Path
 import sys
 from typing import Any
@@ -62,10 +59,21 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 try:
-    from IPython.display import display
+    from IPython.display import display, Image
 except ImportError:
+    Image = None
     def display(obj):
         print(obj)
+
+
+def display_png_figure(fig, *, dpi: int = 160) -> None:
+    buffer = BytesIO()
+    fig.savefig(buffer, format="png", dpi=dpi, bbox_inches="tight")
+    buffer.seek(0)
+    if Image is not None:
+        display(Image(data=buffer.getvalue()))
+    else:
+        print(fig)
 
 ROOT = Path.cwd().resolve()
 for candidate in [ROOT, *ROOT.parents]:
@@ -87,10 +95,19 @@ print("repository root:", ROOT)
 print("native SSA available:", native_extension_available())
 print("native capabilities:", native_capabilities() if native_extension_available() else {})
 ```
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">stdout</div>
+```text
+repository root: /rds/projects/s/spillf-systems-mechanobiology-health-disease/Zipeng/Detime/De-Time-main
+native SSA available: True
+native capabilities: {'ssa_decompose': True, 'std_decompose': True, 'gabor_stft_rfft': False, 'gabor_istft_rfft': False, 'gabor_cluster_decompose': False}
+```
+</div>
 </div>
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In []</div>
+<div class="notebook-input-label">In [2]</div>
 
 ```python
 SEARCH_REPLAY_METRICS = pd.DataFrame(
@@ -138,10 +155,79 @@ display(
     )
 )
 ```
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>asset_class</th>
+      <th>symbol</th>
+      <th>total_return_%</th>
+      <th>trade_win_rate_%</th>
+      <th>max_drawdown_%</th>
+      <th>profit_factor</th>
+      <th>round_trips</th>
+      <th>sharpe</th>
+      <th>source</th>
+      <th>bar_size</th>
+      <th>csv_path</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>fx</td>
+      <td>GBPJPY</td>
+      <td>8.41</td>
+      <td>92.86</td>
+      <td>-0.95</td>
+      <td>22.104442</td>
+      <td>14</td>
+      <td>2.330493</td>
+      <td>dukascopy</td>
+      <td>3m</td>
+      <td>examples/quant_trading/data/intraday_crypto_fx...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>crypto</td>
+      <td>SOLUSDT</td>
+      <td>38.87</td>
+      <td>54.37</td>
+      <td>-4.42</td>
+      <td>2.053341</td>
+      <td>103</td>
+      <td>2.839898</td>
+      <td>binance</td>
+      <td>3m</td>
+      <td>examples/quant_trading/data/intraday_crypto_fx...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
 </div>
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In []</div>
+<div class="notebook-input-label">In [3]</div>
 
 ```python
 @dataclass(frozen=True)
@@ -240,10 +326,85 @@ pd.DataFrame(
     ]
 )
 ```
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>symbol</th>
+      <th>fast_ssa_period</th>
+      <th>slow_ssa_period</th>
+      <th>train_window</th>
+      <th>step</th>
+      <th>entry_bps</th>
+      <th>exit_bps</th>
+      <th>min_fast_slope_bps</th>
+      <th>allow_short</th>
+      <th>trade_notional</th>
+      <th>max_position_notional</th>
+      <th>fee_bps</th>
+      <th>slippage_bps</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>GBPJPY</td>
+      <td>24</td>
+      <td>96</td>
+      <td>576</td>
+      <td>32</td>
+      <td>5.0</td>
+      <td>2.5</td>
+      <td>0.5</td>
+      <td>True</td>
+      <td>20000.0</td>
+      <td>20000.0</td>
+      <td>0.35</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>SOLUSDT</td>
+      <td>24</td>
+      <td>192</td>
+      <td>1152</td>
+      <td>16</td>
+      <td>75.0</td>
+      <td>20.0</td>
+      <td>1.5</td>
+      <td>False</td>
+      <td>10000.0</td>
+      <td>10000.0</td>
+      <td>2.00</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
 </div>
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In []</div>
+<div class="notebook-input-label">In [4]</div>
 
 ```python
 DATA_ROOT = ROOT / "examples" / "quant_trading" / "data" / "intraday_crypto_fx"
@@ -340,7 +501,7 @@ def infer_periods_per_year(symbol: str, *, source: str, bar_size: str) -> int:
 </div>
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In []</div>
+<div class="notebook-input-label">In [5]</div>
 
 ```python
 def last_ssa_trend(
@@ -414,7 +575,7 @@ def walkforward_dual_ssa_trends(close: pd.Series, spec: SSAFeatureSpec, *, backe
 </div>
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In []</div>
+<div class="notebook-input-label">In [6]</div>
 
 ```python
 def dual_ssa_events(features: pd.DataFrame, spec: SSATradeSpec) -> dict[str, pd.Series]:
@@ -568,7 +729,7 @@ def run_cash_backtest(ohlcv: pd.DataFrame, features: pd.DataFrame, spec: SSATrad
 </div>
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In []</div>
+<div class="notebook-input-label">In [7]</div>
 
 ```python
 def drawdown(equity: pd.Series) -> pd.Series:
@@ -679,7 +840,7 @@ def stats_frame(results: dict[str, dict[str, Any]]) -> pd.DataFrame:
 </div>
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In []</div>
+<div class="notebook-input-label">In [8]</div>
 
 ```python
 def plot_ssa_strategy_dashboard(symbol: str, ohlcv: pd.DataFrame, features: pd.DataFrame, result: dict[str, Any], *, months_in_table: int = 12) -> pd.DataFrame:
@@ -757,13 +918,14 @@ def plot_ssa_strategy_dashboard(symbol: str, ohlcv: pd.DataFrame, features: pd.D
     table.scale(1.0, 1.15)
     ax_table.set_title("Monthly return, win rate, maximum drawdown and trade count", pad=8)
 
-    plt.show()
+    display_png_figure(fig)
+    plt.close(fig)
     return monthly
 ```
 </div>
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In []</div>
+<div class="notebook-input-label">In [9]</div>
 
 ```python
 def run_selected_strategy(symbol: str, *, csv_path: str | Path | None = None, backend: str = "auto", max_bars: int | None = None) -> dict[str, Any]:
@@ -781,7 +943,7 @@ def run_selected_strategy(symbol: str, *, csv_path: str | Path | None = None, ba
 </div>
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In []</div>
+<div class="notebook-input-label">In [10]</div>
 
 ```python
 # For a quick notebook check, set MAX_BARS to a smaller value such as 20000.
@@ -792,10 +954,88 @@ MAX_BARS = None
 results = {symbol: run_selected_strategy(symbol, backend=SSA_BACKEND, max_bars=MAX_BARS) for symbol in SELECTED_SPECS}
 display(stats_frame(results).round(4))
 ```
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>symbol</th>
+      <th>total_return_%</th>
+      <th>cagr_%</th>
+      <th>volatility_%</th>
+      <th>sharpe</th>
+      <th>max_drawdown_%</th>
+      <th>bar_hit_rate_%</th>
+      <th>trade_win_rate_%</th>
+      <th>profit_factor</th>
+      <th>round_trips</th>
+      <th>orders</th>
+      <th>average_trade_net_pnl</th>
+      <th>final_equity</th>
+      <th>net_profit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>GBPJPY</td>
+      <td>8.4119</td>
+      <td>5.7347</td>
+      <td>2.4052</td>
+      <td>2.3305</td>
+      <td>-0.9466</td>
+      <td>0.6878</td>
+      <td>92.8571</td>
+      <td>22.1044</td>
+      <td>14.0</td>
+      <td>28.0</td>
+      <td>60.0850</td>
+      <td>10841.1903</td>
+      <td>841.1903</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>SOLUSDT</td>
+      <td>38.8689</td>
+      <td>38.8689</td>
+      <td>11.8078</td>
+      <td>2.8399</td>
+      <td>-4.4184</td>
+      <td>1.7751</td>
+      <td>54.3689</td>
+      <td>2.0533</td>
+      <td>103.0</td>
+      <td>206.0</td>
+      <td>37.7368</td>
+      <td>13886.8916</td>
+      <td>3886.8916</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
 </div>
 
 <div class="notebook-cell">
-<div class="notebook-input-label">In []</div>
+<div class="notebook-input-label">In [11]</div>
 
 ```python
 monthly_tables = {}
@@ -803,6 +1043,295 @@ for symbol, result in results.items():
     monthly_tables[symbol] = plot_ssa_strategy_dashboard(symbol, result["ohlcv"], result["features"], result)
     display(monthly_tables[symbol].tail(12).round(2))
 ```
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">image/png</div>
+<img src="../../../../assets/generated/notebooks/tutorials/quant-trading/07_native_ssa_high_return_low_drawdown_tutorial/cell-013-output-01.png" alt="Notebook output cell 13" class="notebook-output-image">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>month</th>
+      <th>return_%</th>
+      <th>trade_win_rate_%</th>
+      <th>max_drawdown_%</th>
+      <th>round_trips</th>
+      <th>end_equity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>2025-07</td>
+      <td>0.23</td>
+      <td>100.0</td>
+      <td>-0.47</td>
+      <td>1</td>
+      <td>10047.05</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2025-08</td>
+      <td>0.95</td>
+      <td>100.0</td>
+      <td>-0.37</td>
+      <td>1</td>
+      <td>10142.01</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2025-09</td>
+      <td>0.00</td>
+      <td>NaN</td>
+      <td>0.00</td>
+      <td>0</td>
+      <td>10142.01</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2025-10</td>
+      <td>1.68</td>
+      <td>100.0</td>
+      <td>-0.95</td>
+      <td>3</td>
+      <td>10312.29</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2025-11</td>
+      <td>1.28</td>
+      <td>100.0</td>
+      <td>-0.43</td>
+      <td>1</td>
+      <td>10443.95</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2025-12</td>
+      <td>0.26</td>
+      <td>100.0</td>
+      <td>-0.31</td>
+      <td>1</td>
+      <td>10471.15</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2026-01</td>
+      <td>0.80</td>
+      <td>100.0</td>
+      <td>-0.75</td>
+      <td>1</td>
+      <td>10554.60</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2026-02</td>
+      <td>0.00</td>
+      <td>NaN</td>
+      <td>0.00</td>
+      <td>0</td>
+      <td>10554.60</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2026-03</td>
+      <td>0.00</td>
+      <td>NaN</td>
+      <td>0.00</td>
+      <td>0</td>
+      <td>10554.60</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>2026-04</td>
+      <td>1.92</td>
+      <td>100.0</td>
+      <td>-0.56</td>
+      <td>1</td>
+      <td>10757.65</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>2026-05</td>
+      <td>0.78</td>
+      <td>100.0</td>
+      <td>-0.28</td>
+      <td>2</td>
+      <td>10841.19</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>2026-06</td>
+      <td>0.00</td>
+      <td>NaN</td>
+      <td>0.00</td>
+      <td>0</td>
+      <td>10841.19</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+<div class="notebook-output-label">image/png</div>
+<img src="../../../../assets/generated/notebooks/tutorials/quant-trading/07_native_ssa_high_return_low_drawdown_tutorial/cell-013-output-03.png" alt="Notebook output cell 13" class="notebook-output-image">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>month</th>
+      <th>return_%</th>
+      <th>trade_win_rate_%</th>
+      <th>max_drawdown_%</th>
+      <th>round_trips</th>
+      <th>end_equity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>2025-07</td>
+      <td>-0.42</td>
+      <td>54.55</td>
+      <td>-3.75</td>
+      <td>11</td>
+      <td>11094.57</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2025-08</td>
+      <td>20.33</td>
+      <td>75.00</td>
+      <td>-1.97</td>
+      <td>20</td>
+      <td>13349.87</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2025-09</td>
+      <td>0.31</td>
+      <td>50.00</td>
+      <td>-2.36</td>
+      <td>8</td>
+      <td>13391.11</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2025-10</td>
+      <td>1.93</td>
+      <td>38.46</td>
+      <td>-2.31</td>
+      <td>13</td>
+      <td>13649.72</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2025-11</td>
+      <td>-2.02</td>
+      <td>50.00</td>
+      <td>-3.71</td>
+      <td>8</td>
+      <td>13373.74</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2025-12</td>
+      <td>1.10</td>
+      <td>55.56</td>
+      <td>-2.09</td>
+      <td>9</td>
+      <td>13521.16</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2026-01</td>
+      <td>2.86</td>
+      <td>100.00</td>
+      <td>-0.70</td>
+      <td>3</td>
+      <td>13908.24</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2026-02</td>
+      <td>2.16</td>
+      <td>50.00</td>
+      <td>-3.46</td>
+      <td>8</td>
+      <td>14209.12</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2026-03</td>
+      <td>-1.29</td>
+      <td>33.33</td>
+      <td>-2.24</td>
+      <td>6</td>
+      <td>14026.24</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>2026-04</td>
+      <td>-0.57</td>
+      <td>33.33</td>
+      <td>-1.59</td>
+      <td>3</td>
+      <td>13946.79</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>2026-05</td>
+      <td>-0.43</td>
+      <td>25.00</td>
+      <td>-1.60</td>
+      <td>4</td>
+      <td>13886.89</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>2026-06</td>
+      <td>0.00</td>
+      <td>NaN</td>
+      <td>0.00</td>
+      <td>0</td>
+      <td>13886.89</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
 </div>
 
 ## Reading the output
