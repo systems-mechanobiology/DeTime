@@ -1,5 +1,5 @@
 name: Bug report
-description: Report a reproducible De-Time defect.
+description: Report a reproducible DeTime defect.
 title: "[Bug]: "
 labels:
   - bug
@@ -23,6 +23,6 @@ body:
     id: env
     attributes:
       label: Environment
-      description: Python version, OS, De-Time version, and backend used.
+      description: Python version, OS, DeTime version, and backend used.
     validations:
       required: true
