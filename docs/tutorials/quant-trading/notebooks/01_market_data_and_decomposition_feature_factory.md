@@ -28,6 +28,8 @@ This tutorial builds the data and feature layer used by the rest of the quant tu
 
 The rendered notebook uses the bundled historical GOOG Yahoo Finance sample from the reference algorithmic-trading material. The same functions also support Yahoo Finance downloads through `yfinance`; the downloader script writes cached OHLCV panels for larger universes.
 
+Two views are intentionally separated: a continuous diagnostic decomposition for visual intuition, and a causal walk-forward feature table for backtests. Sparse walk-forward features should not be judged as a smooth trend plot.
+
 <div class="notebook-cell">
 <div class="notebook-input-label">In [1]</div>
 
@@ -49,7 +51,7 @@ from examples.quant_trading.decomposition_features import (
     estimate_dominant_period,
     feature_coverage_report,
 )
-from examples.quant_trading.features import walkforward_decompose_ohlcv
+from examples.quant_trading.features import decompose_one_series, walkforward_decompose_ohlcv
 from examples.quant_trading.validation import write_run_audit
 
 pd.set_option("display.max_columns", 20)
@@ -211,13 +213,13 @@ plt.show()
 
 ## 2. Estimate the dominant trading horizon
 
-The period estimator chooses from interpretable trading horizons. In the first two tutorials the selected value is a feature, not a tuning secret: it is written into the audit table and shown in the notebook.
+The period estimator chooses from interpretable trading horizons. The selected value is a feature, not a tuning secret: it is written into the audit table and shown in the notebook. The candidate set includes roughly two-month, quarter, half-year, and one-year trading horizons.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [4]</div>
 
 ```python
-period_estimate = estimate_dominant_period(close[ticker], candidates=(21, 42, 63, 126), use_log=True)
+period_estimate = estimate_dominant_period(close[ticker], candidates=(42, 63, 126, 252), use_log=True)
 period_summary = pd.DataFrame([period_estimate.__dict__])
 display(period_summary)
 ```
@@ -252,10 +254,10 @@ display(period_summary)
   <tbody>
     <tr>
       <th>0</th>
-      <td>126</td>
-      <td>8.603413</td>
+      <td>252</td>
+      <td>13.916399</td>
       <td>acf_periodogram_candidates</td>
-      <td>(21, 42, 63, 126)</td>
+      <td>(42, 63, 126, 252)</td>
     </tr>
   </tbody>
 </table>
@@ -268,6 +270,8 @@ display(period_summary)
 
 The feature factory recomputes decomposition on rolling training windows and carries the latest component state forward until the next recomputation date. Price and volume are handled with the same component vocabulary.
 
+For daily bars, this tutorial uses a two-year training window and weekly recomputation. A monthly stride is faster, but it creates too few emitted feature points for explanatory plots and can make the trend look like a staircase. The backtest feature table remains causal because every row is generated from trailing data only.
+
 <div class="notebook-cell">
 <div class="notebook-input-label">In [5]</div>
 
@@ -276,9 +280,9 @@ features = walkforward_decompose_ohlcv(
     ohlcv,
     method="STL",
     period="auto",
-    period_candidates=(21, 42, 63, 126),
-    train_window=252,
-    step=21,
+    period_candidates=(42, 63, 126, 252),
+    train_window=504,
+    step=5,
     z_window=63,
 )
 coverage = feature_coverage_report(features)
@@ -321,9 +325,9 @@ display(coverage.sort_values(["feature", "asset"]).head(18))
       <td>component_stability</td>
       <td>GOOG</td>
       <td>1008</td>
-      <td>757</td>
-      <td>0.750992</td>
-      <td>2014-12-31</td>
+      <td>505</td>
+      <td>0.500992</td>
+      <td>2015-12-31</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
@@ -331,9 +335,9 @@ display(coverage.sort_values(["feature", "asset"]).head(18))
       <td>cycle</td>
       <td>GOOG</td>
       <td>1008</td>
-      <td>757</td>
-      <td>0.750992</td>
-      <td>2014-12-31</td>
+      <td>505</td>
+      <td>0.500992</td>
+      <td>2015-12-31</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
@@ -341,9 +345,9 @@ display(coverage.sort_values(["feature", "asset"]).head(18))
       <td>cycle_amplitude</td>
       <td>GOOG</td>
       <td>1008</td>
-      <td>757</td>
-      <td>0.750992</td>
-      <td>2014-12-31</td>
+      <td>505</td>
+      <td>0.500992</td>
+      <td>2015-12-31</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
@@ -351,9 +355,9 @@ display(coverage.sort_values(["feature", "asset"]).head(18))
       <td>cycle_position</td>
       <td>GOOG</td>
       <td>1008</td>
-      <td>757</td>
-      <td>0.750992</td>
-      <td>2014-12-31</td>
+      <td>505</td>
+      <td>0.500992</td>
+      <td>2015-12-31</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
@@ -361,9 +365,9 @@ display(coverage.sort_values(["feature", "asset"]).head(18))
       <td>cycle_slope</td>
       <td>GOOG</td>
       <td>1008</td>
-      <td>757</td>
-      <td>0.750992</td>
-      <td>2014-12-31</td>
+      <td>505</td>
+      <td>0.500992</td>
+      <td>2015-12-31</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
@@ -371,9 +375,9 @@ display(coverage.sort_values(["feature", "asset"]).head(18))
       <td>cycle_turn_up</td>
       <td>GOOG</td>
       <td>1008</td>
-      <td>757</td>
-      <td>0.750992</td>
-      <td>2014-12-31</td>
+      <td>505</td>
+      <td>0.500992</td>
+      <td>2015-12-31</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
@@ -381,9 +385,9 @@ display(coverage.sort_values(["feature", "asset"]).head(18))
       <td>cycle_z</td>
       <td>GOOG</td>
       <td>1008</td>
-      <td>757</td>
-      <td>0.750992</td>
-      <td>2014-12-31</td>
+      <td>505</td>
+      <td>0.500992</td>
+      <td>2015-12-31</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
@@ -391,9 +395,9 @@ display(coverage.sort_values(["feature", "asset"]).head(18))
       <td>reconstruction_error</td>
       <td>GOOG</td>
       <td>1008</td>
-      <td>757</td>
-      <td>0.750992</td>
-      <td>2014-12-31</td>
+      <td>505</td>
+      <td>0.500992</td>
+      <td>2015-12-31</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
@@ -401,9 +405,9 @@ display(coverage.sort_values(["feature", "asset"]).head(18))
       <td>residual</td>
       <td>GOOG</td>
       <td>1008</td>
-      <td>757</td>
-      <td>0.750992</td>
-      <td>2014-12-31</td>
+      <td>505</td>
+      <td>0.500992</td>
+      <td>2015-12-31</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
@@ -411,9 +415,9 @@ display(coverage.sort_values(["feature", "asset"]).head(18))
       <td>residual_abs_z</td>
       <td>GOOG</td>
       <td>1008</td>
-      <td>757</td>
-      <td>0.750992</td>
-      <td>2014-12-31</td>
+      <td>505</td>
+      <td>0.500992</td>
+      <td>2015-12-31</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
@@ -421,9 +425,9 @@ display(coverage.sort_values(["feature", "asset"]).head(18))
       <td>residual_vol</td>
       <td>GOOG</td>
       <td>1008</td>
-      <td>757</td>
-      <td>0.750992</td>
-      <td>2014-12-31</td>
+      <td>505</td>
+      <td>0.500992</td>
+      <td>2015-12-31</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
@@ -431,9 +435,9 @@ display(coverage.sort_values(["feature", "asset"]).head(18))
       <td>residual_z</td>
       <td>GOOG</td>
       <td>1008</td>
-      <td>757</td>
-      <td>0.750992</td>
-      <td>2014-12-31</td>
+      <td>505</td>
+      <td>0.500992</td>
+      <td>2015-12-31</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
@@ -441,9 +445,9 @@ display(coverage.sort_values(["feature", "asset"]).head(18))
       <td>season</td>
       <td>GOOG</td>
       <td>1008</td>
-      <td>757</td>
-      <td>0.750992</td>
-      <td>2014-12-31</td>
+      <td>505</td>
+      <td>0.500992</td>
+      <td>2015-12-31</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
@@ -451,9 +455,9 @@ display(coverage.sort_values(["feature", "asset"]).head(18))
       <td>season_slope</td>
       <td>GOOG</td>
       <td>1008</td>
-      <td>757</td>
-      <td>0.750992</td>
-      <td>2014-12-31</td>
+      <td>505</td>
+      <td>0.500992</td>
+      <td>2015-12-31</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
@@ -461,9 +465,9 @@ display(coverage.sort_values(["feature", "asset"]).head(18))
       <td>season_z</td>
       <td>GOOG</td>
       <td>1008</td>
-      <td>757</td>
-      <td>0.750992</td>
-      <td>2014-12-31</td>
+      <td>505</td>
+      <td>0.500992</td>
+      <td>2015-12-31</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
@@ -471,9 +475,9 @@ display(coverage.sort_values(["feature", "asset"]).head(18))
       <td>selected_period</td>
       <td>GOOG</td>
       <td>1008</td>
-      <td>757</td>
-      <td>0.750992</td>
-      <td>2014-12-31</td>
+      <td>505</td>
+      <td>0.500992</td>
+      <td>2015-12-31</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
@@ -481,9 +485,9 @@ display(coverage.sort_values(["feature", "asset"]).head(18))
       <td>trend</td>
       <td>GOOG</td>
       <td>1008</td>
-      <td>757</td>
-      <td>0.750992</td>
-      <td>2014-12-31</td>
+      <td>505</td>
+      <td>0.500992</td>
+      <td>2015-12-31</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
@@ -491,9 +495,9 @@ display(coverage.sort_values(["feature", "asset"]).head(18))
       <td>trend_acceleration</td>
       <td>GOOG</td>
       <td>1008</td>
-      <td>757</td>
-      <td>0.750992</td>
-      <td>2014-12-31</td>
+      <td>505</td>
+      <td>0.500992</td>
+      <td>2015-12-31</td>
       <td>2018-01-02</td>
     </tr>
   </tbody>
@@ -611,123 +615,123 @@ display(latest)
   <tbody>
     <tr>
       <th>2017-12-26</th>
-      <td>0.988768</td>
-      <td>-0.008012</td>
-      <td>0.019440</td>
-      <td>-0.412121</td>
-      <td>-0.006565</td>
+      <td>0.985298</td>
+      <td>0.045595</td>
+      <td>0.04378</td>
+      <td>1.041448</td>
+      <td>-0.005057</td>
       <td>0.0</td>
-      <td>-0.558198</td>
+      <td>0.613782</td>
       <td>0.151519</td>
       <td>0.0</td>
-      <td>-0.001348</td>
+      <td>0.000369</td>
       <td>...</td>
-      <td>1.062265</td>
-      <td>0.220935</td>
-      <td>1.062265</td>
-      <td>21.0</td>
-      <td>1.062265</td>
-      <td>13.746776</td>
-      <td>-0.000101</td>
-      <td>0.613382</td>
-      <td>-0.016067</td>
-      <td>-0.043385</td>
+      <td>2.325871</td>
+      <td>0.124344</td>
+      <td>-2.325871</td>
+      <td>126.0</td>
+      <td>2.325871</td>
+      <td>14.055874</td>
+      <td>-0.000003</td>
+      <td>-0.51401</td>
+      <td>-0.00112</td>
+      <td>-0.003147</td>
     </tr>
     <tr>
       <th>2017-12-27</th>
-      <td>0.988768</td>
-      <td>-0.008012</td>
-      <td>0.019440</td>
-      <td>-0.412121</td>
-      <td>-0.006565</td>
+      <td>0.985298</td>
+      <td>0.045595</td>
+      <td>0.04378</td>
+      <td>1.041448</td>
+      <td>-0.005057</td>
       <td>0.0</td>
-      <td>-0.558198</td>
+      <td>0.613782</td>
       <td>0.151818</td>
       <td>0.0</td>
-      <td>-0.001348</td>
+      <td>0.000369</td>
       <td>...</td>
-      <td>1.062265</td>
-      <td>0.220935</td>
-      <td>1.062265</td>
-      <td>21.0</td>
-      <td>1.062265</td>
-      <td>13.746776</td>
-      <td>-0.000101</td>
-      <td>0.613382</td>
-      <td>-0.016067</td>
-      <td>-0.043385</td>
+      <td>2.325871</td>
+      <td>0.124344</td>
+      <td>-2.325871</td>
+      <td>126.0</td>
+      <td>2.325871</td>
+      <td>14.055874</td>
+      <td>-0.000003</td>
+      <td>-0.51401</td>
+      <td>-0.00112</td>
+      <td>-0.003147</td>
     </tr>
     <tr>
       <th>2017-12-28</th>
-      <td>0.988768</td>
-      <td>-0.008012</td>
-      <td>0.019440</td>
-      <td>-0.412121</td>
-      <td>-0.006565</td>
+      <td>0.985298</td>
+      <td>0.045595</td>
+      <td>0.04378</td>
+      <td>1.041448</td>
+      <td>-0.005057</td>
       <td>0.0</td>
-      <td>-0.558198</td>
+      <td>0.613782</td>
       <td>0.122569</td>
       <td>0.0</td>
-      <td>-0.001348</td>
+      <td>0.000369</td>
       <td>...</td>
-      <td>1.062265</td>
-      <td>0.220935</td>
-      <td>1.062265</td>
-      <td>21.0</td>
-      <td>1.062265</td>
-      <td>13.746776</td>
-      <td>-0.000101</td>
-      <td>0.613382</td>
-      <td>-0.016067</td>
-      <td>-0.043385</td>
+      <td>2.325871</td>
+      <td>0.124344</td>
+      <td>-2.325871</td>
+      <td>126.0</td>
+      <td>2.325871</td>
+      <td>14.055874</td>
+      <td>-0.000003</td>
+      <td>-0.51401</td>
+      <td>-0.00112</td>
+      <td>-0.003147</td>
     </tr>
     <tr>
       <th>2017-12-29</th>
-      <td>0.988768</td>
-      <td>-0.008012</td>
-      <td>0.019440</td>
-      <td>-0.412121</td>
-      <td>-0.006565</td>
+      <td>0.985298</td>
+      <td>0.045595</td>
+      <td>0.04378</td>
+      <td>1.041448</td>
+      <td>-0.005057</td>
       <td>0.0</td>
-      <td>-0.558198</td>
+      <td>0.613782</td>
       <td>0.122892</td>
       <td>0.0</td>
-      <td>-0.001348</td>
+      <td>0.000369</td>
       <td>...</td>
-      <td>1.062265</td>
-      <td>0.220935</td>
-      <td>1.062265</td>
-      <td>21.0</td>
-      <td>1.062265</td>
-      <td>13.746776</td>
-      <td>-0.000101</td>
-      <td>0.613382</td>
-      <td>-0.016067</td>
-      <td>-0.043385</td>
+      <td>2.325871</td>
+      <td>0.124344</td>
+      <td>-2.325871</td>
+      <td>126.0</td>
+      <td>2.325871</td>
+      <td>14.055874</td>
+      <td>-0.000003</td>
+      <td>-0.51401</td>
+      <td>-0.00112</td>
+      <td>-0.003147</td>
     </tr>
     <tr>
       <th>2018-01-02</th>
-      <td>0.992602</td>
-      <td>-0.008287</td>
-      <td>0.018258</td>
-      <td>-0.453850</td>
-      <td>0.003429</td>
-      <td>1.0</td>
-      <td>-0.408674</td>
+      <td>0.985298</td>
+      <td>0.045595</td>
+      <td>0.04378</td>
+      <td>1.041448</td>
+      <td>-0.005057</td>
+      <td>0.0</td>
+      <td>0.613782</td>
       <td>0.127032</td>
       <td>0.0</td>
-      <td>-0.008367</td>
+      <td>0.000369</td>
       <td>...</td>
-      <td>0.359667</td>
-      <td>0.250410</td>
-      <td>-0.359667</td>
-      <td>21.0</td>
-      <td>0.359667</td>
-      <td>14.038200</td>
-      <td>-0.000499</td>
-      <td>-0.009514</td>
-      <td>-0.005891</td>
-      <td>-0.016957</td>
+      <td>2.325871</td>
+      <td>0.124344</td>
+      <td>-2.325871</td>
+      <td>126.0</td>
+      <td>2.325871</td>
+      <td>14.055874</td>
+      <td>-0.000003</td>
+      <td>-0.51401</td>
+      <td>-0.00112</td>
+      <td>-0.003147</td>
     </tr>
   </tbody>
 </table>
@@ -739,17 +743,27 @@ display(latest)
 
 ## 4. Inspect the structural components
 
-The first chart shows the original close together with the decomposed trend. The second chart isolates the cycle. The third chart shows residual pressure after trend and cycle have been removed.
+The plots below use a continuous diagnostic decomposition on the same GOOG series. They are for visual interpretation of trend, cycle, and residual structure. The walk-forward feature table above is the causal input used by strategy notebooks.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [7]</div>
 
 ```python
-trend = features["trend"][ticker]
+diagnostic = decompose_one_series(
+    close[ticker],
+    method="STL",
+    period=int(period_estimate.period),
+    z_window=63,
+    transform="log",
+)
+trend_price = np.exp(diagnostic["trend"])
+fair_value = np.exp(diagnostic["trend"] + diagnostic["cycle"])
+
 fig, ax = plt.subplots(figsize=(10, 4))
-close[ticker].plot(ax=ax, linewidth=1.0, label="close")
-np.exp(trend).plot(ax=ax, linewidth=1.8, label="exp(price trend)")
-ax.set_title("Price trend extracted by DeTime")
+close[ticker].plot(ax=ax, linewidth=1.0, color="#1f2937", label="close")
+trend_price.plot(ax=ax, linewidth=2.0, color="#0f766e", label="continuous DeTime trend")
+fair_value.plot(ax=ax, linewidth=1.3, color="#7c3aed", alpha=0.85, label="trend + cycle fair value")
+ax.set_title("Continuous diagnostic decomposition: trend and trend + cycle")
 ax.legend()
 ax.grid(True, alpha=0.25)
 plt.show()
@@ -766,9 +780,9 @@ plt.show()
 
 ```python
 fig, ax = plt.subplots(figsize=(10, 3))
-features["cycle"][ticker].plot(ax=ax, linewidth=1.2)
-ax.axhline(0, linewidth=0.8)
-ax.set_title("Cycle component")
+diagnostic["cycle"].plot(ax=ax, linewidth=1.2, color="#2563eb")
+ax.axhline(0, linewidth=0.8, color="#64748b")
+ax.set_title("Cycle component: timing context around the trend")
 ax.grid(True, alpha=0.25)
 plt.show()
 ```
@@ -784,10 +798,11 @@ plt.show()
 
 ```python
 fig, ax = plt.subplots(figsize=(10, 3))
-features["residual_z"][ticker].plot(ax=ax, linewidth=1.2)
-ax.axhline(1.5, linestyle="--", linewidth=0.9)
-ax.axhline(-1.5, linestyle="--", linewidth=0.9)
-ax.set_title("Residual z-score")
+diagnostic["residual_z"].plot(ax=ax, linewidth=1.2, color="#dc2626")
+ax.axhline(2.0, linestyle="--", linewidth=0.9, color="#991b1b")
+ax.axhline(-2.0, linestyle="--", linewidth=0.9, color="#991b1b")
+ax.axhline(0, linewidth=0.8, color="#64748b")
+ax.set_title("Residual pressure after trend and cycle removal")
 ax.grid(True, alpha=0.25)
 plt.show()
 ```
@@ -803,9 +818,9 @@ plt.show()
 
 ```python
 fig, ax = plt.subplots(figsize=(10, 3))
-features["trend_strength"][ticker].plot(ax=ax, linewidth=1.2, label="price trend strength")
-features["component_stability"][ticker].plot(ax=ax, linewidth=1.2, label="component stability")
-ax.set_title("Trend strength and component stability")
+features["trend_strength"][ticker].plot(ax=ax, linewidth=1.2, label="walk-forward trend strength")
+features["component_stability"][ticker].plot(ax=ax, linewidth=1.2, label="walk-forward component stability")
+ax.set_title("Causal walk-forward diagnostics emitted by the feature factory")
 ax.legend()
 ax.grid(True, alpha=0.25)
 plt.show()
