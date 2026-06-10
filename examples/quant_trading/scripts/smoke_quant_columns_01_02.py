@@ -28,8 +28,8 @@ def main() -> int:
         volumes,
         method="STL",
         period=63,
-        train_window=252,
-        step=63,
+        train_window=180,
+        step=21,
         z_window=63,
     )
     coverage = feature_coverage_report(features)

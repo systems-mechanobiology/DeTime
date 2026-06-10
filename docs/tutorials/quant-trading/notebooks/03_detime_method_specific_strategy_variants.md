@@ -126,16 +126,16 @@ close.tail()
 
 ## Build a compact method grid
 
-The grid below is intentionally small for a notebook. A full research run can add periods 21/42/63/126, shorter steps, and optional Wavelet/EMD/VMD variants.
+The grid below is intentionally small for a notebook. A full research run can add periods 63/126/252, shorter steps, and optional Wavelet/EMD/VMD variants. The default grid avoids very short periods so the extracted components read as market structure rather than one-month noise.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [3]</div>
 
 ```python
 specs = [
-    DecompositionVariantSpec('STL', period=42, train_window=126, step=126, z_window=63, role='fixed_period_medium_cycle'),
-    DecompositionVariantSpec('SSA', period=42, train_window=126, step=126, z_window=63, role='subspace_medium_cycle'),
-    DecompositionVariantSpec('STD', period=42, train_window=126, step=126, z_window=63, role='dispersion_medium_cycle'),
+    DecompositionVariantSpec('STL', period=126, train_window=504, step=21, z_window=63, role='fixed_period_half_year_cycle'),
+    DecompositionVariantSpec('SSA', period=126, train_window=504, step=21, z_window=63, role='subspace_half_year_cycle'),
+    DecompositionVariantSpec('STD', period=126, train_window=504, step=21, z_window=63, role='dispersion_half_year_cycle'),
 ]
 
 stats, results, spec_table, coverage, failed = run_method_variant_grid(
@@ -197,249 +197,249 @@ stats.head(20)
   <tbody>
     <tr>
       <th>0</th>
-      <td>detime_SSA_p42_tw126_s126_residual_bollinger</td>
-      <td>residual_bollinger</td>
-      <td>SSA_p42_tw126_s126</td>
-      <td>0.160924</td>
-      <td>0.038009</td>
-      <td>0.778688</td>
-      <td>-0.071692</td>
-      <td>0.530162</td>
-      <td>0.049479</td>
-      <td>0.068452</td>
+      <td>detime_SSA_p126_tw504_s21_trend_macd</td>
+      <td>trend_macd</td>
+      <td>SSA_p126_tw504_s21</td>
+      <td>0.365531</td>
+      <td>0.080999</td>
+      <td>1.525011</td>
+      <td>-0.052530</td>
+      <td>1.541967</td>
+      <td>0.051964</td>
+      <td>0.088294</td>
       <td>...</td>
       <td>252.0</td>
       <td>signal_on_bar_t_fill_next_bar_open_or_proxy</td>
       <td>SSA</td>
-      <td>42</td>
       <td>126</td>
-      <td>126</td>
+      <td>504</td>
+      <td>21</td>
       <td>63</td>
       <td>None</td>
-      <td>subspace_medium_cycle</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>subspace_half_year_cycle</td>
+      <td>SSA_p126_tw504_s21</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>detime_STL_p42_tw126_s126_trend_following</td>
-      <td>trend_following</td>
-      <td>STL_p42_tw126_s126</td>
-      <td>0.038382</td>
-      <td>0.009460</td>
-      <td>0.259828</td>
-      <td>-0.060050</td>
-      <td>0.157543</td>
-      <td>0.039205</td>
-      <td>0.131944</td>
+      <td>detime_SSA_p126_tw504_s21_trend_crossover</td>
+      <td>trend_crossover</td>
+      <td>SSA_p126_tw504_s21</td>
+      <td>0.347427</td>
+      <td>0.077398</td>
+      <td>0.978572</td>
+      <td>-0.084043</td>
+      <td>0.920942</td>
+      <td>0.079416</td>
+      <td>0.152778</td>
       <td>...</td>
       <td>252.0</td>
       <td>signal_on_bar_t_fill_next_bar_open_or_proxy</td>
-      <td>STL</td>
-      <td>42</td>
+      <td>SSA</td>
       <td>126</td>
-      <td>126</td>
+      <td>504</td>
+      <td>21</td>
       <td>63</td>
       <td>None</td>
-      <td>fixed_period_medium_cycle</td>
-      <td>STL_p42_tw126_s126</td>
+      <td>subspace_half_year_cycle</td>
+      <td>SSA_p126_tw504_s21</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>detime_STL_p42_tw126_s126_trend_crossover</td>
-      <td>trend_crossover</td>
-      <td>STL_p42_tw126_s126</td>
-      <td>0.086823</td>
-      <td>0.021033</td>
-      <td>0.258085</td>
-      <td>-0.148693</td>
-      <td>0.141451</td>
-      <td>0.100254</td>
-      <td>0.131944</td>
+      <td>detime_SSA_p126_tw504_s21_residual_bollinger</td>
+      <td>residual_bollinger</td>
+      <td>SSA_p126_tw504_s21</td>
+      <td>0.120124</td>
+      <td>0.028766</td>
+      <td>0.542894</td>
+      <td>-0.071692</td>
+      <td>0.401241</td>
+      <td>0.055008</td>
+      <td>0.053571</td>
       <td>...</td>
       <td>252.0</td>
       <td>signal_on_bar_t_fill_next_bar_open_or_proxy</td>
-      <td>STL</td>
-      <td>42</td>
+      <td>SSA</td>
       <td>126</td>
-      <td>126</td>
+      <td>504</td>
+      <td>21</td>
       <td>63</td>
       <td>None</td>
-      <td>fixed_period_medium_cycle</td>
-      <td>STL_p42_tw126_s126</td>
+      <td>subspace_half_year_cycle</td>
+      <td>SSA_p126_tw504_s21</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>detime_SSA_p42_tw126_s126_trend_crossover</td>
-      <td>trend_crossover</td>
-      <td>SSA_p42_tw126_s126</td>
-      <td>0.086823</td>
-      <td>0.021033</td>
-      <td>0.258085</td>
-      <td>-0.148693</td>
-      <td>0.141451</td>
-      <td>0.100254</td>
-      <td>0.131944</td>
+      <td>detime_STL_p126_tw504_s21_hybrid_regime</td>
+      <td>hybrid_regime</td>
+      <td>STL_p126_tw504_s21</td>
+      <td>0.051462</td>
+      <td>0.012624</td>
+      <td>0.537848</td>
+      <td>-0.025492</td>
+      <td>0.495222</td>
+      <td>0.023848</td>
+      <td>0.009921</td>
       <td>...</td>
       <td>252.0</td>
       <td>signal_on_bar_t_fill_next_bar_open_or_proxy</td>
-      <td>SSA</td>
-      <td>42</td>
+      <td>STL</td>
       <td>126</td>
-      <td>126</td>
+      <td>504</td>
+      <td>21</td>
       <td>63</td>
       <td>None</td>
-      <td>subspace_medium_cycle</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>fixed_period_half_year_cycle</td>
+      <td>STL_p126_tw504_s21</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>detime_STL_p42_tw126_s126_trend_macd</td>
-      <td>trend_macd</td>
-      <td>STL_p42_tw126_s126</td>
-      <td>0.026480</td>
-      <td>0.006555</td>
-      <td>0.185995</td>
-      <td>-0.077487</td>
-      <td>0.084597</td>
-      <td>0.039296</td>
-      <td>0.018849</td>
+      <td>detime_STL_p126_tw504_s21_oscillation_reversion</td>
+      <td>oscillation_reversion</td>
+      <td>STL_p126_tw504_s21</td>
+      <td>0.051462</td>
+      <td>0.012624</td>
+      <td>0.537848</td>
+      <td>-0.025492</td>
+      <td>0.495222</td>
+      <td>0.023848</td>
+      <td>0.009921</td>
       <td>...</td>
       <td>252.0</td>
       <td>signal_on_bar_t_fill_next_bar_open_or_proxy</td>
       <td>STL</td>
-      <td>42</td>
       <td>126</td>
-      <td>126</td>
+      <td>504</td>
+      <td>21</td>
       <td>63</td>
       <td>None</td>
-      <td>fixed_period_medium_cycle</td>
-      <td>STL_p42_tw126_s126</td>
+      <td>fixed_period_half_year_cycle</td>
+      <td>STL_p126_tw504_s21</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>detime_SSA_p42_tw126_s126_trend_macd</td>
-      <td>trend_macd</td>
-      <td>SSA_p42_tw126_s126</td>
-      <td>0.026480</td>
-      <td>0.006555</td>
-      <td>0.185995</td>
-      <td>-0.077487</td>
-      <td>0.084597</td>
-      <td>0.039296</td>
-      <td>0.018849</td>
+      <td>detime_STL_p126_tw504_s21_trend_crossover</td>
+      <td>trend_crossover</td>
+      <td>STL_p126_tw504_s21</td>
+      <td>0.173953</td>
+      <td>0.040909</td>
+      <td>0.419117</td>
+      <td>-0.133557</td>
+      <td>0.306303</td>
+      <td>0.110303</td>
+      <td>0.193452</td>
       <td>...</td>
       <td>252.0</td>
       <td>signal_on_bar_t_fill_next_bar_open_or_proxy</td>
-      <td>SSA</td>
-      <td>42</td>
+      <td>STL</td>
       <td>126</td>
-      <td>126</td>
+      <td>504</td>
+      <td>21</td>
       <td>63</td>
       <td>None</td>
-      <td>subspace_medium_cycle</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>fixed_period_half_year_cycle</td>
+      <td>STL_p126_tw504_s21</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>detime_STL_p42_tw126_s126_hybrid_regime</td>
-      <td>hybrid_regime</td>
-      <td>STL_p42_tw126_s126</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>NaN</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
+      <td>detime_SSA_p126_tw504_s21_oscillation_reversion</td>
+      <td>oscillation_reversion</td>
+      <td>SSA_p126_tw504_s21</td>
+      <td>0.020514</td>
+      <td>0.005090</td>
+      <td>0.415414</td>
+      <td>-0.017531</td>
+      <td>0.290325</td>
+      <td>0.012406</td>
+      <td>0.008929</td>
       <td>...</td>
       <td>252.0</td>
       <td>signal_on_bar_t_fill_next_bar_open_or_proxy</td>
-      <td>STL</td>
-      <td>42</td>
+      <td>SSA</td>
       <td>126</td>
-      <td>126</td>
+      <td>504</td>
+      <td>21</td>
       <td>63</td>
       <td>None</td>
-      <td>fixed_period_medium_cycle</td>
-      <td>STL_p42_tw126_s126</td>
+      <td>subspace_half_year_cycle</td>
+      <td>SSA_p126_tw504_s21</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>detime_STL_p42_tw126_s126_residual_bollinger</td>
-      <td>residual_bollinger</td>
-      <td>STL_p42_tw126_s126</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>NaN</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
+      <td>detime_SSA_p126_tw504_s21_hybrid_regime</td>
+      <td>hybrid_regime</td>
+      <td>SSA_p126_tw504_s21</td>
+      <td>0.020514</td>
+      <td>0.005090</td>
+      <td>0.415414</td>
+      <td>-0.017531</td>
+      <td>0.290325</td>
+      <td>0.012406</td>
+      <td>0.008929</td>
       <td>...</td>
       <td>252.0</td>
       <td>signal_on_bar_t_fill_next_bar_open_or_proxy</td>
-      <td>STL</td>
-      <td>42</td>
+      <td>SSA</td>
       <td>126</td>
-      <td>126</td>
+      <td>504</td>
+      <td>21</td>
       <td>63</td>
       <td>None</td>
-      <td>fixed_period_medium_cycle</td>
-      <td>STL_p42_tw126_s126</td>
+      <td>subspace_half_year_cycle</td>
+      <td>SSA_p126_tw504_s21</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>detime_SSA_p42_tw126_s126_trend_following</td>
-      <td>trend_following</td>
-      <td>SSA_p42_tw126_s126</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>NaN</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
+      <td>detime_STL_p126_tw504_s21_trend_macd</td>
+      <td>trend_macd</td>
+      <td>STL_p126_tw504_s21</td>
+      <td>0.056238</td>
+      <td>0.013772</td>
+      <td>0.228508</td>
+      <td>-0.152319</td>
+      <td>0.090418</td>
+      <td>0.071101</td>
+      <td>0.062500</td>
       <td>...</td>
       <td>252.0</td>
       <td>signal_on_bar_t_fill_next_bar_open_or_proxy</td>
-      <td>SSA</td>
-      <td>42</td>
+      <td>STL</td>
       <td>126</td>
-      <td>126</td>
+      <td>504</td>
+      <td>21</td>
       <td>63</td>
       <td>None</td>
-      <td>subspace_medium_cycle</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>fixed_period_half_year_cycle</td>
+      <td>STL_p126_tw504_s21</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>detime_SSA_p42_tw126_s126_oscillation_reversion</td>
-      <td>oscillation_reversion</td>
-      <td>SSA_p42_tw126_s126</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>NaN</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
+      <td>detime_STL_p126_tw504_s21_residual_bollinger</td>
+      <td>residual_bollinger</td>
+      <td>STL_p126_tw504_s21</td>
+      <td>0.019034</td>
+      <td>0.004725</td>
+      <td>0.137965</td>
+      <td>-0.065186</td>
+      <td>0.072482</td>
+      <td>0.039841</td>
+      <td>0.015873</td>
       <td>...</td>
       <td>252.0</td>
       <td>signal_on_bar_t_fill_next_bar_open_or_proxy</td>
-      <td>SSA</td>
-      <td>42</td>
+      <td>STL</td>
       <td>126</td>
-      <td>126</td>
+      <td>504</td>
+      <td>21</td>
       <td>63</td>
       <td>None</td>
-      <td>subspace_medium_cycle</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>fixed_period_half_year_cycle</td>
+      <td>STL_p126_tw504_s21</td>
     </tr>
     <tr>
       <th>10</th>
-      <td>detime_SSA_p42_tw126_s126_hybrid_regime</td>
+      <td>detime_STD_p126_tw504_s21_hybrid_regime</td>
       <td>hybrid_regime</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>STD_p126_tw504_s21</td>
       <td>0.000000</td>
       <td>0.000000</td>
       <td>0.000000</td>
@@ -450,20 +450,68 @@ stats.head(20)
       <td>...</td>
       <td>252.0</td>
       <td>signal_on_bar_t_fill_next_bar_open_or_proxy</td>
-      <td>SSA</td>
-      <td>42</td>
+      <td>STD</td>
       <td>126</td>
-      <td>126</td>
+      <td>504</td>
+      <td>21</td>
       <td>63</td>
       <td>None</td>
-      <td>subspace_medium_cycle</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>dispersion_half_year_cycle</td>
+      <td>STD_p126_tw504_s21</td>
     </tr>
     <tr>
       <th>11</th>
-      <td>detime_STL_p42_tw126_s126_oscillation_reversion</td>
-      <td>oscillation_reversion</td>
-      <td>STL_p42_tw126_s126</td>
+      <td>detime_STD_p126_tw504_s21_trend_macd</td>
+      <td>trend_macd</td>
+      <td>STD_p126_tw504_s21</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>NaN</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>252.0</td>
+      <td>signal_on_bar_t_fill_next_bar_open_or_proxy</td>
+      <td>STD</td>
+      <td>126</td>
+      <td>504</td>
+      <td>21</td>
+      <td>63</td>
+      <td>None</td>
+      <td>dispersion_half_year_cycle</td>
+      <td>STD_p126_tw504_s21</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>detime_STD_p126_tw504_s21_residual_bollinger</td>
+      <td>residual_bollinger</td>
+      <td>STD_p126_tw504_s21</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>NaN</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>252.0</td>
+      <td>signal_on_bar_t_fill_next_bar_open_or_proxy</td>
+      <td>STD</td>
+      <td>126</td>
+      <td>504</td>
+      <td>21</td>
+      <td>63</td>
+      <td>None</td>
+      <td>dispersion_half_year_cycle</td>
+      <td>STD_p126_tw504_s21</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>detime_STL_p126_tw504_s21_trend_following</td>
+      <td>trend_following</td>
+      <td>STL_p126_tw504_s21</td>
       <td>0.000000</td>
       <td>0.000000</td>
       <td>0.000000</td>
@@ -475,67 +523,19 @@ stats.head(20)
       <td>252.0</td>
       <td>signal_on_bar_t_fill_next_bar_open_or_proxy</td>
       <td>STL</td>
-      <td>42</td>
       <td>126</td>
-      <td>126</td>
+      <td>504</td>
+      <td>21</td>
       <td>63</td>
       <td>None</td>
-      <td>fixed_period_medium_cycle</td>
-      <td>STL_p42_tw126_s126</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>detime_STD_p42_tw126_s126_trend_following</td>
-      <td>trend_following</td>
-      <td>STD_p42_tw126_s126</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>NaN</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>...</td>
-      <td>252.0</td>
-      <td>signal_on_bar_t_fill_next_bar_open_or_proxy</td>
-      <td>STD</td>
-      <td>42</td>
-      <td>126</td>
-      <td>126</td>
-      <td>63</td>
-      <td>None</td>
-      <td>dispersion_medium_cycle</td>
-      <td>STD_p42_tw126_s126</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>detime_STD_p42_tw126_s126_oscillation_reversion</td>
-      <td>oscillation_reversion</td>
-      <td>STD_p42_tw126_s126</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>NaN</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>...</td>
-      <td>252.0</td>
-      <td>signal_on_bar_t_fill_next_bar_open_or_proxy</td>
-      <td>STD</td>
-      <td>42</td>
-      <td>126</td>
-      <td>126</td>
-      <td>63</td>
-      <td>None</td>
-      <td>dispersion_medium_cycle</td>
-      <td>STD_p42_tw126_s126</td>
+      <td>fixed_period_half_year_cycle</td>
+      <td>STL_p126_tw504_s21</td>
     </tr>
     <tr>
       <th>14</th>
-      <td>detime_STD_p42_tw126_s126_hybrid_regime</td>
-      <td>hybrid_regime</td>
-      <td>STD_p42_tw126_s126</td>
+      <td>detime_STD_p126_tw504_s21_oscillation_reversion</td>
+      <td>oscillation_reversion</td>
+      <td>STD_p126_tw504_s21</td>
       <td>0.000000</td>
       <td>0.000000</td>
       <td>0.000000</td>
@@ -547,19 +547,19 @@ stats.head(20)
       <td>252.0</td>
       <td>signal_on_bar_t_fill_next_bar_open_or_proxy</td>
       <td>STD</td>
-      <td>42</td>
       <td>126</td>
-      <td>126</td>
+      <td>504</td>
+      <td>21</td>
       <td>63</td>
       <td>None</td>
-      <td>dispersion_medium_cycle</td>
-      <td>STD_p42_tw126_s126</td>
+      <td>dispersion_half_year_cycle</td>
+      <td>STD_p126_tw504_s21</td>
     </tr>
     <tr>
       <th>15</th>
-      <td>detime_STD_p42_tw126_s126_residual_bollinger</td>
-      <td>residual_bollinger</td>
-      <td>STD_p42_tw126_s126</td>
+      <td>detime_STD_p126_tw504_s21_trend_following</td>
+      <td>trend_following</td>
+      <td>STD_p126_tw504_s21</td>
       <td>0.000000</td>
       <td>0.000000</td>
       <td>0.000000</td>
@@ -571,19 +571,19 @@ stats.head(20)
       <td>252.0</td>
       <td>signal_on_bar_t_fill_next_bar_open_or_proxy</td>
       <td>STD</td>
-      <td>42</td>
       <td>126</td>
-      <td>126</td>
+      <td>504</td>
+      <td>21</td>
       <td>63</td>
       <td>None</td>
-      <td>dispersion_medium_cycle</td>
-      <td>STD_p42_tw126_s126</td>
+      <td>dispersion_half_year_cycle</td>
+      <td>STD_p126_tw504_s21</td>
     </tr>
     <tr>
       <th>16</th>
-      <td>detime_STD_p42_tw126_s126_trend_macd</td>
-      <td>trend_macd</td>
-      <td>STD_p42_tw126_s126</td>
+      <td>detime_SSA_p126_tw504_s21_trend_following</td>
+      <td>trend_following</td>
+      <td>SSA_p126_tw504_s21</td>
       <td>0.000000</td>
       <td>0.000000</td>
       <td>0.000000</td>
@@ -594,20 +594,20 @@ stats.head(20)
       <td>...</td>
       <td>252.0</td>
       <td>signal_on_bar_t_fill_next_bar_open_or_proxy</td>
-      <td>STD</td>
-      <td>42</td>
+      <td>SSA</td>
       <td>126</td>
-      <td>126</td>
+      <td>504</td>
+      <td>21</td>
       <td>63</td>
       <td>None</td>
-      <td>dispersion_medium_cycle</td>
-      <td>STD_p42_tw126_s126</td>
+      <td>subspace_half_year_cycle</td>
+      <td>SSA_p126_tw504_s21</td>
     </tr>
     <tr>
       <th>17</th>
-      <td>detime_STD_p42_tw126_s126_trend_crossover</td>
+      <td>detime_STD_p126_tw504_s21_trend_crossover</td>
       <td>trend_crossover</td>
-      <td>STD_p42_tw126_s126</td>
+      <td>STD_p126_tw504_s21</td>
       <td>0.000000</td>
       <td>0.000000</td>
       <td>0.000000</td>
@@ -619,13 +619,13 @@ stats.head(20)
       <td>252.0</td>
       <td>signal_on_bar_t_fill_next_bar_open_or_proxy</td>
       <td>STD</td>
-      <td>42</td>
       <td>126</td>
-      <td>126</td>
+      <td>504</td>
+      <td>21</td>
       <td>63</td>
       <td>None</td>
-      <td>dispersion_medium_cycle</td>
-      <td>STD_p42_tw126_s126</td>
+      <td>dispersion_half_year_cycle</td>
+      <td>STD_p126_tw504_s21</td>
     </tr>
   </tbody>
 </table>
@@ -670,8 +670,8 @@ trades.head()
 <div class="gallery-out notebook-output">
 <div class="notebook-output-label">stdout</div>
 ```text
-orders: 18
-round-trip trades: 7
+orders: 67
+round-trip trades: 32
 ```
 <div class="notebook-output-label">text/html</div>
 <div class="notebook-html-output">
@@ -711,83 +711,83 @@ round-trip trades: 7
   <tbody>
     <tr>
       <th>0</th>
-      <td>detime_STL_p42_tw126_s126_trend_following</td>
+      <td>detime_STL_p126_tw504_s21_oscillation_reversion</td>
       <td>GOOG</td>
-      <td>long</td>
-      <td>2015-12-31</td>
-      <td>2016-01-04</td>
-      <td>2016-07-01</td>
-      <td>2016-07-05</td>
-      <td>743.00000</td>
-      <td>696.059998</td>
-      <td>126</td>
-      <td>0.390457</td>
-      <td>-0.063176</td>
-      <td>-0.024941</td>
+      <td>short</td>
+      <td>2017-06-02</td>
+      <td>2017-06-05</td>
+      <td>2017-07-03</td>
+      <td>2017-07-05</td>
+      <td>976.549988</td>
+      <td>901.760010</td>
+      <td>21</td>
+      <td>-0.677286</td>
+      <td>0.076586</td>
+      <td>0.051396</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>detime_STL_p42_tw126_s126_trend_macd</td>
+      <td>detime_STL_p126_tw504_s21_hybrid_regime</td>
       <td>GOOG</td>
-      <td>long</td>
-      <td>2015-12-31</td>
-      <td>2016-01-04</td>
-      <td>2016-01-22</td>
-      <td>2016-01-25</td>
-      <td>743.00000</td>
-      <td>723.580017</td>
-      <td>14</td>
-      <td>1.000000</td>
-      <td>-0.026137</td>
-      <td>-0.026837</td>
+      <td>short</td>
+      <td>2017-06-02</td>
+      <td>2017-06-05</td>
+      <td>2017-07-03</td>
+      <td>2017-07-05</td>
+      <td>976.549988</td>
+      <td>901.760010</td>
+      <td>21</td>
+      <td>-0.677286</td>
+      <td>0.076586</td>
+      <td>0.051396</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>detime_STL_p42_tw126_s126_trend_macd</td>
+      <td>detime_STL_p126_tw504_s21_residual_bollinger</td>
       <td>GOOG</td>
-      <td>long</td>
+      <td>short</td>
+      <td>2017-05-03</td>
+      <td>2017-05-04</td>
       <td>2017-07-03</td>
       <td>2017-07-05</td>
-      <td>2017-07-24</td>
-      <td>2017-07-25</td>
-      <td>901.76001</td>
-      <td>953.809998</td>
-      <td>14</td>
-      <td>1.000000</td>
-      <td>0.057720</td>
-      <td>0.057020</td>
+      <td>926.070007</td>
+      <td>901.760010</td>
+      <td>42</td>
+      <td>-1.000000</td>
+      <td>0.026251</td>
+      <td>0.025551</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>detime_STL_p42_tw126_s126_trend_crossover</td>
+      <td>detime_STL_p126_tw504_s21_trend_macd</td>
       <td>GOOG</td>
       <td>long</td>
-      <td>2015-12-31</td>
-      <td>2016-01-04</td>
-      <td>2016-07-01</td>
-      <td>2016-07-05</td>
-      <td>743.00000</td>
-      <td>696.059998</td>
-      <td>126</td>
+      <td>2016-02-02</td>
+      <td>2016-02-03</td>
+      <td>2016-02-23</td>
+      <td>2016-02-24</td>
+      <td>770.219971</td>
+      <td>688.919983</td>
+      <td>14</td>
       <td>1.000000</td>
-      <td>-0.063176</td>
-      <td>-0.063876</td>
+      <td>-0.105554</td>
+      <td>-0.106254</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>detime_SSA_p42_tw126_s126_trend_macd</td>
+      <td>detime_STL_p126_tw504_s21_trend_macd</td>
       <td>GOOG</td>
       <td>long</td>
-      <td>2015-12-31</td>
-      <td>2016-01-04</td>
-      <td>2016-01-22</td>
-      <td>2016-01-25</td>
-      <td>743.00000</td>
-      <td>723.580017</td>
+      <td>2016-04-04</td>
+      <td>2016-04-05</td>
+      <td>2016-04-22</td>
+      <td>2016-04-25</td>
+      <td>738.000000</td>
+      <td>716.099976</td>
       <td>14</td>
       <td>1.000000</td>
-      <td>-0.026137</td>
-      <td>-0.026837</td>
+      <td>-0.029675</td>
+      <td>-0.030375</td>
     </tr>
   </tbody>
 </table>
@@ -834,142 +834,142 @@ coverage.groupby(['method', 'variant', 'feature'])['coverage'].max().reset_index
     <tr>
       <th>0</th>
       <td>SSA</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>SSA_p126_tw504_s21</td>
       <td>component_stability</td>
-      <td>0.875992</td>
+      <td>0.500992</td>
     </tr>
     <tr>
       <th>1</th>
       <td>SSA</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>SSA_p126_tw504_s21</td>
       <td>cycle</td>
-      <td>0.875992</td>
+      <td>0.500992</td>
     </tr>
     <tr>
       <th>2</th>
       <td>SSA</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>SSA_p126_tw504_s21</td>
       <td>cycle_amplitude</td>
-      <td>0.875992</td>
+      <td>0.500992</td>
     </tr>
     <tr>
       <th>3</th>
       <td>SSA</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>SSA_p126_tw504_s21</td>
       <td>cycle_position</td>
-      <td>0.875992</td>
+      <td>0.500992</td>
     </tr>
     <tr>
       <th>4</th>
       <td>SSA</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>SSA_p126_tw504_s21</td>
       <td>cycle_slope</td>
-      <td>0.875992</td>
+      <td>0.500992</td>
     </tr>
     <tr>
       <th>5</th>
       <td>SSA</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>SSA_p126_tw504_s21</td>
       <td>cycle_turn_up</td>
-      <td>0.875992</td>
+      <td>0.500992</td>
     </tr>
     <tr>
       <th>6</th>
       <td>SSA</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>SSA_p126_tw504_s21</td>
       <td>cycle_z</td>
-      <td>0.875992</td>
+      <td>0.500992</td>
     </tr>
     <tr>
       <th>7</th>
       <td>SSA</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>SSA_p126_tw504_s21</td>
       <td>reconstruction_error</td>
-      <td>0.875992</td>
+      <td>0.500992</td>
     </tr>
     <tr>
       <th>8</th>
       <td>SSA</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>SSA_p126_tw504_s21</td>
       <td>residual</td>
-      <td>0.875992</td>
+      <td>0.500992</td>
     </tr>
     <tr>
       <th>9</th>
       <td>SSA</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>SSA_p126_tw504_s21</td>
       <td>residual_abs_z</td>
-      <td>0.875992</td>
+      <td>0.500992</td>
     </tr>
     <tr>
       <th>10</th>
       <td>SSA</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>SSA_p126_tw504_s21</td>
       <td>residual_vol</td>
-      <td>0.875992</td>
+      <td>0.500992</td>
     </tr>
     <tr>
       <th>11</th>
       <td>SSA</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>SSA_p126_tw504_s21</td>
       <td>residual_z</td>
-      <td>0.875992</td>
+      <td>0.500992</td>
     </tr>
     <tr>
       <th>12</th>
       <td>SSA</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>SSA_p126_tw504_s21</td>
       <td>selected_period</td>
-      <td>0.875992</td>
+      <td>0.500992</td>
     </tr>
     <tr>
       <th>13</th>
       <td>SSA</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>SSA_p126_tw504_s21</td>
       <td>trend</td>
-      <td>0.875992</td>
+      <td>0.500992</td>
     </tr>
     <tr>
       <th>14</th>
       <td>SSA</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>SSA_p126_tw504_s21</td>
       <td>trend_acceleration</td>
-      <td>0.875992</td>
+      <td>0.500992</td>
     </tr>
     <tr>
       <th>15</th>
       <td>SSA</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>SSA_p126_tw504_s21</td>
       <td>trend_gap</td>
-      <td>0.875992</td>
+      <td>0.500992</td>
     </tr>
     <tr>
       <th>16</th>
       <td>SSA</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>SSA_p126_tw504_s21</td>
       <td>trend_slope</td>
-      <td>0.875992</td>
+      <td>0.500992</td>
     </tr>
     <tr>
       <th>17</th>
       <td>SSA</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>SSA_p126_tw504_s21</td>
       <td>trend_strength</td>
-      <td>0.875992</td>
+      <td>0.500992</td>
     </tr>
     <tr>
       <th>18</th>
       <td>SSA</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>SSA_p126_tw504_s21</td>
       <td>volume_component_stability</td>
-      <td>0.875992</td>
+      <td>0.500992</td>
     </tr>
     <tr>
       <th>19</th>
       <td>SSA</td>
-      <td>SSA_p42_tw126_s126</td>
+      <td>SSA_p126_tw504_s21</td>
       <td>volume_cycle</td>
-      <td>0.875992</td>
+      <td>0.500992</td>
     </tr>
   </tbody>
 </table>

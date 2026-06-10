@@ -736,7 +736,15 @@ def pair_diagnostics(
     rows = []
     for pair in pairs:
         pair_prices = _clean_prices(prices, pair)
-        bundle = build_pair_spread_bundle(pair_prices, pair, lookback=hedge_window, method="STL", period=42, train_window=min(252, max(126, len(pair_prices) // 3)), step=max(21, len(pair_prices) // 8))
+        bundle = build_pair_spread_bundle(
+            pair_prices,
+            pair,
+            lookback=max(126, hedge_window),
+            method="STL",
+            period=126,
+            train_window=min(504, max(252, len(pair_prices) // 2)),
+            step=21,
+        )
         rows.append(pair_diagnostic_table(pair_prices, pair, bundle).iloc[0].to_dict())
     return pd.DataFrame(rows)
 

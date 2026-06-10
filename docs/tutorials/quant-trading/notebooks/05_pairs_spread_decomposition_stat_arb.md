@@ -52,7 +52,7 @@ from quant_trading.validation import turnover_report, compare_weight_strategies
 tickers = ["AUDUSD=X", "NZDUSD=X", "EURUSD=X", "GBPUSD=X"]
 pairs = [("AUDUSD=X", "NZDUSD=X"), ("EURUSD=X", "GBPUSD=X")]
 ohlcv = load_bundled_real_ohlcv_panel(tickers, min_observations=120)
-ohlcv = {field: table.tail(520).copy() for field, table in ohlcv.items()}
+ohlcv = {field: table.tail(760).copy() for field, table in ohlcv.items()}
 prices = ohlcv["Close"]
 ohlcv_audit_report(ohlcv)
 ```
@@ -94,35 +94,35 @@ ohlcv_audit_report(ohlcv)
     <tr>
       <th>0</th>
       <td>AUDUSD=X</td>
-      <td>2016-01-04</td>
+      <td>2015-02-02</td>
       <td>2018-01-02</td>
-      <td>520</td>
+      <td>760</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>1.0</td>
       <td>0.686106</td>
-      <td>0.805802</td>
+      <td>0.811293</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>1</th>
       <td>NZDUSD=X</td>
-      <td>2016-01-04</td>
+      <td>2015-02-02</td>
       <td>2018-01-02</td>
-      <td>520</td>
+      <td>760</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>1.0</td>
-      <td>0.640287</td>
-      <td>0.752570</td>
+      <td>0.626684</td>
+      <td>0.772380</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>2</th>
       <td>EURUSD=X</td>
-      <td>2016-01-04</td>
+      <td>2015-02-02</td>
       <td>2018-01-02</td>
-      <td>520</td>
+      <td>760</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>1.0</td>
@@ -133,14 +133,14 @@ ohlcv_audit_report(ohlcv)
     <tr>
       <th>3</th>
       <td>GBPUSD=X</td>
-      <td>2016-01-04</td>
+      <td>2015-02-02</td>
       <td>2018-01-02</td>
-      <td>520</td>
+      <td>760</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>1.0</td>
       <td>1.203935</td>
-      <td>1.478940</td>
+      <td>1.588512</td>
       <td>0.0</td>
     </tr>
   </tbody>
@@ -157,7 +157,14 @@ ohlcv_audit_report(ohlcv)
 
 ```python
 spread_features, spread_panel, beta_panel, pair_specs = walkforward_pair_spread_features(
-    prices, pairs, hedge_window=90, method="STL", period=42, train_window=180, step=252, z_window=42
+    prices,
+    pairs,
+    hedge_window=126,
+    method="STL",
+    period=126,
+    train_window=504,
+    step=5,
+    z_window=63,
 )
 spread_panel.tail()
 ```
@@ -195,28 +202,28 @@ spread_panel.tail()
   <tbody>
     <tr>
       <th>2017-12-27</th>
-      <td>-0.100258</td>
-      <td>0.060945</td>
+      <td>-0.078105</td>
+      <td>0.055287</td>
     </tr>
     <tr>
       <th>2017-12-28</th>
-      <td>-0.094383</td>
-      <td>0.064674</td>
+      <td>-0.073091</td>
+      <td>0.057506</td>
     </tr>
     <tr>
       <th>2017-12-29</th>
-      <td>-0.090705</td>
-      <td>0.064913</td>
+      <td>-0.072003</td>
+      <td>0.060825</td>
     </tr>
     <tr>
       <th>2018-01-01</th>
-      <td>-0.090874</td>
-      <td>0.066027</td>
+      <td>-0.072259</td>
+      <td>0.062524</td>
     </tr>
     <tr>
       <th>2018-01-02</th>
-      <td>-0.092184</td>
-      <td>0.076336</td>
+      <td>-0.071041</td>
+      <td>0.063328</td>
     </tr>
   </tbody>
 </table>
@@ -273,10 +280,10 @@ pair_diagnostics(prices, pair_specs, hedge_window=90)
       <td>-0.092184</td>
       <td>0.453700</td>
       <td>0.632244</td>
-      <td>-0.000730</td>
-      <td>-0.000847</td>
-      <td>-0.929979</td>
-      <td>0.929979</td>
+      <td>-0.000494</td>
+      <td>0.002530</td>
+      <td>-0.386195</td>
+      <td>0.386195</td>
       <td>True</td>
     </tr>
     <tr>
@@ -286,10 +293,10 @@ pair_diagnostics(prices, pair_specs, hedge_window=90)
       <td>0.076336</td>
       <td>0.355382</td>
       <td>0.446730</td>
-      <td>0.000247</td>
-      <td>-0.000303</td>
-      <td>0.614364</td>
-      <td>0.614364</td>
+      <td>0.000147</td>
+      <td>0.002752</td>
+      <td>1.196764</td>
+      <td>1.196764</td>
       <td>True</td>
     </tr>
   </tbody>
@@ -336,116 +343,116 @@ snapshot.query("feature in ['trend_slope', 'cycle_slope', 'residual_z', 'residua
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>2018-01-01</td>
-      <td>AUDUSD=X__NZDUSD=X</td>
-      <td>trend_slope</td>
-      <td>0.000559</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2018-01-01</td>
-      <td>EURUSD=X__GBPUSD=X</td>
-      <td>trend_slope</td>
-      <td>0.000787</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>2018-01-02</td>
-      <td>AUDUSD=X__NZDUSD=X</td>
-      <td>trend_slope</td>
-      <td>0.000559</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>2018-01-02</td>
-      <td>EURUSD=X__GBPUSD=X</td>
-      <td>trend_slope</td>
-      <td>0.000787</td>
-    </tr>
-    <tr>
-      <th>32</th>
-      <td>2018-01-01</td>
-      <td>AUDUSD=X__NZDUSD=X</td>
-      <td>residual_abs_z</td>
-      <td>0.475670</td>
-    </tr>
-    <tr>
-      <th>33</th>
-      <td>2018-01-01</td>
-      <td>EURUSD=X__GBPUSD=X</td>
-      <td>residual_abs_z</td>
-      <td>0.055528</td>
-    </tr>
-    <tr>
-      <th>34</th>
-      <td>2018-01-02</td>
-      <td>AUDUSD=X__NZDUSD=X</td>
-      <td>residual_abs_z</td>
-      <td>0.475670</td>
-    </tr>
-    <tr>
-      <th>35</th>
-      <td>2018-01-02</td>
-      <td>EURUSD=X__GBPUSD=X</td>
-      <td>residual_abs_z</td>
-      <td>0.055528</td>
-    </tr>
-    <tr>
-      <th>36</th>
-      <td>2018-01-01</td>
-      <td>AUDUSD=X__NZDUSD=X</td>
-      <td>residual_z</td>
-      <td>-0.475670</td>
-    </tr>
-    <tr>
-      <th>37</th>
-      <td>2018-01-01</td>
-      <td>EURUSD=X__GBPUSD=X</td>
-      <td>residual_z</td>
-      <td>-0.055528</td>
-    </tr>
-    <tr>
-      <th>38</th>
-      <td>2018-01-02</td>
-      <td>AUDUSD=X__NZDUSD=X</td>
-      <td>residual_z</td>
-      <td>-0.475670</td>
-    </tr>
-    <tr>
-      <th>39</th>
-      <td>2018-01-02</td>
-      <td>EURUSD=X__GBPUSD=X</td>
-      <td>residual_z</td>
-      <td>-0.055528</td>
-    </tr>
-    <tr>
-      <th>52</th>
+      <th>8</th>
       <td>2018-01-01</td>
       <td>AUDUSD=X__NZDUSD=X</td>
       <td>cycle_slope</td>
-      <td>0.003932</td>
+      <td>-0.000361</td>
     </tr>
     <tr>
-      <th>53</th>
+      <th>9</th>
       <td>2018-01-01</td>
       <td>EURUSD=X__GBPUSD=X</td>
       <td>cycle_slope</td>
-      <td>0.000410</td>
+      <td>0.000803</td>
     </tr>
     <tr>
-      <th>54</th>
+      <th>10</th>
       <td>2018-01-02</td>
       <td>AUDUSD=X__NZDUSD=X</td>
       <td>cycle_slope</td>
-      <td>0.003932</td>
+      <td>-0.000361</td>
     </tr>
     <tr>
-      <th>55</th>
+      <th>11</th>
       <td>2018-01-02</td>
       <td>EURUSD=X__GBPUSD=X</td>
       <td>cycle_slope</td>
-      <td>0.000410</td>
+      <td>0.000803</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>2018-01-01</td>
+      <td>AUDUSD=X__NZDUSD=X</td>
+      <td>residual_abs_z</td>
+      <td>2.174176</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>2018-01-01</td>
+      <td>EURUSD=X__GBPUSD=X</td>
+      <td>residual_abs_z</td>
+      <td>0.840480</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>2018-01-02</td>
+      <td>AUDUSD=X__NZDUSD=X</td>
+      <td>residual_abs_z</td>
+      <td>2.174176</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>2018-01-02</td>
+      <td>EURUSD=X__GBPUSD=X</td>
+      <td>residual_abs_z</td>
+      <td>0.840480</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>2018-01-01</td>
+      <td>AUDUSD=X__NZDUSD=X</td>
+      <td>residual_z</td>
+      <td>2.174176</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>2018-01-01</td>
+      <td>EURUSD=X__GBPUSD=X</td>
+      <td>residual_z</td>
+      <td>-0.840480</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>2018-01-02</td>
+      <td>AUDUSD=X__NZDUSD=X</td>
+      <td>residual_z</td>
+      <td>2.174176</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>2018-01-02</td>
+      <td>EURUSD=X__GBPUSD=X</td>
+      <td>residual_z</td>
+      <td>-0.840480</td>
+    </tr>
+    <tr>
+      <th>64</th>
+      <td>2018-01-01</td>
+      <td>AUDUSD=X__NZDUSD=X</td>
+      <td>trend_slope</td>
+      <td>-0.000070</td>
+    </tr>
+    <tr>
+      <th>65</th>
+      <td>2018-01-01</td>
+      <td>EURUSD=X__GBPUSD=X</td>
+      <td>trend_slope</td>
+      <td>0.000351</td>
+    </tr>
+    <tr>
+      <th>66</th>
+      <td>2018-01-02</td>
+      <td>AUDUSD=X__NZDUSD=X</td>
+      <td>trend_slope</td>
+      <td>-0.000070</td>
+    </tr>
+    <tr>
+      <th>67</th>
+      <td>2018-01-02</td>
+      <td>EURUSD=X__GBPUSD=X</td>
+      <td>trend_slope</td>
+      <td>0.000351</td>
     </tr>
   </tbody>
 </table>
@@ -508,50 +515,50 @@ comparison[["strategy_group", "cagr", "sharpe", "max_drawdown", "average_turnove
     <tr>
       <th>classic_pair_ratio_zscore_120</th>
       <td>classical_pair</td>
-      <td>0.0215</td>
-      <td>0.6203</td>
+      <td>0.0162</td>
+      <td>0.4520</td>
       <td>-0.0338</td>
-      <td>0.0635</td>
-    </tr>
-    <tr>
-      <th>detime_spread_trend_drift_blocker</th>
-      <td>detime_pair</td>
-      <td>0.0130</td>
-      <td>0.4671</td>
-      <td>-0.0275</td>
-      <td>0.0058</td>
-    </tr>
-    <tr>
-      <th>detime_spread_residual_z</th>
-      <td>detime_pair</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-    </tr>
-    <tr>
-      <th>detime_spread_cycle_timed</th>
-      <td>detime_pair</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-    </tr>
-    <tr>
-      <th>classic_pair_spread_zscore_120</th>
-      <td>classical_pair</td>
-      <td>-0.0160</td>
-      <td>-0.4592</td>
-      <td>-0.0596</td>
-      <td>0.0519</td>
+      <td>0.0671</td>
     </tr>
     <tr>
       <th>classic_pair_corr_filtered_zscore</th>
       <td>classical_pair</td>
-      <td>-0.0169</td>
-      <td>-0.5181</td>
-      <td>-0.0563</td>
-      <td>0.0473</td>
+      <td>-0.0114</td>
+      <td>-0.3120</td>
+      <td>-0.0687</td>
+      <td>0.0499</td>
+    </tr>
+    <tr>
+      <th>classic_pair_spread_zscore_120</th>
+      <td>classical_pair</td>
+      <td>-0.0140</td>
+      <td>-0.3748</td>
+      <td>-0.0687</td>
+      <td>0.0540</td>
+    </tr>
+    <tr>
+      <th>detime_spread_cycle_timed</th>
+      <td>detime_pair</td>
+      <td>-0.0158</td>
+      <td>-0.7761</td>
+      <td>-0.0511</td>
+      <td>0.0146</td>
+    </tr>
+    <tr>
+      <th>detime_spread_trend_drift_blocker</th>
+      <td>detime_pair</td>
+      <td>-0.0155</td>
+      <td>-0.8349</td>
+      <td>-0.0575</td>
+      <td>0.0186</td>
+    </tr>
+    <tr>
+      <th>detime_spread_residual_z</th>
+      <td>detime_pair</td>
+      <td>-0.0176</td>
+      <td>-0.9479</td>
+      <td>-0.0575</td>
+      <td>0.0186</td>
     </tr>
   </tbody>
 </table>
@@ -626,45 +633,45 @@ turnover_report(all_weights).round(4)
   <tbody>
     <tr>
       <th>classic_pair_spread_zscore_120</th>
-      <td>0.0519</td>
-      <td>0.0035</td>
+      <td>0.0540</td>
+      <td>0.0037</td>
       <td>2.0</td>
-      <td>0.9135</td>
+      <td>0.8632</td>
     </tr>
     <tr>
       <th>classic_pair_corr_filtered_zscore</th>
-      <td>0.0473</td>
-      <td>0.0032</td>
+      <td>0.0499</td>
+      <td>0.0035</td>
       <td>2.0</td>
-      <td>0.8481</td>
+      <td>0.8171</td>
     </tr>
     <tr>
       <th>classic_pair_ratio_zscore_120</th>
-      <td>0.0635</td>
+      <td>0.0671</td>
       <td>0.0000</td>
       <td>1.0</td>
-      <td>0.8019</td>
+      <td>0.8303</td>
     </tr>
     <tr>
       <th>detime_spread_residual_z</th>
+      <td>0.0186</td>
       <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0</td>
-      <td>0.0000</td>
+      <td>2.0</td>
+      <td>0.3118</td>
     </tr>
     <tr>
       <th>detime_spread_cycle_timed</th>
+      <td>0.0146</td>
       <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0</td>
-      <td>0.0000</td>
+      <td>2.0</td>
+      <td>0.2987</td>
     </tr>
     <tr>
       <th>detime_spread_trend_drift_blocker</th>
-      <td>0.0058</td>
-      <td>0.0012</td>
-      <td>1.0</td>
-      <td>0.6558</td>
+      <td>0.0186</td>
+      <td>0.0000</td>
+      <td>2.0</td>
+      <td>0.3250</td>
     </tr>
   </tbody>
 </table>

@@ -47,9 +47,9 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--cache-dir", default="examples/quant_trading/data/cache")
     p.add_argument("--report-dir", default="examples/quant_trading/reports")
     p.add_argument("--method", default="STL")
-    p.add_argument("--period", default="63")
-    p.add_argument("--train-window", type=int, default=252)
-    p.add_argument("--step", type=int, default=63)
+    p.add_argument("--period", default="auto")
+    p.add_argument("--train-window", type=int, default=504)
+    p.add_argument("--step", type=int, default=5)
     p.add_argument("--top-n", type=int, default=3)
     p.add_argument("--rebalance", default="W-FRI")
     p.add_argument("--fee-bps", type=float, default=1.0)
@@ -61,8 +61,9 @@ def parse_args() -> argparse.Namespace:
 def _load_ohlcv(args: argparse.Namespace):
     if args.use_bundled_sample:
         panels = load_bundled_real_ohlcv_panel(BUNDLED_TICKERS, min_observations=120)
-        # Keep the offline tutorial run bounded; live-data runs use the full downloaded range.
-        panels = {field: table.tail(280).copy() for field, table in panels.items()}
+        # Keep the offline tutorial run bounded while preserving enough history
+        # for two-year walk-forward decomposition windows.
+        panels = {field: table.tail(760).copy() for field, table in panels.items()}
         manifest = market_data_manifest(tickers=BUNDLED_TICKERS, start="2014-01-01", end="2018-01-02", interval="1d", source="Learn-Algorithmic-Trading bundled real Yahoo exports")
         return panels, manifest
     panels = fetch_yahoo_ohlcv_panel(args.tickers, start=args.start, end=args.end, interval=args.interval, cache_dir=args.cache_dir, allow_partial=True)
@@ -88,6 +89,7 @@ def main() -> int:
         volumes_for_features,
         method=args.method,
         period=args.period if str(args.period).lower() == "auto" else int(args.period),
+        period_candidates=(63, 126, 252),
         train_window=args.train_window,
         step=args.step,
         z_window=min(63, max(21, args.train_window // 3)),

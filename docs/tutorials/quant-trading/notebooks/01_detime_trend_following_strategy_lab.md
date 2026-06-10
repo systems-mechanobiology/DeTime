@@ -77,7 +77,7 @@ execution_prices = execution_price_panel(ohlcv, field="Open", next_bar=True)
 execution_prices.columns = [symbol]
 
 features = walkforward_price_volume_features(
-    close, volume, method="STL", period=42, train_window=180, step=21, z_window=63
+    close, volume, method="STL", period=126, train_window=504, step=5, z_window=63
 )
 list(features)[:8]
 ```
@@ -222,20 +222,20 @@ stats_table(results)
     <tr>
       <th>0</th>
       <td>detime_STL_trend_following</td>
-      <td>0.010249</td>
-      <td>0.002553</td>
-      <td>0.079767</td>
-      <td>-0.065159</td>
-      <td>0.039174</td>
-      <td>0.044324</td>
-      <td>0.162698</td>
-      <td>0.40</td>
-      <td>0.002337</td>
-      <td>20.0</td>
+      <td>-0.006633</td>
+      <td>-0.001663</td>
+      <td>-0.213044</td>
+      <td>-0.018183</td>
+      <td>-0.091433</td>
+      <td>0.007671</td>
+      <td>0.002976</td>
+      <td>0.00</td>
+      <td>-0.018574</td>
+      <td>2.0</td>
+      <td>1.0</td>
       <td>5.0</td>
-      <td>42.0</td>
-      <td>0.004410</td>
-      <td>0.104265</td>
+      <td>0.000678</td>
+      <td>0.001696</td>
       <td>5.0</td>
       <td>2.0</td>
       <td>252.0</td>
@@ -288,114 +288,26 @@ bt.orders.tail(10)
   </thead>
   <tbody>
     <tr>
-      <th>10</th>
+      <th>0</th>
       <td>GOOG</td>
-      <td>2016-11-16</td>
-      <td>2016-11-17</td>
+      <td>2016-01-08</td>
+      <td>2016-01-11</td>
+      <td>buy</td>
+      <td>0.000000</td>
+      <td>0.341871</td>
+      <td>0.341871</td>
+      <td>716.609985</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>GOOG</td>
+      <td>2016-01-15</td>
+      <td>2016-01-19</td>
       <td>sell</td>
-      <td>0.269804</td>
+      <td>0.341871</td>
       <td>0.000000</td>
-      <td>-0.269804</td>
-      <td>766.919983</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>GOOG</td>
-      <td>2017-02-17</td>
-      <td>2017-02-21</td>
-      <td>buy</td>
-      <td>0.000000</td>
-      <td>0.348342</td>
-      <td>0.348342</td>
-      <td>828.659973</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>GOOG</td>
-      <td>2017-03-21</td>
-      <td>2017-03-22</td>
-      <td>sell_or_short</td>
-      <td>0.348342</td>
-      <td>0.329642</td>
-      <td>-0.018700</td>
-      <td>831.909973</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>GOOG</td>
-      <td>2017-04-20</td>
-      <td>2017-04-21</td>
-      <td>sell_or_short</td>
-      <td>0.329642</td>
-      <td>0.296075</td>
-      <td>-0.033567</td>
-      <td>842.880005</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>GOOG</td>
-      <td>2017-05-19</td>
-      <td>2017-05-22</td>
-      <td>buy</td>
-      <td>0.296075</td>
-      <td>0.385059</td>
-      <td>0.088983</td>
-      <td>935.000000</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>GOOG</td>
-      <td>2017-06-20</td>
-      <td>2017-06-21</td>
-      <td>buy</td>
-      <td>0.385059</td>
-      <td>0.459029</td>
-      <td>0.073970</td>
-      <td>953.640015</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>GOOG</td>
-      <td>2017-07-20</td>
-      <td>2017-07-21</td>
-      <td>sell_or_short</td>
-      <td>0.459029</td>
-      <td>0.285649</td>
-      <td>-0.173380</td>
-      <td>962.250000</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>GOOG</td>
-      <td>2017-08-18</td>
-      <td>2017-08-21</td>
-      <td>sell</td>
-      <td>0.285649</td>
-      <td>0.000000</td>
-      <td>-0.285649</td>
-      <td>910.000000</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>GOOG</td>
-      <td>2017-11-16</td>
-      <td>2017-11-17</td>
-      <td>buy</td>
-      <td>0.000000</td>
-      <td>0.391249</td>
-      <td>0.391249</td>
-      <td>1034.010010</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>GOOG</td>
-      <td>2017-12-18</td>
-      <td>2017-12-19</td>
-      <td>sell_or_short</td>
-      <td>0.391249</td>
-      <td>0.345112</td>
-      <td>-0.046138</td>
-      <td>1075.199951</td>
+      <td>-0.341871</td>
+      <td>703.299988</td>
     </tr>
   </tbody>
 </table>
@@ -451,76 +363,16 @@ bt.trades.tail(10)
       <th>0</th>
       <td>GOOG</td>
       <td>long</td>
-      <td>2015-03-20</td>
-      <td>2015-03-23</td>
-      <td>2015-05-20</td>
-      <td>2015-05-21</td>
-      <td>558.895569</td>
-      <td>537.950012</td>
-      <td>42</td>
-      <td>0.343911</td>
-      <td>-0.037477</td>
-      <td>-0.013129</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>GOOG</td>
-      <td>long</td>
-      <td>2015-08-19</td>
-      <td>2015-08-20</td>
-      <td>2015-10-19</td>
-      <td>2015-10-20</td>
-      <td>655.460022</td>
-      <td>664.039978</td>
-      <td>42</td>
-      <td>0.364852</td>
-      <td>0.013090</td>
-      <td>0.004521</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>GOOG</td>
-      <td>long</td>
-      <td>2015-12-17</td>
-      <td>2015-12-18</td>
-      <td>2016-01-20</td>
-      <td>2016-01-21</td>
-      <td>746.510010</td>
-      <td>702.179993</td>
-      <td>21</td>
-      <td>0.402542</td>
-      <td>-0.059383</td>
-      <td>-0.024186</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>GOOG</td>
-      <td>long</td>
-      <td>2016-09-19</td>
-      <td>2016-09-20</td>
-      <td>2016-11-16</td>
-      <td>2016-11-17</td>
-      <td>769.000000</td>
-      <td>766.919983</td>
-      <td>42</td>
-      <td>0.381262</td>
-      <td>-0.002705</td>
-      <td>-0.001298</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>GOOG</td>
-      <td>long</td>
-      <td>2017-02-17</td>
-      <td>2017-02-21</td>
-      <td>2017-08-18</td>
-      <td>2017-08-21</td>
-      <td>828.659973</td>
-      <td>910.000000</td>
-      <td>126</td>
-      <td>0.348342</td>
-      <td>0.098159</td>
-      <td>0.033949</td>
+      <td>2016-01-08</td>
+      <td>2016-01-11</td>
+      <td>2016-01-15</td>
+      <td>2016-01-19</td>
+      <td>716.609985</td>
+      <td>703.299988</td>
+      <td>5</td>
+      <td>0.341871</td>
+      <td>-0.018574</td>
+      <td>-0.006589</td>
     </tr>
   </tbody>
 </table>

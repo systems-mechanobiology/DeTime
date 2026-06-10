@@ -30,10 +30,10 @@ def main() -> int:
         prices,
         volumes,
         method="STL",
-        period=42,
-        train_window=126,
-        step=126,
-        z_window=42,
+        period=63,
+        train_window=180,
+        step=21,
+        z_window=63,
     )
 
     strategies: dict[str, pd.DataFrame] = {}

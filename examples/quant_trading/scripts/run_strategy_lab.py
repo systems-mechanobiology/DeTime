@@ -104,11 +104,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--interval", default="1d")
     parser.add_argument("--no-auto-adjust", action="store_true")
     parser.add_argument("--cache-dir", default=None)
-    parser.add_argument("--min-observations", type=int, default=180)
+    parser.add_argument("--min-observations", type=int, default=504)
     parser.add_argument("--methods", nargs="+", default=["STL"], help="DeTime methods to run, e.g. STL SSA WAVELET STD.")
-    parser.add_argument("--period", default="42", help="Integer period or 'auto'.")
-    parser.add_argument("--train-window", type=int, default=180)
-    parser.add_argument("--step", type=int, default=21)
+    parser.add_argument("--period", default="126", help="Integer period or 'auto'.")
+    parser.add_argument("--train-window", type=int, default=504)
+    parser.add_argument("--step", type=int, default=5)
     parser.add_argument("--z-window", type=int, default=63)
     parser.add_argument("--fee-bps", type=float, default=5.0)
     parser.add_argument("--slippage-bps", type=float, default=2.0)
@@ -168,6 +168,7 @@ def main() -> None:
                 volume,
                 method=method_name,
                 period=period_arg,
+                period_candidates=(63, 126, 252),
                 train_window=args.train_window,
                 step=args.step,
                 z_window=args.z_window,

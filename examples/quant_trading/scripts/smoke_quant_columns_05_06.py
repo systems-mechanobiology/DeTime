@@ -37,21 +37,21 @@ def main() -> int:
     tickers = ["AUDUSD=X", "NZDUSD=X", "EURUSD=X", "GBPUSD=X"]
     pairs = [("AUDUSD=X", "NZDUSD=X")]
     ohlcv = load_bundled_real_ohlcv_panel(tickers, min_observations=120)
-    ohlcv = {field: table.tail(360).copy() for field, table in ohlcv.items()}
+    ohlcv = {field: table.tail(420).copy() for field, table in ohlcv.items()}
     prices = ohlcv["Close"]
 
     spread_features, spread_panel, beta_panel, pair_specs = walkforward_pair_spread_features(
         prices,
         pairs,
-        hedge_window=60,
+        hedge_window=90,
         method="STL",
-        period=42,
-        train_window=126,
-        step=252,
-        z_window=42,
+        period=63,
+        train_window=180,
+        step=21,
+        z_window=63,
     )
     pair_strategies: dict[str, pd.DataFrame] = {}
-    pair_strategies.update(make_classic_pair_weight_grid(prices, pair_specs, lookback=60))
+    pair_strategies.update(make_classic_pair_weight_grid(prices, pair_specs, lookback=90))
     pair_strategies.update(make_detime_pair_weight_grid(prices, pair_specs, spread_features, spread_panel=spread_panel, beta_panel=beta_panel))
     pair_table, pair_results = compare_weight_strategies(prices, pair_strategies, fee_bps=1.0, slippage_bps=2.0)
 
@@ -61,10 +61,11 @@ def main() -> int:
         prices,
         volumes_for_features,
         method="STL",
-        period=42,
-        train_window=126,
-        step=252,
-        z_window=42,
+        period=63,
+        period_candidates=(63, 126, 252),
+        train_window=180,
+        step=21,
+        z_window=63,
     )
     rotation_strategies: dict[str, pd.DataFrame] = {}
     rotation_strategies.update(make_classic_rotation_weight_grid(prices, top_n=2, rebalance="W-FRI"))

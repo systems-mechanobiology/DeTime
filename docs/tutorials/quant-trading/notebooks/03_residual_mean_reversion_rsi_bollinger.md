@@ -39,7 +39,7 @@ import pandas as pd
 from IPython.display import display
 
 from examples.quant_trading.data import load_sample_goog_ohlcv, market_data_manifest, ohlcv_audit_report
-from examples.quant_trading.features import build_feature_table, walkforward_decompose_ohlcv
+from examples.quant_trading.features import build_feature_table, decompose_one_series, walkforward_decompose_ohlcv
 from examples.quant_trading.classic_indicators import bollinger_bands, rsi
 from examples.quant_trading.strategy_mean_reversion import (
     compare_mean_reversion_suites,
@@ -268,9 +268,10 @@ features = walkforward_decompose_ohlcv(
     ohlcv,
     method="STL",
     period="auto",
-    period_candidates=(21, 42, 63, 126),
-    train_window=252,
-    step=63,
+    period_candidates=(63, 126, 252),
+    train_window=504,
+    step=5,
+    z_window=63,
 )
 feature_tail = build_feature_table(prices, features).tail(120)
 display(feature_tail.tail(5).round(4))
@@ -406,173 +407,173 @@ feature_tail.to_csv(report_dir / "column_03_feature_table_tail.csv")
   <tbody>
     <tr>
       <th>2017-12-26</th>
-      <td>0.9851</td>
-      <td>0.0142</td>
-      <td>0.0186</td>
-      <td>0.7635</td>
-      <td>-0.0017</td>
+      <td>0.9853</td>
+      <td>0.0456</td>
+      <td>0.0438</td>
+      <td>1.0414</td>
+      <td>-0.0051</td>
       <td>0.0</td>
-      <td>0.8096</td>
+      <td>0.6138</td>
       <td>0.1515</td>
       <td>0.0</td>
-      <td>0.0261</td>
-      <td>1.5504</td>
-      <td>0.0152</td>
-      <td>1.5504</td>
+      <td>0.0004</td>
+      <td>0.1109</td>
+      <td>0.0149</td>
+      <td>0.1109</td>
       <td>-0.0032</td>
-      <td>0.0142</td>
+      <td>0.0456</td>
       <td>...</td>
       <td>0.0</td>
-      <td>0.4301</td>
+      <td>-0.5708</td>
       <td>2.0</td>
       <td>0.0</td>
-      <td>-0.0017</td>
-      <td>0.0352</td>
-      <td>0.2218</td>
-      <td>0.0352</td>
-      <td>42.0</td>
-      <td>0.0352</td>
-      <td>13.9510</td>
-      <td>0.0000</td>
-      <td>0.1140</td>
-      <td>-0.0050</td>
-      <td>-0.0153</td>
+      <td>-0.2911</td>
+      <td>2.3259</td>
+      <td>0.1243</td>
+      <td>-2.3259</td>
+      <td>126.0</td>
+      <td>2.3259</td>
+      <td>14.0559</td>
+      <td>-0.0</td>
+      <td>-0.514</td>
+      <td>-0.0011</td>
+      <td>-0.0031</td>
     </tr>
     <tr>
       <th>2017-12-27</th>
-      <td>0.9851</td>
-      <td>0.0142</td>
-      <td>0.0186</td>
-      <td>0.7635</td>
-      <td>-0.0017</td>
+      <td>0.9853</td>
+      <td>0.0456</td>
+      <td>0.0438</td>
+      <td>1.0414</td>
+      <td>-0.0051</td>
       <td>0.0</td>
-      <td>0.8096</td>
+      <td>0.6138</td>
       <td>0.1518</td>
       <td>0.0</td>
-      <td>0.0261</td>
-      <td>1.5504</td>
-      <td>0.0152</td>
-      <td>1.5504</td>
+      <td>0.0004</td>
+      <td>0.1109</td>
+      <td>0.0149</td>
+      <td>0.1109</td>
       <td>-0.0070</td>
-      <td>0.0142</td>
+      <td>0.0456</td>
       <td>...</td>
       <td>0.0</td>
-      <td>0.4301</td>
+      <td>-0.5708</td>
       <td>2.0</td>
       <td>0.0</td>
-      <td>-0.0017</td>
-      <td>0.0352</td>
-      <td>0.2218</td>
-      <td>0.0352</td>
-      <td>42.0</td>
-      <td>0.0352</td>
-      <td>13.9510</td>
-      <td>0.0000</td>
-      <td>0.1140</td>
-      <td>-0.0050</td>
-      <td>-0.0153</td>
+      <td>-0.2911</td>
+      <td>2.3259</td>
+      <td>0.1243</td>
+      <td>-2.3259</td>
+      <td>126.0</td>
+      <td>2.3259</td>
+      <td>14.0559</td>
+      <td>-0.0</td>
+      <td>-0.514</td>
+      <td>-0.0011</td>
+      <td>-0.0031</td>
     </tr>
     <tr>
       <th>2017-12-28</th>
-      <td>0.9851</td>
-      <td>0.0142</td>
-      <td>0.0186</td>
-      <td>0.7635</td>
-      <td>-0.0017</td>
+      <td>0.9853</td>
+      <td>0.0456</td>
+      <td>0.0438</td>
+      <td>1.0414</td>
+      <td>-0.0051</td>
       <td>0.0</td>
-      <td>0.8096</td>
+      <td>0.6138</td>
       <td>0.1226</td>
       <td>0.0</td>
-      <td>0.0261</td>
-      <td>1.5504</td>
-      <td>0.0152</td>
-      <td>1.5504</td>
+      <td>0.0004</td>
+      <td>0.1109</td>
+      <td>0.0149</td>
+      <td>0.1109</td>
       <td>-0.0012</td>
-      <td>0.0142</td>
+      <td>0.0456</td>
       <td>...</td>
       <td>0.0</td>
-      <td>0.4301</td>
+      <td>-0.5708</td>
       <td>2.0</td>
       <td>0.0</td>
-      <td>-0.0017</td>
-      <td>0.0352</td>
-      <td>0.2218</td>
-      <td>0.0352</td>
-      <td>42.0</td>
-      <td>0.0352</td>
-      <td>13.9510</td>
-      <td>0.0000</td>
-      <td>0.1140</td>
-      <td>-0.0050</td>
-      <td>-0.0153</td>
+      <td>-0.2911</td>
+      <td>2.3259</td>
+      <td>0.1243</td>
+      <td>-2.3259</td>
+      <td>126.0</td>
+      <td>2.3259</td>
+      <td>14.0559</td>
+      <td>-0.0</td>
+      <td>-0.514</td>
+      <td>-0.0011</td>
+      <td>-0.0031</td>
     </tr>
     <tr>
       <th>2017-12-29</th>
-      <td>0.9851</td>
-      <td>0.0142</td>
-      <td>0.0186</td>
-      <td>0.7635</td>
-      <td>-0.0017</td>
+      <td>0.9853</td>
+      <td>0.0456</td>
+      <td>0.0438</td>
+      <td>1.0414</td>
+      <td>-0.0051</td>
       <td>0.0</td>
-      <td>0.8096</td>
+      <td>0.6138</td>
       <td>0.1229</td>
       <td>0.0</td>
-      <td>0.0261</td>
-      <td>1.5504</td>
-      <td>0.0152</td>
-      <td>1.5504</td>
+      <td>0.0004</td>
+      <td>0.1109</td>
+      <td>0.0149</td>
+      <td>0.1109</td>
       <td>-0.0017</td>
-      <td>0.0142</td>
+      <td>0.0456</td>
       <td>...</td>
       <td>0.0</td>
-      <td>0.4301</td>
+      <td>-0.5708</td>
       <td>2.0</td>
       <td>0.0</td>
-      <td>-0.0017</td>
-      <td>0.0352</td>
-      <td>0.2218</td>
-      <td>0.0352</td>
-      <td>42.0</td>
-      <td>0.0352</td>
-      <td>13.9510</td>
-      <td>0.0000</td>
-      <td>0.1140</td>
-      <td>-0.0050</td>
-      <td>-0.0153</td>
+      <td>-0.2911</td>
+      <td>2.3259</td>
+      <td>0.1243</td>
+      <td>-2.3259</td>
+      <td>126.0</td>
+      <td>2.3259</td>
+      <td>14.0559</td>
+      <td>-0.0</td>
+      <td>-0.514</td>
+      <td>-0.0011</td>
+      <td>-0.0031</td>
     </tr>
     <tr>
       <th>2018-01-02</th>
-      <td>0.9926</td>
-      <td>-0.0083</td>
-      <td>0.0183</td>
-      <td>-0.4538</td>
-      <td>0.0034</td>
-      <td>1.0</td>
-      <td>-0.4087</td>
+      <td>0.9853</td>
+      <td>0.0456</td>
+      <td>0.0438</td>
+      <td>1.0414</td>
+      <td>-0.0051</td>
+      <td>0.0</td>
+      <td>0.6138</td>
       <td>0.1270</td>
       <td>0.0</td>
-      <td>-0.0084</td>
-      <td>1.1153</td>
-      <td>0.0075</td>
-      <td>-1.1153</td>
+      <td>0.0004</td>
+      <td>0.1109</td>
+      <td>0.0149</td>
+      <td>0.1109</td>
       <td>0.0178</td>
-      <td>-0.0083</td>
+      <td>0.0456</td>
       <td>...</td>
-      <td>1.0</td>
-      <td>0.5459</td>
+      <td>0.0</td>
+      <td>-0.5708</td>
       <td>2.0</td>
       <td>0.0</td>
-      <td>-0.0920</td>
-      <td>0.3597</td>
-      <td>0.2504</td>
-      <td>-0.3597</td>
-      <td>21.0</td>
-      <td>0.3597</td>
-      <td>14.0382</td>
-      <td>-0.0005</td>
-      <td>-0.0095</td>
-      <td>-0.0059</td>
-      <td>-0.0170</td>
+      <td>-0.2911</td>
+      <td>2.3259</td>
+      <td>0.1243</td>
+      <td>-2.3259</td>
+      <td>126.0</td>
+      <td>2.3259</td>
+      <td>14.0559</td>
+      <td>-0.0</td>
+      <td>-0.514</td>
+      <td>-0.0011</td>
+      <td>-0.0031</td>
     </tr>
   </tbody>
 </table>
@@ -586,21 +587,37 @@ feature_tail.to_csv(report_dir / "column_03_feature_table_tail.csv")
 <div class="notebook-input-label">In [6]</div>
 
 ```python
+diagnostic = decompose_one_series(
+    prices[ticker],
+    method="STL",
+    period="auto",
+    period_candidates=(63, 126, 252),
+    z_window=63,
+    transform="log",
+)
+volume_diagnostic = decompose_one_series(
+    ohlcv["Volume"][ticker],
+    method="STL",
+    period=int(diagnostic.attrs.get("period", 126)),
+    z_window=63,
+    transform="log1p",
+)
+
 fig, ax = plt.subplots(figsize=(10, 3.5))
-features["residual_z"][ticker].plot(ax=ax, linewidth=1.0, label="residual z-score")
+diagnostic["residual_z"].plot(ax=ax, linewidth=1.1, color="#2563eb", label="residual z-score")
 for level in (-1.5, 0, 1.5):
-    ax.axhline(level, linestyle="--" if level else "-", linewidth=0.8)
-ax.set_title("Residual z-score after trend and cycle removal")
+    ax.axhline(level, linestyle="--" if level else "-", linewidth=0.8, color="black" if level == 0 else "#64748b")
+ax.set_title("Continuous residual z-score after trend and cycle removal")
 ax.legend()
 ax.grid(True, alpha=0.3)
 plt.show()
 
 fig, ax = plt.subplots(figsize=(10, 3.5))
-features["trend_slope"][ticker].plot(ax=ax, linewidth=1.0, label="trend slope")
-features["cycle_slope"][ticker].plot(ax=ax, linewidth=1.0, label="cycle slope")
-features["volume_residual_z"][ticker].plot(ax=ax, linewidth=0.8, alpha=0.7, label="volume residual z")
-ax.axhline(0, linewidth=0.8)
-ax.set_title("Context filters used by residual reversion")
+diagnostic["cycle_z"].plot(ax=ax, linewidth=1.0, color="#16a34a", label="cycle z")
+diagnostic["residual_z"].plot(ax=ax, linewidth=1.0, color="#2563eb", alpha=0.75, label="residual z")
+volume_diagnostic["residual_z"].plot(ax=ax, linewidth=0.8, color="#f97316", alpha=0.70, label="volume residual z")
+ax.axhline(0, color="black", linewidth=0.8)
+ax.set_title("Continuous context filters used by residual reversion")
 ax.legend()
 ax.grid(True, alpha=0.3)
 plt.show()
@@ -665,36 +682,36 @@ display(detime_table[["total_return", "cagr", "sharpe", "max_drawdown", "average
   </thead>
   <tbody>
     <tr>
-      <th>detime_residual_z_1p0_cycle_volume</th>
-      <td>0.1774</td>
-      <td>0.0417</td>
-      <td>0.8524</td>
-      <td>-0.0752</td>
-      <td>0.005</td>
-    </tr>
-    <tr>
       <th>detime_residual_rsi_14</th>
-      <td>0.1774</td>
-      <td>0.0417</td>
-      <td>0.8524</td>
+      <td>0.3032</td>
+      <td>0.0685</td>
+      <td>1.1070</td>
       <td>-0.0752</td>
-      <td>0.005</td>
-    </tr>
-    <tr>
-      <th>detime_trend_pullback_residual</th>
-      <td>0.1774</td>
-      <td>0.0417</td>
-      <td>0.8524</td>
-      <td>-0.0752</td>
-      <td>0.005</td>
+      <td>0.0159</td>
     </tr>
     <tr>
       <th>detime_residual_band_1p25z</th>
-      <td>0.1110</td>
-      <td>0.0267</td>
-      <td>0.8200</td>
-      <td>-0.0321</td>
-      <td>0.002</td>
+      <td>0.2422</td>
+      <td>0.0557</td>
+      <td>0.7742</td>
+      <td>-0.1132</td>
+      <td>0.0159</td>
+    </tr>
+    <tr>
+      <th>detime_residual_z_1p0_cycle_volume</th>
+      <td>0.2243</td>
+      <td>0.0519</td>
+      <td>0.7333</td>
+      <td>-0.1132</td>
+      <td>0.0179</td>
+    </tr>
+    <tr>
+      <th>detime_trend_pullback_residual</th>
+      <td>0.2243</td>
+      <td>0.0519</td>
+      <td>0.7333</td>
+      <td>-0.1132</td>
+      <td>0.0179</td>
     </tr>
   </tbody>
 </table>
@@ -764,40 +781,40 @@ manifest_path.as_posix()
   </thead>
   <tbody>
     <tr>
-      <th>detime_residual_z_1p0_cycle_volume</th>
-      <td>detime_residual_mean_reversion</td>
-      <td>0.0417</td>
-      <td>0.8524</td>
-      <td>-0.0752</td>
-      <td>0.0050</td>
-      <td>0.0665</td>
-    </tr>
-    <tr>
       <th>detime_residual_rsi_14</th>
       <td>detime_residual_mean_reversion</td>
-      <td>0.0417</td>
-      <td>0.8524</td>
+      <td>0.0685</td>
+      <td>1.1070</td>
       <td>-0.0752</td>
-      <td>0.0050</td>
-      <td>0.0665</td>
-    </tr>
-    <tr>
-      <th>detime_trend_pullback_residual</th>
-      <td>detime_residual_mean_reversion</td>
-      <td>0.0417</td>
-      <td>0.8524</td>
-      <td>-0.0752</td>
-      <td>0.0050</td>
-      <td>0.0665</td>
+      <td>0.0159</td>
+      <td>0.0992</td>
     </tr>
     <tr>
       <th>detime_residual_band_1p25z</th>
       <td>detime_residual_mean_reversion</td>
-      <td>0.0267</td>
-      <td>0.8200</td>
-      <td>-0.0321</td>
-      <td>0.0020</td>
-      <td>0.0327</td>
+      <td>0.0557</td>
+      <td>0.7742</td>
+      <td>-0.1132</td>
+      <td>0.0159</td>
+      <td>0.1002</td>
+    </tr>
+    <tr>
+      <th>detime_residual_z_1p0_cycle_volume</th>
+      <td>detime_residual_mean_reversion</td>
+      <td>0.0519</td>
+      <td>0.7333</td>
+      <td>-0.1132</td>
+      <td>0.0179</td>
+      <td>0.0992</td>
+    </tr>
+    <tr>
+      <th>detime_trend_pullback_residual</th>
+      <td>detime_residual_mean_reversion</td>
+      <td>0.0519</td>
+      <td>0.7333</td>
+      <td>-0.1132</td>
+      <td>0.0179</td>
+      <td>0.0992</td>
     </tr>
     <tr>
       <th>classic_rsi_14_reversion</th>

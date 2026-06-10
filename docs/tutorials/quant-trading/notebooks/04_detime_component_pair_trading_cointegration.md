@@ -163,9 +163,9 @@ close.tail()
 ```python
 config = ComponentPairConfig(
     method='STL',
-    period=42,
-    train_window=126,
-    step=126,
+    period=126,
+    train_window=504,
+    step=21,
     z_window=63,
     require_cointegration=False,
 )
@@ -227,17 +227,17 @@ stats
   </thead>
   <tbody>
     <tr>
-      <th>2</th>
-      <td>detime_STL_p42_tw126_fair_spread_deviation</td>
-      <td>fair_spread_deviation</td>
-      <td>-0.026813</td>
-      <td>-0.006545</td>
-      <td>-0.145962</td>
-      <td>-0.107916</td>
-      <td>-0.060650</td>
-      <td>0.039615</td>
-      <td>0.360499</td>
-      <td>0.581633</td>
+      <th>1</th>
+      <td>detime_STL_p126_tw504_component_residual_gap</td>
+      <td>component_residual_gap</td>
+      <td>-0.005429</td>
+      <td>-0.001314</td>
+      <td>-0.039448</td>
+      <td>-0.040129</td>
+      <td>-0.032754</td>
+      <td>0.025256</td>
+      <td>0.162033</td>
+      <td>0.468750</td>
       <td>...</td>
       <td>1.5</td>
       <td>0.25</td>
@@ -248,7 +248,55 @@ stats
       <td>False</td>
       <td>True</td>
       <td>1.0</td>
-      <td>STL_p42_tw126</td>
+      <td>STL_p126_tw504</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>detime_STL_p126_tw504_cointegration_filtered_r...</td>
+      <td>cointegration_filtered_residual_gap</td>
+      <td>-0.005429</td>
+      <td>-0.001314</td>
+      <td>-0.039448</td>
+      <td>-0.040129</td>
+      <td>-0.032754</td>
+      <td>0.025256</td>
+      <td>0.162033</td>
+      <td>0.468750</td>
+      <td>...</td>
+      <td>1.5</td>
+      <td>0.25</td>
+      <td>0.5</td>
+      <td>0.25</td>
+      <td>0.0025</td>
+      <td>0.1</td>
+      <td>False</td>
+      <td>True</td>
+      <td>1.0</td>
+      <td>STL_p126_tw504</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>detime_STL_p126_tw504_fair_spread_deviation</td>
+      <td>fair_spread_deviation</td>
+      <td>-0.054478</td>
+      <td>-0.013443</td>
+      <td>-0.532199</td>
+      <td>-0.066059</td>
+      <td>-0.203509</td>
+      <td>0.024851</td>
+      <td>0.168744</td>
+      <td>0.534091</td>
+      <td>...</td>
+      <td>1.5</td>
+      <td>0.25</td>
+      <td>0.5</td>
+      <td>0.25</td>
+      <td>0.0025</td>
+      <td>0.1</td>
+      <td>False</td>
+      <td>True</td>
+      <td>1.0</td>
+      <td>STL_p126_tw504</td>
     </tr>
     <tr>
       <th>0</th>
@@ -272,55 +320,7 @@ stats
       <td>False</td>
       <td>True</td>
       <td>1.0</td>
-      <td>STL_p42_tw126</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>detime_STL_p42_tw126_component_residual_gap</td>
-      <td>component_residual_gap</td>
-      <td>-0.066820</td>
-      <td>-0.016570</td>
-      <td>-0.694842</td>
-      <td>-0.095011</td>
-      <td>-0.174405</td>
-      <td>0.023643</td>
-      <td>0.141898</td>
-      <td>0.400000</td>
-      <td>...</td>
-      <td>1.5</td>
-      <td>0.25</td>
-      <td>0.5</td>
-      <td>0.25</td>
-      <td>0.0025</td>
-      <td>0.1</td>
-      <td>False</td>
-      <td>True</td>
-      <td>1.0</td>
-      <td>STL_p42_tw126</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>detime_STL_p42_tw126_cointegration_filtered_re...</td>
-      <td>cointegration_filtered_residual_gap</td>
-      <td>-0.071954</td>
-      <td>-0.017880</td>
-      <td>-0.714658</td>
-      <td>-0.091280</td>
-      <td>-0.195884</td>
-      <td>0.024813</td>
-      <td>0.133269</td>
-      <td>0.437500</td>
-      <td>...</td>
-      <td>1.5</td>
-      <td>0.25</td>
-      <td>0.5</td>
-      <td>0.25</td>
-      <td>0.0025</td>
-      <td>0.1</td>
-      <td>False</td>
-      <td>True</td>
-      <td>1.0</td>
-      <td>STL_p42_tw126</td>
+      <td>STL_p126_tw504</td>
     </tr>
   </tbody>
 </table>
@@ -415,21 +415,21 @@ diagnostics
     <tr>
       <th>0</th>
       <td>AUDUSD=X/NZDUSD=X</td>
-      <td>STL_p42_tw126</td>
+      <td>STL_p126_tw504</td>
       <td>2018-01-02</td>
       <td>0.509809</td>
       <td>0.632244</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
+      <td>0.781036</td>
+      <td>0.893991</td>
+      <td>0.868270</td>
       <td>-0.072874</td>
-      <td>-0.080892</td>
+      <td>-0.089448</td>
       <td>...</td>
       <td>True</td>
       <td></td>
       <td>adf</td>
-      <td>-1.669352</td>
-      <td>0.446969</td>
+      <td>-3.870877</td>
+      <td>0.002260</td>
       <td>-3.436641</td>
       <td>-2.864318</td>
       <td>-2.568249</td>
@@ -439,45 +439,45 @@ diagnostics
     <tr>
       <th>1</th>
       <td>EURUSD=X/GBPUSD=X</td>
-      <td>STL_p42_tw126</td>
+      <td>STL_p126_tw504</td>
       <td>2018-01-02</td>
       <td>0.406596</td>
       <td>0.446730</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
+      <td>0.959134</td>
+      <td>0.710493</td>
+      <td>0.414906</td>
       <td>0.060924</td>
-      <td>0.041900</td>
+      <td>0.052337</td>
       <td>...</td>
       <td>True</td>
       <td></td>
       <td>adf</td>
-      <td>-1.808907</td>
-      <td>0.376049</td>
-      <td>-3.436641</td>
-      <td>-2.864318</td>
-      <td>-2.568249</td>
+      <td>-2.719558</td>
+      <td>0.070715</td>
+      <td>-3.436771</td>
+      <td>-2.864375</td>
+      <td>-2.568279</td>
       <td>True</td>
       <td></td>
     </tr>
     <tr>
       <th>2</th>
       <td>CADUSD=X/CHFUSD=X</td>
-      <td>STL_p42_tw126</td>
+      <td>STL_p126_tw504</td>
       <td>2018-01-02</td>
       <td>0.422316</td>
       <td>0.403466</td>
-      <td>-1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
+      <td>0.505531</td>
+      <td>0.755836</td>
+      <td>0.524348</td>
       <td>-0.238348</td>
-      <td>-0.235834</td>
+      <td>-0.248651</td>
       <td>...</td>
       <td>True</td>
       <td></td>
       <td>adf</td>
-      <td>-1.247762</td>
-      <td>0.652720</td>
+      <td>-3.022754</td>
+      <td>0.032823</td>
       <td>-3.436641</td>
       <td>-2.864318</td>
       <td>-2.568249</td>
@@ -505,8 +505,8 @@ trades.head()
 <div class="gallery-out notebook-output">
 <div class="notebook-output-label">stdout</div>
 ```text
-orders: 8850
-round-trip trades: 192
+orders: 7332
+round-trip trades: 210
 ```
 <div class="notebook-output-label">text/html</div>
 <div class="notebook-html-output">

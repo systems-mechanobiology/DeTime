@@ -41,7 +41,7 @@ from IPython.display import display
 
 from examples.quant_trading.data import load_sample_goog_ohlcv, market_data_manifest, ohlcv_audit_report
 from examples.quant_trading.classic_indicators import macd, sma
-from examples.quant_trading.features import walkforward_decompose_ohlcv
+from examples.quant_trading.features import decompose_one_series, walkforward_decompose_ohlcv
 from examples.quant_trading.strategy_baselines import make_classic_baseline_weight_grid, run_classical_baselines
 from examples.quant_trading.strategy_detime import (
     compare_classical_and_detime,
@@ -68,14 +68,20 @@ ohlcv_single = load_sample_goog_ohlcv(trim_start="2014-01-01")
 ticker = ohlcv_single.attrs.get("symbol", "GOOG")
 ohlcv = {field: ohlcv_single[[field]].rename(columns={field: ticker}) for field in ["Open", "High", "Low", "Close", "Volume"]}
 prices = ohlcv["Close"]
+
+DECOMP_PERIOD_CANDIDATES = (63, 126, 252)
+DECOMP_TRAIN_WINDOW = 504
+DECOMP_STEP = 5
+DECOMP_Z_WINDOW = 63
+
 features = walkforward_decompose_ohlcv(
     ohlcv,
     method="STL",
     period="auto",
-    period_candidates=(21, 42, 63, 126),
-    train_window=252,
-    step=21,
-    z_window=63,
+    period_candidates=DECOMP_PERIOD_CANDIDATES,
+    train_window=DECOMP_TRAIN_WINDOW,
+    step=DECOMP_STEP,
+    z_window=DECOMP_Z_WINDOW,
 )
 prices.tail()
 ```
@@ -333,44 +339,44 @@ display(detime_table[["total_return", "cagr", "sharpe", "max_drawdown", "average
   </thead>
   <tbody>
     <tr>
-      <th>detime_macd_12_26_9</th>
-      <td>0.2229</td>
-      <td>0.0516</td>
-      <td>0.7077</td>
-      <td>-0.1404</td>
-      <td>0.0337</td>
-    </tr>
-    <tr>
       <th>detime_sma_20_100_trend_volume</th>
-      <td>0.2156</td>
-      <td>0.0500</td>
-      <td>0.4191</td>
-      <td>-0.1896</td>
-      <td>0.0169</td>
-    </tr>
-    <tr>
-      <th>detime_trend_slope</th>
-      <td>0.2159</td>
-      <td>0.0501</td>
-      <td>0.4037</td>
-      <td>-0.1612</td>
-      <td>0.0149</td>
-    </tr>
-    <tr>
-      <th>detime_trend_cycle_volume</th>
-      <td>-0.0123</td>
-      <td>-0.0031</td>
-      <td>0.0037</td>
-      <td>-0.1559</td>
-      <td>0.0149</td>
+      <td>0.3368</td>
+      <td>0.0753</td>
+      <td>0.8504</td>
+      <td>-0.0947</td>
+      <td>0.0159</td>
     </tr>
     <tr>
       <th>detime_trend_pullback</th>
-      <td>-0.0238</td>
-      <td>-0.0060</td>
-      <td>-0.0937</td>
-      <td>-0.0920</td>
-      <td>0.0069</td>
+      <td>0.2134</td>
+      <td>0.0495</td>
+      <td>0.6237</td>
+      <td>-0.1132</td>
+      <td>0.0129</td>
+    </tr>
+    <tr>
+      <th>detime_trend_slope</th>
+      <td>0.2367</td>
+      <td>0.0545</td>
+      <td>0.5235</td>
+      <td>-0.1288</td>
+      <td>0.0218</td>
+    </tr>
+    <tr>
+      <th>detime_macd_12_26_9</th>
+      <td>0.1139</td>
+      <td>0.0273</td>
+      <td>0.4314</td>
+      <td>-0.1132</td>
+      <td>0.0218</td>
+    </tr>
+    <tr>
+      <th>detime_trend_cycle_volume</th>
+      <td>-0.0770</td>
+      <td>-0.0198</td>
+      <td>-0.1920</td>
+      <td>-0.2268</td>
+      <td>0.0476</td>
     </tr>
   </tbody>
 </table>
@@ -383,13 +389,29 @@ display(detime_table[["total_return", "cagr", "sharpe", "max_drawdown", "average
 <div class="notebook-input-label">In [7]</div>
 
 ```python
-trend_price = np.exp(features["trend"])
+diagnostic = decompose_one_series(
+    prices[ticker],
+    method="STL",
+    period="auto",
+    period_candidates=DECOMP_PERIOD_CANDIDATES,
+    z_window=DECOMP_Z_WINDOW,
+    transform="log",
+)
+volume_diagnostic = decompose_one_series(
+    ohlcv["Volume"][ticker],
+    method="STL",
+    period=int(diagnostic.attrs.get("period", 126)),
+    z_window=DECOMP_Z_WINDOW,
+    transform="log1p",
+)
+
+trend_price = np.exp(diagnostic["trend"]).to_frame(ticker)
 fig, ax = plt.subplots(figsize=(10, 4))
-prices[ticker].plot(ax=ax, linewidth=0.9, label="close")
-trend_price[ticker].plot(ax=ax, linewidth=1.6, label="DeTime trend")
-sma(trend_price, 20)[ticker].plot(ax=ax, linewidth=1.0, label="trend SMA 20")
-sma(trend_price, 100)[ticker].plot(ax=ax, linewidth=1.0, label="trend SMA 100")
-ax.set_title("Moving averages on the decomposed trend")
+prices[ticker].plot(ax=ax, linewidth=0.9, color="#1f2937", label="close")
+trend_price[ticker].plot(ax=ax, linewidth=2.0, color="#0f766e", label="continuous DeTime trend")
+sma(trend_price, 20)[ticker].plot(ax=ax, linewidth=1.0, color="#f97316", label="trend SMA 20")
+sma(trend_price, 100)[ticker].plot(ax=ax, linewidth=1.0, color="#dc2626", label="trend SMA 100")
+ax.set_title("Continuous decomposition trend used by MA rewrites")
 ax.legend()
 ax.grid(True, alpha=0.25)
 plt.show()
@@ -405,15 +427,22 @@ plt.show()
 <div class="notebook-input-label">In [8]</div>
 
 ```python
-trend_macd = macd(features["trend"], fast=12, slow=26, signal=9)
-fig, ax = plt.subplots(figsize=(10, 3))
-trend_macd["macd"][ticker].plot(ax=ax, linewidth=1.0, label="trend MACD")
-trend_macd["signal"][ticker].plot(ax=ax, linewidth=1.0, label="trend signal")
-features["cycle_z"][ticker].plot(ax=ax, linewidth=0.8, alpha=0.45, label="cycle z")
-ax.axhline(0, linewidth=0.8)
-ax.set_title("MACD on trend plus cycle context")
-ax.legend()
-ax.grid(True, alpha=0.25)
+diagnostic_trend = diagnostic["trend"].to_frame(ticker)
+trend_macd = macd(diagnostic_trend, fast=12, slow=26, signal=9)
+fig, axes = plt.subplots(2, 1, figsize=(10, 4.6), sharex=True, gridspec_kw={"height_ratios": [1.2, 1.0]})
+trend_macd["macd"][ticker].plot(ax=axes[0], linewidth=1.2, color="#2563eb", label="trend MACD")
+trend_macd["signal"][ticker].plot(ax=axes[0], linewidth=1.0, color="#f97316", label="trend signal")
+axes[0].axhline(0, color="black", linewidth=0.8)
+axes[0].set_title("MACD computed on the continuous decomposed trend")
+axes[0].legend(loc="best")
+axes[0].grid(True, alpha=0.25)
+
+diagnostic["cycle_z"].plot(ax=axes[1], linewidth=0.9, color="#16a34a", label="cycle z")
+axes[1].axhline(0, color="black", linewidth=0.8)
+axes[1].set_title("Cycle context used as a timing filter")
+axes[1].legend(loc="best")
+axes[1].grid(True, alpha=0.25)
+plt.tight_layout()
 plt.show()
 ```
 
@@ -428,10 +457,10 @@ plt.show()
 
 ```python
 fig, ax = plt.subplots(figsize=(10, 3))
-features["residual_abs_z"][ticker].plot(ax=ax, linewidth=1.1, label="abs residual z")
-features["volume_residual_z"][ticker].plot(ax=ax, linewidth=0.9, label="volume residual z")
-ax.axhline(2.75, linestyle="--", linewidth=0.9)
-ax.set_title("Residual stress and volume participation")
+diagnostic["residual_abs_z"].plot(ax=ax, linewidth=1.1, color="#7c3aed", label="price residual abs z")
+volume_diagnostic["residual_z"].plot(ax=ax, linewidth=0.9, color="#0f766e", alpha=0.75, label="volume residual z")
+ax.axhline(2.75, linestyle="--", linewidth=0.9, color="#991b1b")
+ax.set_title("Continuous residual stress and volume participation")
 ax.legend()
 ax.grid(True, alpha=0.25)
 plt.show()
@@ -498,6 +527,15 @@ display(comparison[["strategy_group", "total_return", "cagr", "sharpe", "max_dra
   </thead>
   <tbody>
     <tr>
+      <th>detime_sma_20_100_trend_volume</th>
+      <td>detime</td>
+      <td>0.3368</td>
+      <td>0.0753</td>
+      <td>0.8504</td>
+      <td>-0.0947</td>
+      <td>0.0159</td>
+    </tr>
+    <tr>
       <th>buy_hold</th>
       <td>classical</td>
       <td>0.9207</td>
@@ -507,31 +545,31 @@ display(comparison[["strategy_group", "total_return", "cagr", "sharpe", "max_dra
       <td>0.0000</td>
     </tr>
     <tr>
-      <th>detime_macd_12_26_9</th>
+      <th>detime_trend_pullback</th>
       <td>detime</td>
-      <td>0.2229</td>
-      <td>0.0516</td>
-      <td>0.7077</td>
-      <td>-0.1404</td>
-      <td>0.0337</td>
-    </tr>
-    <tr>
-      <th>detime_sma_20_100_trend_volume</th>
-      <td>detime</td>
-      <td>0.2156</td>
-      <td>0.0500</td>
-      <td>0.4191</td>
-      <td>-0.1896</td>
-      <td>0.0169</td>
+      <td>0.2134</td>
+      <td>0.0495</td>
+      <td>0.6237</td>
+      <td>-0.1132</td>
+      <td>0.0129</td>
     </tr>
     <tr>
       <th>detime_trend_slope</th>
       <td>detime</td>
-      <td>0.2159</td>
-      <td>0.0501</td>
-      <td>0.4037</td>
-      <td>-0.1612</td>
-      <td>0.0149</td>
+      <td>0.2367</td>
+      <td>0.0545</td>
+      <td>0.5235</td>
+      <td>-0.1288</td>
+      <td>0.0218</td>
+    </tr>
+    <tr>
+      <th>detime_macd_12_26_9</th>
+      <td>detime</td>
+      <td>0.1139</td>
+      <td>0.0273</td>
+      <td>0.4314</td>
+      <td>-0.1132</td>
+      <td>0.0218</td>
     </tr>
     <tr>
       <th>classic_sma_50_120</th>
@@ -581,20 +619,11 @@ display(comparison[["strategy_group", "total_return", "cagr", "sharpe", "max_dra
     <tr>
       <th>detime_trend_cycle_volume</th>
       <td>detime</td>
-      <td>-0.0123</td>
-      <td>-0.0031</td>
-      <td>0.0037</td>
-      <td>-0.1559</td>
-      <td>0.0149</td>
-    </tr>
-    <tr>
-      <th>detime_trend_pullback</th>
-      <td>detime</td>
-      <td>-0.0238</td>
-      <td>-0.0060</td>
-      <td>-0.0937</td>
-      <td>-0.0920</td>
-      <td>0.0069</td>
+      <td>-0.0770</td>
+      <td>-0.0198</td>
+      <td>-0.1920</td>
+      <td>-0.2268</td>
+      <td>0.0476</td>
     </tr>
   </tbody>
 </table>

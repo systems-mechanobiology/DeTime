@@ -54,7 +54,7 @@ from quant_trading.validation import compare_weight_strategies, turnover_report
 ```python
 tickers = ["AUDUSD=X", "NZDUSD=X", "EURUSD=X", "GBPUSD=X"]
 ohlcv = load_bundled_real_ohlcv_panel(tickers, min_observations=120)
-ohlcv = {field: table.tail(280).copy() for field, table in ohlcv.items()}
+ohlcv = {field: table.tail(760).copy() for field, table in ohlcv.items()}
 prices = ohlcv["Close"]
 volumes = ohlcv.get("Volume")
 print("volume_available:", volume_availability(volumes))
@@ -102,35 +102,35 @@ volume_available: False
     <tr>
       <th>0</th>
       <td>AUDUSD=X</td>
-      <td>2016-12-05</td>
+      <td>2015-02-02</td>
       <td>2018-01-02</td>
-      <td>280</td>
+      <td>760</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>1.0</td>
-      <td>0.717927</td>
-      <td>0.805802</td>
+      <td>0.686106</td>
+      <td>0.811293</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>1</th>
       <td>NZDUSD=X</td>
-      <td>2016-12-05</td>
+      <td>2015-02-02</td>
       <td>2018-01-02</td>
-      <td>280</td>
+      <td>760</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>1.0</td>
-      <td>0.680101</td>
-      <td>0.752570</td>
+      <td>0.626684</td>
+      <td>0.772380</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>2</th>
       <td>EURUSD=X</td>
-      <td>2016-12-05</td>
+      <td>2015-02-02</td>
       <td>2018-01-02</td>
-      <td>280</td>
+      <td>760</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>1.0</td>
@@ -141,14 +141,14 @@ volume_available: False
     <tr>
       <th>3</th>
       <td>GBPUSD=X</td>
-      <td>2016-12-05</td>
+      <td>2015-02-02</td>
       <td>2018-01-02</td>
-      <td>280</td>
+      <td>760</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>1.0</td>
       <td>1.203935</td>
-      <td>1.357976</td>
+      <td>1.588512</td>
       <td>0.0</td>
     </tr>
   </tbody>
@@ -165,7 +165,13 @@ volume_available: False
 
 ```python
 features = walkforward_decompose_ohlcv(
-    ohlcv, method="STL", period=42, train_window=180, step=252, z_window=42
+    ohlcv,
+    method="STL",
+    period="auto",
+    period_candidates=(63, 126, 252),
+    train_window=504,
+    step=5,
+    z_window=63,
 )
 feature_coverage_report(features).query("feature in ['trend_slope', 'trend_strength', 'cycle_slope', 'residual_z', 'residual_abs_z', 'volume_participation']").head(18)
 ```
@@ -205,180 +211,180 @@ feature_coverage_report(features).query("feature in ['trend_slope', 'trend_stren
       <th>12</th>
       <td>trend_slope</td>
       <td>AUDUSD=X</td>
-      <td>280</td>
-      <td>101</td>
-      <td>0.360714</td>
-      <td>2017-08-14</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
       <th>13</th>
       <td>trend_slope</td>
       <td>NZDUSD=X</td>
-      <td>280</td>
-      <td>101</td>
-      <td>0.360714</td>
-      <td>2017-08-14</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
       <th>14</th>
       <td>trend_slope</td>
       <td>EURUSD=X</td>
-      <td>280</td>
-      <td>101</td>
-      <td>0.360714</td>
-      <td>2017-08-14</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
       <th>15</th>
       <td>trend_slope</td>
       <td>GBPUSD=X</td>
-      <td>280</td>
-      <td>101</td>
-      <td>0.360714</td>
-      <td>2017-08-14</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
       <th>20</th>
       <td>trend_strength</td>
       <td>AUDUSD=X</td>
-      <td>280</td>
-      <td>101</td>
-      <td>0.360714</td>
-      <td>2017-08-14</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
       <th>21</th>
       <td>trend_strength</td>
       <td>NZDUSD=X</td>
-      <td>280</td>
-      <td>101</td>
-      <td>0.360714</td>
-      <td>2017-08-14</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
       <th>22</th>
       <td>trend_strength</td>
       <td>EURUSD=X</td>
-      <td>280</td>
-      <td>101</td>
-      <td>0.360714</td>
-      <td>2017-08-14</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
       <th>23</th>
       <td>trend_strength</td>
       <td>GBPUSD=X</td>
-      <td>280</td>
-      <td>101</td>
-      <td>0.360714</td>
-      <td>2017-08-14</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
       <th>32</th>
       <td>cycle_slope</td>
       <td>AUDUSD=X</td>
-      <td>280</td>
-      <td>101</td>
-      <td>0.360714</td>
-      <td>2017-08-14</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
       <th>33</th>
       <td>cycle_slope</td>
       <td>NZDUSD=X</td>
-      <td>280</td>
-      <td>101</td>
-      <td>0.360714</td>
-      <td>2017-08-14</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
       <th>34</th>
       <td>cycle_slope</td>
       <td>EURUSD=X</td>
-      <td>280</td>
-      <td>101</td>
-      <td>0.360714</td>
-      <td>2017-08-14</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
       <th>35</th>
       <td>cycle_slope</td>
       <td>GBPUSD=X</td>
-      <td>280</td>
-      <td>101</td>
-      <td>0.360714</td>
-      <td>2017-08-14</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
       <th>48</th>
       <td>residual_z</td>
       <td>AUDUSD=X</td>
-      <td>280</td>
-      <td>101</td>
-      <td>0.360714</td>
-      <td>2017-08-14</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
       <th>49</th>
       <td>residual_z</td>
       <td>NZDUSD=X</td>
-      <td>280</td>
-      <td>101</td>
-      <td>0.360714</td>
-      <td>2017-08-14</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
       <th>50</th>
       <td>residual_z</td>
       <td>EURUSD=X</td>
-      <td>280</td>
-      <td>101</td>
-      <td>0.360714</td>
-      <td>2017-08-14</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
       <th>51</th>
       <td>residual_z</td>
       <td>GBPUSD=X</td>
-      <td>280</td>
-      <td>101</td>
-      <td>0.360714</td>
-      <td>2017-08-14</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
       <th>52</th>
       <td>residual_abs_z</td>
       <td>AUDUSD=X</td>
-      <td>280</td>
-      <td>101</td>
-      <td>0.360714</td>
-      <td>2017-08-14</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
       <td>2018-01-02</td>
     </tr>
     <tr>
       <th>53</th>
       <td>residual_abs_z</td>
       <td>NZDUSD=X</td>
-      <td>280</td>
-      <td>101</td>
-      <td>0.360714</td>
-      <td>2017-08-14</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
       <td>2018-01-02</td>
     </tr>
   </tbody>
@@ -459,47 +465,47 @@ build_feature_table(prices, features).tail(3).iloc[:, :12].round(4)
     <tr>
       <th>2017-12-29</th>
       <td>0.9957</td>
-      <td>0.9971</td>
-      <td>0.9952</td>
-      <td>0.9949</td>
-      <td>-0.0068</td>
-      <td>0.0028</td>
-      <td>-0.0089</td>
-      <td>-0.015</td>
-      <td>0.0102</td>
-      <td>0.0086</td>
-      <td>0.0091</td>
-      <td>0.0108</td>
+      <td>0.9939</td>
+      <td>0.9935</td>
+      <td>0.9935</td>
+      <td>-0.0227</td>
+      <td>-0.0174</td>
+      <td>0.0056</td>
+      <td>-0.0092</td>
+      <td>0.0306</td>
+      <td>0.0198</td>
+      <td>0.0103</td>
+      <td>0.0311</td>
     </tr>
     <tr>
       <th>2018-01-01</th>
-      <td>0.9957</td>
-      <td>0.9971</td>
-      <td>0.9952</td>
-      <td>0.9949</td>
-      <td>-0.0068</td>
-      <td>0.0028</td>
-      <td>-0.0089</td>
-      <td>-0.015</td>
-      <td>0.0102</td>
-      <td>0.0086</td>
-      <td>0.0091</td>
-      <td>0.0108</td>
+      <td>0.9959</td>
+      <td>0.9943</td>
+      <td>0.9932</td>
+      <td>0.9941</td>
+      <td>-0.0147</td>
+      <td>-0.0086</td>
+      <td>0.0114</td>
+      <td>0.0075</td>
+      <td>0.0306</td>
+      <td>0.0187</td>
+      <td>0.0100</td>
+      <td>0.0304</td>
     </tr>
     <tr>
       <th>2018-01-02</th>
-      <td>0.9957</td>
-      <td>0.9971</td>
-      <td>0.9952</td>
-      <td>0.9949</td>
-      <td>-0.0068</td>
-      <td>0.0028</td>
-      <td>-0.0089</td>
-      <td>-0.015</td>
-      <td>0.0102</td>
-      <td>0.0086</td>
-      <td>0.0091</td>
-      <td>0.0108</td>
+      <td>0.9959</td>
+      <td>0.9943</td>
+      <td>0.9932</td>
+      <td>0.9941</td>
+      <td>-0.0147</td>
+      <td>-0.0086</td>
+      <td>0.0114</td>
+      <td>0.0075</td>
+      <td>0.0306</td>
+      <td>0.0187</td>
+      <td>0.0100</td>
+      <td>0.0304</td>
     </tr>
   </tbody>
 </table>
@@ -555,38 +561,38 @@ score.tail(5).round(3)
   <tbody>
     <tr>
       <th>2017-12-27</th>
-      <td>2.356</td>
-      <td>1.256</td>
-      <td>2.481</td>
-      <td>1.031</td>
+      <td>1.894</td>
+      <td>0.294</td>
+      <td>2.531</td>
+      <td>1.656</td>
     </tr>
     <tr>
       <th>2017-12-28</th>
-      <td>2.356</td>
-      <td>1.256</td>
-      <td>2.481</td>
-      <td>1.031</td>
+      <td>1.894</td>
+      <td>0.294</td>
+      <td>2.531</td>
+      <td>1.656</td>
     </tr>
     <tr>
       <th>2017-12-29</th>
-      <td>2.356</td>
-      <td>1.256</td>
-      <td>2.481</td>
-      <td>1.031</td>
+      <td>1.894</td>
+      <td>0.294</td>
+      <td>2.531</td>
+      <td>1.656</td>
     </tr>
     <tr>
       <th>2018-01-01</th>
-      <td>2.356</td>
-      <td>1.256</td>
-      <td>2.481</td>
-      <td>1.031</td>
+      <td>1.656</td>
+      <td>0.644</td>
+      <td>2.519</td>
+      <td>1.556</td>
     </tr>
     <tr>
       <th>2018-01-02</th>
-      <td>2.356</td>
-      <td>1.256</td>
-      <td>2.481</td>
-      <td>1.031</td>
+      <td>1.656</td>
+      <td>0.644</td>
+      <td>2.519</td>
+      <td>1.556</td>
     </tr>
   </tbody>
 </table>
@@ -657,80 +663,80 @@ rotation_diagnostic_table(prices, features, tail=2).round(4)
       <th>0</th>
       <td>2018-01-01</td>
       <td>EURUSD=X</td>
-      <td>2.4812</td>
-      <td>0.2403</td>
-      <td>0.0007</td>
-      <td>0.9507</td>
+      <td>2.5188</td>
+      <td>0.1228</td>
+      <td>0.0016</td>
+      <td>-0.4600</td>
       <td>1.25</td>
     </tr>
     <tr>
       <th>1</th>
       <td>2018-01-01</td>
       <td>AUDUSD=X</td>
-      <td>2.3562</td>
-      <td>0.2955</td>
-      <td>-0.0003</td>
-      <td>-1.0228</td>
+      <td>1.6563</td>
+      <td>0.0496</td>
+      <td>0.0010</td>
+      <td>0.2019</td>
       <td>1.25</td>
     </tr>
     <tr>
       <th>2</th>
       <td>2018-01-01</td>
-      <td>NZDUSD=X</td>
-      <td>1.2562</td>
-      <td>0.1906</td>
-      <td>-0.0007</td>
-      <td>-2.3371</td>
+      <td>GBPUSD=X</td>
+      <td>1.5562</td>
+      <td>0.0393</td>
+      <td>0.0011</td>
+      <td>0.1007</td>
       <td>1.25</td>
     </tr>
     <tr>
       <th>3</th>
       <td>2018-01-01</td>
-      <td>GBPUSD=X</td>
-      <td>1.0313</td>
-      <td>0.1049</td>
-      <td>0.0006</td>
-      <td>0.9669</td>
+      <td>NZDUSD=X</td>
+      <td>0.6438</td>
+      <td>-0.0190</td>
+      <td>0.0036</td>
+      <td>-0.8123</td>
       <td>1.25</td>
     </tr>
     <tr>
       <th>4</th>
       <td>2018-01-02</td>
       <td>EURUSD=X</td>
-      <td>2.4812</td>
-      <td>0.2403</td>
-      <td>0.0007</td>
-      <td>0.9507</td>
+      <td>2.5188</td>
+      <td>0.1228</td>
+      <td>0.0016</td>
+      <td>-0.4600</td>
       <td>1.25</td>
     </tr>
     <tr>
       <th>5</th>
       <td>2018-01-02</td>
       <td>AUDUSD=X</td>
-      <td>2.3562</td>
-      <td>0.2955</td>
-      <td>-0.0003</td>
-      <td>-1.0228</td>
+      <td>1.6563</td>
+      <td>0.0496</td>
+      <td>0.0010</td>
+      <td>0.2019</td>
       <td>1.25</td>
     </tr>
     <tr>
       <th>6</th>
       <td>2018-01-02</td>
-      <td>NZDUSD=X</td>
-      <td>1.2562</td>
-      <td>0.1906</td>
-      <td>-0.0007</td>
-      <td>-2.3371</td>
+      <td>GBPUSD=X</td>
+      <td>1.5562</td>
+      <td>0.0393</td>
+      <td>0.0011</td>
+      <td>0.1007</td>
       <td>1.25</td>
     </tr>
     <tr>
       <th>7</th>
       <td>2018-01-02</td>
-      <td>GBPUSD=X</td>
-      <td>1.0313</td>
-      <td>0.1049</td>
-      <td>0.0006</td>
-      <td>0.9669</td>
+      <td>NZDUSD=X</td>
+      <td>0.6438</td>
+      <td>-0.0190</td>
+      <td>0.0036</td>
+      <td>-0.8123</td>
       <td>1.25</td>
     </tr>
   </tbody>
@@ -792,32 +798,32 @@ comparison[["total_return", "sharpe", "max_drawdown", "average_turnover"]].round
   </thead>
   <tbody>
     <tr>
+      <th>detime_rotation_long_short</th>
+      <td>0.0052</td>
+      <td>0.0686</td>
+      <td>-0.1563</td>
+      <td>0.0572</td>
+    </tr>
+    <tr>
+      <th>detime_rotation_top_trend_cycle_residual_volume</th>
+      <td>-0.0112</td>
+      <td>0.0095</td>
+      <td>-0.1596</td>
+      <td>0.0289</td>
+    </tr>
+    <tr>
       <th>buy_hold_equal_weight</th>
-      <td>0.0624</td>
-      <td>0.9200</td>
-      <td>-0.0428</td>
+      <td>-0.0115</td>
+      <td>-0.0085</td>
+      <td>-0.1234</td>
       <td>0.0000</td>
     </tr>
     <tr>
       <th>classic_momentum_63_top</th>
-      <td>0.0356</td>
-      <td>0.5964</td>
-      <td>-0.0518</td>
-      <td>0.0464</td>
-    </tr>
-    <tr>
-      <th>detime_rotation_top_trend_cycle_residual_volume</th>
-      <td>0.0429</td>
-      <td>0.5756</td>
-      <td>-0.0533</td>
-      <td>0.0071</td>
-    </tr>
-    <tr>
-      <th>detime_rotation_long_short</th>
-      <td>-0.0729</td>
-      <td>-0.7004</td>
-      <td>-0.1366</td>
-      <td>0.0162</td>
+      <td>-0.0799</td>
+      <td>-0.2850</td>
+      <td>-0.1403</td>
+      <td>0.0461</td>
     </tr>
   </tbody>
 </table>
@@ -892,30 +898,30 @@ turnover_report(strategies).round(4)
     <tr>
       <th>buy_hold_equal_weight</th>
       <td>0.0000</td>
+      <td>0.0000</td>
       <td>0.0</td>
-      <td>0.00</td>
       <td>1.0000</td>
     </tr>
     <tr>
       <th>classic_momentum_63_top</th>
-      <td>0.0464</td>
-      <td>0.0</td>
-      <td>1.00</td>
-      <td>0.7714</td>
+      <td>0.0461</td>
+      <td>0.0000</td>
+      <td>2.0</td>
+      <td>0.9158</td>
     </tr>
     <tr>
       <th>detime_rotation_top_trend_cycle_residual_volume</th>
-      <td>0.0071</td>
-      <td>0.0</td>
-      <td>1.00</td>
-      <td>0.9857</td>
+      <td>0.0289</td>
+      <td>0.0000</td>
+      <td>2.0</td>
+      <td>0.9947</td>
     </tr>
     <tr>
       <th>detime_rotation_long_short</th>
-      <td>0.0162</td>
-      <td>0.0</td>
-      <td>2.25</td>
-      <td>1.4384</td>
+      <td>0.0572</td>
+      <td>0.0034</td>
+      <td>3.0</td>
+      <td>1.2333</td>
     </tr>
   </tbody>
 </table>

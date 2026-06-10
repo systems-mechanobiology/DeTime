@@ -213,13 +213,13 @@ plt.show()
 
 ## 2. Estimate the dominant trading horizon
 
-The period estimator chooses from interpretable trading horizons. The selected value is a feature, not a tuning secret: it is written into the audit table and shown in the notebook. The candidate set includes roughly two-month, quarter, half-year, and one-year trading horizons.
+The period estimator chooses from interpretable trading horizons. The selected value is a feature, not a tuning secret: it is written into the audit table and shown in the notebook. The candidate set focuses on quarter, half-year, and one-year trading horizons so the tutorial does not mistake short oscillatory noise for a stable market cycle.
 
 <div class="notebook-cell">
 <div class="notebook-input-label">In [4]</div>
 
 ```python
-period_estimate = estimate_dominant_period(close[ticker], candidates=(42, 63, 126, 252), use_log=True)
+period_estimate = estimate_dominant_period(close[ticker], candidates=(63, 126, 252), use_log=True)
 period_summary = pd.DataFrame([period_estimate.__dict__])
 display(period_summary)
 ```
@@ -257,7 +257,7 @@ display(period_summary)
       <td>252</td>
       <td>13.916399</td>
       <td>acf_periodogram_candidates</td>
-      <td>(42, 63, 126, 252)</td>
+      <td>(63, 126, 252)</td>
     </tr>
   </tbody>
 </table>
@@ -280,7 +280,7 @@ features = walkforward_decompose_ohlcv(
     ohlcv,
     method="STL",
     period="auto",
-    period_candidates=(42, 63, 126, 252),
+    period_candidates=(63, 126, 252),
     train_window=504,
     step=5,
     z_window=63,

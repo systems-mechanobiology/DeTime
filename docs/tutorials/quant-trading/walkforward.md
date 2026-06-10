@@ -6,7 +6,7 @@ future trend and cycle structure into the past.
 
 ## Correct workflow
 
-1. Choose a training window, for example 252 trading days.
+1. Choose a training window, for example 504 trading days for daily bars.
 2. Decompose only the current training window.
 3. Keep only the last feature row from that window.
 4. Forward-fill that feature until the next recomputation date.
@@ -19,9 +19,11 @@ features = walkforward_price_volume_features(
     prices,
     volumes,
     method="STL",
-    period=63,
-    train_window=252,
-    step=21,
+    period="auto",
+    period_candidates=(63, 126, 252),
+    train_window=504,
+    step=5,
+    z_window=63,
 )
 ```
 

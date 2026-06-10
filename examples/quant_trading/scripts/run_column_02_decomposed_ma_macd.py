@@ -32,8 +32,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--cache-dir", default="examples/quant_trading/data/cache")
     p.add_argument("--report-dir", default="examples/quant_trading/reports")
     p.add_argument("--method", default="STL")
-    p.add_argument("--train-window", type=int, default=252)
-    p.add_argument("--step", type=int, default=21)
+    p.add_argument("--train-window", type=int, default=504)
+    p.add_argument("--step", type=int, default=5)
     p.add_argument("--fee-bps", type=float, default=1.0)
     p.add_argument("--slippage-bps", type=float, default=2.0)
     p.add_argument("--use-bundled-sample", action="store_true", help="Use bundled real GOOG OHLCV for offline smoke tests.")
@@ -63,7 +63,7 @@ def main() -> int:
         ohlcv,
         method=args.method,
         period="auto",
-        period_candidates=(21, 42, 63, 126),
+        period_candidates=(63, 126, 252),
         train_window=args.train_window,
         step=args.step,
     )

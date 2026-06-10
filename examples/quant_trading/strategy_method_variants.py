@@ -43,9 +43,9 @@ class DecompositionVariantSpec:
     """One decomposition choice interpreted as one strategy variant."""
 
     method: str
-    period: int | str = 42
-    train_window: int = 180
-    step: int = 21
+    period: int | str = 126
+    train_window: int = 504
+    step: int = 5
     z_window: int = 63
     label: str | None = None
     role: str = "medium_cycle"
@@ -103,8 +103,9 @@ class DecompositionTrendCrossoverConfig:
 def default_variant_specs(*, include_wavelet: bool = True) -> list[DecompositionVariantSpec]:
     """A compact, interpretable grid for tutorial runs.
 
-    Short-cycle specs react quickly but may overtrade.  Long-cycle specs are
-    smoother but slower.  Method choice changes the extracted component itself:
+    Medium-cycle specs react quickly enough for daily bars without turning
+    one-month noise into a decomposition target.  Long-cycle specs are smoother
+    but slower.  Method choice changes the extracted component itself:
     STL is fixed-period seasonal-trend decomposition, SSA is low-rank Hankel
     subspace extraction, STD is seasonal-trend-dispersion decomposition, and
     Wavelet is multi-scale time-frequency decomposition when PyWavelets is
@@ -112,14 +113,14 @@ def default_variant_specs(*, include_wavelet: bool = True) -> list[Decomposition
     """
 
     specs = [
-        DecompositionVariantSpec("STL", period=21, train_window=126, step=21, z_window=42, role="short_cycle"),
-        DecompositionVariantSpec("STL", period=42, train_window=180, step=21, z_window=63, role="medium_cycle"),
-        DecompositionVariantSpec("SSA", period=42, train_window=180, step=21, z_window=63, role="subspace_medium_cycle"),
-        DecompositionVariantSpec("SSA", period=63, train_window=252, step=21, z_window=63, role="subspace_long_cycle"),
-        DecompositionVariantSpec("STD", period=42, train_window=180, step=21, z_window=63, role="dispersion_medium_cycle"),
+        DecompositionVariantSpec("STL", period=63, train_window=504, step=21, z_window=63, role="quarter_cycle"),
+        DecompositionVariantSpec("STL", period=126, train_window=504, step=21, z_window=63, role="half_year_cycle"),
+        DecompositionVariantSpec("SSA", period=126, train_window=504, step=21, z_window=63, role="subspace_half_year_cycle"),
+        DecompositionVariantSpec("SSA", period=252, train_window=756, step=21, z_window=126, role="subspace_annual_cycle"),
+        DecompositionVariantSpec("STD", period=126, train_window=504, step=21, z_window=63, role="dispersion_half_year_cycle"),
     ]
     if include_wavelet:
-        specs.append(DecompositionVariantSpec("WAVELET", period=42, train_window=180, step=21, z_window=63, role="multiscale_optional"))
+        specs.append(DecompositionVariantSpec("WAVELET", period=126, train_window=504, step=21, z_window=63, role="multiscale_optional"))
     return specs
 
 

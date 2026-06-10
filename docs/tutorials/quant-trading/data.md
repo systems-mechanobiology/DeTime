@@ -35,9 +35,11 @@ features = walkforward_price_volume_features(
     prices,
     volumes,
     method="STL",
-    period=63,
-    train_window=252,
-    step=21,
+    period="auto",
+    period_candidates=(63, 126, 252),
+    train_window=504,
+    step=5,
+    z_window=63,
 )
 ```
 

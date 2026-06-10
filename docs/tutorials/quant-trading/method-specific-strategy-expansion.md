@@ -44,16 +44,17 @@ The tutorial avoids blind optimization first. It uses interpretable grids:
 
 | Market idea | DeTime parameter | Example |
 |---|---|---|
-| short trading rhythm | period | 21 bars |
-| medium swing rhythm | period | 42 or 63 bars |
-| long trend structure | train_window | 252 bars |
+| medium swing rhythm | period | 63 bars |
+| half-year structure | period | 126 bars |
+| annual structure | period | 252 bars |
+| long trend structure | train_window | 504 bars |
 | fast adaptation | step | 5 or 21 bars |
-| low turnover | step | 63 or 126 bars |
-| residual band sensitivity | z_window | 42, 63, 126 bars |
+| low turnover | step | 21 or 63 bars |
+| residual band sensitivity | z_window | 63 or 126 bars |
 
 A practical workflow is:
 
-1. Start with `STL`, `SSA`, and `STD` on periods `21`, `42`, and `63`.
+1. Start with `STL`, `SSA`, and `STD` on periods `63`, `126`, and `252`.
 2. Compare strategy families, not only decomposition plots.
 3. Check orders, round-trip trades, drawdown, turnover, and exposure.
 4. Add Wavelet only after installing PyWavelets.
@@ -122,11 +123,11 @@ python examples/quant_trading/scripts/run_strategy_expansion.py \
   --use-bundled-sample \
   --variant-grid custom \
   --methods STL SSA STD \
-  --periods 21 42 63 \
-  --train-window 180 \
+  --periods 63 126 252 \
+  --train-window 504 \
   --step 21 \
   --pair-method STL \
-  --pair-period 42
+  --pair-period 126
 ```
 
 ## 7. Output files

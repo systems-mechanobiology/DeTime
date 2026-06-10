@@ -37,8 +37,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--cache-dir", default="examples/quant_trading/data/cache")
     p.add_argument("--report-dir", default="examples/quant_trading/reports")
     p.add_argument("--method", default="STL")
-    p.add_argument("--train-window", type=int, default=252)
-    p.add_argument("--step", type=int, default=21)
+    p.add_argument("--train-window", type=int, default=504)
+    p.add_argument("--step", type=int, default=5)
     p.add_argument("--use-bundled-sample", action="store_true", help="Use bundled real GOOG OHLCV for offline smoke tests.")
     return p.parse_args()
 
@@ -64,7 +64,7 @@ def main() -> int:
     audit = ohlcv_audit_report(ohlcv)
     period_tables = []
     for ticker in close.columns:
-        table = period_score_table(close[ticker], candidates=(21, 42, 63, 126), transform="log")
+        table = period_score_table(close[ticker], candidates=(63, 126, 252), transform="log")
         table.insert(0, "ticker", ticker)
         period_tables.append(table)
     period_table = pd.concat(period_tables, ignore_index=True)
@@ -73,7 +73,7 @@ def main() -> int:
         ohlcv,
         method=args.method,
         period="auto",
-        period_candidates=(21, 42, 63, 126),
+        period_candidates=(63, 126, 252),
         train_window=args.train_window,
         step=args.step,
     )
