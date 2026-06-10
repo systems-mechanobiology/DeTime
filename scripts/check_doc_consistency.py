@@ -59,8 +59,8 @@ REQUIRED_PATTERNS: dict[str, list[str]] = {
         "detime recommend",
     ],
     "docs/install.md": [
+        "python -m pip install de-time",
         'python -m pip install "git+https://github.com/systems-mechanobiology/DeTime.git"',
-        "Planned PyPI install after the release",
         "tsdecomp` executable",
     ],
     "docs/notebook-gallery.md": ["de_time_method_gallery.ipynb", "generate_notebook_gallery.py"],
