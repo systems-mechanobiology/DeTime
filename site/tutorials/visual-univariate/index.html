@@ -1,35 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Zipeng Wu">
-        <link rel="canonical" href="https://jackson-jjc.github.io/De-time.design/tutorials/visual-univariate/">
+        <link rel="canonical" href="https://systems-mechanobiology.github.io/DeTime/tutorials/visual-univariate/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Visual tutorial: one univariate decomposition - De-Time</title>
+        <title>Visual tutorial: one univariate decomposition - DeTime</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
         <link href="../../stylesheets/brand.css" rel="stylesheet">
         <link href="../../stylesheets/extra.css" rel="stylesheet">
-
-        <script src="../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
    
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="keywords" content="DeTime, detime, de-time, time series decomposition, Python time series, SSA, MSSA, VMD, STL, decomposition software">
+  <meta property="og:site_name" content="DeTime">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DeTime - workflow-oriented time-series decomposition for Python">
+  <meta property="og:description" content="DeTime is a Python and CLI toolkit for reproducible time-series decomposition across SSA, MSSA, VMD, STL, EMD, wavelet, and native C++ backed methods.">
+  <meta property="og:url" content="https://systems-mechanobiology.github.io/DeTime/">
+  <meta property="og:image" content="https://systems-mechanobiology.github.io/DeTime/assets/brand/detime-title-card.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DeTime - time-series decomposition for Python">
+  <meta name="twitter:description" content="Workflow-oriented Python and CLI software for reproducible trend, oscillation, residual, and component decomposition.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://systems-mechanobiology.github.io/DeTime/#website",
+        "name": "DeTime",
+        "alternateName": ["detime", "de-time", "De-Time"],
+        "url": "https://systems-mechanobiology.github.io/DeTime/",
+        "description": "DeTime documentation for workflow-oriented time-series decomposition software.",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://systems-mechanobiology.github.io/DeTime/#software",
+        "name": "DeTime",
+        "alternateName": ["detime", "de-time", "De-Time"],
+        "description": "Python and CLI toolkit for reproducible time-series decomposition with native C++ backed SSA, MSSA, VMD, STD, STDR, MA baseline, and Gabor clustering paths.",
+        "codeRepository": "https://github.com/systems-mechanobiology/DeTime",
+        "url": "https://systems-mechanobiology.github.io/DeTime/",
+        "programmingLanguage": ["Python", "C++"],
+        "applicationCategory": "Scientific software",
+        "keywords": "DeTime, time-series decomposition, Python, SSA, MSSA, VMD, STL, EMD, wavelet, native C++",
+        "author": {
+          "@type": "Person",
+          "name": "Zipeng Wu"
+        }
+      }
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="../../stylesheets/extra.css?v=7">
 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="../..">De-Time</a>
+                <a class="navbar-brand" href="../..">DeTime</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -37,11 +82,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../.." class="nav-link">Home</a>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Start <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Start</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -53,8 +98,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Methods <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Methods</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -70,8 +115,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Workflows <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Workflows</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -89,10 +134,186 @@
 <li>
     <a href="../cli-and-profiling/" class="dropdown-item">CLI Guide</a>
 </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Quant Trading Tutorial</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../quant-trading/" class="dropdown-item">Overview</a>
+</li>
+            
+<li>
+    <a href="../quant-trading/notebooks/" class="dropdown-item">Tutorial Notebooks</a>
+</li>
+            
+<li>
+    <a href="../quant-trading/notebooks/00_decomposition_first_quant_trading_roadmap/" class="dropdown-item">Tutorial 00 Roadmap</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Lab</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../quant-trading/two-strategy-families/" class="dropdown-item">Two Strategy Families</a>
+</li>
+            
+<li>
+    <a href="../quant-trading/notebooks/01_detime_trend_following_strategy_lab/" class="dropdown-item">01 Trend-Following Lab</a>
+</li>
+            
+<li>
+    <a href="../quant-trading/notebooks/02_detime_oscillation_reversion_strategy_lab/" class="dropdown-item">02 Oscillation-Reversion Lab</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Expansion</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../quant-trading/method-specific-strategy-expansion/" class="dropdown-item">Method-Specific Strategy Expansion</a>
+</li>
+            
+<li>
+    <a href="../quant-trading/notebooks/03_detime_method_specific_strategy_variants/" class="dropdown-item">03 Method-Specific Variants</a>
+</li>
+            
+<li>
+    <a href="../quant-trading/notebooks/04_detime_component_pair_trading_cointegration/" class="dropdown-item">04 Component Pair Trading</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Tutorial Sequence</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../quant-trading/notebooks/01_market_data_and_decomposition_feature_factory/" class="dropdown-item">01 Real Market Data and Feature Factory</a>
+</li>
+            
+<li>
+    <a href="../quant-trading/notebooks/02_decomposition_aware_moving_average_macd/" class="dropdown-item">02 Decomposition-aware MA and MACD</a>
+</li>
+            
+<li>
+    <a href="../quant-trading/notebooks/03_residual_mean_reversion_rsi_bollinger/" class="dropdown-item">03 Residual Mean Reversion</a>
+</li>
+            
+<li>
+    <a href="../quant-trading/notebooks/04_turtle_donchian_breakout_volume_confirmation/" class="dropdown-item">04 Donchian Breakout</a>
+</li>
+            
+<li>
+    <a href="../quant-trading/notebooks/05_pairs_spread_decomposition_stat_arb/" class="dropdown-item">05 Pair-Spread Stat-Arb</a>
+</li>
+            
+<li>
+    <a href="../quant-trading/notebooks/06_cross_sectional_rotation_portfolio/" class="dropdown-item">06 Cross-Sectional Rotation</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Native SSA Replay</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../quant-trading/notebooks/07_native_ssa_high_return_low_drawdown_tutorial/" class="dropdown-item">07 Native SSA High-Return / Low-Drawdown</a>
+</li>
+    </ul>
+  </li>
+            
+<li>
+    <a href="../quant-trading/data/" class="dropdown-item">Real Data and Universes</a>
+</li>
+            
+<li>
+    <a href="../quant-trading/strategy-map/" class="dropdown-item">Strategy Map</a>
+</li>
+            
+<li>
+    <a href="../quant-trading/backtesting-frameworks/" class="dropdown-item">Backtesting Frameworks</a>
+</li>
+            
+<li>
+    <a href="../quant-trading/walkforward/" class="dropdown-item">Walk-Forward Validation</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Hot Trend Lab</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../hot-trend-lab/" class="dropdown-item">Overview</a>
+</li>
+            
+<li>
+    <a href="../hot-trend-lab/notebooks/" class="dropdown-item">Rendered Notebooks</a>
+</li>
+            
+<li>
+    <a href="../hot-trend-lab/notebooks/00_hot_trend_lab_overview/" class="dropdown-item">00 Column Overview</a>
+</li>
+            
+<li>
+    <a href="../hot-trend-lab/notebooks/01_arxiv_category_pulse/" class="dropdown-item">01 arXiv Category Pulse</a>
+</li>
+            
+<li>
+    <a href="../hot-trend-lab/notebooks/02_arxiv_agent_research_pulse/" class="dropdown-item">02 arXiv Agent Research Pulse</a>
+</li>
+            
+<li>
+    <a href="../hot-trend-lab/notebooks/03_huggingface_open_model_pulse/" class="dropdown-item">03 Hugging Face Open-Model Pulse</a>
+</li>
+            
+<li>
+    <a href="../hot-trend-lab/notebooks/04_github_ai_agent_star_velocity/" class="dropdown-item">04 GitHub Star Velocity</a>
+</li>
+            
+<li>
+    <a href="../hot-trend-lab/notebooks/05_wikipedia_attention_hype_decay/" class="dropdown-item">05 Wikipedia Attention Decay</a>
+</li>
+            
+<li>
+    <a href="../hot-trend-lab/notebooks/06_crypto_stablecoin_liquidity_pulse/" class="dropdown-item">06 Crypto Stablecoin Liquidity</a>
+</li>
+            
+<li>
+    <a href="../hot-trend-lab/notebooks/07_ai_infrastructure_market_pulse/" class="dropdown-item">07 AI Infrastructure Market Pulse</a>
+</li>
+            
+<li>
+    <a href="../hot-trend-lab/data-sources/" class="dropdown-item">Real Data Sources</a>
+</li>
+            
+<li>
+    <a href="../hot-trend-lab/arxiv-research-pulse/" class="dropdown-item">arXiv Research Pulse</a>
+</li>
+            
+<li>
+    <a href="../hot-trend-lab/open-model-and-developer-attention/" class="dropdown-item">Open Models and Developer Attention</a>
+</li>
+            
+<li>
+    <a href="../hot-trend-lab/wiki-market-crypto-attention/" class="dropdown-item">Public Attention, Markets, and Crypto</a>
+</li>
+            
+<li>
+    <a href="../hot-trend-lab/release-calendar/" class="dropdown-item">Release Calendar</a>
+</li>
+    </ul>
+  </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Gallery <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Gallery</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -156,8 +377,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Reference</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -173,8 +394,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Project <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Project</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -204,14 +425,14 @@
                             </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a href="https://github.com/systems-mechanobiology/De-Time" class="nav-link">systems-mechanobiology/De-Time</a>
+                                <a href="https://github.com/systems-mechanobiology/DeTime" class="nav-link">systems-mechanobiology/DeTime</a>
                             </li>
                     </ul>
                 </div>
@@ -220,36 +441,36 @@
 
         <div class="container">
             <div class="row">
-                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
         </button>
     </div>
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#visual-tutorial-one-univariate-decomposition" class="nav-link">Visual tutorial: one univariate decomposition</a>
+            <li class="nav-item" data-bs-level="1"><a href="#visual-tutorial-one-univariate-decomposition" class="nav-link">Visual tutorial: one univariate decomposition</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#goal" class="nav-link">Goal</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#script" class="nav-link">Script</a>
+            <li class="nav-item" data-bs-level="2"><a href="#goal" class="nav-link">Goal</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#output-files" class="nav-link">Output files</a>
+            <li class="nav-item" data-bs-level="2"><a href="#script" class="nav-link">Script</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#what-to-look-for" class="nav-link">What to look for</a>
+            <li class="nav-item" data-bs-level="2"><a href="#output-files" class="nav-link">Output files</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#how-to-turn-this-into-an-experiment" class="nav-link">How to turn this into an experiment</a>
+            <li class="nav-item" data-bs-level="2"><a href="#what-to-look-for" class="nav-link">What to look for</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#how-to-turn-this-into-an-experiment" class="nav-link">How to turn this into an experiment</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -305,24 +526,24 @@ localized pulse.</p>
 <tr>
 <th>Method</th>
 <th>Backend</th>
-<th align="right">Length</th>
-<th align="right">Window</th>
-<th align="right">Rank</th>
-<th align="right">Residual RMS</th>
-<th align="right">Peak residual</th>
-<th align="right">Reconstruction error</th>
+<th style="text-align: right;">Length</th>
+<th style="text-align: right;">Window</th>
+<th style="text-align: right;">Rank</th>
+<th style="text-align: right;">Residual RMS</th>
+<th style="text-align: right;">Peak residual</th>
+<th style="text-align: right;">Reconstruction error</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>SSA</code></td>
 <td><code>native</code></td>
-<td align="right">180</td>
-<td align="right">36</td>
-<td align="right">8</td>
-<td align="right">0.1763</td>
-<td align="right">0.4020</td>
-<td align="right">0.0000</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.1763</td>
+<td style="text-align: right;">0.4020</td>
+<td style="text-align: right;">0.0000</td>
 </tr>
 </tbody>
 </table>
@@ -360,19 +581,20 @@ script on the current repository state.</p>
             <hr>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../js/base.js" defer></script>
-        <script src="../../search/main.js" defer></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="searchModalLabel">Search</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p>From here you can search these documents. Enter your search terms below.</p>
@@ -392,7 +614,7 @@ script on the current repository state.</p>
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <table class="table">

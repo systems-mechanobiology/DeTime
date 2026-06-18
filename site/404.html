@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,27 +7,28 @@
         
         <meta name="author" content="Zipeng Wu">
         
-        <link rel="shortcut icon" href="/De-Time/img/favicon.ico">
-        <title>De-Time</title>
-        <link href="/De-Time/css/bootstrap.min.css" rel="stylesheet">
-        <link href="/De-Time/css/font-awesome.min.css" rel="stylesheet">
-        <link href="/De-Time/css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
-        <link href="/De-Time/stylesheets/brand.css" rel="stylesheet">
-        <link href="/De-Time/stylesheets/extra.css" rel="stylesheet">
-
-        <script src="/De-Time/js/jquery-1.10.2.min.js" defer></script>
-        <script src="/De-Time/js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link rel="shortcut icon" href="/DeTime/img/favicon.ico">
+        <title>DeTime</title>
+        <link href="/DeTime/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/DeTime/css/fontawesome.min.css" rel="stylesheet">
+        <link href="/DeTime/css/brands.min.css" rel="stylesheet">
+        <link href="/DeTime/css/solid.min.css" rel="stylesheet">
+        <link href="/DeTime/css/v4-font-face.min.css" rel="stylesheet">
+        <link href="/DeTime/css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="/DeTime/stylesheets/brand.css" rel="stylesheet">
+        <link href="/DeTime/stylesheets/extra.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="/De-time.design/.">De-Time</a>
+                <a class="navbar-brand" href="/DeTime/.">DeTime</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,181 +36,357 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-                            <li class="navitem">
-                                <a href="/De-time.design/." class="nav-link">Home</a>
+                            <li class="nav-item">
+                                <a href="/DeTime/." class="nav-link">Home</a>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Start <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Start</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="/De-time.design/install/" class="dropdown-item">Install</a>
+    <a href="/DeTime/install/" class="dropdown-item">Install</a>
 </li>
                                     
 <li>
-    <a href="/De-time.design/quickstart/" class="dropdown-item">Quickstart</a>
+    <a href="/DeTime/quickstart/" class="dropdown-item">Quickstart</a>
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Methods <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Methods</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="/De-time.design/methods/" class="dropdown-item">Methods & Chooser</a>
+    <a href="/DeTime/methods/" class="dropdown-item">Methods & Chooser</a>
 </li>
                                     
 <li>
-    <a href="/De-time.design/method-matrix/" class="dropdown-item">Method Matrix</a>
+    <a href="/DeTime/method-matrix/" class="dropdown-item">Method Matrix</a>
 </li>
                                     
 <li>
-    <a href="/De-time.design/method-references/" class="dropdown-item">Method References</a>
+    <a href="/DeTime/method-references/" class="dropdown-item">Method References</a>
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Workflows <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Workflows</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="/De-time.design/notebook-gallery/" class="dropdown-item">Notebook Gallery</a>
+    <a href="/DeTime/notebook-gallery/" class="dropdown-item">Notebook Gallery</a>
 </li>
                                     
 <li>
-    <a href="/De-time.design/tutorials/univariate/" class="dropdown-item">Univariate Tutorial</a>
+    <a href="/DeTime/tutorials/univariate/" class="dropdown-item">Univariate Tutorial</a>
 </li>
                                     
 <li>
-    <a href="/De-time.design/tutorials/multivariate/" class="dropdown-item">Multivariate Tutorial</a>
+    <a href="/DeTime/tutorials/multivariate/" class="dropdown-item">Multivariate Tutorial</a>
 </li>
                                     
 <li>
-    <a href="/De-time.design/tutorials/cli-and-profiling/" class="dropdown-item">CLI Guide</a>
+    <a href="/DeTime/tutorials/cli-and-profiling/" class="dropdown-item">CLI Guide</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Quant Trading Tutorial</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="/DeTime/tutorials/quant-trading/" class="dropdown-item">Overview</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/quant-trading/notebooks/" class="dropdown-item">Tutorial Notebooks</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/quant-trading/notebooks/00_decomposition_first_quant_trading_roadmap/" class="dropdown-item">Tutorial 00 Roadmap</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Lab</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="/DeTime/tutorials/quant-trading/two-strategy-families/" class="dropdown-item">Two Strategy Families</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/quant-trading/notebooks/01_detime_trend_following_strategy_lab/" class="dropdown-item">01 Trend-Following Lab</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/quant-trading/notebooks/02_detime_oscillation_reversion_strategy_lab/" class="dropdown-item">02 Oscillation-Reversion Lab</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Expansion</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="/DeTime/tutorials/quant-trading/method-specific-strategy-expansion/" class="dropdown-item">Method-Specific Strategy Expansion</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/quant-trading/notebooks/03_detime_method_specific_strategy_variants/" class="dropdown-item">03 Method-Specific Variants</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/quant-trading/notebooks/04_detime_component_pair_trading_cointegration/" class="dropdown-item">04 Component Pair Trading</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Tutorial Sequence</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="/DeTime/tutorials/quant-trading/notebooks/01_market_data_and_decomposition_feature_factory/" class="dropdown-item">01 Real Market Data and Feature Factory</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/quant-trading/notebooks/02_decomposition_aware_moving_average_macd/" class="dropdown-item">02 Decomposition-aware MA and MACD</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/quant-trading/notebooks/03_residual_mean_reversion_rsi_bollinger/" class="dropdown-item">03 Residual Mean Reversion</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/quant-trading/notebooks/04_turtle_donchian_breakout_volume_confirmation/" class="dropdown-item">04 Donchian Breakout</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/quant-trading/notebooks/05_pairs_spread_decomposition_stat_arb/" class="dropdown-item">05 Pair-Spread Stat-Arb</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/quant-trading/notebooks/06_cross_sectional_rotation_portfolio/" class="dropdown-item">06 Cross-Sectional Rotation</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Native SSA Replay</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="/DeTime/tutorials/quant-trading/notebooks/07_native_ssa_high_return_low_drawdown_tutorial/" class="dropdown-item">07 Native SSA High-Return / Low-Drawdown</a>
+</li>
+    </ul>
+  </li>
+            
+<li>
+    <a href="/DeTime/tutorials/quant-trading/data/" class="dropdown-item">Real Data and Universes</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/quant-trading/strategy-map/" class="dropdown-item">Strategy Map</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/quant-trading/backtesting-frameworks/" class="dropdown-item">Backtesting Frameworks</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/quant-trading/walkforward/" class="dropdown-item">Walk-Forward Validation</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Hot Trend Lab</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="/DeTime/tutorials/hot-trend-lab/" class="dropdown-item">Overview</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/hot-trend-lab/notebooks/" class="dropdown-item">Rendered Notebooks</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/hot-trend-lab/notebooks/00_hot_trend_lab_overview/" class="dropdown-item">00 Column Overview</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/hot-trend-lab/notebooks/01_arxiv_category_pulse/" class="dropdown-item">01 arXiv Category Pulse</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/hot-trend-lab/notebooks/02_arxiv_agent_research_pulse/" class="dropdown-item">02 arXiv Agent Research Pulse</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/hot-trend-lab/notebooks/03_huggingface_open_model_pulse/" class="dropdown-item">03 Hugging Face Open-Model Pulse</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/hot-trend-lab/notebooks/04_github_ai_agent_star_velocity/" class="dropdown-item">04 GitHub Star Velocity</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/hot-trend-lab/notebooks/05_wikipedia_attention_hype_decay/" class="dropdown-item">05 Wikipedia Attention Decay</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/hot-trend-lab/notebooks/06_crypto_stablecoin_liquidity_pulse/" class="dropdown-item">06 Crypto Stablecoin Liquidity</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/hot-trend-lab/notebooks/07_ai_infrastructure_market_pulse/" class="dropdown-item">07 AI Infrastructure Market Pulse</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/hot-trend-lab/data-sources/" class="dropdown-item">Real Data Sources</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/hot-trend-lab/arxiv-research-pulse/" class="dropdown-item">arXiv Research Pulse</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/hot-trend-lab/open-model-and-developer-attention/" class="dropdown-item">Open Models and Developer Attention</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/hot-trend-lab/wiki-market-crypto-attention/" class="dropdown-item">Public Attention, Markets, and Crypto</a>
+</li>
+            
+<li>
+    <a href="/DeTime/tutorials/hot-trend-lab/release-calendar/" class="dropdown-item">Release Calendar</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Gallery</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="/DeTime/gallery/ssa/" class="dropdown-item">SSA</a>
+</li>
+                                    
+<li>
+    <a href="/DeTime/gallery/std/" class="dropdown-item">STD</a>
+</li>
+                                    
+<li>
+    <a href="/DeTime/gallery/stdr/" class="dropdown-item">STDR</a>
+</li>
+                                    
+<li>
+    <a href="/DeTime/gallery/mssa/" class="dropdown-item">MSSA</a>
+</li>
+                                    
+<li>
+    <a href="/DeTime/gallery/stl/" class="dropdown-item">STL</a>
+</li>
+                                    
+<li>
+    <a href="/DeTime/gallery/mstl/" class="dropdown-item">MSTL</a>
+</li>
+                                    
+<li>
+    <a href="/DeTime/gallery/robust-stl/" class="dropdown-item">ROBUST_STL</a>
+</li>
+                                    
+<li>
+    <a href="/DeTime/gallery/emd/" class="dropdown-item">EMD</a>
+</li>
+                                    
+<li>
+    <a href="/DeTime/gallery/ceemdan/" class="dropdown-item">CEEMDAN</a>
+</li>
+                                    
+<li>
+    <a href="/DeTime/gallery/vmd/" class="dropdown-item">VMD</a>
+</li>
+                                    
+<li>
+    <a href="/DeTime/gallery/wavelet/" class="dropdown-item">WAVELET</a>
+</li>
+                                    
+<li>
+    <a href="/DeTime/gallery/ma-baseline/" class="dropdown-item">MA_BASELINE</a>
+</li>
+                                    
+<li>
+    <a href="/DeTime/gallery/mvmd/" class="dropdown-item">MVMD</a>
+</li>
+                                    
+<li>
+    <a href="/DeTime/gallery/memd/" class="dropdown-item">MEMD</a>
+</li>
+                                    
+<li>
+    <a href="/DeTime/gallery/gabor-cluster/" class="dropdown-item">GABOR_CLUSTER</a>
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Gallery <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Reference</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="/De-time.design/gallery/ssa/" class="dropdown-item">SSA</a>
+    <a href="/DeTime/api/" class="dropdown-item">API Overview</a>
 </li>
                                     
 <li>
-    <a href="/De-time.design/gallery/std/" class="dropdown-item">STD</a>
+    <a href="/DeTime/config-reference/" class="dropdown-item">Config Reference</a>
 </li>
                                     
 <li>
-    <a href="/De-time.design/gallery/stdr/" class="dropdown-item">STDR</a>
-</li>
-                                    
-<li>
-    <a href="/De-time.design/gallery/mssa/" class="dropdown-item">MSSA</a>
-</li>
-                                    
-<li>
-    <a href="/De-time.design/gallery/stl/" class="dropdown-item">STL</a>
-</li>
-                                    
-<li>
-    <a href="/De-time.design/gallery/mstl/" class="dropdown-item">MSTL</a>
-</li>
-                                    
-<li>
-    <a href="/De-time.design/gallery/robust-stl/" class="dropdown-item">ROBUST_STL</a>
-</li>
-                                    
-<li>
-    <a href="/De-time.design/gallery/emd/" class="dropdown-item">EMD</a>
-</li>
-                                    
-<li>
-    <a href="/De-time.design/gallery/ceemdan/" class="dropdown-item">CEEMDAN</a>
-</li>
-                                    
-<li>
-    <a href="/De-time.design/gallery/vmd/" class="dropdown-item">VMD</a>
-</li>
-                                    
-<li>
-    <a href="/De-time.design/gallery/wavelet/" class="dropdown-item">WAVELET</a>
-</li>
-                                    
-<li>
-    <a href="/De-time.design/gallery/ma-baseline/" class="dropdown-item">MA_BASELINE</a>
-</li>
-                                    
-<li>
-    <a href="/De-time.design/gallery/mvmd/" class="dropdown-item">MVMD</a>
-</li>
-                                    
-<li>
-    <a href="/De-time.design/gallery/memd/" class="dropdown-item">MEMD</a>
-</li>
-                                    
-<li>
-    <a href="/De-time.design/gallery/gabor-cluster/" class="dropdown-item">GABOR_CLUSTER</a>
+    <a href="/DeTime/machine-api/" class="dropdown-item">Machine API</a>
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Project</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="/De-time.design/api/" class="dropdown-item">API Overview</a>
+    <a href="/DeTime/comparisons/" class="dropdown-item">Compare Alternatives</a>
 </li>
                                     
 <li>
-    <a href="/De-time.design/config-reference/" class="dropdown-item">Config Reference</a>
+    <a href="/DeTime/reproducibility/" class="dropdown-item">Reproducibility</a>
 </li>
                                     
 <li>
-    <a href="/De-time.design/machine-api/" class="dropdown-item">Machine API</a>
-</li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Project <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    
-<li>
-    <a href="/De-time.design/comparisons/" class="dropdown-item">Compare Alternatives</a>
+    <a href="/DeTime/architecture/" class="dropdown-item">Architecture</a>
 </li>
                                     
 <li>
-    <a href="/De-time.design/reproducibility/" class="dropdown-item">Reproducibility</a>
+    <a href="/DeTime/migration/" class="dropdown-item">Migration from `tsdecomp`</a>
 </li>
                                     
 <li>
-    <a href="/De-time.design/architecture/" class="dropdown-item">Architecture</a>
+    <a href="/DeTime/contributing/" class="dropdown-item">Contributing</a>
 </li>
                                     
 <li>
-    <a href="/De-time.design/migration/" class="dropdown-item">Migration from `tsdecomp`</a>
-</li>
-                                    
-<li>
-    <a href="/De-time.design/contributing/" class="dropdown-item">Contributing</a>
-</li>
-                                    
-<li>
-    <a href="/De-time.design/citation/" class="dropdown-item">Citation / Release Notes</a>
+    <a href="/DeTime/citation/" class="dropdown-item">Citation / Release Notes</a>
 </li>
                                 </ul>
                             </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a href="https://github.com/systems-mechanobiology/De-Time" class="nav-link">systems-mechanobiology/De-Time</a>
+                                <a href="https://github.com/systems-mechanobiology/DeTime" class="nav-link">systems-mechanobiology/DeTime</a>
                             </li>
                     </ul>
                 </div>
@@ -234,19 +411,20 @@
             <hr>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="/DeTime/js/bootstrap.bundle.min.js"></script>
         <script>
-            var base_url = "/De-Time/",
+            var base_url = "/DeTime/",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="/De-Time/js/base.js" defer></script>
-        <script src="/De-Time/search/main.js" defer></script>
+        <script src="/DeTime/js/base.js"></script>
+        <script src="/DeTime/search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="searchModalLabel">Search</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p>From here you can search these documents. Enter your search terms below.</p>
@@ -266,7 +444,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <table class="table">
