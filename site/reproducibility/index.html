@@ -476,6 +476,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#documentation-and-tutorial-surface" class="nav-link">Documentation and tutorial surface</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#release-checks" class="nav-link">Release Checks</a>
               <ul class="nav flex-column">
               </ul>
@@ -485,6 +489,14 @@
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#native-agreement-checks" class="nav-link">Native agreement checks</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#release-validation-runtime-snapshot" class="nav-link">Release-validation runtime snapshot</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#experimental-neural-block-table" class="nav-link">Experimental neural block table</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -538,6 +550,36 @@ print(result.leaderboard_path)
 <p>This bridge keeps the benchmark source and benchmark-derived methods outside
 the installable DeTime package while still giving readers a direct
 reproduction path for the benchmark claims.</p>
+<h2 id="documentation-and-tutorial-surface">Documentation and tutorial surface</h2>
+<p>The documentation is part of the reviewed software surface, not only a landing
+page. It includes executable examples, rendered notebooks, generated method
+metadata, schemas, and reviewer-facing evidence files.</p>
+<table>
+<thead>
+<tr>
+<th>Surface</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quant Trading tutorial column</td>
+<td>11 applied notebooks plus one roadmap notebook, with captured code cells, stdout, tables, figures, strategy statistics, and audit outputs</td>
+</tr>
+<tr>
+<td>Hot Trend Lab</td>
+<td>7 case notebooks plus one overview notebook, with source-audit tables, component summaries, residual-event outputs, and publication-context notes</td>
+</tr>
+<tr>
+<td>Core workflow tutorials</td>
+<td>univariate decomposition, multivariate decomposition, CLI export/profiling, visual method comparison, and method-gallery workflows</td>
+</tr>
+<tr>
+<td>Review artifacts</td>
+<td>comparison matrices, release-smoke checks, reproducibility notes, JSON schemas, generated method cards, and evidence snapshots</td>
+</tr>
+</tbody>
+</table>
 <h2 id="release-checks">Release Checks</h2>
 <div class="compact-faq">
 
@@ -575,19 +617,19 @@ The current release and docs were checked with:
 <p>The repository now publishes two coverage views so the denominator is explicit:</p>
 <ul>
 <li><strong>core-surface coverage</strong></li>
-<li>the gated <code>detime</code> core-plus-flagship contract</li>
+<li>the gated <code>detime</code> core-plus-maintained contract</li>
 <li><strong>package-wide coverage</strong></li>
 <li>the broader installable <code>detime</code> package, including CLI, I/O,
     visualization, wrappers, and machine-facing helpers</li>
 </ul>
-<p>The core gate is applied to the canonical <code>detime</code> core-plus-flagship surface.</p>
+<p>The core gate is applied to the canonical <code>detime</code> core-plus-maintained surface.</p>
 <p>The core-surface denominator intentionally omits:</p>
 <ul>
 <li>the deprecated <code>tsdecomp</code> compatibility layer,</li>
 <li>CLI wrappers,</li>
 <li>I/O helpers,</li>
 <li>visualization helpers,</li>
-<li>optional wrappers and non-flagship integrations that remain tested but are
+<li>optional wrappers and non-core integrations that remain tested but are
   not part of the gated coverage surface.</li>
 </ul>
 <p>The latest local <code>0.1.1</code> release-candidate run reached <code>93.73%</code>
@@ -597,7 +639,7 @@ artifact so reviewer-facing reports can show both the narrow safety gate and
 the broader installable surface.</p>
 <p>Optional <code>.[multivar]</code> integrations are validated separately in a dedicated
 smoke path so <code>MVMD</code> / <code>MEMD</code> execution evidence is published without
-broadening the flagship-method coverage gate.</p>
+broadening the core-method coverage gate.</p>
 <h2 id="native-agreement-checks">Native agreement checks</h2>
 <p>Native-backed methods are not treated as correctness shortcuts. The test suite
 includes numeric agreement checks between native and Python implementations for:</p>
@@ -611,6 +653,177 @@ includes numeric agreement checks between native and Python implementations for:
 <li><code>SSA</code>: <code>atol=1e-6</code></li>
 <li><code>STD</code> / <code>STDR</code>: <code>atol=1e-9</code></li>
 </ul>
+<h2 id="release-validation-runtime-snapshot">Release-validation runtime snapshot</h2>
+<p>The following snapshot records selected native-backed release-validation paths
+against internal Python fallback paths in one review environment. It verifies
+that the native paths are installed, callable, and routed through the same
+result contract. It is not a portable runtime ranking against other packages.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th style="text-align: right;">Python mean (ms)</th>
+<th style="text-align: right;">Native mean (ms)</th>
+<th style="text-align: right;">Speedup</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SSA</code></td>
+<td style="text-align: right;">13.668</td>
+<td style="text-align: right;">1.906</td>
+<td style="text-align: right;">7.17x</td>
+</tr>
+<tr>
+<td><code>STD</code></td>
+<td style="text-align: right;">0.153</td>
+<td style="text-align: right;">0.024</td>
+<td style="text-align: right;">6.48x</td>
+</tr>
+<tr>
+<td><code>STDR</code></td>
+<td style="text-align: right;">0.176</td>
+<td style="text-align: right;">0.018</td>
+<td style="text-align: right;">9.92x</td>
+</tr>
+<tr>
+<td><code>MA_BASELINE</code></td>
+<td style="text-align: right;">0.071</td>
+<td style="text-align: right;">0.015</td>
+<td style="text-align: right;">4.77x</td>
+</tr>
+<tr>
+<td><code>MSSA</code></td>
+<td style="text-align: right;">70.039</td>
+<td style="text-align: right;">25.727</td>
+<td style="text-align: right;">2.72x</td>
+</tr>
+<tr>
+<td><code>VMD</code></td>
+<td style="text-align: right;">50.140</td>
+<td style="text-align: right;">14.482</td>
+<td style="text-align: right;">3.46x</td>
+</tr>
+<tr>
+<td><code>GABOR_CLUSTER</code> (experimental)</td>
+<td style="text-align: right;">2.694</td>
+<td style="text-align: right;">0.195</td>
+<td style="text-align: right;">13.81x</td>
+</tr>
+</tbody>
+</table>
+<h2 id="experimental-neural-block-table">Experimental neural block table</h2>
+<p>These operators are exposed through the same DeTime config/result surface for
+decomposition-head ablations, reusable result-contract tests, and interface
+coverage. They remain experimental package-level operators.</p>
+<table>
+<thead>
+<tr>
+<th>Block</th>
+<th>Source architecture family</th>
+<th>Standalone operator exposed in DeTime</th>
+<th>Training status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AMD_BLOCK</code></td>
+<td>adaptive multiscale decomposition</td>
+<td>multiscale smoothing trend with periodic-template seasonal reconstruction</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>AUTOFORMER_BLOCK</code></td>
+<td>Autoformer</td>
+<td>moving-average trend and residual-seasonal split</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>DELELSTM_BLOCK</code></td>
+<td>DeLELSTM</td>
+<td>Holt-style trend with periodic-template seasonality</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>DLINEAR_BLOCK</code></td>
+<td>DLinear</td>
+<td>moving-average decomposition head from linear forecasting blocks</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>FREQMOE_BLOCK</code></td>
+<td>FreqMoE</td>
+<td>frequency-band trend plus multi-band seasonal reconstruction</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>INPARFORMER_BLOCK</code></td>
+<td>InParformer</td>
+<td>moving-average trend with periodic-template seasonal head</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>LEDDAM_BLOCK</code></td>
+<td>LEDDAM</td>
+<td>Gaussian-kernel smoothing operator inspired by learnable decomposition</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>MOVING_AVERAGE_DECOMPOSITION_BLOCK</code></td>
+<td>Autoformer/DLinear family</td>
+<td>generic moving-average neural decomposition head</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>NBEATS_INTERPRETABLE</code></td>
+<td>N-BEATS interpretable stacks</td>
+<td>trend and seasonality basis stacks used as a decomposition prior</td>
+<td>torch-backed learned prior</td>
+</tr>
+<tr>
+<td><code>PARSIMONY_BLOCK</code></td>
+<td>parsimony-oriented decomposition</td>
+<td>smooth trend with compact harmonic seasonal projection</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>ST_MTM_BLOCK</code></td>
+<td>ST-MTM</td>
+<td>trend smoothing with smoothed periodic seasonal template</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>TIMEKAN_BLOCK</code></td>
+<td>TimeKAN</td>
+<td>template and harmonic seasonal estimates with smoothed trend</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>TIMES2D_BLOCK</code></td>
+<td>Times2D</td>
+<td>multi-period harmonic decomposition head</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>WAVEFORM_BLOCK</code></td>
+<td>WaveForM</td>
+<td>wavelet multiresolution trend-detail decomposition</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>WAVELETMIXER_BLOCK</code></td>
+<td>WaveletMixer</td>
+<td>mixed wavelet detail-level decomposition</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>XPATCH_BLOCK</code></td>
+<td>xPatch</td>
+<td>exponential smoothing trend with local seasonal residual</td>
+<td>non-learned extractor</td>
+</tr>
+</tbody>
+</table>
 <h2 id="evidence-artifacts">Evidence Artifacts</h2>
 <ul>
 <li><a href="../assets/generated/evidence/performance_snapshot.json">Performance snapshot JSON</a></li>

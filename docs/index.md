@@ -69,7 +69,7 @@ univariate and aligned multichannel decomposition workflows.
         </li>
         <li>
           <span class="point-icon icon-method"></span>
-          <span><strong>Flagship method support</strong><small><b>SSA</b><b>STD</b><b>STDR</b><b>MSSA</b></small></span>
+          <span><strong>Core method support</strong><small><b>SSA</b><b>STD</b><b>STDR</b><b>MSSA</b></small></span>
         </li>
         <li>
           <span class="point-icon icon-evidence"></span>
@@ -88,7 +88,7 @@ univariate and aligned multichannel decomposition workflows.
   <span class="trust-pill">Canonical import: <code>detime</code></span>
   <span class="trust-pill">Distribution: <code>de-time</code></span>
   <span class="trust-pill">Hugging Face mirror: <a href="https://huggingface.co/spaces/Zipeng365/DeTime">Zipeng365/DeTime</a></span>
-  <span class="trust-pill">Flagship methods: SSA / STD / STDR / MSSA</span>
+  <span class="trust-pill">Core methods: SSA / STD / STDR / MSSA</span>
   <span class="trust-pill">Machine-facing schemas and low-token result modes</span>
 </div>
 
@@ -100,7 +100,7 @@ univariate and aligned multichannel decomposition workflows.
     <h3>Turn market series into audited decomposition features.</h3>
     <p>The quant trading column keeps DeTime in its proper role: a decomposition layer that routes real market inputs into trend, cycle, residual, signal, and backtest research steps.</p>
     <div class="feature-bullets quant-home-bullets">
-      <span>10 notebooks for data loading, timing, pairs, factor selection, rotation, adapters, and audit</span>
+      <span>11 applied notebooks plus a roadmap for data loading, timing, pairs, factor selection, rotation, adapters, and audit</span>
       <span>Real runtime market data policy for US, Korea, ETF, and crypto examples</span>
       <span>Walk-forward validation before signal evaluation</span>
     </div>
@@ -135,7 +135,7 @@ univariate and aligned multichannel decomposition workflows.
         <strong>Features -> Signals -> Backtest</strong>
         <span><b>02</b> Timing vectorbt</span>
         <span><b>04</b> Pairs residual</span>
-        <span><b>09</b> Validation audit</span>
+        <span><b>07</b> Native SSA replay</span>
       </div>
     </div>
   </div>
@@ -225,7 +225,7 @@ univariate and aligned multichannel decomposition workflows.
   <a class="info-card" href="methods/">
     <span class="card-icon icon-methods"></span>
     <h3>Choose a Method</h3>
-    <p>Pick a flagship path quickly before dropping into wrappers or optional backends.</p>
+    <p>Pick a core path quickly before dropping into wrappers or optional backends.</p>
   </a>
   <a class="info-card" href="notebook-gallery/">
     <span class="card-icon icon-notebook"></span>

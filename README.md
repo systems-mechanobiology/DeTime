@@ -42,6 +42,7 @@ Fast entry points:
 - [Beginner notebook method gallery](examples/notebooks/de_time_method_gallery.ipynb)
 - [Cross-package comparison](docs/comparisons.md)
 - [Method comparison matrix](docs/method-matrix.md)
+- [Release evidence tables](docs/reproducibility.md#release-validation-runtime-snapshot)
 
 ## Scope
 
@@ -59,9 +60,9 @@ Use DeTime when you want:
 Use a specialist package directly when you only need that package's deepest
 family-specific API.
 
-## Flagship and accelerated methods
+## Core and accelerated methods
 
-The main package is centered on four flagship methods:
+The main package is centered on four core maintained methods:
 
 - `SSA`
 - `STD`
@@ -70,7 +71,7 @@ The main package is centered on four flagship methods:
 
 The current native-backed accelerated set is broader:
 
-- flagship native paths: `SSA`, `STD`, `STDR`, `MSSA`
+- core native paths: `SSA`, `STD`, `STDR`, `MSSA`
 - additional native-backed methods: `VMD`, `GABOR_CLUSTER`
 - lightweight native-backed baseline: `MA_BASELINE`
 
@@ -79,16 +80,28 @@ optional-backend integrations such as `STL`, `MSTL`, `ROBUST_STL`, `EMD`,
 `CEEMDAN`, `WAVELET`, `MVMD`, and `MEMD`.
 
 Experimental neural decomposition blocks extracted as standalone DeTime
-methods are also available:
+methods are also available. They are package-level experimental operators for
+decomposition-head ablations, reusable result-contract tests, and interface
+coverage.
 
-- moving-average heads: `AUTOFORMER_BLOCK`, `DLINEAR_BLOCK`,
-  `MOVING_AVERAGE_DECOMPOSITION_BLOCK`
-- learned-basis head: `NBEATS_INTERPRETABLE`
-- smoothing/template heads: `XPATCH_BLOCK`, `LEDDAM_BLOCK`,
-  `INPARFORMER_BLOCK`, `DELELSTM_BLOCK`, `AMD_BLOCK`, `ST_MTM_BLOCK`
-- harmonic/frequency heads: `PARSIMONY_BLOCK`, `TIMES2D_BLOCK`,
-  `FREQMOE_BLOCK`, `TIMEKAN_BLOCK`
-- wavelet heads: `WAVEFORM_BLOCK`, `WAVELETMIXER_BLOCK`
+| Block | Source architecture family | Standalone operator exposed in DeTime | Status |
+|---|---|---|---|
+| `AMD_BLOCK` | adaptive multiscale decomposition | multiscale smoothing trend with periodic-template seasonality | non-learned extractor |
+| `AUTOFORMER_BLOCK` | Autoformer | moving-average trend and residual-seasonal split | non-learned extractor |
+| `DELELSTM_BLOCK` | DeLELSTM | Holt-style trend with periodic-template seasonality | non-learned extractor |
+| `DLINEAR_BLOCK` | DLinear | moving-average decomposition head | non-learned extractor |
+| `FREQMOE_BLOCK` | FreqMoE | frequency-band trend plus multi-band seasonality | non-learned extractor |
+| `INPARFORMER_BLOCK` | InParformer | moving-average trend with periodic-template seasonal head | non-learned extractor |
+| `LEDDAM_BLOCK` | LEDDAM | Gaussian-kernel smoothing decomposition operator | non-learned extractor |
+| `MOVING_AVERAGE_DECOMPOSITION_BLOCK` | Autoformer/DLinear family | generic moving-average decomposition head | non-learned extractor |
+| `NBEATS_INTERPRETABLE` | N-BEATS interpretable stacks | trend and seasonality basis stacks | torch-backed learned prior |
+| `PARSIMONY_BLOCK` | parsimony-oriented decomposition | smooth trend with compact harmonic seasonal projection | non-learned extractor |
+| `ST_MTM_BLOCK` | ST-MTM | smoothed trend with smoothed periodic seasonal template | non-learned extractor |
+| `TIMEKAN_BLOCK` | TimeKAN | template and harmonic seasonal estimates with smoothed trend | non-learned extractor |
+| `TIMES2D_BLOCK` | Times2D | multi-period harmonic decomposition head | non-learned extractor |
+| `WAVEFORM_BLOCK` | WaveForM | wavelet multiresolution trend-detail decomposition | non-learned extractor |
+| `WAVELETMIXER_BLOCK` | WaveletMixer | mixed wavelet detail-level decomposition | non-learned extractor |
+| `XPATCH_BLOCK` | xPatch | exponential smoothing trend with local seasonal residual | non-learned extractor |
 
 Their source-paper links are listed in
 [docs/method-references.md](docs/method-references.md).
@@ -256,6 +269,30 @@ compatibility.
   `evals/agent/run_agent_evals.py`.
 - The coverage story is intentionally split into core-surface coverage and
   package-wide coverage so the denominator stays explicit.
+
+Release-validation runtime snapshot for selected native-backed paths in the
+reviewed environment. These values compare DeTime native-backed paths against
+internal Python fallback paths in one environment; they are not a portable
+cross-package benchmark.
+
+| Method | Python mean (ms) | Native mean (ms) | Speedup |
+|---|---:|---:|---:|
+| `SSA` | 13.668 | 1.906 | 7.17x |
+| `STD` | 0.153 | 0.024 | 6.48x |
+| `STDR` | 0.176 | 0.018 | 9.92x |
+| `MA_BASELINE` | 0.071 | 0.015 | 4.77x |
+| `MSSA` | 70.039 | 25.727 | 2.72x |
+| `VMD` | 50.140 | 14.482 | 3.46x |
+| `GABOR_CLUSTER` (experimental) | 2.694 | 0.195 | 13.81x |
+
+Documentation and tutorial evidence:
+
+| Surface | Evidence |
+|---|---|
+| Quant Trading tutorial column | 11 applied notebooks plus one roadmap notebook, with captured tables, figures, strategy stats, and audit outputs |
+| Hot Trend Lab | 7 case notebooks plus one overview notebook, with source-audit and component-output tables |
+| Core workflow tutorials | univariate, multivariate, CLI/profiling, visual comparison, and method-gallery workflows |
+| Review artifacts | comparison matrices, reproducibility notes, schemas, generated method cards, and release evidence files |
 
 ## Documentation
 

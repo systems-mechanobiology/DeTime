@@ -179,7 +179,7 @@
       "specialist_deeper_strength": "deeper classical decomposition and statistical modeling"
     },
     {
-      "de_time_position": "uses SSA as one flagship method inside a cross-family workflow layer",
+      "de_time_position": "uses SSA as one core method inside a cross-family workflow layer",
       "family": "SSA",
       "specialist": "SSALib",
       "specialist_deeper_strength": "deeper SSA-only environment with SSA-specific tooling"
@@ -203,7 +203,7 @@
       "specialist_deeper_strength": "broader signal-decomposition toolkit with optional multivariate backends"
     }
   ],
-  "generated_at": "2026-04-14T22:07:10.282587+00:00",
+  "generated_at": "2026-06-18T10:50:54.897067+00:00",
   "install_matrix": [
     {
       "api_docs": "yes",

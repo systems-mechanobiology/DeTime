@@ -115,7 +115,7 @@ Expected output:
 
 ## Next steps
 
-- Use [Methods & Chooser](methods.md) to decide whether to stay on the flagship
+- Use [Methods & Chooser](methods.md) to decide whether to stay on the core
   path or move to a wrapper.
 - Use `detime recommend --length ... --channels ...` when you want a
   machine-readable shortlist.

@@ -18,11 +18,24 @@ MATRIX_OUTPUT = ROOT / "docs" / "method-matrix.md"
 CONFIG_OUTPUT = ROOT / "docs" / "config-reference.md"
 
 SECTION_ORDER = [
-    ("flagship", "Flagship methods"),
+    ("flagship", "Core maintained methods"),
     ("stable", "Stable wrappers and retained methods"),
     ("optional-backend", "Optional backend methods"),
     ("experimental", "Experimental methods"),
 ]
+
+MATURITY_LABELS = {
+    "flagship": "core maintained",
+}
+
+
+def _display_maturity(value: object) -> str:
+    text = str(value)
+    return MATURITY_LABELS.get(text, text)
+
+
+def _display_text(value: object) -> str:
+    return str(value).replace("flagship method", "core method").replace("flagship", "core maintained")
 
 
 def _bullet_list(values: list[str]) -> str:
@@ -109,17 +122,17 @@ def _render_method(entry: dict[str, object]) -> str:
     optional_dep_text = ", ".join(optional_dependencies) if optional_dependencies else "none"
     params = list(entry.get("parameter_docs", []))
     outputs = list(entry.get("output_components", []))
-    use_when = list(entry.get("recommended_for", []))[:2]
-    avoid_when = list(entry.get("not_recommended_for", []))[:2]
+    use_when = [_display_text(item) for item in list(entry.get("recommended_for", []))[:2]]
+    avoid_when = [_display_text(item) for item in list(entry.get("not_recommended_for", []))[:2]]
     return "\n".join(
         [
             f"### `{entry['name']}`",
             "",
-            f"- Summary: {entry['summary']}",
+            f"- Summary: {_display_text(entry['summary'])}",
             f"- Use when: {'; '.join(str(item) for item in use_when) if use_when else 'general decomposition workflow'}",
             f"- Avoid when: {'; '.join(str(item) for item in avoid_when) if avoid_when else 'parameter assumptions do not match the data'}",
             f"- Key params: {_common_params(params)}",
-            f"- Input/backend: `{entry['input_mode']}` input, `{entry['implementation']}` implementation, maturity `{entry['maturity']}`",
+            f"- Input/backend: `{entry['input_mode']}` input, `{entry['implementation']}` implementation, maturity `{_display_maturity(entry['maturity'])}`",
             f"- Optional dependencies: {optional_dep_text}",
             f"- Output components: {', '.join(f'`{item}`' for item in outputs) if outputs else '`trend`, `season`, `residual`'}",
             f"- References: [Method References](method-references.md#{_heading_anchor(entry['name'])})",
@@ -230,7 +243,7 @@ def _render_matrix(catalog: list[dict[str, object]]) -> str:
         outputs = entry.get("output_components", [])
         output_text = ", ".join(f"`{item}`" for item in outputs) if outputs else "`trend`, `season`, `residual`"
         recommended = entry.get("recommended_for", [])
-        recommended_text = "; ".join(str(item) for item in list(recommended)[:2])
+        recommended_text = "; ".join(_display_text(item) for item in list(recommended)[:2])
         lines.append(
             "| "
             + " | ".join(
@@ -238,7 +251,7 @@ def _render_matrix(catalog: list[dict[str, object]]) -> str:
                     f"`{_table_cell(entry['name'])}`",
                     f"`{_table_cell(entry['input_mode'])}`",
                     f"`{_table_cell(entry['implementation'])}`",
-                    f"`{_table_cell(entry['maturity'])}`",
+                    f"`{_table_cell(_display_maturity(entry['maturity']))}`",
                     _table_cell(_common_params(list(entry.get("parameter_docs", [])))),
                     _table_cell(optional_dep_text),
                     "yes" if entry.get("native_backed") else "no",
@@ -316,7 +329,7 @@ def _render_config_reference(catalog: list[dict[str, object]]) -> str:
                 f"### `{entry['name']}`",
                 "",
                 f"- Input mode: `{entry['input_mode']}`",
-                f"- Maturity: `{entry['maturity']}`",
+                f"- Maturity: `{_display_maturity(entry['maturity'])}`",
                 f"- Output components: {', '.join(f'`{item}`' for item in list(entry.get('output_components', [])))}",
                 "",
                 _param_table(list(entry.get("parameter_docs", []))),

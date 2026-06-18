@@ -1317,7 +1317,7 @@ def _default_not_recommended(name: str, maturity: str, input_mode: InputMode) ->
     if input_mode == "univariate":
         discouraged.append("shared-model multivariate decomposition problems")
     elif input_mode == "multivariate":
-        discouraged.append("single-series workflows where a univariate flagship method is sufficient")
+        discouraged.append("single-series workflows where a univariate core method is sufficient")
     else:
         discouraged.append("problems that require one shared latent model across channels")
 

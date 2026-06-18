@@ -55,6 +55,19 @@ This bridge keeps the benchmark source and benchmark-derived methods outside
 the installable DeTime package while still giving readers a direct
 reproduction path for the benchmark claims.
 
+## Documentation and tutorial surface
+
+The documentation is part of the reviewed software surface, not only a landing
+page. It includes executable examples, rendered notebooks, generated method
+metadata, schemas, and reviewer-facing evidence files.
+
+| Surface | Evidence |
+|---|---|
+| Quant Trading tutorial column | 11 applied notebooks plus one roadmap notebook, with captured code cells, stdout, tables, figures, strategy statistics, and audit outputs |
+| Hot Trend Lab | 7 case notebooks plus one overview notebook, with source-audit tables, component summaries, residual-event outputs, and publication-context notes |
+| Core workflow tutorials | univariate decomposition, multivariate decomposition, CLI export/profiling, visual method comparison, and method-gallery workflows |
+| Review artifacts | comparison matrices, release-smoke checks, reproducibility notes, JSON schemas, generated method cards, and evidence snapshots |
+
 ## Release Checks
 
 <div class="compact-faq">
@@ -94,12 +107,12 @@ The current release and docs were checked with:
 The repository now publishes two coverage views so the denominator is explicit:
 
 - **core-surface coverage**
-  - the gated `detime` core-plus-flagship contract
+  - the gated `detime` core-plus-maintained contract
 - **package-wide coverage**
   - the broader installable `detime` package, including CLI, I/O,
     visualization, wrappers, and machine-facing helpers
 
-The core gate is applied to the canonical `detime` core-plus-flagship surface.
+The core gate is applied to the canonical `detime` core-plus-maintained surface.
 
 The core-surface denominator intentionally omits:
 
@@ -107,7 +120,7 @@ The core-surface denominator intentionally omits:
 - CLI wrappers,
 - I/O helpers,
 - visualization helpers,
-- optional wrappers and non-flagship integrations that remain tested but are
+- optional wrappers and non-core integrations that remain tested but are
   not part of the gated coverage surface.
 
 The latest local `0.1.1` release-candidate run reached `93.73%`
@@ -119,7 +132,7 @@ the broader installable surface.
 
 Optional `.[multivar]` integrations are validated separately in a dedicated
 smoke path so `MVMD` / `MEMD` execution evidence is published without
-broadening the flagship-method coverage gate.
+broadening the core-method coverage gate.
 
 ## Native agreement checks
 
@@ -134,6 +147,48 @@ The documented tolerances are:
 
 - `SSA`: `atol=1e-6`
 - `STD` / `STDR`: `atol=1e-9`
+
+## Release-validation runtime snapshot
+
+The following snapshot records selected native-backed release-validation paths
+against internal Python fallback paths in one review environment. It verifies
+that the native paths are installed, callable, and routed through the same
+result contract. It is not a portable runtime ranking against other packages.
+
+| Method | Python mean (ms) | Native mean (ms) | Speedup |
+|---|---:|---:|---:|
+| `SSA` | 13.668 | 1.906 | 7.17x |
+| `STD` | 0.153 | 0.024 | 6.48x |
+| `STDR` | 0.176 | 0.018 | 9.92x |
+| `MA_BASELINE` | 0.071 | 0.015 | 4.77x |
+| `MSSA` | 70.039 | 25.727 | 2.72x |
+| `VMD` | 50.140 | 14.482 | 3.46x |
+| `GABOR_CLUSTER` (experimental) | 2.694 | 0.195 | 13.81x |
+
+## Experimental neural block table
+
+These operators are exposed through the same DeTime config/result surface for
+decomposition-head ablations, reusable result-contract tests, and interface
+coverage. They remain experimental package-level operators.
+
+| Block | Source architecture family | Standalone operator exposed in DeTime | Training status |
+|---|---|---|---|
+| `AMD_BLOCK` | adaptive multiscale decomposition | multiscale smoothing trend with periodic-template seasonal reconstruction | non-learned extractor |
+| `AUTOFORMER_BLOCK` | Autoformer | moving-average trend and residual-seasonal split | non-learned extractor |
+| `DELELSTM_BLOCK` | DeLELSTM | Holt-style trend with periodic-template seasonality | non-learned extractor |
+| `DLINEAR_BLOCK` | DLinear | moving-average decomposition head from linear forecasting blocks | non-learned extractor |
+| `FREQMOE_BLOCK` | FreqMoE | frequency-band trend plus multi-band seasonal reconstruction | non-learned extractor |
+| `INPARFORMER_BLOCK` | InParformer | moving-average trend with periodic-template seasonal head | non-learned extractor |
+| `LEDDAM_BLOCK` | LEDDAM | Gaussian-kernel smoothing operator inspired by learnable decomposition | non-learned extractor |
+| `MOVING_AVERAGE_DECOMPOSITION_BLOCK` | Autoformer/DLinear family | generic moving-average neural decomposition head | non-learned extractor |
+| `NBEATS_INTERPRETABLE` | N-BEATS interpretable stacks | trend and seasonality basis stacks used as a decomposition prior | torch-backed learned prior |
+| `PARSIMONY_BLOCK` | parsimony-oriented decomposition | smooth trend with compact harmonic seasonal projection | non-learned extractor |
+| `ST_MTM_BLOCK` | ST-MTM | trend smoothing with smoothed periodic seasonal template | non-learned extractor |
+| `TIMEKAN_BLOCK` | TimeKAN | template and harmonic seasonal estimates with smoothed trend | non-learned extractor |
+| `TIMES2D_BLOCK` | Times2D | multi-period harmonic decomposition head | non-learned extractor |
+| `WAVEFORM_BLOCK` | WaveForM | wavelet multiresolution trend-detail decomposition | non-learned extractor |
+| `WAVELETMIXER_BLOCK` | WaveletMixer | mixed wavelet detail-level decomposition | non-learned extractor |
+| `XPATCH_BLOCK` | xPatch | exponential smoothing trend with local seasonal residual | non-learned extractor |
 
 ## Evidence Artifacts
 

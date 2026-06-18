@@ -464,7 +464,7 @@
             
             <li class="nav-item" data-bs-level="1"><a href="#method-references" class="nav-link">Method References</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#flagship-methods" class="nav-link">Flagship methods</a>
+            <li class="nav-item" data-bs-level="2"><a href="#core-maintained-methods" class="nav-link">Core maintained methods</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -494,7 +494,7 @@ upstream package links, and method metadata stay aligned.</p>
 <p>These links cover the method families and upstream packages used or compared
 in the public DeTime workflow surface. <code>MA_BASELINE</code> is an in-package smoke
 baseline and therefore has no separate upstream citation.</p>
-<h2 id="flagship-methods">Flagship methods</h2>
+<h2 id="core-maintained-methods">Core maintained methods</h2>
 <h3 id="mssa"><code>MSSA</code></h3>
 <ul>
 <li>Summary: Multivariate SSA for shared-structure decomposition across channels.</li>
@@ -539,18 +539,18 @@ baseline and therefore has no separate upstream citation.</p>
 </ul>
 <p>Primary references:
 - <a href="https://pyemd.readthedocs.io/en/latest/ceemdan.html">Torres et al. (2011), A complete ensemble empirical mode decomposition with adaptive noise</a> - PyEMD CEEMDAN docs cite the original ICASSP 2011 paper.
-- <a href="https://pyemd.readthedocs.io/en/latest/ceemdan.html">Colominas, Schlotthauer, and Torres (2014), Improved complete ensemble EMD: A suitable tool for biomedical signal processing</a> - Improved CEEMDAN variant adopted by the PyEMD implementation used by DeTime.</p>
+- <a href="https://pyemd.readthedocs.io/en/latest/ceemdan.html">Colominas, Schlotthauer, and Torres (2014), Improved complete ensemble EMD: A suitable tool for biomedical signal processing</a> - Improved CEEMDAN variant adopted by the PyEMD implementation used by De-Time.</p>
 <p>Related packages:
-- <a href="https://github.com/laszukdawid/PyEMD">PyEMD</a> - Upstream Python package wrapped by DeTime for EMD-family methods.</p>
+- <a href="https://github.com/laszukdawid/PyEMD">PyEMD</a> - Upstream Python package wrapped by De-Time for EMD-family methods.</p>
 <h3 id="emd"><code>EMD</code></h3>
 <ul>
-<li>Summary: Empirical mode decomposition under the DeTime result contract.</li>
+<li>Summary: Empirical mode decomposition under the De-Time result contract.</li>
 <li>Optional/runtime dependencies: PyEMD</li>
 </ul>
 <p>Primary references:
 - <a href="https://doi.org/10.1098/rspa.1998.0193">Huang et al. (1998), The empirical mode decomposition and the Hilbert spectrum for nonlinear and non-stationary time series analysis</a> - Primary empirical mode decomposition reference.</p>
 <p>Related packages:
-- <a href="https://github.com/laszukdawid/PyEMD">PyEMD</a> - Upstream Python package wrapped by DeTime for EMD-family methods.</p>
+- <a href="https://github.com/laszukdawid/PyEMD">PyEMD</a> - Upstream Python package wrapped by De-Time for EMD-family methods.</p>
 <h3 id="ma_baseline"><code>MA_BASELINE</code></h3>
 <ul>
 <li>Summary: Simple moving-average baseline for smoke tests and lightweight workflows.</li>
@@ -562,7 +562,7 @@ baseline and therefore has no separate upstream citation.</p>
 - none declared</p>
 <h3 id="mstl"><code>MSTL</code></h3>
 <ul>
-<li>Summary: Statsmodels MSTL wrapped into the DeTime workflow surface.</li>
+<li>Summary: Statsmodels MSTL wrapped into the De-Time workflow surface.</li>
 <li>Optional/runtime dependencies: statsmodels</li>
 </ul>
 <p>Primary references:
@@ -575,12 +575,12 @@ baseline and therefore has no separate upstream citation.</p>
 <li>Optional/runtime dependencies: statsmodels</li>
 </ul>
 <p>Primary references:
-- <a href="https://www.statsmodels.org/dev/generated/statsmodels.tsa.seasonal.STL.html">Cleveland et al. (1990), STL: A Seasonal-Trend Decomposition Procedure Based on LOESS</a> - Robust STL in DeTime builds on the same STL literature and upstream implementation family.</p>
+- <a href="https://www.statsmodels.org/dev/generated/statsmodels.tsa.seasonal.STL.html">Cleveland et al. (1990), STL: A Seasonal-Trend Decomposition Procedure Based on LOESS</a> - Robust STL in De-Time builds on the same STL literature and upstream implementation family.</p>
 <p>Related packages:
 - <a href="https://www.statsmodels.org/">statsmodels</a> - Official project site for the upstream STL implementation family.</p>
 <h3 id="stl"><code>STL</code></h3>
 <ul>
-<li>Summary: Classical STL wrapped into the DeTime workflow contract.</li>
+<li>Summary: Classical STL wrapped into the De-Time workflow contract.</li>
 <li>Optional/runtime dependencies: statsmodels</li>
 </ul>
 <p>Primary references:
@@ -596,7 +596,7 @@ baseline and therefore has no separate upstream citation.</p>
 - <a href="https://doi.org/10.1109/TSP.2013.2288675">Dragomiretskiy and Zosso (2014), Variational Mode Decomposition</a> - Primary variational mode decomposition reference.</p>
 <p>Related packages:
 - <a href="https://www.sktime.net/en/stable/">sktime</a> - Current maintained ecosystem for <code>vmdpy</code>, which the archived project directs users toward.
-- <a href="https://github.com/vrcarva/vmdpy">vmdpy</a> - Archived Python VMD package used by the current DeTime wrapper.</p>
+- <a href="https://github.com/vrcarva/vmdpy">vmdpy</a> - Archived Python VMD package used by the current De-Time wrapper.</p>
 <h3 id="wavelet"><code>WAVELET</code></h3>
 <ul>
 <li>Summary: Wavelet-based decomposition exposed through the common output contract.</li>
@@ -604,7 +604,7 @@ baseline and therefore has no separate upstream citation.</p>
 </ul>
 <p>Primary references:
 - <a href="https://ieeexplore.ieee.org/document/192463">Mallat (1989), A theory for multiresolution signal decomposition: the wavelet representation</a> - Foundational wavelet multiresolution reference.
-- <a href="https://doi.org/10.21105/joss.01237">Lee et al. (2019), PyWavelets: A Python package for wavelet analysis</a> - Package citation for the upstream wavelet implementation used by DeTime.</p>
+- <a href="https://doi.org/10.21105/joss.01237">Lee et al. (2019), PyWavelets: A Python package for wavelet analysis</a> - Package citation for the upstream wavelet implementation used by De-Time.</p>
 <p>Related packages:
 - <a href="https://pywavelets.readthedocs.io/en/latest/">PyWavelets</a> - Official documentation for the upstream wavelet package.</p>
 <h2 id="optional-backend-methods">Optional backend methods</h2>
@@ -616,7 +616,7 @@ baseline and therefore has no separate upstream citation.</p>
 <p>Primary references:
 - <a href="https://doi.org/10.1098/rspa.2009.0502">Rehman and Mandic (2010), Multivariate empirical mode decomposition</a> - Primary MEMD reference for the multivariate EMD extension.</p>
 <p>Related packages:
-- <a href="https://pysdkit.readthedocs.io/en/latest/">PySDKit</a> - Optional multivariate backend used by DeTime for MEMD.</p>
+- <a href="https://pysdkit.readthedocs.io/en/latest/">PySDKit</a> - Optional multivariate backend used by De-Time for MEMD.</p>
 <h3 id="mvmd"><code>MVMD</code></h3>
 <ul>
 <li>Summary: Optional multivariate VMD backend for shared frequency structure.</li>
@@ -625,7 +625,7 @@ baseline and therefore has no separate upstream citation.</p>
 <p>Primary references:
 - <a href="https://arxiv.org/abs/1907.04509">Rehman and Aftab (2019), Multivariate Variational Mode Decomposition</a> - Primary MVMD reference for the multivariate VMD extension.</p>
 <p>Related packages:
-- <a href="https://pysdkit.readthedocs.io/en/latest/">PySDKit</a> - Optional multivariate backend used by DeTime for MVMD.</p>
+- <a href="https://pysdkit.readthedocs.io/en/latest/">PySDKit</a> - Optional multivariate backend used by De-Time for MVMD.</p>
 <h2 id="experimental-methods">Experimental methods</h2>
 <h3 id="amd_block"><code>AMD_BLOCK</code></h3>
 <ul>
@@ -633,7 +633,7 @@ baseline and therefore has no separate upstream citation.</p>
 <li>Optional/runtime dependencies: none</li>
 </ul>
 <p>Primary references:
-- <a href="https://arxiv.org/abs/2406.03751">Hu et al. (2024), Adaptive Multi-Scale Decomposition Framework for Time Series Forecasting</a> - Source framework for adaptive multiscale decomposition.</p>
+- none declared</p>
 <p>Related packages:
 - none declared</p>
 <h3 id="autoformer_block"><code>AUTOFORMER_BLOCK</code></h3>
@@ -642,7 +642,7 @@ baseline and therefore has no separate upstream citation.</p>
 <li>Optional/runtime dependencies: none</li>
 </ul>
 <p>Primary references:
-- <a href="https://proceedings.neurips.cc/paper_files/paper/2021/hash/bcc0d400288793e8bdcd7c19a8ac0c2b-Abstract.html">Wu et al. (2021), Autoformer: Decomposition Transformers with Auto-Correlation for Long-Term Series Forecasting</a> - Source architecture for the moving-average decomposition block exposed by AUTOFORMER_BLOCK.</p>
+- none declared</p>
 <p>Related packages:
 - none declared</p>
 <h3 id="delelstm_block"><code>DELELSTM_BLOCK</code></h3>
@@ -651,7 +651,7 @@ baseline and therefore has no separate upstream citation.</p>
 <li>Optional/runtime dependencies: none</li>
 </ul>
 <p>Primary references:
-- <a href="https://arxiv.org/abs/2308.13797">Wang et al. (2023), DeLELSTM: Decomposition-based Linear Explainable LSTM to Capture Instantaneous and Long-term Effects in Time Series</a> - Source model for decomposition-based explainable LSTM effects.</p>
+- none declared</p>
 <p>Related packages:
 - none declared</p>
 <h3 id="dlinear_block"><code>DLINEAR_BLOCK</code></h3>
@@ -660,7 +660,7 @@ baseline and therefore has no separate upstream citation.</p>
 <li>Optional/runtime dependencies: none</li>
 </ul>
 <p>Primary references:
-- <a href="https://ojs.aaai.org/index.php/AAAI/article/view/26317">Zeng et al. (2023), Are Transformers Effective for Time Series Forecasting?</a> - Introduces the LTSF-Linear family, including the DLinear decomposition-based linear model.</p>
+- none declared</p>
 <p>Related packages:
 - none declared</p>
 <h3 id="freqmoe_block"><code>FREQMOE_BLOCK</code></h3>
@@ -669,7 +669,7 @@ baseline and therefore has no separate upstream citation.</p>
 <li>Optional/runtime dependencies: none</li>
 </ul>
 <p>Primary references:
-- <a href="https://arxiv.org/abs/2501.15125">Liu (2025), FreqMoE: Enhancing Time Series Forecasting through Frequency Decomposition Mixture of Experts</a> - Source architecture for frequency decomposition mixture-of-experts forecasting.</p>
+- none declared</p>
 <p>Related packages:
 - none declared</p>
 <h3 id="gabor_cluster"><code>GABOR_CLUSTER</code></h3>
@@ -688,7 +688,7 @@ baseline and therefore has no separate upstream citation.</p>
 <li>Optional/runtime dependencies: none</li>
 </ul>
 <p>Primary references:
-- <a href="https://ojs.aaai.org/index.php/AAAI/article/view/25845">Cao et al. (2023), InParformer: Evolutionary Decomposition Transformers with Interactive Parallel Attention for Long-Term Time Series Forecasting</a> - Source architecture for evolutionary seasonal-trend decomposition in a transformer forecaster.</p>
+- none declared</p>
 <p>Related packages:
 - none declared</p>
 <h3 id="leddam_block"><code>LEDDAM_BLOCK</code></h3>
@@ -697,17 +697,16 @@ baseline and therefore has no separate upstream citation.</p>
 <li>Optional/runtime dependencies: none</li>
 </ul>
 <p>Primary references:
-- <a href="https://arxiv.org/abs/2402.12694">Yu et al. (2024), Revitalizing Multivariate Time Series Forecasting: Learnable Decomposition with Inter-Series Dependencies and Intra-Series Variations Modeling</a> - Introduces LEDDAM, the learnable decomposition and dual-attention module.</p>
+- none declared</p>
 <p>Related packages:
 - none declared</p>
 <h3 id="moving_average_decomposition_block"><code>MOVING_AVERAGE_DECOMPOSITION_BLOCK</code></h3>
 <ul>
-<li>Summary: Generic neural forecasting moving-average decomposition block exposed as a DeTime method.</li>
+<li>Summary: Generic neural forecasting moving-average decomposition block exposed as a De-Time method.</li>
 <li>Optional/runtime dependencies: none</li>
 </ul>
 <p>Primary references:
-- <a href="https://proceedings.neurips.cc/paper_files/paper/2021/hash/bcc0d400288793e8bdcd7c19a8ac0c2b-Abstract.html">Wu et al. (2021), Autoformer: Decomposition Transformers with Auto-Correlation for Long-Term Series Forecasting</a> - Primary source for treating moving-average series decomposition as an internal neural forecasting block.
-- <a href="https://ojs.aaai.org/index.php/AAAI/article/view/26317">Zeng et al. (2023), Are Transformers Effective for Time Series Forecasting?</a> - Uses decomposition-based linear forecasting as a simple long-term forecasting baseline.</p>
+- none declared</p>
 <p>Related packages:
 - none declared</p>
 <h3 id="nbeats_interpretable"><code>NBEATS_INTERPRETABLE</code></h3>
@@ -716,7 +715,7 @@ baseline and therefore has no separate upstream citation.</p>
 <li>Optional/runtime dependencies: torch</li>
 </ul>
 <p>Primary references:
-- <a href="https://openreview.net/forum?id=r1ecqn4YwB">Oreshkin et al. (2020), N-BEATS: Neural basis expansion analysis for interpretable time series forecasting</a> - Source for interpretable trend and seasonality basis stacks.</p>
+- none declared</p>
 <p>Related packages:
 - none declared</p>
 <h3 id="parsimony_block"><code>PARSIMONY_BLOCK</code></h3>
@@ -725,7 +724,7 @@ baseline and therefore has no separate upstream citation.</p>
 <li>Optional/runtime dependencies: none</li>
 </ul>
 <p>Primary references:
-- <a href="https://arxiv.org/abs/2401.11929">Deng et al. (2024), Parsimony or Capability? Decomposition Delivers Both in Long-term Time Series Forecasting</a> - Source paper for parameter-efficient decomposition in long-term forecasting.</p>
+- none declared</p>
 <p>Related packages:
 - none declared</p>
 <h3 id="st_mtm_block"><code>ST_MTM_BLOCK</code></h3>
@@ -734,7 +733,7 @@ baseline and therefore has no separate upstream citation.</p>
 <li>Optional/runtime dependencies: none</li>
 </ul>
 <p>Primary references:
-- <a href="https://arxiv.org/abs/2507.00013">Seo and Lim (2025), ST-MTM: Masked Time Series Modeling with Seasonal-Trend Decomposition for Time Series Forecasting</a> - Source method for seasonal-trend masked time-series modeling.</p>
+- none declared</p>
 <p>Related packages:
 - none declared</p>
 <h3 id="timekan_block"><code>TIMEKAN_BLOCK</code></h3>
@@ -743,7 +742,7 @@ baseline and therefore has no separate upstream citation.</p>
 <li>Optional/runtime dependencies: none</li>
 </ul>
 <p>Primary references:
-- <a href="https://arxiv.org/abs/2502.06910">Huang et al. (2025), TimeKAN: KAN-based Frequency Decomposition Learning Architecture for Long-term Time Series Forecasting</a> - Source method for KAN-based frequency decomposition learning.</p>
+- none declared</p>
 <p>Related packages:
 - none declared</p>
 <h3 id="times2d_block"><code>TIMES2D_BLOCK</code></h3>
@@ -752,7 +751,7 @@ baseline and therefore has no separate upstream citation.</p>
 <li>Optional/runtime dependencies: none</li>
 </ul>
 <p>Primary references:
-- <a href="https://arxiv.org/abs/2504.00118">Nematirad, Pahwa, and Natarajan (2025), Times2D: Multi-Period Decomposition and Derivative Mapping for General Time Series Forecasting</a> - Source method for multi-period decomposition and 2D time-series mapping.</p>
+- none declared</p>
 <p>Related packages:
 - none declared</p>
 <h3 id="waveform_block"><code>WAVEFORM_BLOCK</code></h3>
@@ -761,7 +760,7 @@ baseline and therefore has no separate upstream citation.</p>
 <li>Optional/runtime dependencies: PyWavelets</li>
 </ul>
 <p>Primary references:
-- <a href="https://ojs.aaai.org/index.php/AAAI/article/view/26276">Yang et al. (2023), WaveForM: Graph Enhanced Wavelet Learning for Long Sequence Forecasting of Multivariate Time Series</a> - Source architecture for graph-enhanced wavelet learning.</p>
+- none declared</p>
 <p>Related packages:
 - none declared</p>
 <h3 id="waveletmixer_block"><code>WAVELETMIXER_BLOCK</code></h3>
@@ -770,7 +769,7 @@ baseline and therefore has no separate upstream citation.</p>
 <li>Optional/runtime dependencies: PyWavelets</li>
 </ul>
 <p>Primary references:
-- <a href="https://ojs.aaai.org/index.php/AAAI/article/view/34434">Zhang et al. (2025), WaveletMixer: A Multi-Resolution Wavelets Based MLP-Mixer for Multivariate Long-Term Time Series Forecasting</a> - Source method for multi-resolution wavelet mixer forecasting.</p>
+- none declared</p>
 <p>Related packages:
 - none declared</p>
 <h3 id="xpatch_block"><code>XPATCH_BLOCK</code></h3>
@@ -779,7 +778,7 @@ baseline and therefore has no separate upstream citation.</p>
 <li>Optional/runtime dependencies: none</li>
 </ul>
 <p>Primary references:
-- <a href="https://arxiv.org/abs/2412.17323">Stitsyuk and Choi (2024), xPatch: Dual-Stream Time Series Forecasting with Exponential Seasonal-Trend Decomposition</a> - Source architecture for exponential seasonal-trend decomposition.</p>
+- none declared</p>
 <p>Related packages:
 - none declared</p></div>
             </div>

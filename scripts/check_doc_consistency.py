@@ -66,7 +66,7 @@ REQUIRED_PATTERNS: dict[str, list[str]] = {
     "docs/notebook-gallery.md": ["de_time_method_gallery.ipynb", "generate_notebook_gallery.py"],
     "docs/method-matrix.md": ["Required/common params", "Optional deps", "Output components"],
     "docs/config-reference.md": ["Top-level fields", "Method-specific parameters", "Univariate SSA"],
-    "docs/reproducibility.md": ["core-plus-flagship", "release_smoke_matrix.py", "generate_performance_snapshot.py"],
+    "docs/reproducibility.md": ["core-plus-maintained", "release_smoke_matrix.py", "generate_performance_snapshot.py"],
     "docs/comparisons.md": ["PySDKit", "SSALib", "sktime"],
     "docs/tutorials/visual-univariate.md": ["$env:PYTHONPATH='src'", "python examples/visual_univariate_walkthrough.py"],
     "docs/tutorials/visual-multivariate.md": ["$env:PYTHONPATH='src'", "python examples/visual_multivariate_walkthrough.py"],

@@ -211,7 +211,7 @@ FAMILY_FAIRNESS = [
         "family": "SSA",
         "specialist": "SSALib",
         "specialist_deeper_strength": "deeper SSA-only environment with SSA-specific tooling",
-        "de_time_position": "uses SSA as one flagship method inside a cross-family workflow layer",
+        "de_time_position": "uses SSA as one core method inside a cross-family workflow layer",
     },
     {
         "family": "EMD family",

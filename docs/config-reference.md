@@ -407,7 +407,7 @@ Example config:
 ### `MSSA`
 
 - Input mode: `multivariate`
-- Maturity: `flagship`
+- Maturity: `core maintained`
 - Output components: `trend`, `season`, `residual`, `components.elementary`
 
 | Parameter | Type | Required | Default | Description |
@@ -583,7 +583,7 @@ Example config:
 ### `SSA`
 
 - Input mode: `univariate`
-- Maturity: `flagship`
+- Maturity: `core maintained`
 - Output components: `trend`, `season`, `residual`, `components.elementary`
 
 | Parameter | Type | Required | Default | Description |
@@ -615,7 +615,7 @@ Example config:
 ### `STD`
 
 - Input mode: `channelwise`
-- Maturity: `flagship`
+- Maturity: `core maintained`
 - Output components: `trend`, `season`, `residual`, `components.dispersion`, `components.seasonal_shape`
 
 | Parameter | Type | Required | Default | Description |
@@ -640,7 +640,7 @@ Example config:
 ### `STDR`
 
 - Input mode: `channelwise`
-- Maturity: `flagship`
+- Maturity: `core maintained`
 - Output components: `trend`, `season`, `residual`, `components.dispersion`, `components.seasonal_shape`
 
 | Parameter | Type | Required | Default | Description |

@@ -92,7 +92,7 @@ Typical source-build prerequisites by platform:
 
 ## Native extension behavior
 
-DeTime ships native kernels for selected flagship methods:
+DeTime ships native kernels for selected core methods:
 
 - `SSA`
 - `STD`

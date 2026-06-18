@@ -12,7 +12,7 @@ The canonical implementation lives under `src/detime`.
 - `schemas.py`: packaged JSON schema generation and loading.
 - `profile.py`: runtime profiling helpers.
 - `viz.py`: plotting helpers.
-- `methods/`: flagship methods and retained wrappers.
+- `methods/`: core methods and retained wrappers.
 - `mcp/server.py`: minimal MCP server for tool-based access.
 - `_native.py`: native extension discovery and capability checks.
 
@@ -37,5 +37,5 @@ Machine-oriented workflows use:
 ## Native boundary
 
 Native kernels are built and loaded under the DeTime naming path first. The
-main package exposes native support only for the retained flagship methods.
+main package exposes native support only for the retained core methods.
 Benchmark-derived native code is no longer part of the main package boundary.

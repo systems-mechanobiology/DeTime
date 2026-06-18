@@ -15,15 +15,15 @@ This page intentionally keeps cards compact. Use
 The `tsdecomp` top-level alias remains compatibility-only through `0.1.x` and is
 not the canonical surface for any method listed below.
 
-## Flagship methods
+## Core maintained methods
 
 ### `MSSA`
 
 - Summary: Multivariate SSA for shared-structure decomposition across channels.
 - Use when: multivariate component recovery; shared seasonal structure across channels
-- Avoid when: single-series workflows where a univariate flagship method is sufficient; very short series that cannot support a sensible window length
+- Avoid when: single-series workflows where a univariate core method is sufficient; very short series that cannot support a sensible window length
 - Key params: `window` (required), `rank` (null), `primary_period` (null)
-- Input/backend: `multivariate` input, `native-backed` implementation, maturity `flagship`
+- Input/backend: `multivariate` input, `native-backed` implementation, maturity `core maintained`
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.elementary`
 - References: [Method References](method-references.md#mssa)
@@ -36,7 +36,7 @@ See [Config Reference](config-reference.md#mssa) for the full parameter table.
 - Use when: accuracy-first univariate decomposition; component recovery
 - Avoid when: shared-model multivariate decomposition problems; very short series that cannot support a sensible window length
 - Key params: `window` (required), `rank` (null), `primary_period` (null)
-- Input/backend: `univariate` input, `native-backed` implementation, maturity `flagship`
+- Input/backend: `univariate` input, `native-backed` implementation, maturity `core maintained`
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.elementary`
 - References: [Method References](method-references.md#ssa)
@@ -49,7 +49,7 @@ See [Config Reference](config-reference.md#ssa) for the full parameter table.
 - Use when: fast seasonal-trend baselines; channelwise multivariate workflows
 - Avoid when: problems that require one shared latent model across channels; series where the dominant period is unknown and cannot be inferred reliably
 - Key params: `period` (required)
-- Input/backend: `channelwise` input, `native-backed` implementation, maturity `flagship`
+- Input/backend: `channelwise` input, `native-backed` implementation, maturity `core maintained`
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.dispersion`, `components.seasonal_shape`
 - References: [Method References](method-references.md#std)
@@ -62,7 +62,7 @@ See [Config Reference](config-reference.md#std) for the full parameter table.
 - Use when: robust seasonal-trend decomposition; channelwise multivariate workflows
 - Avoid when: problems that require one shared latent model across channels; series where the dominant period is unknown and cannot be inferred reliably
 - Key params: `period` (required)
-- Input/backend: `channelwise` input, `native-backed` implementation, maturity `flagship`
+- Input/backend: `channelwise` input, `native-backed` implementation, maturity `core maintained`
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.dispersion`, `components.seasonal_shape`
 - References: [Method References](method-references.md#stdr)
@@ -86,7 +86,7 @@ See [Config Reference](config-reference.md#ceemdan) for the full parameter table
 
 ### `EMD`
 
-- Summary: Empirical mode decomposition under the DeTime result contract.
+- Summary: Empirical mode decomposition under the De-Time result contract.
 - Use when: adaptive decomposition of nonlinear signals; IMF-oriented exploratory analysis
 - Avoid when: shared-model multivariate decomposition problems
 - Key params: `n_imfs` (null), `primary_period` (null)
@@ -112,7 +112,7 @@ See [Config Reference](config-reference.md#ma_baseline) for the full parameter t
 
 ### `MSTL`
 
-- Summary: Statsmodels MSTL wrapped into the DeTime workflow surface.
+- Summary: Statsmodels MSTL wrapped into the De-Time workflow surface.
 - Use when: multiple seasonalities in univariate data; classical decomposition baselines
 - Avoid when: shared-model multivariate decomposition problems; series where the dominant period is unknown and cannot be inferred reliably
 - Key params: `periods` (required)
@@ -138,7 +138,7 @@ See [Config Reference](config-reference.md#robust_stl) for the full parameter ta
 
 ### `STL`
 
-- Summary: Classical STL wrapped into the DeTime workflow contract.
+- Summary: Classical STL wrapped into the De-Time workflow contract.
 - Use when: classical seasonal-trend baselines; statsmodels-compatible workflows
 - Avoid when: shared-model multivariate decomposition problems; series where the dominant period is unknown and cannot be inferred reliably
 - Key params: `period` (required)
@@ -181,7 +181,7 @@ See [Config Reference](config-reference.md#wavelet) for the full parameter table
 
 - Summary: Optional multivariate EMD backend for shared oscillatory structure.
 - Use when: multivariate adaptive decomposition; shared oscillatory modes across channels
-- Avoid when: single-series workflows where a univariate flagship method is sufficient; environments where optional backend dependencies cannot be installed
+- Avoid when: single-series workflows where a univariate core method is sufficient; environments where optional backend dependencies cannot be installed
 - Key params: `primary_period` (null)
 - Input/backend: `multivariate` input, `optional-backend` implementation, maturity `optional-backend`
 - Optional dependencies: PySDKit
@@ -194,7 +194,7 @@ See [Config Reference](config-reference.md#memd) for the full parameter table.
 
 - Summary: Optional multivariate VMD backend for shared frequency structure.
 - Use when: multivariate variational decomposition; shared frequency structure across channels
-- Avoid when: single-series workflows where a univariate flagship method is sufficient; environments where optional backend dependencies cannot be installed
+- Avoid when: single-series workflows where a univariate core method is sufficient; environments where optional backend dependencies cannot be installed
 - Key params: `K` (4), `alpha` (2000.0), `primary_period` (null)
 - Input/backend: `multivariate` input, `optional-backend` implementation, maturity `optional-backend`
 - Optional dependencies: PySDKit
@@ -311,7 +311,7 @@ See [Config Reference](config-reference.md#leddam_block) for the full parameter 
 
 ### `MOVING_AVERAGE_DECOMPOSITION_BLOCK`
 
-- Summary: Generic neural forecasting moving-average decomposition block exposed as a DeTime method.
+- Summary: Generic neural forecasting moving-average decomposition block exposed as a De-Time method.
 - Use when: generic decomposition-block smoke tests; fast moving-average neural head baselines
 - Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows
 - Key params: `moving_avg` (null), `primary_period` (null)

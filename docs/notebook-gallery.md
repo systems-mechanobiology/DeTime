@@ -10,7 +10,7 @@
   <a href="#download-gallery">Jump to downloads</a> for the full notebook, Python source, or zipped example.
 </div>
 
-## Flagship Methods
+## Core Methods
 
 <div class="method-card-grid">
 
@@ -26,7 +26,7 @@
     <p>Univariate SSA</p>
     <div class="method-card-footer">
       <span class="method-badge ">univariate</span>
-      <span class="method-badge">flagship</span>
+      <span class="method-badge">core</span>
     </div>
   </div>
 </a>
@@ -43,7 +43,7 @@
     <p>Seasonal-trend decomposition</p>
     <div class="method-card-footer">
       <span class="method-badge badge-channel">channelwise</span>
-      <span class="method-badge">flagship</span>
+      <span class="method-badge">core</span>
     </div>
   </div>
 </a>
@@ -60,7 +60,7 @@
     <p>Robust seasonal-trend decomposition</p>
     <div class="method-card-footer">
       <span class="method-badge badge-channel">channelwise</span>
-      <span class="method-badge">flagship</span>
+      <span class="method-badge">core</span>
     </div>
   </div>
 </a>
@@ -77,7 +77,7 @@
     <p>Multivariate SSA</p>
     <div class="method-card-footer">
       <span class="method-badge badge-multi">multivariate</span>
-      <span class="method-badge">flagship</span>
+      <span class="method-badge">core</span>
     </div>
   </div>
 </a>

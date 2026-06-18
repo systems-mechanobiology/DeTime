@@ -43,7 +43,7 @@ specific API.
 | [`PyEMD`](https://github.com/laszukdawid/PyEMD) | you need deeper EMD-family controls | you want `EMD` / `CEEMDAN` beside SSA, STD, VMD, and CLI artifacts |
 | [`PyWavelets`](https://pywavelets.readthedocs.io/en/latest/) | you need transform-specific wavelet APIs | you want wavelet decomposition as one option in a broader workflow |
 | [`PySDKit`](https://pysdkit.readthedocs.io/en/latest/) | you need its broad signal-decomposition catalog | you want selected optional multivariate backends behind DeTime metadata and I/O |
-| [`SSALib`](https://github.com/ADSCIAN/ssalib) | you only need SSA-family tooling | you want `SSA` as one flagship method in a cross-family package |
+| [`SSALib`](https://github.com/ADSCIAN/ssalib) | you only need SSA-family tooling | you want `SSA` as one core method in a cross-family package |
 | [`sktime`](https://www.sktime.net/en/stable/) | you need a large time-series ML ecosystem | you want decomposition outputs with DeTime's artifact and schema contract |
 
 ## Runtime snapshot

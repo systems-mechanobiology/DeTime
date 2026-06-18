@@ -1,6 +1,6 @@
 # Methods & Chooser
 
-Start with the four retained flagship paths. Move to wrappers only when the
+Start with the four core maintained paths. Move to wrappers only when the
 data or comparison need points there.
 
 <div class="method-signature-banner">
@@ -10,7 +10,7 @@ data or comparison need points there.
   <span>Residual</span>
 </div>
 
-## Flagship method cards
+## Core method cards
 
 <div class="method-use-grid">
   <div class="method-use-card">

@@ -454,7 +454,7 @@
             
             <li class="nav-item" data-bs-level="1"><a href="#method-cards" class="nav-link">Method Cards</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#flagship-methods" class="nav-link">Flagship methods</a>
+            <li class="nav-item" data-bs-level="2"><a href="#core-maintained-methods" class="nav-link">Core maintained methods</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -488,14 +488,14 @@ method cards stay aligned with the machine-facing catalog contract.</p>
 <a href="../config-reference/">Config Reference</a> for full parameter semantics.</p>
 <p>The <code>tsdecomp</code> top-level alias remains compatibility-only through <code>0.1.x</code> and is
 not the canonical surface for any method listed below.</p>
-<h2 id="flagship-methods">Flagship methods</h2>
+<h2 id="core-maintained-methods">Core maintained methods</h2>
 <h3 id="mssa"><code>MSSA</code></h3>
 <ul>
 <li>Summary: Multivariate SSA for shared-structure decomposition across channels.</li>
 <li>Use when: multivariate component recovery; shared seasonal structure across channels</li>
-<li>Avoid when: single-series workflows where a univariate flagship method is sufficient; very short series that cannot support a sensible window length</li>
+<li>Avoid when: single-series workflows where a univariate core method is sufficient; very short series that cannot support a sensible window length</li>
 <li>Key params: <code>window</code> (required), <code>rank</code> (null), <code>primary_period</code> (null)</li>
-<li>Input/backend: <code>multivariate</code> input, <code>native-backed</code> implementation, maturity <code>flagship</code></li>
+<li>Input/backend: <code>multivariate</code> input, <code>native-backed</code> implementation, maturity <code>core maintained</code></li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.elementary</code></li>
 <li>References: <a href="../method-references/#mssa">Method References</a></li>
@@ -507,7 +507,7 @@ not the canonical surface for any method listed below.</p>
 <li>Use when: accuracy-first univariate decomposition; component recovery</li>
 <li>Avoid when: shared-model multivariate decomposition problems; very short series that cannot support a sensible window length</li>
 <li>Key params: <code>window</code> (required), <code>rank</code> (null), <code>primary_period</code> (null)</li>
-<li>Input/backend: <code>univariate</code> input, <code>native-backed</code> implementation, maturity <code>flagship</code></li>
+<li>Input/backend: <code>univariate</code> input, <code>native-backed</code> implementation, maturity <code>core maintained</code></li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.elementary</code></li>
 <li>References: <a href="../method-references/#ssa">Method References</a></li>
@@ -519,7 +519,7 @@ not the canonical surface for any method listed below.</p>
 <li>Use when: fast seasonal-trend baselines; channelwise multivariate workflows</li>
 <li>Avoid when: problems that require one shared latent model across channels; series where the dominant period is unknown and cannot be inferred reliably</li>
 <li>Key params: <code>period</code> (required)</li>
-<li>Input/backend: <code>channelwise</code> input, <code>native-backed</code> implementation, maturity <code>flagship</code></li>
+<li>Input/backend: <code>channelwise</code> input, <code>native-backed</code> implementation, maturity <code>core maintained</code></li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.dispersion</code>, <code>components.seasonal_shape</code></li>
 <li>References: <a href="../method-references/#std">Method References</a></li>
@@ -531,7 +531,7 @@ not the canonical surface for any method listed below.</p>
 <li>Use when: robust seasonal-trend decomposition; channelwise multivariate workflows</li>
 <li>Avoid when: problems that require one shared latent model across channels; series where the dominant period is unknown and cannot be inferred reliably</li>
 <li>Key params: <code>period</code> (required)</li>
-<li>Input/backend: <code>channelwise</code> input, <code>native-backed</code> implementation, maturity <code>flagship</code></li>
+<li>Input/backend: <code>channelwise</code> input, <code>native-backed</code> implementation, maturity <code>core maintained</code></li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.dispersion</code>, <code>components.seasonal_shape</code></li>
 <li>References: <a href="../method-references/#stdr">Method References</a></li>
@@ -552,7 +552,7 @@ not the canonical surface for any method listed below.</p>
 <p>See <a href="../config-reference/#ceemdan">Config Reference</a> for the full parameter table.</p>
 <h3 id="emd"><code>EMD</code></h3>
 <ul>
-<li>Summary: Empirical mode decomposition under the DeTime result contract.</li>
+<li>Summary: Empirical mode decomposition under the De-Time result contract.</li>
 <li>Use when: adaptive decomposition of nonlinear signals; IMF-oriented exploratory analysis</li>
 <li>Avoid when: shared-model multivariate decomposition problems</li>
 <li>Key params: <code>n_imfs</code> (null), <code>primary_period</code> (null)</li>
@@ -576,7 +576,7 @@ not the canonical surface for any method listed below.</p>
 <p>See <a href="../config-reference/#ma_baseline">Config Reference</a> for the full parameter table.</p>
 <h3 id="mstl"><code>MSTL</code></h3>
 <ul>
-<li>Summary: Statsmodels MSTL wrapped into the DeTime workflow surface.</li>
+<li>Summary: Statsmodels MSTL wrapped into the De-Time workflow surface.</li>
 <li>Use when: multiple seasonalities in univariate data; classical decomposition baselines</li>
 <li>Avoid when: shared-model multivariate decomposition problems; series where the dominant period is unknown and cannot be inferred reliably</li>
 <li>Key params: <code>periods</code> (required)</li>
@@ -600,7 +600,7 @@ not the canonical surface for any method listed below.</p>
 <p>See <a href="../config-reference/#robust_stl">Config Reference</a> for the full parameter table.</p>
 <h3 id="stl"><code>STL</code></h3>
 <ul>
-<li>Summary: Classical STL wrapped into the DeTime workflow contract.</li>
+<li>Summary: Classical STL wrapped into the De-Time workflow contract.</li>
 <li>Use when: classical seasonal-trend baselines; statsmodels-compatible workflows</li>
 <li>Avoid when: shared-model multivariate decomposition problems; series where the dominant period is unknown and cannot be inferred reliably</li>
 <li>Key params: <code>period</code> (required)</li>
@@ -639,7 +639,7 @@ not the canonical surface for any method listed below.</p>
 <ul>
 <li>Summary: Optional multivariate EMD backend for shared oscillatory structure.</li>
 <li>Use when: multivariate adaptive decomposition; shared oscillatory modes across channels</li>
-<li>Avoid when: single-series workflows where a univariate flagship method is sufficient; environments where optional backend dependencies cannot be installed</li>
+<li>Avoid when: single-series workflows where a univariate core method is sufficient; environments where optional backend dependencies cannot be installed</li>
 <li>Key params: <code>primary_period</code> (null)</li>
 <li>Input/backend: <code>multivariate</code> input, <code>optional-backend</code> implementation, maturity <code>optional-backend</code></li>
 <li>Optional dependencies: PySDKit</li>
@@ -651,7 +651,7 @@ not the canonical surface for any method listed below.</p>
 <ul>
 <li>Summary: Optional multivariate VMD backend for shared frequency structure.</li>
 <li>Use when: multivariate variational decomposition; shared frequency structure across channels</li>
-<li>Avoid when: single-series workflows where a univariate flagship method is sufficient; environments where optional backend dependencies cannot be installed</li>
+<li>Avoid when: single-series workflows where a univariate core method is sufficient; environments where optional backend dependencies cannot be installed</li>
 <li>Key params: <code>K</code> (4), <code>alpha</code> (2000.0), <code>primary_period</code> (null)</li>
 <li>Input/backend: <code>multivariate</code> input, <code>optional-backend</code> implementation, maturity <code>optional-backend</code></li>
 <li>Optional dependencies: PySDKit</li>
@@ -758,7 +758,7 @@ not the canonical surface for any method listed below.</p>
 <p>See <a href="../config-reference/#leddam_block">Config Reference</a> for the full parameter table.</p>
 <h3 id="moving_average_decomposition_block"><code>MOVING_AVERAGE_DECOMPOSITION_BLOCK</code></h3>
 <ul>
-<li>Summary: Generic neural forecasting moving-average decomposition block exposed as a DeTime method.</li>
+<li>Summary: Generic neural forecasting moving-average decomposition block exposed as a De-Time method.</li>
 <li>Use when: generic decomposition-block smoke tests; fast moving-average neural head baselines</li>
 <li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
 <li>Key params: <code>moving_avg</code> (null), <code>primary_period</code> (null)</li>
