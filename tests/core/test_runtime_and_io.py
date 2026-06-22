@@ -17,6 +17,7 @@ import detime.io as io_mod
 import detime.metrics as metrics
 import detime.viz as viz
 from detime import DecompResult, DecompositionConfig
+from detime.methods import utils as method_utils
 
 
 def test_detime_public_import_surface() -> None:
@@ -198,6 +199,91 @@ def test_io_helpers_cover_edge_cases(tmp_path) -> None:
     )
     with pytest.raises(ValueError, match="Unsupported component shape"):
         io_mod.save_result(bad_result, tmp_path / "out", "bad")
+
+
+def test_io_and_serialization_cover_non_numeric_and_3d_exports(tmp_path) -> None:
+    labels_path = tmp_path / "labels.csv"
+    pd.DataFrame({"label": ["a", "b", "c"]}).to_csv(labels_path, index=False)
+
+    arr, info = io_mod.read_series(labels_path, return_info=True)
+    assert arr.tolist() == ["a", "b", "c"]
+    assert info["channel_names"] == ["label"]
+
+    with pytest.raises(ValueError, match="requires numeric columns"):
+        io_mod.read_series(labels_path, method="MSSA")
+
+    numeric_path = tmp_path / "numeric.csv"
+    pd.DataFrame({"a": [1.0, 2.0], "b": [3.0, 4.0]}).to_csv(numeric_path, index=False)
+    with pytest.raises(ValueError, match="Columns not found"):
+        io_mod.read_series(numeric_path, cols=["a", "missing"])
+
+    with pytest.raises(ValueError, match="expected 2 channels"):
+        io_mod._flatten_component("wide", np.zeros((2, 3)), ["x0", "x1"])
+
+    result = DecompResult(
+        trend=np.zeros((3, 2)),
+        season=np.ones((3, 2)),
+        residual=np.zeros((3, 2)),
+        components={"cube": np.zeros((2, 3, 2))},
+        meta={"channel_names": ["x0", "x1"], "n_channels": np.int64(2)},
+    )
+    io_mod.save_result(result, tmp_path / "exports", "panel", fields=["meta", "diagnostics"])
+
+    assert (tmp_path / "exports" / "panel_components.csv").exists()
+    assert (tmp_path / "exports" / "panel_components_3d.npz").exists()
+    payload = (tmp_path / "exports" / "panel_full.json").read_text(encoding="utf-8")
+    assert '"diagnostics"' in payload
+
+
+def test_serialization_warning_and_empty_summary_paths() -> None:
+    result = DecompResult(
+        trend=np.array([], dtype=float),
+        season=np.array([], dtype=float),
+        residual=np.array([], dtype=float),
+        meta={
+            "backend_requested": "native",
+            "backend_used": "python",
+            "result_layout": "multivariate",
+            "n_channels": 1,
+            "limitations": ("optional backend unavailable",),
+            "numpy_int": np.int64(7),
+            "numpy_float": np.float32(0.25),
+        },
+    )
+
+    payload = detime.serialization.serialize_result(result, mode="summary")
+
+    assert payload["trend"]["shape"] == [0]
+    assert payload["trend"]["l2_norm"] == 0.0
+    assert "backend_fallback:native->python" in payload["diagnostics"]["warnings"]
+    assert "multivariate_layout_without_multiple_channels" in payload["diagnostics"]["warnings"]
+    assert "no_named_components" in payload["diagnostics"]["warnings"]
+    assert payload["meta"]["numpy_int"] == 7
+    assert payload["meta"]["numpy_float"] == pytest.approx(0.25)
+
+
+def test_methods_utils_cover_cleaning_frequency_and_aggregation() -> None:
+    assert method_utils.dominant_frequency(np.array([1.0])) == 0.0
+    assert method_utils.dominant_frequency(np.zeros(8), fs=0.0) == pytest.approx(0.125)
+
+    t = np.arange(32, dtype=float)
+    signal = np.sin(2.0 * np.pi * t / 8.0)
+    assert method_utils.dominant_frequency(signal, fs=1.0) == pytest.approx(1.0 / 8.0)
+
+    periods = method_utils.ensure_period_list(
+        periods=["bad", 3.6, 1, None],
+        fallback="5",
+        series_length=30,
+    )
+    assert periods == [4]
+    assert method_utils.ensure_period_list(None, "5.2", 30) == [5]
+    assert method_utils.ensure_period_list(["bad"], "bad", 30) == [3]
+
+    modes = np.arange(12, dtype=float).reshape(3, 4)
+    np.testing.assert_allclose(method_utils.aggregate_modes(modes, None), np.zeros(4))
+    np.testing.assert_allclose(method_utils.aggregate_modes(modes, []), np.zeros(4))
+    np.testing.assert_allclose(method_utils.aggregate_modes(modes, [99]), np.zeros(4))
+    np.testing.assert_allclose(method_utils.aggregate_modes(modes, [0, 2]), modes[0] + modes[2])
 
 
 def test_metrics_module() -> None:

@@ -1,0 +1,33 @@
+{
+  "package": "de-time",
+  "release_target": "0.1.2",
+  "audit_date": "2026-06-22",
+  "python": "3.11.9",
+  "platform": "Windows",
+  "source_import_policy": "The editable import hook named _de_time_editable was removed before pytest startup and the checkout src directory was inserted first on sys.path.",
+  "tests": {
+    "command": "pytest tests --cov=detime",
+    "result": "123 passed",
+    "warnings": 3
+  },
+  "coverage": {
+    "core_surface": {
+      "config": ".coveragerc",
+      "covered_lines": 1896,
+      "num_statements": 2048,
+      "missing_lines": 152,
+      "percent": 92.58,
+      "json": "coverage_core.json",
+      "denominator": "Canonical core-plus-maintained detime surface; excludes CLI wrappers, I/O helpers, visualization helpers, deprecated tsdecomp compatibility, and optional/non-core integrations."
+    },
+    "package_wide": {
+      "config": ".coveragerc.package",
+      "covered_lines": 3149,
+      "num_statements": 3562,
+      "missing_lines": 413,
+      "percent": 88.41,
+      "json": "coverage_package.json",
+      "denominator": "Broader installable detime package, including CLI, I/O, visualization, wrappers, methods, schema helpers, serialization, profiling, and machine-facing helpers."
+    }
+  }
+}

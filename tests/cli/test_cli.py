@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from argparse import Namespace
+import os
+import runpy
 
 import numpy as np
 import pytest
@@ -73,6 +75,21 @@ def test_backend_selection_passes_flags(monkeypatch, tmp_path):
     assert cfg.method == "SSA"
     assert cfg.params == {"window": 8}
     assert captured["read_cols"] is None
+
+
+def test_parse_params_and_module_entrypoint(monkeypatch):
+    params = cli.parse_params(["window=12", "robust=true", "name=SSA", "bad"])
+    assert params == {"window": 12, "robust": True, "name": "SSA"}
+    assert cli.parse_params([]) == {}
+
+    called = {}
+    monkeypatch.delenv("DETIME_CLI_BRAND", raising=False)
+    monkeypatch.setattr(cli, "main", lambda: called.setdefault("main", True))
+
+    runpy.run_module("detime.__main__", run_name="__main__")
+
+    assert os.environ["DETIME_CLI_BRAND"] == "detime"
+    assert called["main"] is True
 
 
 def test_profile_command_writes_report(monkeypatch, tmp_path, capsys):
@@ -377,6 +394,74 @@ def test_run_command_passes_output_mode_and_fields(monkeypatch, tmp_path):
     assert captured["fields"] == ["meta", "diagnostics"]
 
 
+def test_batch_command_covers_empty_success_and_error_paths(monkeypatch, tmp_path, capsys):
+    args = Namespace(
+        method="SSA",
+        glob=str(tmp_path / "none" / "*.csv"),
+        col=None,
+        cols=None,
+        param=["window=8"],
+        backend="python",
+        speed_mode="exact",
+        n_jobs=1,
+        profile=True,
+        device="cpu",
+        out_dir=str(tmp_path / "batch"),
+        output_mode="meta",
+        fields="meta",
+        plot=True,
+    )
+
+    cli.cmd_batch(args)
+    assert "No files found" in capsys.readouterr().out
+
+    first = tmp_path / "first.csv"
+    second = tmp_path / "second.csv"
+    first.write_text("value\n1\n2\n3\n", encoding="utf-8")
+    second.write_text("value\n4\n5\n6\n", encoding="utf-8")
+    args.glob = str(tmp_path / "*.csv")
+
+    saved = []
+    plotted = []
+
+    def fake_read_series(path, col=None, cols=None, method=None, return_info=False):
+        if str(path).endswith("second.csv"):
+            raise RuntimeError("bad input")
+        series = np.asarray([1.0, 2.0, 3.0])
+        info = {"channel_names": ["value"], "multivariate": False}
+        return (series, info) if return_info else series
+
+    def fake_decompose(series, cfg):
+        return DecompResult(
+            trend=series,
+            season=np.zeros_like(series),
+            residual=np.zeros_like(series),
+            meta={"backend_used": "python"},
+        )
+
+    monkeypatch.setattr(cli, "read_series", fake_read_series)
+    monkeypatch.setattr(cli, "decompose", fake_decompose)
+    monkeypatch.setattr(
+        cli,
+        "save_result",
+        lambda result, out_dir, name, **kwargs: saved.append((name, kwargs)),
+    )
+    monkeypatch.setattr(
+        cli,
+        "plot_components",
+        lambda result, series, save_path: plotted.append(save_path),
+    )
+
+    cli.cmd_batch(args)
+    output = capsys.readouterr().out
+
+    assert "Found 2 files" in output
+    assert "Error processing" in output
+    assert saved[0][0] == "first"
+    assert saved[0][1]["output_mode"] == "meta"
+    assert plotted
+
+
 def test_schema_command_prints_json(capsys):
     import sys
 
@@ -390,6 +475,56 @@ def test_schema_command_prints_json(capsys):
     captured = capsys.readouterr()
     assert '"title"' in captured.out
     assert "DecompositionConfig" in captured.out
+
+
+def test_version_schema_output_and_text_recommend(monkeypatch, tmp_path, capsys):
+    import sys
+
+    old_argv = sys.argv
+    try:
+        sys.argv = ["detime", "version"]
+        cli.main()
+        assert cli.PACKAGE_VERSION in capsys.readouterr().out
+
+        schema_path = tmp_path / "schema.json"
+        sys.argv = ["detime", "schema", "--name", "meta", "--output", str(schema_path)]
+        cli.main()
+        assert schema_path.exists()
+        assert "Schema written" in capsys.readouterr().out
+
+        sys.argv = [
+            "detime",
+            "recommend",
+            "--length",
+            "128",
+            "--channels",
+            "1",
+            "--format",
+            "text",
+        ]
+        cli.main()
+        text = capsys.readouterr().out
+        assert "reasons:" in text
+    finally:
+        sys.argv = old_argv
+
+
+def test_recommend_requires_series_or_length():
+    with pytest.raises(ValueError, match="either --series or --length"):
+        cli.cmd_recommend(
+            Namespace(
+                series=None,
+                col=None,
+                cols=None,
+                length=None,
+                channels=1,
+                prefer="balanced",
+                allow_optional_backends=False,
+                require_native=False,
+                top_k=5,
+                format="json",
+            )
+        )
 
 
 def test_schema_command_prints_method_registry_contract_version(capsys):
