@@ -3,7 +3,7 @@
 This page is generated from `MethodRegistry.list_catalog()` and summarizes
 method-level behavior for onboarding, review, and machine-facing routing.
 
-Current package version target: `0.1.1`.
+Current package version target: `0.1.2`.
 
 | Method | Input mode | Backend | Maturity | Required/common params | Optional deps | Native | Multivariate | Output components | Recommended use |
 |---|---|---|---|---|---|---|---|---|---|

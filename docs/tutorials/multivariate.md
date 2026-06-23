@@ -124,5 +124,5 @@ build, `summary` mode is used to keep the artifact small and easy to inspect.
 - Use [Visual Multivariate Walkthrough](visual-multivariate.md) for the full
   side-by-side interpretation of the figures above.
 - Use [CLI and Profiling](cli-and-profiling.md) when you want the exact batch,
-  profile, schema, and recommendation commands that operate on repo-shipped
+  profile, schema, and metadata-shortlist commands that operate on repo-shipped
   files.

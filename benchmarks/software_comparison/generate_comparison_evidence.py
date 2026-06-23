@@ -11,6 +11,16 @@ from detime import __version__
 ROOT = Path(__file__).resolve().parents[2]
 OUTPUT_DIR = ROOT / "docs" / "assets" / "generated" / "evidence"
 
+AUDIT_DATE = "2026-06-19"
+COMPARATOR_VERSIONS = {
+    "statsmodels": "0.14.5",
+    "PyEMD/EMD-signal": "1.6.4",
+    "PyWavelets": "1.9.0",
+    "PySDKit": "0.4.23",
+    "SSALib": "not installed in local audit environment",
+    "sktime": "0.33.2",
+}
+
 
 CAPABILITY_MATRIX = [
     {
@@ -109,9 +119,9 @@ CAPABILITY_MATRIX = [
 INSTALL_MATRIX = [
     {
         "package": "DeTime",
-        "public_release_story": f"0.1.1 target from main",
+        "public_release_story": f"{__version__} release target from main",
         "pypi_path": "tag-driven publish workflow",
-        "github_release": "de-time-v0.1.1",
+        "github_release": f"de-time-v{__version__}",
         "wheels": "yes",
         "ci_platforms": "ubuntu, macOS, windows",
         "docs_website": "GitHub Pages",
@@ -233,83 +243,76 @@ FAMILY_FAIRNESS = [
     },
 ]
 
-AGENT_MATRIX = [
+MACHINE_CONTRACT_MATRIX = [
     {
         "package": "DeTime",
         "json_schema_assets": "yes",
         "compact_result_modes": "full/summary/meta",
-        "recommend_interface": "yes",
+        "metadata_shortlist_interface": "yes",
         "machine_readable_catalog": "yes",
-        "mcp_surface": "local-first",
+        "cli_schema_command": "yes",
         "artifact_contract": "yes",
-        "token_benchmark": "yes",
-        "tool_evals": "yes",
+        "mcp_surface": "optional local-first",
     },
     {
         "package": "statsmodels",
         "json_schema_assets": "no",
         "compact_result_modes": "no",
-        "recommend_interface": "no",
+        "metadata_shortlist_interface": "no",
         "machine_readable_catalog": "no",
-        "mcp_surface": "no",
+        "cli_schema_command": "no",
         "artifact_contract": "no",
-        "token_benchmark": "no",
-        "tool_evals": "no",
+        "mcp_surface": "no",
     },
     {
         "package": "PyEMD",
         "json_schema_assets": "no",
         "compact_result_modes": "no",
-        "recommend_interface": "no",
+        "metadata_shortlist_interface": "no",
         "machine_readable_catalog": "no",
-        "mcp_surface": "no",
+        "cli_schema_command": "no",
         "artifact_contract": "no",
-        "token_benchmark": "no",
-        "tool_evals": "no",
+        "mcp_surface": "no",
     },
     {
         "package": "PyWavelets",
         "json_schema_assets": "no",
         "compact_result_modes": "no",
-        "recommend_interface": "no",
+        "metadata_shortlist_interface": "no",
         "machine_readable_catalog": "no",
-        "mcp_surface": "no",
+        "cli_schema_command": "no",
         "artifact_contract": "no",
-        "token_benchmark": "no",
-        "tool_evals": "no",
+        "mcp_surface": "no",
     },
     {
         "package": "PySDKit",
         "json_schema_assets": "no",
         "compact_result_modes": "no",
-        "recommend_interface": "no",
+        "metadata_shortlist_interface": "no",
         "machine_readable_catalog": "no",
-        "mcp_surface": "no",
+        "cli_schema_command": "no",
         "artifact_contract": "no",
-        "token_benchmark": "no",
-        "tool_evals": "no",
+        "mcp_surface": "no",
     },
     {
         "package": "SSALib",
         "json_schema_assets": "no",
         "compact_result_modes": "no",
-        "recommend_interface": "no",
+        "metadata_shortlist_interface": "no",
         "machine_readable_catalog": "no",
-        "mcp_surface": "no",
+        "cli_schema_command": "no",
         "artifact_contract": "no",
-        "token_benchmark": "no",
-        "tool_evals": "no",
+        "mcp_surface": "no",
     },
     {
         "package": "sktime",
         "json_schema_assets": "no",
         "compact_result_modes": "no",
-        "recommend_interface": "no",
+        "metadata_shortlist_interface": "no",
         "machine_readable_catalog": "no",
-        "mcp_surface": "no",
+        "cli_schema_command": "no",
         "artifact_contract": "no",
-        "token_benchmark": "no",
-        "tool_evals": "no",
+        "mcp_surface": "no",
     },
 ]
 
@@ -341,10 +344,13 @@ def main() -> int:
     payload = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "release_target_version": __version__,
+        "audit_date": AUDIT_DATE,
+        "comparator_versions": COMPARATOR_VERSIONS,
+        "runtime_memory_boundary": "Feature audit only; no cross-package runtime or peak-memory ranking is claimed.",
         "capability_matrix": CAPABILITY_MATRIX,
         "install_matrix": INSTALL_MATRIX,
         "family_fairness": FAMILY_FAIRNESS,
-        "agent_matrix": AGENT_MATRIX,
+        "machine_contract_matrix": MACHINE_CONTRACT_MATRIX,
         "runtime_snapshot_csv": str(runtime_snapshot_csv.relative_to(ROOT)),
     }
 
@@ -353,12 +359,20 @@ def main() -> int:
     _write_csv(OUTPUT_DIR / "comparison_capability_matrix.csv", CAPABILITY_MATRIX)
     _write_csv(OUTPUT_DIR / "comparison_install_matrix.csv", INSTALL_MATRIX)
     _write_csv(OUTPUT_DIR / "comparison_family_fairness.csv", FAMILY_FAIRNESS)
-    _write_csv(OUTPUT_DIR / "comparison_agent_matrix.csv", AGENT_MATRIX)
+    _write_csv(OUTPUT_DIR / "comparison_machine_contract_matrix.csv", MACHINE_CONTRACT_MATRIX)
 
     markdown_lines = [
         "# Comparison Evidence",
         "",
         f"Generated for DeTime `{__version__}` on {payload['generated_at']}.",
+        "",
+        f"Audit date: {AUDIT_DATE}.",
+        "",
+        "Comparator versions:",
+        "",
+        *[f"- {name}: {version}" for name, version in COMPARATOR_VERSIONS.items()],
+        "",
+        "Runtime and memory boundary: feature audit only; no cross-package runtime or peak-memory ranking is claimed.",
         "",
         "## Capability matrix",
         "",
@@ -372,9 +386,9 @@ def main() -> int:
         "",
         *_markdown_table(FAMILY_FAIRNESS),
         "",
-        "## Agent-facing matrix",
+        "## Machine-contract matrix",
         "",
-        *_markdown_table(AGENT_MATRIX),
+        *_markdown_table(MACHINE_CONTRACT_MATRIX),
         "",
         "## Runtime snapshot source",
         "",

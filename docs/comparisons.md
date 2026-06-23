@@ -26,6 +26,13 @@ specific API.
 
 ## Software matrix
 
+Audit date: 2026-06-19. Local comparator package versions available in the
+review environment were `statsmodels==0.14.5`, `EMD-signal==1.6.4`,
+`PyWavelets==1.9.0`, `PySDKit==0.4.23`, and `sktime==0.33.2`. `SSALib` was not
+installed in the local audit environment, so its feature position is based on
+public documentation rather than a local import check. The feature matrix
+records workflow/API characteristics; it is not a runtime or memory ranking.
+
 | Axis | DeTime | [`statsmodels`](https://www.statsmodels.org/) | [`PyEMD`](https://github.com/laszukdawid/PyEMD) | [`PyWavelets`](https://pywavelets.readthedocs.io/en/latest/) | [`PySDKit`](https://pysdkit.readthedocs.io/en/latest/) | [`SSALib`](https://github.com/ADSCIAN/ssalib) | [`sktime`](https://www.sktime.net/en/stable/) |
 |---|---|---|---|---|---|---|---|
 | Best fit | cross-method workflow | classical decomposition/statistics | EMD-family work | wavelet transforms | broad signal decomposition | SSA-focused work | broader time-series ecosystem |
@@ -56,15 +63,23 @@ available.
 
 | Method | Python mean runtime (ms) | Native mean runtime (ms) | Speedup |
 |---|---:|---:|---:|
-| `SSA` | 13.668 | 1.906 | 7.172x |
-| `STD` | 0.153 | 0.024 | 6.484x |
-| `STDR` | 0.176 | 0.018 | 9.916x |
-| `MA_BASELINE` | 0.071 | 0.015 | 4.771x |
-| `MSSA` | 70.039 | 25.727 | 2.722x |
-| `VMD` | 50.140 | 14.482 | 3.462x |
-| `GABOR_CLUSTER` | 2.694 | 0.195 | 13.806x |
+| `SSA` | 13.925 | 1.906 | 7.307x |
+| `STD` | 0.154 | 0.024 | 6.445x |
+| `STDR` | 0.175 | 0.018 | 9.807x |
+| `MA_BASELINE` | 0.070 | 0.016 | 4.423x |
+| `MSSA` | 60.856 | 22.900 | 2.657x |
+| `VMD` | 47.856 | 13.812 | 3.465x |
+| `GABOR_CLUSTER` | 3.304 | 0.181 | 18.225x |
 
 These numbers are a release smoke snapshot, not a universal benchmark.
+
+## Runtime and memory boundary
+
+The current comparison evidence does not claim cross-package runtime or memory
+superiority. Runtime rows above compare DeTime native-backed paths with DeTime
+Python fallback paths in one environment. Peak-memory and direct same-method
+comparisons against external packages are future comparison work unless a
+release artifact explicitly records them.
 
 ## Evidence appendix
 
@@ -77,7 +92,7 @@ These numbers are a release smoke snapshot, not a universal benchmark.
 - [`comparison_capability_matrix.csv`](assets/generated/evidence/comparison_capability_matrix.csv)
 - [`comparison_install_matrix.csv`](assets/generated/evidence/comparison_install_matrix.csv)
 - [`comparison_family_fairness.csv`](assets/generated/evidence/comparison_family_fairness.csv)
-- [`comparison_agent_matrix.csv`](assets/generated/evidence/comparison_agent_matrix.csv)
+- [`comparison_machine_contract_matrix.csv`](assets/generated/evidence/comparison_machine_contract_matrix.csv)
 - [`workflow_comparison.json`](assets/generated/evidence/workflow_comparison.json)
 
 Regenerate them with:

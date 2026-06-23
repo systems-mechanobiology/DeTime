@@ -407,6 +407,10 @@
 </li>
                                     
 <li>
+    <a href="../release-artifacts/" class="dropdown-item">Release Artifacts</a>
+</li>
+                                    
+<li>
     <a href="../architecture/" class="dropdown-item">Architecture</a>
 </li>
                                     
@@ -480,6 +484,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#runtime-and-memory-boundary" class="nav-link">Runtime and memory boundary</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#evidence-appendix" class="nav-link">Evidence appendix</a>
               <ul class="nav flex-column">
               </ul>
@@ -515,6 +523,12 @@ specific API.</p>
 </div>
 
 <h2 id="software-matrix">Software matrix</h2>
+<p>Audit date: 2026-06-19. Local comparator package versions available in the
+review environment were <code>statsmodels==0.14.5</code>, <code>EMD-signal==1.6.4</code>,
+<code>PyWavelets==1.9.0</code>, <code>PySDKit==0.4.23</code>, and <code>sktime==0.33.2</code>. <code>SSALib</code> was not
+installed in the local audit environment, so its feature position is based on
+public documentation rather than a local import check. The feature matrix
+records workflow/API characteristics; it is not a runtime or memory ranking.</p>
 <table>
 <thead>
 <tr>
@@ -651,49 +665,55 @@ available.</p>
 <tbody>
 <tr>
 <td><code>SSA</code></td>
-<td style="text-align: right;">13.668</td>
+<td style="text-align: right;">13.925</td>
 <td style="text-align: right;">1.906</td>
-<td style="text-align: right;">7.172x</td>
+<td style="text-align: right;">7.307x</td>
 </tr>
 <tr>
 <td><code>STD</code></td>
-<td style="text-align: right;">0.153</td>
+<td style="text-align: right;">0.154</td>
 <td style="text-align: right;">0.024</td>
-<td style="text-align: right;">6.484x</td>
+<td style="text-align: right;">6.445x</td>
 </tr>
 <tr>
 <td><code>STDR</code></td>
-<td style="text-align: right;">0.176</td>
+<td style="text-align: right;">0.175</td>
 <td style="text-align: right;">0.018</td>
-<td style="text-align: right;">9.916x</td>
+<td style="text-align: right;">9.807x</td>
 </tr>
 <tr>
 <td><code>MA_BASELINE</code></td>
-<td style="text-align: right;">0.071</td>
-<td style="text-align: right;">0.015</td>
-<td style="text-align: right;">4.771x</td>
+<td style="text-align: right;">0.070</td>
+<td style="text-align: right;">0.016</td>
+<td style="text-align: right;">4.423x</td>
 </tr>
 <tr>
 <td><code>MSSA</code></td>
-<td style="text-align: right;">70.039</td>
-<td style="text-align: right;">25.727</td>
-<td style="text-align: right;">2.722x</td>
+<td style="text-align: right;">60.856</td>
+<td style="text-align: right;">22.900</td>
+<td style="text-align: right;">2.657x</td>
 </tr>
 <tr>
 <td><code>VMD</code></td>
-<td style="text-align: right;">50.140</td>
-<td style="text-align: right;">14.482</td>
-<td style="text-align: right;">3.462x</td>
+<td style="text-align: right;">47.856</td>
+<td style="text-align: right;">13.812</td>
+<td style="text-align: right;">3.465x</td>
 </tr>
 <tr>
 <td><code>GABOR_CLUSTER</code></td>
-<td style="text-align: right;">2.694</td>
-<td style="text-align: right;">0.195</td>
-<td style="text-align: right;">13.806x</td>
+<td style="text-align: right;">3.304</td>
+<td style="text-align: right;">0.181</td>
+<td style="text-align: right;">18.225x</td>
 </tr>
 </tbody>
 </table>
 <p>These numbers are a release smoke snapshot, not a universal benchmark.</p>
+<h2 id="runtime-and-memory-boundary">Runtime and memory boundary</h2>
+<p>The current comparison evidence does not claim cross-package runtime or memory
+superiority. Runtime rows above compare DeTime native-backed paths with DeTime
+Python fallback paths in one environment. Peak-memory and direct same-method
+comparisons against external packages are future comparison work unless a
+release artifact explicitly records them.</p>
 <h2 id="evidence-appendix">Evidence appendix</h2>
 <div class="compact-faq">
 
@@ -704,7 +724,7 @@ available.</p>
 - [`comparison_capability_matrix.csv`](assets/generated/evidence/comparison_capability_matrix.csv)
 - [`comparison_install_matrix.csv`](assets/generated/evidence/comparison_install_matrix.csv)
 - [`comparison_family_fairness.csv`](assets/generated/evidence/comparison_family_fairness.csv)
-- [`comparison_agent_matrix.csv`](assets/generated/evidence/comparison_agent_matrix.csv)
+- [`comparison_machine_contract_matrix.csv`](assets/generated/evidence/comparison_machine_contract_matrix.csv)
 - [`workflow_comparison.json`](assets/generated/evidence/workflow_comparison.json)
 
 Regenerate them with:

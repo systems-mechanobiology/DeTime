@@ -8,7 +8,7 @@ hide_toc: true
 
 Use [`CITATION.cff`](https://github.com/systems-mechanobiology/DeTime/blob/main/CITATION.cff) for machine-readable citation metadata.
 
-The current branch targets `0.1.1`. Tagged standalone releases use the
+The current branch targets `0.1.2`. Tagged standalone releases use the
 `de-time-v*` convention and publish the `de-time` distribution.
 
 ## Release notes
@@ -22,3 +22,5 @@ The current branch targets `0.1.1`. Tagged standalone releases use the
 - Companion benchmark work now lives in
   [`systems-mechanobiology/de-time-bench`](https://github.com/systems-mechanobiology/de-time-bench).
 - The release workflow also performs post-publish smoke verification from PyPI.
+- The 2026-06-19 evidence lock is summarized in
+  [Release Artifacts](release-artifacts.md).

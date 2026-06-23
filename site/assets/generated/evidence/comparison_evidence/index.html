@@ -407,6 +407,10 @@
 </li>
                                     
 <li>
+    <a href="../../../../release-artifacts/" class="dropdown-item">Release Artifacts</a>
+</li>
+                                    
+<li>
     <a href="../../../../architecture/" class="dropdown-item">Architecture</a>
 </li>
                                     
@@ -466,7 +470,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#agent-facing-matrix" class="nav-link">Agent-facing matrix</a>
+            <li class="nav-item" data-bs-level="2"><a href="#machine-contract-matrix" class="nav-link">Machine-contract matrix</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -482,7 +486,18 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="comparison-evidence">Comparison Evidence</h1>
-<p>Generated for DeTime <code>0.1.1</code> on 2026-06-18T10:50:54.897067+00:00.</p>
+<p>Generated for DeTime <code>0.1.2</code> on 2026-06-19T18:21:25.250889+00:00.</p>
+<p>Audit date: 2026-06-19.</p>
+<p>Comparator versions:</p>
+<ul>
+<li>statsmodels: 0.14.5</li>
+<li>PyEMD/EMD-signal: 1.6.4</li>
+<li>PyWavelets: 1.9.0</li>
+<li>PySDKit: 0.4.23</li>
+<li>SSALib: not installed in local audit environment</li>
+<li>sktime: 0.33.2</li>
+</ul>
+<p>Runtime and memory boundary: feature audit only; no cross-package runtime or peak-memory ranking is claimed.</p>
 <h2 id="capability-matrix">Capability matrix</h2>
 <table>
 <thead>
@@ -614,9 +629,9 @@
 <tbody>
 <tr>
 <td>DeTime</td>
-<td>0.1.1 target from main</td>
+<td>0.1.2 release target from main</td>
 <td>tag-driven publish workflow</td>
-<td>de-time-v0.1.1</td>
+<td>de-time-v0.1.2</td>
 <td>yes</td>
 <td>ubuntu, macOS, windows</td>
 <td>GitHub Pages</td>
@@ -748,19 +763,18 @@
 </tr>
 </tbody>
 </table>
-<h2 id="agent-facing-matrix">Agent-facing matrix</h2>
+<h2 id="machine-contract-matrix">Machine-contract matrix</h2>
 <table>
 <thead>
 <tr>
 <th>package</th>
 <th>json_schema_assets</th>
 <th>compact_result_modes</th>
-<th>recommend_interface</th>
+<th>metadata_shortlist_interface</th>
 <th>machine_readable_catalog</th>
-<th>mcp_surface</th>
+<th>cli_schema_command</th>
 <th>artifact_contract</th>
-<th>token_benchmark</th>
-<th>tool_evals</th>
+<th>mcp_surface</th>
 </tr>
 </thead>
 <tbody>
@@ -770,14 +784,12 @@
 <td>full/summary/meta</td>
 <td>yes</td>
 <td>yes</td>
-<td>local-first</td>
 <td>yes</td>
 <td>yes</td>
-<td>yes</td>
+<td>optional local-first</td>
 </tr>
 <tr>
 <td>statsmodels</td>
-<td>no</td>
 <td>no</td>
 <td>no</td>
 <td>no</td>
@@ -795,11 +807,9 @@
 <td>no</td>
 <td>no</td>
 <td>no</td>
-<td>no</td>
 </tr>
 <tr>
 <td>PyWavelets</td>
-<td>no</td>
 <td>no</td>
 <td>no</td>
 <td>no</td>
@@ -817,7 +827,6 @@
 <td>no</td>
 <td>no</td>
 <td>no</td>
-<td>no</td>
 </tr>
 <tr>
 <td>SSALib</td>
@@ -828,11 +837,9 @@
 <td>no</td>
 <td>no</td>
 <td>no</td>
-<td>no</td>
 </tr>
 <tr>
 <td>sktime</td>
-<td>no</td>
 <td>no</td>
 <td>no</td>
 <td>no</td>

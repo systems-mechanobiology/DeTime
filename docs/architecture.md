@@ -8,7 +8,7 @@ The canonical implementation lives under `src/detime`.
 - `registry.py`: method registration, metadata catalog, and `decompose()` dispatch.
 - `io.py`: loading series and saving decomposition outputs.
 - `serialization.py`: `full`, `summary`, and `meta` result views.
-- `recommend.py`: method recommendation logic.
+- `recommend.py`: metadata-based method shortlist logic.
 - `schemas.py`: packaged JSON schema generation and loading.
 - `profile.py`: runtime profiling helpers.
 - `viz.py`: plotting helpers.
@@ -30,7 +30,7 @@ Machine-oriented workflows use:
 
 - packaged JSON schemas under `src/detime/schema_assets`,
 - machine-readable method metadata from `MethodRegistry.list_catalog()`,
-- `detime schema` and `detime recommend`,
+- `detime schema` and the metadata-based `detime recommend` shortlist command,
 - the local-first MCP server at `python -m detime.mcp.server`,
 - low-token result exports via `summary` and `meta` modes.
 

@@ -10,7 +10,7 @@ navigation because most users only need the summarized matrix.
 - [comparison_capability_matrix.csv](assets/generated/evidence/comparison_capability_matrix.csv)
 - [comparison_install_matrix.csv](assets/generated/evidence/comparison_install_matrix.csv)
 - [comparison_family_fairness.csv](assets/generated/evidence/comparison_family_fairness.csv)
-- [comparison_agent_matrix.csv](assets/generated/evidence/comparison_agent_matrix.csv)
+- [comparison_machine_contract_matrix.csv](assets/generated/evidence/comparison_machine_contract_matrix.csv)
 - [workflow_comparison.json](assets/generated/evidence/workflow_comparison.json)
 
 ## Regenerate

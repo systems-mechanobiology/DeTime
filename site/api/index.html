@@ -407,6 +407,10 @@
 </li>
                                     
 <li>
+    <a href="../release-artifacts/" class="dropdown-item">Release Artifacts</a>
+</li>
+                                    
+<li>
     <a href="../architecture/" class="dropdown-item">Architecture</a>
 </li>
                                     
@@ -519,12 +523,12 @@ comparison, see <a href="../method-matrix/">Method Matrix</a>.</p>
   Method-specific parameters. Examples include <code>period</code> for <code>STD</code>, <code>window</code>
   and <code>rank</code> for <code>SSA</code>, and <code>primary_period</code> for automatic grouping.</li>
 <li><code>return_components: list[str] | None = None</code>
-  Reserved compatibility field. Current decomposition entrypoints return the
-  full <code>DecompResult</code>; methods may ignore this field.</li>
+  Compatibility field reserved for older callers. Current stable entrypoints
+  return the full <code>DecompResult</code>; methods may ignore this field.</li>
 <li><code>backend: "auto" | "native" | "python" | "gpu" = "auto"</code>
   Backend preference. <code>auto</code> uses a native kernel when one exists, <code>python</code>
   forces the Python implementation, <code>native</code> requires the native path, and
-  <code>gpu</code> raises unless a method explicitly supports it.</li>
+  <code>gpu</code> is reserved and raises unless a method explicitly documents support.</li>
 <li><code>speed_mode: "exact" | "fast" = "exact"</code>
   Runtime accuracy policy. For native <code>SSA</code>, <code>exact</code> follows the deterministic
   SVD-backed path and <code>fast</code> uses the approximate iterative kernel.</li>
@@ -532,8 +536,9 @@ comparison, see <a href="../method-matrix/">Method Matrix</a>.</p>
   When <code>True</code>, attach runtime metadata such as <code>runtime_ms</code> to result metadata
   or profile reports.</li>
 <li><code>device: str | None = "cpu"</code>
-  Reserved execution device selector. Current retained methods are CPU
-  workflows unless a wrapper says otherwise.</li>
+  Reserved execution device selector. The maintained 0.1.x decomposition
+  surface is CPU-first unless a wrapper or experimental operator documents
+  another device.</li>
 <li><code>n_jobs: int = 1</code>
   Requested parallelism hint for methods or wrappers that support it.</li>
 <li><code>seed: int | None = 42</code>
@@ -594,7 +599,8 @@ method catalog.</p>
 <li><code>MethodRegistry.list_methods()</code>
   Return registered public method names.</li>
 <li><code>MethodRegistry.list_catalog()</code>
-  Return the full catalog used by docs generation, recommendation, and MCP.</li>
+  Return the full catalog used by docs generation, metadata-based shortlists,
+  and MCP.</li>
 <li><code>MethodRegistry.get_metadata(method_name)</code>
   Return one catalog entry as a dictionary.</li>
 <li><code>MethodRegistry.get(method_name)</code>

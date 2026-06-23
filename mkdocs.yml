@@ -91,6 +91,7 @@ nav:
   - Project:
       - Compare Alternatives: comparisons.md
       - Reproducibility: reproducibility.md
+      - Release Artifacts: release-artifacts.md
       - Architecture: architecture.md
       - Migration from `tsdecomp`: migration.md
       - Contributing: contributing.md

@@ -3,7 +3,7 @@
 This page is generated from `MethodRegistry.list_catalog()` so the human-facing
 method cards stay aligned with the machine-facing catalog contract.
 
-Current package version target: `0.1.1`.
+Current package version target: `0.1.2`.
 
 Source citations and official upstream package links are collected in
 [Method References](method-references.md).
@@ -86,7 +86,7 @@ See [Config Reference](config-reference.md#ceemdan) for the full parameter table
 
 ### `EMD`
 
-- Summary: Empirical mode decomposition under the De-Time result contract.
+- Summary: Empirical mode decomposition under the DeTime result contract.
 - Use when: adaptive decomposition of nonlinear signals; IMF-oriented exploratory analysis
 - Avoid when: shared-model multivariate decomposition problems
 - Key params: `n_imfs` (null), `primary_period` (null)
@@ -112,7 +112,7 @@ See [Config Reference](config-reference.md#ma_baseline) for the full parameter t
 
 ### `MSTL`
 
-- Summary: Statsmodels MSTL wrapped into the De-Time workflow surface.
+- Summary: Statsmodels MSTL wrapped into the DeTime workflow surface.
 - Use when: multiple seasonalities in univariate data; classical decomposition baselines
 - Avoid when: shared-model multivariate decomposition problems; series where the dominant period is unknown and cannot be inferred reliably
 - Key params: `periods` (required)
@@ -138,7 +138,7 @@ See [Config Reference](config-reference.md#robust_stl) for the full parameter ta
 
 ### `STL`
 
-- Summary: Classical STL wrapped into the De-Time workflow contract.
+- Summary: Classical STL wrapped into the DeTime workflow contract.
 - Use when: classical seasonal-trend baselines; statsmodels-compatible workflows
 - Avoid when: shared-model multivariate decomposition problems; series where the dominant period is unknown and cannot be inferred reliably
 - Key params: `period` (required)
@@ -311,7 +311,7 @@ See [Config Reference](config-reference.md#leddam_block) for the full parameter 
 
 ### `MOVING_AVERAGE_DECOMPOSITION_BLOCK`
 
-- Summary: Generic neural forecasting moving-average decomposition block exposed as a De-Time method.
+- Summary: Generic neural forecasting moving-average decomposition block exposed as a DeTime method.
 - Use when: generic decomposition-block smoke tests; fast moving-average neural head baselines
 - Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows
 - Key params: `moving_avg` (null), `primary_period` (null)

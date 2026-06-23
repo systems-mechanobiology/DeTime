@@ -17,13 +17,12 @@ def _read_json(path: Path) -> dict:
 
 def main() -> int:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    token_bench = _read_json(EVIDENCE_DIR / "token_benchmarks.json")
-    agent_eval = _read_json(EVIDENCE_DIR / "agent_eval_summary.json")
+    coverage_summary = _read_json(EVIDENCE_DIR / "coverage_summary.json")
     runtime_snapshot = _read_json(EVIDENCE_DIR / "performance_snapshot.json")
 
     review_matrix = "\n".join(
         [
-            "# Reviewer Software Matrix",
+            "# Software Matrix",
             "",
             f"Generated for release target `{__version__}`.",
             "",
@@ -38,7 +37,7 @@ def main() -> int:
             "| Multivariate support | yes |",
             "| Maturity labeling | explicit |",
             "| Compact result modes | full / summary / meta |",
-            "| MCP surface | local-first |",
+            "| Machine contract | schemas, compact result views, metadata shortlist, optional local MCP |",
             "",
             "Reference evidence: `docs/assets/generated/evidence/comparison_evidence.json`.",
             "",
@@ -65,10 +64,10 @@ def main() -> int:
             "",
             "- Core-surface coverage: gated via `.coveragerc` and `fail_under = 90`.",
             "- Package-wide coverage: emitted as a second CI artifact with the broader denominator.",
+            f"- Core-surface result: `{coverage_summary['coverage']['core_surface']['percent']:.2f}%`.",
+            f"- Package-wide result: `{coverage_summary['coverage']['package_wide']['percent']:.2f}%`.",
             "- Runtime snapshot file: `docs/assets/generated/evidence/performance_snapshot.json`.",
             f"- Runtime snapshot methods: {', '.join(row['method'] for row in runtime_snapshot['summary'])}.",
-            "- Token benchmark file: `docs/assets/generated/evidence/token_benchmarks.json`.",
-            f"- Agent eval summary: passed `{agent_eval['summary']['passed']}` / `{agent_eval['summary']['total']}` deterministic checks.",
             "",
         ]
     )
@@ -86,15 +85,15 @@ def main() -> int:
         ]
     )
 
-    agent_overview = "\n".join(
+    machine_contract_overview = "\n".join(
         [
-            "# Agent Interface Overview",
+            "# Machine Contract Overview",
             "",
             "- Machine contract version: `0.1`.",
-            "- Stable tools: `list_methods`, `get_schema`, `recommend_method`, `run_decomposition`, `summarize_result`.",
-            "- Schema assets: `config`, `result`, `meta`, `method-registry`.",
-            f"- Token benchmark scenarios: `{len(token_bench['rows'])}` mode/scenario rows under `{token_bench['encoding']}`.",
-            f"- Agent eval cases: `{agent_eval['summary']['total']}` deterministic checks.",
+            "- Stable schema assets: `config`, `result`, `meta`, `method-registry`.",
+            "- Stable CLI surfaces: `detime run`, `detime batch`, `detime profile`, `detime schema`.",
+            "- Metadata shortlist surface: `detime recommend`; this is a catalog-based shortlist, not an empirically validated recommender.",
+            "- Optional local MCP tools mirror the same schema/result contract for non-interactive use.",
             "",
         ]
     )
@@ -104,7 +103,7 @@ def main() -> int:
         "INSTALL_VERIFICATION.md": install_verification,
         "TESTING_AND_COVERAGE.md": testing_and_coverage,
         "COMPANION_RELATIONSHIP.md": companion_relationship,
-        "AGENT_INTERFACE_OVERVIEW.md": agent_overview,
+        "MACHINE_CONTRACT_OVERVIEW.md": machine_contract_overview,
     }
     for name, content in files.items():
         (OUTPUT_DIR / name).write_text(content, encoding="utf-8")

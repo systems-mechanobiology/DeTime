@@ -1,83 +1,5 @@
 {
-  "agent_matrix": [
-    {
-      "artifact_contract": "yes",
-      "compact_result_modes": "full/summary/meta",
-      "json_schema_assets": "yes",
-      "machine_readable_catalog": "yes",
-      "mcp_surface": "local-first",
-      "package": "DeTime",
-      "recommend_interface": "yes",
-      "token_benchmark": "yes",
-      "tool_evals": "yes"
-    },
-    {
-      "artifact_contract": "no",
-      "compact_result_modes": "no",
-      "json_schema_assets": "no",
-      "machine_readable_catalog": "no",
-      "mcp_surface": "no",
-      "package": "statsmodels",
-      "recommend_interface": "no",
-      "token_benchmark": "no",
-      "tool_evals": "no"
-    },
-    {
-      "artifact_contract": "no",
-      "compact_result_modes": "no",
-      "json_schema_assets": "no",
-      "machine_readable_catalog": "no",
-      "mcp_surface": "no",
-      "package": "PyEMD",
-      "recommend_interface": "no",
-      "token_benchmark": "no",
-      "tool_evals": "no"
-    },
-    {
-      "artifact_contract": "no",
-      "compact_result_modes": "no",
-      "json_schema_assets": "no",
-      "machine_readable_catalog": "no",
-      "mcp_surface": "no",
-      "package": "PyWavelets",
-      "recommend_interface": "no",
-      "token_benchmark": "no",
-      "tool_evals": "no"
-    },
-    {
-      "artifact_contract": "no",
-      "compact_result_modes": "no",
-      "json_schema_assets": "no",
-      "machine_readable_catalog": "no",
-      "mcp_surface": "no",
-      "package": "PySDKit",
-      "recommend_interface": "no",
-      "token_benchmark": "no",
-      "tool_evals": "no"
-    },
-    {
-      "artifact_contract": "no",
-      "compact_result_modes": "no",
-      "json_schema_assets": "no",
-      "machine_readable_catalog": "no",
-      "mcp_surface": "no",
-      "package": "SSALib",
-      "recommend_interface": "no",
-      "token_benchmark": "no",
-      "tool_evals": "no"
-    },
-    {
-      "artifact_contract": "no",
-      "compact_result_modes": "no",
-      "json_schema_assets": "no",
-      "machine_readable_catalog": "no",
-      "mcp_surface": "no",
-      "package": "sktime",
-      "recommend_interface": "no",
-      "token_benchmark": "no",
-      "tool_evals": "no"
-    }
-  ],
+  "audit_date": "2026-06-19",
   "capability_matrix": [
     {
       "batch_cli": "yes",
@@ -171,6 +93,14 @@
       "unified_result_object": "no"
     }
   ],
+  "comparator_versions": {
+    "PyEMD/EMD-signal": "1.6.4",
+    "PySDKit": "0.4.23",
+    "PyWavelets": "1.9.0",
+    "SSALib": "not installed in local audit environment",
+    "sktime": "0.33.2",
+    "statsmodels": "0.14.5"
+  },
   "family_fairness": [
     {
       "de_time_position": "wraps STL and MSTL under one config/result/CLI layer",
@@ -203,16 +133,16 @@
       "specialist_deeper_strength": "broader signal-decomposition toolkit with optional multivariate backends"
     }
   ],
-  "generated_at": "2026-06-18T10:50:54.897067+00:00",
+  "generated_at": "2026-06-19T18:21:25.250889+00:00",
   "install_matrix": [
     {
       "api_docs": "yes",
       "ci_platforms": "ubuntu, macOS, windows",
       "coverage_disclosure": "dual report",
       "docs_website": "GitHub Pages",
-      "github_release": "de-time-v0.1.1",
+      "github_release": "de-time-v0.1.2",
       "package": "DeTime",
-      "public_release_story": "0.1.1 target from main",
+      "public_release_story": "0.1.2 release target from main",
       "pypi_path": "tag-driven publish workflow",
       "reproducibility_script": "yes",
       "tutorials": "yes",
@@ -297,6 +227,79 @@
       "wheels": "yes"
     }
   ],
-  "release_target_version": "0.1.1",
+  "machine_contract_matrix": [
+    {
+      "artifact_contract": "yes",
+      "cli_schema_command": "yes",
+      "compact_result_modes": "full/summary/meta",
+      "json_schema_assets": "yes",
+      "machine_readable_catalog": "yes",
+      "mcp_surface": "optional local-first",
+      "metadata_shortlist_interface": "yes",
+      "package": "DeTime"
+    },
+    {
+      "artifact_contract": "no",
+      "cli_schema_command": "no",
+      "compact_result_modes": "no",
+      "json_schema_assets": "no",
+      "machine_readable_catalog": "no",
+      "mcp_surface": "no",
+      "metadata_shortlist_interface": "no",
+      "package": "statsmodels"
+    },
+    {
+      "artifact_contract": "no",
+      "cli_schema_command": "no",
+      "compact_result_modes": "no",
+      "json_schema_assets": "no",
+      "machine_readable_catalog": "no",
+      "mcp_surface": "no",
+      "metadata_shortlist_interface": "no",
+      "package": "PyEMD"
+    },
+    {
+      "artifact_contract": "no",
+      "cli_schema_command": "no",
+      "compact_result_modes": "no",
+      "json_schema_assets": "no",
+      "machine_readable_catalog": "no",
+      "mcp_surface": "no",
+      "metadata_shortlist_interface": "no",
+      "package": "PyWavelets"
+    },
+    {
+      "artifact_contract": "no",
+      "cli_schema_command": "no",
+      "compact_result_modes": "no",
+      "json_schema_assets": "no",
+      "machine_readable_catalog": "no",
+      "mcp_surface": "no",
+      "metadata_shortlist_interface": "no",
+      "package": "PySDKit"
+    },
+    {
+      "artifact_contract": "no",
+      "cli_schema_command": "no",
+      "compact_result_modes": "no",
+      "json_schema_assets": "no",
+      "machine_readable_catalog": "no",
+      "mcp_surface": "no",
+      "metadata_shortlist_interface": "no",
+      "package": "SSALib"
+    },
+    {
+      "artifact_contract": "no",
+      "cli_schema_command": "no",
+      "compact_result_modes": "no",
+      "json_schema_assets": "no",
+      "machine_readable_catalog": "no",
+      "mcp_surface": "no",
+      "metadata_shortlist_interface": "no",
+      "package": "sktime"
+    }
+  ],
+  "release_target_version": "0.1.2",
+  "runtime_memory_boundary": "Feature audit only; no cross-package runtime or peak-memory ranking is claimed.",
   "runtime_snapshot_csv": "docs\\assets\\generated\\evidence\\performance_snapshot.csv"
 }

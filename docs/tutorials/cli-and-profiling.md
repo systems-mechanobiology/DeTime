@@ -252,7 +252,7 @@ Published outputs:
 - [recommend_text.txt](../assets/generated/tutorials/cli-and-profiling/machine/recommend_text.txt)
 - [recommend.json](../assets/generated/tutorials/cli-and-profiling/machine/recommend.json)
 
-Published recommendation text excerpt:
+Published metadata-based shortlist excerpt:
 
 ```text
 1. MSSA (13.50)

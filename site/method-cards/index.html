@@ -407,6 +407,10 @@
 </li>
                                     
 <li>
+    <a href="../release-artifacts/" class="dropdown-item">Release Artifacts</a>
+</li>
+                                    
+<li>
     <a href="../architecture/" class="dropdown-item">Architecture</a>
 </li>
                                     
@@ -480,7 +484,7 @@
 <h1 id="method-cards">Method Cards</h1>
 <p>This page is generated from <code>MethodRegistry.list_catalog()</code> so the human-facing
 method cards stay aligned with the machine-facing catalog contract.</p>
-<p>Current package version target: <code>0.1.1</code>.</p>
+<p>Current package version target: <code>0.1.2</code>.</p>
 <p>Source citations and official upstream package links are collected in
 <a href="../method-references/">Method References</a>.</p>
 <p>This page intentionally keeps cards compact. Use
@@ -552,7 +556,7 @@ not the canonical surface for any method listed below.</p>
 <p>See <a href="../config-reference/#ceemdan">Config Reference</a> for the full parameter table.</p>
 <h3 id="emd"><code>EMD</code></h3>
 <ul>
-<li>Summary: Empirical mode decomposition under the De-Time result contract.</li>
+<li>Summary: Empirical mode decomposition under the DeTime result contract.</li>
 <li>Use when: adaptive decomposition of nonlinear signals; IMF-oriented exploratory analysis</li>
 <li>Avoid when: shared-model multivariate decomposition problems</li>
 <li>Key params: <code>n_imfs</code> (null), <code>primary_period</code> (null)</li>
@@ -576,7 +580,7 @@ not the canonical surface for any method listed below.</p>
 <p>See <a href="../config-reference/#ma_baseline">Config Reference</a> for the full parameter table.</p>
 <h3 id="mstl"><code>MSTL</code></h3>
 <ul>
-<li>Summary: Statsmodels MSTL wrapped into the De-Time workflow surface.</li>
+<li>Summary: Statsmodels MSTL wrapped into the DeTime workflow surface.</li>
 <li>Use when: multiple seasonalities in univariate data; classical decomposition baselines</li>
 <li>Avoid when: shared-model multivariate decomposition problems; series where the dominant period is unknown and cannot be inferred reliably</li>
 <li>Key params: <code>periods</code> (required)</li>
@@ -600,7 +604,7 @@ not the canonical surface for any method listed below.</p>
 <p>See <a href="../config-reference/#robust_stl">Config Reference</a> for the full parameter table.</p>
 <h3 id="stl"><code>STL</code></h3>
 <ul>
-<li>Summary: Classical STL wrapped into the De-Time workflow contract.</li>
+<li>Summary: Classical STL wrapped into the DeTime workflow contract.</li>
 <li>Use when: classical seasonal-trend baselines; statsmodels-compatible workflows</li>
 <li>Avoid when: shared-model multivariate decomposition problems; series where the dominant period is unknown and cannot be inferred reliably</li>
 <li>Key params: <code>period</code> (required)</li>
@@ -758,7 +762,7 @@ not the canonical surface for any method listed below.</p>
 <p>See <a href="../config-reference/#leddam_block">Config Reference</a> for the full parameter table.</p>
 <h3 id="moving_average_decomposition_block"><code>MOVING_AVERAGE_DECOMPOSITION_BLOCK</code></h3>
 <ul>
-<li>Summary: Generic neural forecasting moving-average decomposition block exposed as a De-Time method.</li>
+<li>Summary: Generic neural forecasting moving-average decomposition block exposed as a DeTime method.</li>
 <li>Use when: generic decomposition-block smoke tests; fast moving-average neural head baselines</li>
 <li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
 <li>Key params: <code>moving_avg</code> (null), <code>primary_period</code> (null)</li>

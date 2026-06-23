@@ -1,6 +1,6 @@
 # Install Verification
 
-- Release target: `0.1.1`
+- Release target: `0.1.2`
 - Current source install path: `python -m pip install "git+https://github.com/systems-mechanobiology/DeTime.git"`
 - Planned PyPI install path after release: `pip install de-time`
 - Release state: publish from `main` via the release workflow, then run post-publish smoke verification.

@@ -4,14 +4,14 @@ One Python and CLI interface for trend, oscillation, residual, components, and m
 
 [![License: BSD-3-Clause](https://img.shields.io/badge/license-BSD--3--Clause-0f172a.svg)](LICENSE)
 ![Status: Beta](https://img.shields.io/badge/status-beta-1d4ed8.svg)
-[![Release: 0.1.1](https://img.shields.io/badge/release-0.1.1-0f766e.svg)](CHANGELOG.md)
+[![Release target: 0.1.2](https://img.shields.io/badge/release%20target-0.1.2-0f766e.svg)](CHANGELOG.md)
 [![Docs: GitHub Pages](https://img.shields.io/badge/docs-GitHub_Pages-0b5fff.svg)](https://systems-mechanobiology.github.io/DeTime/)
 [![HF Space: DeTime](https://img.shields.io/badge/HF%20Space-DeTime-ffb000.svg)](https://huggingface.co/spaces/Zipeng365/DeTime)
 ![Python: 3.10+](https://img.shields.io/badge/python-3.10%2B-0f766e.svg)
 [![PyPI](https://img.shields.io/pypi/v/de-time.svg)](https://pypi.org/project/de-time/)
-[![Unit tests: 105 passed](https://img.shields.io/badge/unit%20tests-105%20passed-brightgreen.svg)](tests/)
-[![Unit test coverage: 91.47%](https://img.shields.io/badge/unit%20coverage-91.47%25-brightgreen.svg)](README.md#quality-and-evidence)
-[![Methods: 31](https://img.shields.io/badge/methods-31-7c3aed.svg)](docs/method-matrix.md)
+[![Unit tests: 112 passed](https://img.shields.io/badge/unit%20tests-112%20passed-brightgreen.svg)](tests/)
+[![Core coverage: 92.58%](https://img.shields.io/badge/core%20coverage-92.58%25-brightgreen.svg)](README.md#quality-and-evidence)
+[![Package coverage: 88.41%](https://img.shields.io/badge/package%20coverage-88.41%25-84cc16.svg)](README.md#quality-and-evidence)
 [![Native-backed methods: 7](https://img.shields.io/badge/native--backed%20methods-7-475569.svg)](docs/method-matrix.md)
 [![CLI: detime](https://img.shields.io/badge/CLI-detime-2563eb.svg)](docs/quickstart.md)
 [![Schemas: JSON](https://img.shields.io/badge/schemas-JSON-0891b2.svg)](docs/machine-api.md)
@@ -28,21 +28,19 @@ one-off scripts. The product name is **DeTime**, the distribution is
 `tsdecomp` import and CLI remain compatibility-only through `0.1.x`, with
 earliest removal planned for `0.2.0`.
 
-The current release is `0.1.1`. Install the published package from PyPI with
-`python -m pip install de-time`, or use the editable contributor path below for
-local development.
+The current reviewed release version is `0.1.2`. Install the latest published
+package from PyPI with `python -m pip install de-time`, or use the editable
+contributor path below for local development against the repository head.
 
 Fast entry points:
 
 - [Documentation site](https://systems-mechanobiology.github.io/DeTime/)
-- [Hugging Face Space mirror](https://huggingface.co/spaces/Zipeng365/DeTime)
 - [Inline method gallery](https://systems-mechanobiology.github.io/DeTime/notebook-gallery/)
-- [Quant Trading column](https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/)
-- [Hot Trend Lab](https://systems-mechanobiology.github.io/DeTime/tutorials/hot-trend-lab/)
 - [Beginner notebook method gallery](examples/notebooks/de_time_method_gallery.ipynb)
 - [Cross-package comparison](docs/comparisons.md)
 - [Method comparison matrix](docs/method-matrix.md)
-- [Release evidence tables](docs/reproducibility.md#release-validation-runtime-snapshot)
+- [Release manifest](RELEASE_MANIFEST.md)
+- [Release evidence tables](docs/reproducibility.md)
 
 ## Scope
 
@@ -54,7 +52,7 @@ Use DeTime when you want:
   and `meta`,
 - native acceleration where it materially improves throughput,
 - multivariate decomposition workflows where shared structure matters,
-- machine-facing workflows that need schemas, recommendations, and low-token
+- machine-facing workflows that need schemas, metadata-based shortlists, and compact
   result views.
 
 Use a specialist package directly when you only need that package's deepest
@@ -112,7 +110,7 @@ the main package. They belong to the companion benchmark repository
 
 ## Cross-package comparison
 
-DeTime is positioned as a workflow and machine-contract layer beside
+DeTime is positioned as a software-contract and machine-contract layer beside
 specialist packages, not as a replacement for all of them.
 
 | Axis | DeTime | [statsmodels](https://www.statsmodels.org/) | [PyEMD](https://github.com/laszukdawid/PyEMD) | [PyWavelets](https://pywavelets.readthedocs.io/en/latest/) | [PySDKit](https://pysdkit.readthedocs.io/en/latest/) | [SSALib](https://github.com/ADSCIAN/ssalib) | [sktime](https://www.sktime.net/en/stable/) |
@@ -229,15 +227,19 @@ result = run_tsdecompose_benchmark(smoke=True, out_dir="out/tsdecompose-smoke")
 print(result.leaderboard_path)
 ```
 
-## Agent-native surface
+## Machine-facing surface
 
 DeTime now includes:
 
 - packaged JSON schemas for `config`, `result`, `meta`, and `method-registry`,
 - low-token result export modes: `full`, `summary`, and `meta`,
-- machine-readable method metadata for registry, docs, and recommendation,
+- machine-readable method metadata for registry, docs, and metadata-based shortlists,
 - `detime schema` and `detime recommend`,
 - a local-first MCP server at `python -m detime.mcp.server`.
+
+These interfaces support non-interactive automation. The maintained software
+claim remains the decomposition API, CLI, schemas, result object, metadata, and
+validated package boundary.
 
 ## Package boundary
 
@@ -256,19 +258,27 @@ compatibility.
 ## Quality and evidence
 
 - Release smoke checks live in `scripts/release_smoke_matrix.py`.
-- Reviewer-facing documentation consistency checks live in
+- Documentation consistency checks live in
   `scripts/check_doc_consistency.py`.
 - The current performance snapshot is generated by
   `scripts/generate_performance_snapshot.py` and stored under
   `docs/assets/generated/evidence/`.
 - Comparison matrices are generated by
   `benchmarks/software_comparison/generate_comparison_evidence.py`.
-- Token benchmarks are generated with `tiktoken` by
-  `benchmarks/token_benchmarks/generate_token_benchmarks.py`.
-- Deterministic agent workflow checks are generated by
-  `evals/agent/run_agent_evals.py`.
 - The coverage story is intentionally split into core-surface coverage and
   package-wide coverage so the denominator stays explicit.
+
+Coverage from the 2026-06-22 checkout-source audit:
+
+| View | Config | Scope | Result |
+|---|---|---|---:|
+| Core contract | `.coveragerc` | core-plus-maintained library surface | 92.58% |
+| Package-wide | `.coveragerc.package` | installable package including CLI/I/O/wrappers/viz | 88.41% |
+
+The JSON reports are stored in
+`docs/assets/generated/evidence/coverage_core.json`,
+`docs/assets/generated/evidence/coverage_package.json`, and
+`docs/assets/generated/evidence/coverage_summary.json`.
 
 Release-validation runtime snapshot for selected native-backed paths in the
 reviewed environment. These values compare DeTime native-backed paths against
@@ -277,13 +287,13 @@ cross-package benchmark.
 
 | Method | Python mean (ms) | Native mean (ms) | Speedup |
 |---|---:|---:|---:|
-| `SSA` | 13.668 | 1.906 | 7.17x |
-| `STD` | 0.153 | 0.024 | 6.48x |
-| `STDR` | 0.176 | 0.018 | 9.92x |
-| `MA_BASELINE` | 0.071 | 0.015 | 4.77x |
-| `MSSA` | 70.039 | 25.727 | 2.72x |
-| `VMD` | 50.140 | 14.482 | 3.46x |
-| `GABOR_CLUSTER` (experimental) | 2.694 | 0.195 | 13.81x |
+| `SSA` | 13.925 | 1.906 | 7.31x |
+| `STD` | 0.154 | 0.024 | 6.44x |
+| `STDR` | 0.175 | 0.018 | 9.81x |
+| `MA_BASELINE` | 0.070 | 0.016 | 4.42x |
+| `MSSA` | 60.856 | 22.900 | 2.66x |
+| `VMD` | 47.856 | 13.812 | 3.46x |
+| `GABOR_CLUSTER` (experimental) | 3.304 | 0.181 | 18.22x |
 
 Documentation and tutorial evidence:
 
@@ -324,3 +334,8 @@ Reference and review:
 - Contributing guide: [`CONTRIBUTING.md`](CONTRIBUTING.md)
 - Security policy: [`SECURITY.md`](SECURITY.md)
 - Publishing notes: [`PUBLISHING.md`](PUBLISHING.md)
+- Release manifest: [`RELEASE_MANIFEST.md`](RELEASE_MANIFEST.md)
+- Source/archive boundary: [`SOURCE_ARCHIVE_BOUNDARY.md`](SOURCE_ARCHIVE_BOUNDARY.md)
+- Third-party licenses: [`THIRD_PARTY_LICENSES.md`](THIRD_PARTY_LICENSES.md)
+- License audit notes: [`LICENSE_AUDIT.md`](LICENSE_AUDIT.md)
+- Authors and credit: [`AUTHORS.md`](AUTHORS.md), [`CREDIT.md`](CREDIT.md)

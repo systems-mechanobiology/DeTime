@@ -52,7 +52,7 @@ def test_registry_catalog_covers_flagship_wrapper_and_optional_paths() -> None:
 def test_registry_payload_model_roundtrip() -> None:
     payload = MethodRegistryPayloadModel(
         package="detime",
-        version="0.1.1",
+        version="0.1.2",
         contract_version="0.1",
         methods=[MethodMetadataModel.model_validate(entry) for entry in MethodRegistry.list_catalog()],
     )

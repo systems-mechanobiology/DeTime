@@ -407,6 +407,10 @@
 </li>
                                     
 <li>
+    <a href="../release-artifacts/" class="dropdown-item">Release Artifacts</a>
+</li>
+                                    
+<li>
     <a href="../architecture/" class="dropdown-item">Architecture</a>
 </li>
                                     
@@ -437,7 +441,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../architecture/" class="nav-link">
+                                <a rel="next" href="../release-artifacts/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -553,7 +557,7 @@ reproduction path for the benchmark claims.</p>
 <h2 id="documentation-and-tutorial-surface">Documentation and tutorial surface</h2>
 <p>The documentation is part of the reviewed software surface, not only a landing
 page. It includes executable examples, rendered notebooks, generated method
-metadata, schemas, and reviewer-facing evidence files.</p>
+metadata, schemas, and release evidence files.</p>
 <table>
 <thead>
 <tr>
@@ -604,8 +608,6 @@ The current release and docs were checked with:
 - `python scripts/generate_method_cards.py`
 - `python benchmarks/software_comparison/generate_comparison_evidence.py`
 - `python examples/workflow_comparisons/compare_specialist_glue_vs_detime.py`
-- `python benchmarks/token_benchmarks/generate_token_benchmarks.py`
-- `python evals/agent/run_agent_evals.py`
 - `python scripts/generate_reviewer_bundle.py`
 - `python -m twine check dist/*`
 
@@ -632,11 +634,13 @@ The current release and docs were checked with:
 <li>optional wrappers and non-core integrations that remain tested but are
   not part of the gated coverage surface.</li>
 </ul>
-<p>The latest local <code>0.1.1</code> release-candidate run reached <code>93.73%</code>
-core-surface coverage and <code>84.00%</code> package-wide coverage.</p>
+<p>The 2026-06-22 <code>0.1.2</code> release-candidate audit was run against the checkout
+source by removing the stale <code>_de_time_editable</code> import hook before pytest
+startup and putting <code>src/</code> first on <code>sys.path</code>. It reached <code>92.58%</code>
+core-contract coverage and <code>88.41%</code> package-wide coverage.</p>
 <p>Package-wide coverage is emitted separately in CI and uploaded as a second
-artifact so reviewer-facing reports can show both the narrow safety gate and
-the broader installable surface.</p>
+artifact so release reports can show both the narrow safety gate and the
+broader installable surface.</p>
 <p>Optional <code>.[multivar]</code> integrations are validated separately in a dedicated
 smoke path so <code>MVMD</code> / <code>MEMD</code> execution evidence is published without
 broadening the core-method coverage gate.</p>
@@ -653,6 +657,72 @@ includes numeric agreement checks between native and Python implementations for:
 <li><code>SSA</code>: <code>atol=1e-6</code></li>
 <li><code>STD</code> / <code>STDR</code>: <code>atol=1e-9</code></li>
 </ul>
+<p>Native correctness status:</p>
+<table>
+<thead>
+<tr>
+<th>Native path</th>
+<th>Reference path</th>
+<th>Check type</th>
+<th style="text-align: right;">Public tolerance</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SSA</code></td>
+<td>Python SSA</td>
+<td>numerical agreement</td>
+<td style="text-align: right;"><code>1e-6</code></td>
+<td>agreement-tested</td>
+</tr>
+<tr>
+<td><code>STD</code></td>
+<td>Python STD</td>
+<td>numerical agreement</td>
+<td style="text-align: right;"><code>1e-9</code></td>
+<td>agreement-tested</td>
+</tr>
+<tr>
+<td><code>STDR</code></td>
+<td>Python STDR</td>
+<td>numerical agreement</td>
+<td style="text-align: right;"><code>1e-9</code></td>
+<td>agreement-tested</td>
+</tr>
+<tr>
+<td><code>MA_BASELINE</code></td>
+<td>Python fallback</td>
+<td>callable/schema smoke</td>
+<td style="text-align: right;">n/a</td>
+<td>smoke-tested</td>
+</tr>
+<tr>
+<td><code>MSSA</code></td>
+<td>Python fallback</td>
+<td>callable/schema smoke</td>
+<td style="text-align: right;">n/a</td>
+<td>smoke-tested</td>
+</tr>
+<tr>
+<td><code>VMD</code></td>
+<td>Python fallback</td>
+<td>callable/schema smoke</td>
+<td style="text-align: right;">n/a</td>
+<td>smoke-tested</td>
+</tr>
+<tr>
+<td><code>GABOR_CLUSTER</code></td>
+<td>experimental native path</td>
+<td>callable/schema smoke</td>
+<td style="text-align: right;">n/a</td>
+<td>experimental smoke-tested</td>
+</tr>
+</tbody>
+</table>
+<p>Only the agreement-tested rows should be cited as numerical-equivalence
+evidence. The remaining rows verify routing, result-shape/schema behavior, and
+native availability in the release environment.</p>
 <h2 id="release-validation-runtime-snapshot">Release-validation runtime snapshot</h2>
 <p>The following snapshot records selected native-backed release-validation paths
 against internal Python fallback paths in one review environment. It verifies
@@ -670,45 +740,45 @@ result contract. It is not a portable runtime ranking against other packages.</p
 <tbody>
 <tr>
 <td><code>SSA</code></td>
-<td style="text-align: right;">13.668</td>
+<td style="text-align: right;">13.925</td>
 <td style="text-align: right;">1.906</td>
-<td style="text-align: right;">7.17x</td>
+<td style="text-align: right;">7.31x</td>
 </tr>
 <tr>
 <td><code>STD</code></td>
-<td style="text-align: right;">0.153</td>
+<td style="text-align: right;">0.154</td>
 <td style="text-align: right;">0.024</td>
-<td style="text-align: right;">6.48x</td>
+<td style="text-align: right;">6.44x</td>
 </tr>
 <tr>
 <td><code>STDR</code></td>
-<td style="text-align: right;">0.176</td>
+<td style="text-align: right;">0.175</td>
 <td style="text-align: right;">0.018</td>
-<td style="text-align: right;">9.92x</td>
+<td style="text-align: right;">9.81x</td>
 </tr>
 <tr>
 <td><code>MA_BASELINE</code></td>
-<td style="text-align: right;">0.071</td>
-<td style="text-align: right;">0.015</td>
-<td style="text-align: right;">4.77x</td>
+<td style="text-align: right;">0.070</td>
+<td style="text-align: right;">0.016</td>
+<td style="text-align: right;">4.42x</td>
 </tr>
 <tr>
 <td><code>MSSA</code></td>
-<td style="text-align: right;">70.039</td>
-<td style="text-align: right;">25.727</td>
-<td style="text-align: right;">2.72x</td>
+<td style="text-align: right;">60.856</td>
+<td style="text-align: right;">22.900</td>
+<td style="text-align: right;">2.66x</td>
 </tr>
 <tr>
 <td><code>VMD</code></td>
-<td style="text-align: right;">50.140</td>
-<td style="text-align: right;">14.482</td>
+<td style="text-align: right;">47.856</td>
+<td style="text-align: right;">13.812</td>
 <td style="text-align: right;">3.46x</td>
 </tr>
 <tr>
 <td><code>GABOR_CLUSTER</code> (experimental)</td>
-<td style="text-align: right;">2.694</td>
-<td style="text-align: right;">0.195</td>
-<td style="text-align: right;">13.81x</td>
+<td style="text-align: right;">3.304</td>
+<td style="text-align: right;">0.181</td>
+<td style="text-align: right;">18.22x</td>
 </tr>
 </tbody>
 </table>
@@ -828,10 +898,11 @@ coverage. They remain experimental package-level operators.</p>
 <ul>
 <li><a href="../assets/generated/evidence/performance_snapshot.json">Performance snapshot JSON</a></li>
 <li><a href="../assets/generated/evidence/performance_snapshot.csv">Performance summary CSV</a></li>
+<li><a href="../assets/generated/evidence/coverage_core.json">Core coverage JSON</a></li>
+<li><a href="../assets/generated/evidence/coverage_package.json">Package-wide coverage JSON</a></li>
+<li><a href="../assets/generated/evidence/coverage_summary.json">Coverage summary JSON</a></li>
 <li><a href="../assets/generated/evidence/comparison_evidence.json">Comparison evidence JSON</a></li>
 <li><a href="../assets/generated/evidence/workflow_comparison.json">Workflow comparison demo JSON</a></li>
-<li><a href="../assets/generated/evidence/token_benchmarks.json">Token benchmark summary JSON</a></li>
-<li><a href="../assets/generated/evidence/agent_eval_summary.json">Agent eval summary JSON</a></li>
 <li>JSON schemas: <code>src/detime/schema_assets/*.json</code></li>
 </ul>
 <p>The performance snapshot is reproducible from

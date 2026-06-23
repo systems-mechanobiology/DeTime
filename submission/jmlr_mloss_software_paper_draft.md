@@ -2,20 +2,22 @@
 
 ## Abstract
 
-DeTime is open-source research software for reproducible time-series
-decomposition. The package does not introduce a new decomposition algorithm.
-Instead, it provides a coherent software surface for configuring, running,
-profiling, saving, and machine-serving decomposition workflows across several
-retained method families. The canonical package namespace is `detime`, while
-`tsdecomp` remains only as a deprecated top-level import and CLI alias. The
-software surface centers on four flagship workflows, `SSA`, `STD`, `STDR`, and
-`MSSA`, and retains additional wrapper-based integrations with explicit
-maturity labels. Benchmark-oriented artifact code was separated into a
-companion repository so that the main package is a clean software submission
-rather than a mixed library-plus-benchmark artifact. Version `0.1.1` freezes
-packaged JSON schemas with explicit `contract_version` metadata, low-token
-result views, a method recommender, a minimal MCP server, deterministic exact
-native `SSA`, and selected native-backed acceleration alongside tests,
+Time-series decomposition is widely used for denoising, feature extraction,
+representation shaping, and exploratory analysis in machine-learning
+workflows. DeTime is open-source research software that makes this workflow
+reproducible across heterogeneous decomposition families. It provides a
+coherent software surface for configuring, running, profiling, saving, and
+validating decomposition workflows. The canonical package namespace is
+`detime`, while `tsdecomp` remains only as a deprecated top-level import and
+CLI alias. The software surface centers on core maintained workflows such as
+`SSA`, `STD`, `STDR`, and `MSSA`, and retains additional wrapper-based or
+experimental integrations with explicit maturity labels. Benchmark-oriented
+artifact code was separated into a companion repository so that the main
+package is a clean software submission rather than a mixed
+library-plus-benchmark artifact. Version `0.1.2` freezes packaged JSON schemas
+with explicit `contract_version` metadata, compact result views, a
+metadata-based method shortlist, an optional local MCP server, deterministic
+exact native `SSA`, and selected native-backed acceleration alongside tests,
 documentation, and release automation.
 
 ## 1. Introduction
@@ -26,15 +28,14 @@ creates unnecessary friction when researchers need to compare methods, preserve
 runtime metadata, serialize outputs, or move an analysis from one user or
 machine to another.
 
-DeTime addresses that software problem. Its contribution is therefore not a
-new algorithm and not a benchmark paper. The contribution is a workflow layer:
+DeTime addresses that software problem through a reusable workflow layer:
 
 - one configuration contract,
 - one result contract,
 - one public import surface,
 - one public CLI for retained package workflows,
 - selected native acceleration where it materially improves throughput,
-- one machine-facing surface for schemas, recommendation, and low-token
+- one machine-facing surface for schemas, metadata shortlists, and compact
   handoff.
 
 This workflow layer is relevant to machine learning practice. In typical ML
@@ -53,13 +54,13 @@ The canonical public interface is built around:
 - `decompose()` for dispatch,
 - a CLI with `run`, `batch`, `profile`, `version`, `schema`, and `recommend`,
 - packaged JSON schemas and a minimal MCP server for tool-based access,
-- native capability helpers for the retained flagship methods.
+- native capability helpers for selected maintained paths.
 
 The canonical package identity is `detime`. The older `tsdecomp` namespace
 remains available only as a deprecated top-level import and CLI compatibility
 layer for one deprecation cycle.
 
-The main package centers on four flagship workflows:
+The main package centers on four core maintained workflows:
 
 - `SSA`
 - `STD`
@@ -67,14 +68,15 @@ The main package centers on four flagship workflows:
 - `MSSA`
 
 Additional methods such as `STL`, `MSTL`, `EMD`, `CEEMDAN`, `VMD`, `WAVELET`,
-`MVMD`, `MEMD`, and `GABOR_CLUSTER` are retained as wrappers or optional
-backends rather than presented as co-equal flagship methods.
+`MVMD`, `MEMD`, and `GABOR_CLUSTER` are retained as wrappers, optional
+backends, or experimental paths rather than presented as co-equal maintained
+claims.
 
 ## 3. Package boundary and relation to earlier artifacts
 
 Earlier repository states mixed software-package concerns with benchmark
 artifacts, synthetic generators, leaderboard helpers, and benchmark-derived
-methods. In the `0.1.1` candidate, those components were moved out of the main
+methods. In the `0.1.2` candidate, those components were moved out of the main
 package boundary into the companion repository
 `systems-mechanobiology/de-time-bench`.
 
@@ -93,10 +95,10 @@ stack.
 
 ## 4. Quality discipline and release story
 
-The current submission is frozen against version `0.1.1`. Repository metadata,
-citation metadata, docs, and reviewer-facing evidence are aligned to that
-candidate, and the public GitHub / PyPI release should be cut from the same
-commit as `de-time-v0.1.1`. The package includes:
+The current submission is aligned to version `0.1.2`. Repository metadata,
+citation metadata, docs, and release evidence are aligned to that candidate.
+The existing public `de-time-v0.1.1` tag is not moved; the next immutable
+release should be cut as `de-time-v0.1.2`. The package includes:
 
 - tests for the retained public interface,
 - strict documentation builds,
@@ -104,7 +106,7 @@ commit as `de-time-v0.1.1`. The package includes:
 - artifact-layout checks that verify removed benchmark stubs and legacy
   transition modules do not re-enter wheel or sdist payloads,
 - `twine check` for release artifacts,
-- a coverage gate of `fail_under = 90` on the canonical core-plus-flagship
+- a coverage gate of `fail_under = 90` on the canonical core-plus-maintained
   coverage scope,
 - schema freshness checks for packaged JSON schemas,
 - native fallback handling where native kernels are unavailable,
@@ -115,9 +117,9 @@ commit as `de-time-v0.1.1`. The package includes:
 - optional `.[multivar]` smoke coverage for `MVMD` / `MEMD`,
 - reproducible performance snapshot generation.
 
-In the latest local release review run, the gated `detime` core-surface
-coverage report reached `93.73%`, while the separate package-wide report
-reached `84.00%`.
+In the 2026-06-19 local release review run, the gated `detime` core-surface
+coverage report reached `91.49%`, while the separate package-wide report
+reached `84.96%`.
 
 ## 5. Relationship to related software
 
@@ -130,7 +132,7 @@ them.
 | [`PyEMD`](https://github.com/laszukdawid/PyEMD) | deeper EMD-family tooling | DeTime uses EMD-family methods as one family inside a broader workflow contract |
 | [`PyWavelets`](https://pywavelets.readthedocs.io/en/latest/) | deeper wavelet transforms and transform-specific APIs | DeTime exposes wavelet decomposition for workflow consistency, not wavelet leadership |
 | [`PySDKit`](https://pysdkit.readthedocs.io/en/latest/) | broader signal-decomposition toolkit and optional multivariate backends | DeTime uses `PySDKit` selectively for `MVMD` and `MEMD` while maintaining its own config/result layer |
-| [`SSALib`](https://github.com/ADSCIAN/ssalib) | deeper SSA-only environment | DeTime offers SSA as one flagship path inside a cross-family package |
+| [`SSALib`](https://github.com/ADSCIAN/ssalib) | deeper SSA-only environment | DeTime offers SSA as one maintained path inside a cross-family package |
 | [`sktime`](https://www.sktime.net/en/stable/) | current maintained VMD reality plus a broader time-series transform ecosystem | DeTime treats the maintained `sktime` VMD path as the relevant comparison rather than relying on the older standalone `vmdpy` identity |
 
 The main software claim is therefore not method-count breadth alone. It is the
@@ -140,7 +142,7 @@ combination of:
 - a common `DecompResult`,
 - one CLI workflow surface,
 - one package-level story for native support, profiling, and saved outputs,
-- one machine-facing story for schemas, recommendation, and tool-based access.
+- one machine-facing story for schemas, metadata shortlists, and tool-based access.
 
 ## 5.1 Method literature and upstream packages
 
@@ -166,20 +168,25 @@ storytelling, we report a small runtime snapshot from one Windows / Python
 
 | Method | Python mean runtime (ms) | Native mean runtime (ms) | Speedup |
 |---|---:|---:|---:|
-| `SSA` | 14.239 | 1.833 | 7.770x |
-| `STD` | 0.181 | 0.031 | 5.825x |
-| `STDR` | 0.192 | 0.021 | 9.319x |
+| `SSA` | 13.925 | 1.906 | 7.307x |
+| `STD` | 0.154 | 0.024 | 6.445x |
+| `STDR` | 0.175 | 0.018 | 9.807x |
+| `MA_BASELINE` | 0.070 | 0.016 | 4.423x |
+| `MSSA` | 60.856 | 22.900 | 2.657x |
+| `VMD` | 47.856 | 13.812 | 3.465x |
+| `GABOR_CLUSTER` | 3.304 | 0.181 | 18.225x |
 
 These numbers are not presented as universal performance claims. They are
 included to show that the native-backed path is a real software capability in
-the retained flagship package.
+the retained package boundary. They compare DeTime native-backed paths against
+DeTime Python fallbacks in one environment, not against external packages.
 
 ## 7. Limitations and non-goals
 
 DeTime does not claim:
 
 - to replace specialist libraries in their deepest method-specific domains,
-- to make every wrapper as mature as the flagship methods,
+- to make every wrapper as mature as the core maintained methods,
 - to turn optional backend integrations into fully independent in-house
   implementations,
 - to present a large external user community at the current stage.
@@ -192,7 +199,7 @@ uptake.
 ## 8. Conclusion
 
 DeTime contributes workflow-oriented research software for reproducible
-time-series decomposition. Version `0.1.1` emphasizes a canonical `detime`
+time-series decomposition. Version `0.1.2` emphasizes a canonical `detime`
 package identity, a narrower and cleaner public software surface, a separation
 from benchmark artifacts, explicit positioning relative to specialist libraries
 such as `PySDKit`, `SSALib`, and `sktime`, and a quality story grounded in

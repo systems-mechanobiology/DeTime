@@ -4,6 +4,10 @@ DeTime's compact result modes are meant to lower context cost for machine
 consumers. This page tracks that claim with a reproducible tokenizer-specific
 benchmark rather than anecdotal wording.
 
+This is auxiliary evidence for compact serialization. It is not part of the
+main release-quality claim, which is the decomposition API, CLI, schemas,
+result object, metadata, artifacts, and validation boundary.
+
 ## Method
 
 - tokenizer: `tiktoken` `cl100k_base`

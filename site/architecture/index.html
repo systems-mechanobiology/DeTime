@@ -407,6 +407,10 @@
 </li>
                                     
 <li>
+    <a href="../release-artifacts/" class="dropdown-item">Release Artifacts</a>
+</li>
+                                    
+<li>
     <a href="./" class="dropdown-item active" aria-current="page">Architecture</a>
 </li>
                                     
@@ -432,7 +436,7 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../reproducibility/" class="nav-link">
+                                <a rel="prev" href="../release-artifacts/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
@@ -495,7 +499,7 @@
 <li><code>registry.py</code>: method registration, metadata catalog, and <code>decompose()</code> dispatch.</li>
 <li><code>io.py</code>: loading series and saving decomposition outputs.</li>
 <li><code>serialization.py</code>: <code>full</code>, <code>summary</code>, and <code>meta</code> result views.</li>
-<li><code>recommend.py</code>: method recommendation logic.</li>
+<li><code>recommend.py</code>: metadata-based method shortlist logic.</li>
 <li><code>schemas.py</code>: packaged JSON schema generation and loading.</li>
 <li><code>profile.py</code>: runtime profiling helpers.</li>
 <li><code>viz.py</code>: plotting helpers.</li>
@@ -514,7 +518,7 @@ window is the <code>0.1.x</code> series, with earliest removal planned for <code
 <ul>
 <li>packaged JSON schemas under <code>src/detime/schema_assets</code>,</li>
 <li>machine-readable method metadata from <code>MethodRegistry.list_catalog()</code>,</li>
-<li><code>detime schema</code> and <code>detime recommend</code>,</li>
+<li><code>detime schema</code> and the metadata-based <code>detime recommend</code> shortlist command,</li>
 <li>the local-first MCP server at <code>python -m detime.mcp.server</code>,</li>
 <li>low-token result exports via <code>summary</code> and <code>meta</code> modes.</li>
 </ul>

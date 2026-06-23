@@ -21,7 +21,7 @@ univariate and aligned multichannel decomposition workflows.
       <div class="window-topbar">
         <div class="traffic-lights"><span></span><span></span><span></span></div>
         <div class="window-title"><img alt="" src="assets/brand/detime-logo-color.png"></div>
-        <div class="window-actions">142 ms</div>
+        <div class="window-actions">validated</div>
       </div>
       <div class="app-shell">
         <div class="app-sidebar">
@@ -77,7 +77,7 @@ univariate and aligned multichannel decomposition workflows.
         </li>
         <li>
           <span class="point-icon icon-machine"></span>
-          <span><strong>Machine-facing schemas</strong><small>Recommendation and low-token result modes for automation.</small></span>
+          <span><strong>Schemas and metadata</strong><small>JSON schemas and method shortlists for automation.</small></span>
         </li>
       </ul>
     </div>
@@ -89,56 +89,7 @@ univariate and aligned multichannel decomposition workflows.
   <span class="trust-pill">Distribution: <code>de-time</code></span>
   <span class="trust-pill">Hugging Face mirror: <a href="https://huggingface.co/spaces/Zipeng365/DeTime">Zipeng365/DeTime</a></span>
   <span class="trust-pill">Core methods: SSA / STD / STDR / MSSA</span>
-  <span class="trust-pill">Machine-facing schemas and low-token result modes</span>
-</div>
-
-## Quant Trading Tutorials
-
-<div class="quant-home-feature">
-  <div class="quant-home-copy">
-    <span class="section-kicker">New tutorial column</span>
-    <h3>Turn market series into audited decomposition features.</h3>
-    <p>The quant trading column keeps DeTime in its proper role: a decomposition layer that routes real market inputs into trend, cycle, residual, signal, and backtest research steps.</p>
-    <div class="feature-bullets quant-home-bullets">
-      <span>11 applied notebooks plus a roadmap for data loading, timing, pairs, factor selection, rotation, adapters, and audit</span>
-      <span>Real runtime market data policy for US, Korea, ETF, and crypto examples</span>
-      <span>Walk-forward validation before signal evaluation</span>
-    </div>
-    <div class="hero-actions quant-home-actions">
-      <a href="tutorials/quant-trading/">Open Quant Column</a>
-      <a class="secondary" href="tutorials/quant-trading/strategy-map/">Strategy Map</a>
-    </div>
-  </div>
-  <div class="quant-workbench" aria-label="Quant trading tutorial research workbench preview">
-    <div class="quant-workbench-top">
-      <span>DeTime Research</span>
-      <b>STL / Walk-forward</b>
-      <i>audit ready</i>
-    </div>
-    <div class="quant-workbench-grid">
-      <div class="quant-universe">
-        <small>Universe</small>
-        <strong>Market inputs</strong>
-        <span>SPY</span>
-        <span>005930.KS</span>
-        <span>BTC-USD</span>
-        <em>real data only</em>
-      </div>
-      <div class="quant-signal-board">
-        <div class="quant-price-chart"><span>Observed price</span><i></i></div>
-        <div class="quant-component trend"><span>Trend</span><i></i></div>
-        <div class="quant-component seasonal"><span>Cycle</span><i></i></div>
-        <div class="quant-component residual"><span>Residual</span><i></i></div>
-      </div>
-      <div class="quant-notebook-stack">
-        <small>Notebook path</small>
-        <strong>Features -> Signals -> Backtest</strong>
-        <span><b>02</b> Timing vectorbt</span>
-        <span><b>04</b> Pairs residual</span>
-        <span><b>07</b> Native SSA replay</span>
-      </div>
-    </div>
-  </div>
+  <span class="trust-pill">Schemas, metadata, and exportable artifacts</span>
 </div>
 
 ## Why DeTime exists
@@ -164,7 +115,7 @@ univariate and aligned multichannel decomposition workflows.
     </div>
     <div class="why-row">
       <span>Automation needs compact outputs</span>
-      <strong>Schemas, recommendations, and low-token result views</strong>
+      <strong>Schemas, metadata shortlists, and compact result views</strong>
     </div>
   </div>
 </div>
@@ -234,16 +185,20 @@ univariate and aligned multichannel decomposition workflows.
   </a>
 </div>
 
-## New Columns
+## Applications
+
+These examples show how the same decomposition interface can be used in larger
+workflows. They are application documentation, not the core maintained package
+claim.
 
 <div class="info-grid">
   <a class="info-card" href="tutorials/quant-trading/">
     <h3>Quant Trading Column</h3>
-    <p>Real market data, decomposition features, strategy maps, backtesting adapters, and walk-forward validation.</p>
+    <p>11 applied notebooks plus a roadmap for data loading, timing, pairs, factor selection, rotation, adapters, and audit.</p>
   </a>
   <a class="info-card" href="tutorials/hot-trend-lab/">
     <h3>Hot Trend Lab</h3>
-    <p>Real public-data trend and cycle decomposition for research, open models, developer attention, markets, and crypto.</p>
+    <p>7 case notebooks plus an overview for public-data trend and cycle examples.</p>
   </a>
 </div>
 

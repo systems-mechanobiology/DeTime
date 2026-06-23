@@ -1,6 +1,19 @@
 # Comparison Evidence
 
-Generated for DeTime `0.1.1` on 2026-06-18T10:50:54.897067+00:00.
+Generated for DeTime `0.1.2` on 2026-06-19T18:21:25.250889+00:00.
+
+Audit date: 2026-06-19.
+
+Comparator versions:
+
+- statsmodels: 0.14.5
+- PyEMD/EMD-signal: 1.6.4
+- PyWavelets: 1.9.0
+- PySDKit: 0.4.23
+- SSALib: not installed in local audit environment
+- sktime: 0.33.2
+
+Runtime and memory boundary: feature audit only; no cross-package runtime or peak-memory ranking is claimed.
 
 ## Capability matrix
 
@@ -18,7 +31,7 @@ Generated for DeTime `0.1.1` on 2026-06-18T10:50:54.897067+00:00.
 
 | package | public_release_story | pypi_path | github_release | wheels | ci_platforms | docs_website | tutorials | api_docs | coverage_disclosure | reproducibility_script |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| DeTime | 0.1.1 target from main | tag-driven publish workflow | de-time-v0.1.1 | yes | ubuntu, macOS, windows | GitHub Pages | yes | yes | dual report | yes |
+| DeTime | 0.1.2 release target from main | tag-driven publish workflow | de-time-v0.1.2 | yes | ubuntu, macOS, windows | GitHub Pages | yes | yes | dual report | yes |
 | statsmodels | yes | yes | yes | yes | yes | yes | yes | yes | project-dependent | project-dependent |
 | PyEMD | yes | yes | yes | partial | project-dependent | partial | partial | partial | project-dependent | no |
 | PyWavelets | yes | yes | yes | yes | yes | yes | yes | yes | project-dependent | no |
@@ -36,17 +49,17 @@ Generated for DeTime `0.1.1` on 2026-06-18T10:50:54.897067+00:00.
 | wavelet workflows | PyWavelets | deeper wavelet transforms and transform-specific APIs | uses wavelets as one workflow option rather than a wavelet-first toolkit |
 | unified toolkit layer | PySDKit | broader signal-decomposition toolkit with optional multivariate backends | focuses on time-series decomposition workflows, machine-facing contracts, and compact outputs |
 
-## Agent-facing matrix
+## Machine-contract matrix
 
-| package | json_schema_assets | compact_result_modes | recommend_interface | machine_readable_catalog | mcp_surface | artifact_contract | token_benchmark | tool_evals |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| DeTime | yes | full/summary/meta | yes | yes | local-first | yes | yes | yes |
-| statsmodels | no | no | no | no | no | no | no | no |
-| PyEMD | no | no | no | no | no | no | no | no |
-| PyWavelets | no | no | no | no | no | no | no | no |
-| PySDKit | no | no | no | no | no | no | no | no |
-| SSALib | no | no | no | no | no | no | no | no |
-| sktime | no | no | no | no | no | no | no | no |
+| package | json_schema_assets | compact_result_modes | metadata_shortlist_interface | machine_readable_catalog | cli_schema_command | artifact_contract | mcp_surface |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| DeTime | yes | full/summary/meta | yes | yes | yes | yes | optional local-first |
+| statsmodels | no | no | no | no | no | no | no |
+| PyEMD | no | no | no | no | no | no | no |
+| PyWavelets | no | no | no | no | no | no | no |
+| PySDKit | no | no | no | no | no | no | no |
+| SSALib | no | no | no | no | no | no | no |
+| sktime | no | no | no | no | no | no | no |
 
 ## Runtime snapshot source
 

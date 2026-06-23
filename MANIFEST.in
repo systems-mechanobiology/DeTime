@@ -9,17 +9,50 @@ include cibuildwheel.toml
 recursive-include src *.py
 recursive-include native *.cpp *.hpp *.h
 recursive-include tests *.py
-recursive-include docs *.md *.png *.jpg *.jpeg *.gif *.svg *.txt *.py *.ipynb *.zip *.json *.csv *.yml *.yaml
-recursive-include benchmarks *.py *.md *.json *.csv
-recursive-include evals *.py *.md *.json
-recursive-include examples *.py *.md *.ipynb *.csv *.json *.txt *.yml *.yaml
+include docs/*.md
+recursive-include docs/gallery *.md
+include docs/tutorials/*.md
+include docs/tutorials/quant-trading/*.md
+include docs/tutorials/hot-trend-lab/*.md
+recursive-include docs/assets/brand *
+recursive-include docs/assets/illustrations *
+recursive-include docs/assets/generated/home *
+include docs/assets/generated/evidence/comparison_*.csv
+include docs/assets/generated/evidence/comparison_evidence.json
+include docs/assets/generated/evidence/comparison_evidence.md
+include docs/assets/generated/evidence/coverage_*.json
+include docs/assets/generated/evidence/method_runtime_matrix.*
+include docs/assets/generated/evidence/performance_snapshot.*
+include docs/assets/generated/evidence/workflow_comparison.json
+recursive-include docs/stylesheets *.css
+recursive-include docs/overrides *.html
+include docs/robots.txt
+include docs/googlec8d99a452cb93b2a.html
+include examples/*.py
+recursive-include examples/data *.csv
+recursive-include examples/workflow_comparisons *.py *.md
 
 global-exclude __pycache__
 global-exclude *.py[cod]
 global-exclude .DS_Store
 prune .pytest_cache
+recursive-exclude .pytest_cache *
 prune site
 prune submission
+prune benchmarks
+prune evals
+prune examples/hot_trends
+recursive-exclude examples/hot_trends *
+prune examples/notebooks
+recursive-exclude examples/notebooks *
+exclude examples/notebooks/quant_trading/README.md
+exclude examples/notebooks/quant_trading/_legacy/README.md
+prune examples/quant_trading
+recursive-exclude examples/quant_trading *
+prune docs/tutorials/hot-trend-lab/notebooks
+prune docs/tutorials/quant-trading/notebooks
+exclude docs/assets/generated/evidence/agent_eval_summary*
+exclude docs/assets/generated/evidence/token_benchmarks*
 exclude DeTime_Codex_task_list.md
 exclude DeTime_final_checklist.md
 exclude DeTime_JMLR_revision_plan.md

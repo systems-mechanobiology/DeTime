@@ -3,7 +3,7 @@
 `DecompositionConfig` is the single runtime contract shared by Python, CLI,
 docs examples, and machine-facing schema exports.
 
-Current package version target: `0.1.1`.
+Current package version target: `0.1.2`.
 
 ## Top-level fields
 

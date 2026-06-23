@@ -1403,11 +1403,16 @@ def _metadata_for_method(name: str, input_mode: InputMode) -> Dict[str, Any]:
         "optional_dependencies",
         _default_optional_dependencies(name, str(base.get("dependency_tier", "core"))),
     )
-    base.setdefault("references", _default_references(name))
-    base.setdefault("package_links", _default_package_links(name))
-    base.setdefault("parameter_docs", _default_parameter_docs(name))
-    base.setdefault("output_components", _default_output_components(name))
-    base.setdefault("example_config", _default_example_config(name))
+    if not base.get("references"):
+        base["references"] = _default_references(name)
+    if not base.get("package_links"):
+        base["package_links"] = _default_package_links(name)
+    if not base.get("parameter_docs"):
+        base["parameter_docs"] = _default_parameter_docs(name)
+    if not base.get("output_components"):
+        base["output_components"] = _default_output_components(name)
+    if not base.get("example_config"):
+        base["example_config"] = _default_example_config(name)
     return base
 
 

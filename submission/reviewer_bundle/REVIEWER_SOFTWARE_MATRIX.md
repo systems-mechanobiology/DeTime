@@ -1,6 +1,6 @@
-# Reviewer Software Matrix
+# Software Matrix
 
-Generated for release target `0.1.1`.
+Generated for release target `0.1.2`.
 
 | Axis | DeTime |
 | --- | --- |
@@ -13,6 +13,6 @@ Generated for release target `0.1.1`.
 | Multivariate support | yes |
 | Maturity labeling | explicit |
 | Compact result modes | full / summary / meta |
-| MCP surface | local-first |
+| Machine contract | schemas, compact result views, metadata shortlist, optional local MCP |
 
 Reference evidence: `docs/assets/generated/evidence/comparison_evidence.json`.

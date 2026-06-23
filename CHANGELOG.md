@@ -6,7 +6,27 @@ The project brand is **DeTime**, the PyPI distribution is `de-time`, the
 preferred Python import path is `detime`, and the legacy `tsdecomp` import/CLI
 aliases remain available for compatibility.
 
-## [0.1.1] - 2026-04-14
+## [0.1.2] - 2026-06-19
+
+### Release identity and evidence lock
+
+- aligns the JMLR-MLOSS submission target to a new immutable release candidate
+  instead of moving the existing `de-time-v0.1.1` tag
+- adds release-manifest, coverage, license-audit, authorship, and artifact-boundary
+  evidence for the reviewed software object
+- reports coverage from the current checkout source with a guarded import path:
+  92.58% core-contract coverage and 88.41% package-wide coverage
+
+### Documentation and package boundary
+
+- moves application-heavy and automation-heavy documentation behind the core
+  install, API, method-status, validation, and developer-extension story
+- labels neural-architecture-inspired blocks as experimental decomposition-head
+  operators and keeps them out of the maintained-package claim
+- narrows source-distribution contents so benchmarks, agent evals, trading
+  notebooks, and Hot Trend Lab assets are not part of the reviewed archive
+
+## [0.1.1] - 2026-06-10
 
 ### Contract and release evidence
 
@@ -14,7 +34,7 @@ aliases remain available for compatibility.
   `version`, and `contract_version` root fields
 - packaged schema assets are regenerated from the live Pydantic models and are
   checked in CI with `scripts/generate_schema_assets.py --check`
-- reviewer-facing evidence now reports both core-surface coverage and
+- release evidence reports both core-surface coverage and
   package-wide coverage from the same `0.1.1` candidate
 
 ### Native and optional-backend behavior
@@ -54,13 +74,13 @@ aliases remain available for compatibility.
 - packaged JSON schemas for `config`, `result`, `meta`, and `method-registry`
 - method metadata catalog via `MethodRegistry.list_catalog()`
 - low-token `summary` and `meta` serialization modes
-- method recommendation surface for CLI and MCP workflows
+- metadata-based method shortlist surface for CLI and MCP workflows
 
 ### Packaging and quality
 
 - wheel-first packaging via `scikit-build-core`, `pybind11`, and `cibuildwheel`
 - package-level test suite, docs tree, examples, and GitHub Actions workflows
-- coverage gate on the canonical core-plus-flagship surface
+- coverage gate on the canonical core-plus-maintained surface
 - artifact-layout checks for wheel and sdist outputs
 - documentation consistency checks and release smoke automation
 - reproducible performance snapshot generation

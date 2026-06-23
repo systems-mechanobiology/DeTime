@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-09T16:33:29.534367+00:00",
+  "generated_at": "2026-06-19T18:16:19.679621+00:00",
   "native_capabilities": {
     "gabor_cluster_decompose": true,
     "gabor_istft_rfft": true,
@@ -10,7 +10,7 @@
     "std_decompose": true,
     "vmd_decompose": true
   },
-  "package_version": "0.1.1",
+  "package_version": "0.1.2",
   "platform": {
     "machine": "AMD64",
     "platform": "Windows-10-10.0.26200-SP0",
@@ -20,20 +20,20 @@
     {
       "backend_requested": "python",
       "backend_used": "python",
-      "max_ms": 14.132,
-      "mean_ms": 13.667625,
+      "max_ms": 14.5685,
+      "mean_ms": 13.92475,
       "method": "SSA",
-      "min_ms": 13.3702,
+      "min_ms": 13.6061,
       "params": {
         "primary_period": 12,
         "rank": 8,
         "window": 36
       },
       "samples_ms": [
-        14.132,
-        13.3702,
-        13.5981,
-        13.5702
+        14.5685,
+        13.6061,
+        13.6656,
+        13.8588
       ],
       "series_length": 240,
       "series_shape": [
@@ -43,20 +43,20 @@
     {
       "backend_requested": "native",
       "backend_used": "native",
-      "max_ms": 1.9527,
-      "mean_ms": 1.9056,
+      "max_ms": 1.9629,
+      "mean_ms": 1.90555,
       "method": "SSA",
-      "min_ms": 1.8617,
+      "min_ms": 1.8374,
       "params": {
         "primary_period": 12,
         "rank": 8,
         "window": 36
       },
       "samples_ms": [
-        1.9527,
-        1.8902,
-        1.9178,
-        1.8617
+        1.9629,
+        1.9139,
+        1.8374,
+        1.908
       ],
       "series_length": 240,
       "series_shape": [
@@ -66,18 +66,18 @@
     {
       "backend_requested": "python",
       "backend_used": "python",
-      "max_ms": 0.2027,
-      "mean_ms": 0.152525,
+      "max_ms": 0.1941,
+      "mean_ms": 0.154025,
       "method": "STD",
-      "min_ms": 0.1283,
+      "min_ms": 0.1305,
       "params": {
         "period": 12
       },
       "samples_ms": [
-        0.2027,
-        0.1474,
-        0.1317,
-        0.1283
+        0.1941,
+        0.1589,
+        0.1326,
+        0.1305
       ],
       "series_length": 240,
       "series_shape": [
@@ -87,18 +87,60 @@
     {
       "backend_requested": "native",
       "backend_used": "native",
-      "max_ms": 0.0376,
-      "mean_ms": 0.023525,
+      "max_ms": 0.0372,
+      "mean_ms": 0.0239,
       "method": "STD",
+      "min_ms": 0.0171,
+      "params": {
+        "period": 12
+      },
+      "samples_ms": [
+        0.0372,
+        0.0194,
+        0.0171,
+        0.0219
+      ],
+      "series_length": 240,
+      "series_shape": [
+        240
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "max_ms": 0.1887,
+      "mean_ms": 0.1753,
+      "method": "STDR",
+      "min_ms": 0.1696,
+      "params": {
+        "period": 12
+      },
+      "samples_ms": [
+        0.1887,
+        0.1724,
+        0.1705,
+        0.1696
+      ],
+      "series_length": 240,
+      "series_shape": [
+        240
+      ]
+    },
+    {
+      "backend_requested": "native",
+      "backend_used": "native",
+      "max_ms": 0.0218,
+      "mean_ms": 0.017875,
+      "method": "STDR",
       "min_ms": 0.0158,
       "params": {
         "period": 12
       },
       "samples_ms": [
-        0.0376,
-        0.0197,
-        0.0158,
-        0.021
+        0.0218,
+        0.018,
+        0.0159,
+        0.0158
       ],
       "series_length": 240,
       "series_shape": [
@@ -108,18 +150,19 @@
     {
       "backend_requested": "python",
       "backend_used": "python",
-      "max_ms": 0.1912,
-      "mean_ms": 0.17625,
-      "method": "STDR",
-      "min_ms": 0.1708,
+      "max_ms": 0.0922,
+      "mean_ms": 0.070325,
+      "method": "MA_BASELINE",
+      "min_ms": 0.0614,
       "params": {
-        "period": 12
+        "season_period": 12,
+        "trend_window": 7
       },
       "samples_ms": [
-        0.1912,
-        0.1717,
-        0.1713,
-        0.1708
+        0.0922,
+        0.0652,
+        0.0625,
+        0.0614
       ],
       "series_length": 240,
       "series_shape": [
@@ -129,18 +172,19 @@
     {
       "backend_requested": "native",
       "backend_used": "native",
-      "max_ms": 0.0213,
-      "mean_ms": 0.017775,
-      "method": "STDR",
-      "min_ms": 0.0154,
+      "max_ms": 0.0226,
+      "mean_ms": 0.0159,
+      "method": "MA_BASELINE",
+      "min_ms": 0.0126,
       "params": {
-        "period": 12
+        "season_period": 12,
+        "trend_window": 7
       },
       "samples_ms": [
-        0.0213,
-        0.0182,
-        0.0162,
-        0.0154
+        0.0226,
+        0.0142,
+        0.0126,
+        0.0142
       ],
       "series_length": 240,
       "series_shape": [
@@ -150,64 +194,20 @@
     {
       "backend_requested": "python",
       "backend_used": "python",
-      "max_ms": 0.0948,
-      "mean_ms": 0.070725,
-      "method": "MA_BASELINE",
-      "min_ms": 0.0596,
-      "params": {
-        "season_period": 12,
-        "trend_window": 7
-      },
-      "samples_ms": [
-        0.0948,
-        0.0657,
-        0.0628,
-        0.0596
-      ],
-      "series_length": 240,
-      "series_shape": [
-        240
-      ]
-    },
-    {
-      "backend_requested": "native",
-      "backend_used": "native",
-      "max_ms": 0.0197,
-      "mean_ms": 0.014825,
-      "method": "MA_BASELINE",
-      "min_ms": 0.0121,
-      "params": {
-        "season_period": 12,
-        "trend_window": 7
-      },
-      "samples_ms": [
-        0.0197,
-        0.0135,
-        0.0121,
-        0.014
-      ],
-      "series_length": 240,
-      "series_shape": [
-        240
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "max_ms": 93.8425,
-      "mean_ms": 70.039125,
+      "max_ms": 61.3113,
+      "mean_ms": 60.855525,
       "method": "MSSA",
-      "min_ms": 59.3998,
+      "min_ms": 60.05,
       "params": {
         "primary_period": 12,
         "rank": 8,
         "window": 36
       },
       "samples_ms": [
-        59.3998,
-        59.7036,
-        67.2106,
-        93.8425
+        60.05,
+        60.9169,
+        61.1439,
+        61.3113
       ],
       "series_length": 240,
       "series_shape": [
@@ -218,20 +218,20 @@
     {
       "backend_requested": "native",
       "backend_used": "native",
-      "max_ms": 30.6718,
-      "mean_ms": 25.727025,
+      "max_ms": 23.8083,
+      "mean_ms": 22.90045,
       "method": "MSSA",
-      "min_ms": 23.3225,
+      "min_ms": 22.1283,
       "params": {
         "primary_period": 12,
         "rank": 8,
         "window": 36
       },
       "samples_ms": [
-        30.6718,
-        25.2816,
-        23.6322,
-        23.3225
+        23.8083,
+        22.1283,
+        22.1714,
+        23.4938
       ],
       "series_length": 240,
       "series_shape": [
@@ -242,20 +242,20 @@
     {
       "backend_requested": "python",
       "backend_used": "python",
-      "max_ms": 50.7097,
-      "mean_ms": 50.13955,
+      "max_ms": 48.4276,
+      "mean_ms": 47.85585,
       "method": "VMD",
-      "min_ms": 49.6465,
+      "min_ms": 47.5709,
       "params": {
         "K": 5,
         "alpha": 300.0,
         "primary_period": 12
       },
       "samples_ms": [
-        50.7097,
-        50.1903,
-        50.0117,
-        49.6465
+        47.6615,
+        48.4276,
+        47.5709,
+        47.7634
       ],
       "series_length": 240,
       "series_shape": [
@@ -265,20 +265,20 @@
     {
       "backend_requested": "native",
       "backend_used": "native",
-      "max_ms": 15.2003,
-      "mean_ms": 14.48235,
+      "max_ms": 13.8783,
+      "mean_ms": 13.8121,
       "method": "VMD",
-      "min_ms": 14.138,
+      "min_ms": 13.6949,
       "params": {
         "K": 5,
         "alpha": 300.0,
         "primary_period": 12
       },
       "samples_ms": [
-        15.2003,
-        14.445,
-        14.138,
-        14.1461
+        13.8534,
+        13.8218,
+        13.6949,
+        13.8783
       ],
       "series_length": 240,
       "series_shape": [
@@ -288,10 +288,10 @@
     {
       "backend_requested": "python",
       "backend_used": "python",
-      "max_ms": 6.0536,
-      "mean_ms": 2.694275,
+      "max_ms": 8.7843,
+      "mean_ms": 3.303675,
       "method": "GABOR_CLUSTER",
-      "min_ms": 1.5366,
+      "min_ms": 1.4044,
       "params": {
         "hop": 16,
         "model": "synthetic_gabor_centroids",
@@ -301,10 +301,10 @@
         "win_len": 32
       },
       "samples_ms": [
-        6.0536,
-        1.6285,
-        1.5366,
-        1.5584
+        8.7843,
+        1.5195,
+        1.5065,
+        1.4044
       ],
       "series_length": 240,
       "series_shape": [
@@ -314,10 +314,10 @@
     {
       "backend_requested": "native",
       "backend_used": "native",
-      "max_ms": 0.2305,
-      "mean_ms": 0.19515,
+      "max_ms": 0.2131,
+      "mean_ms": 0.181275,
       "method": "GABOR_CLUSTER",
-      "min_ms": 0.1764,
+      "min_ms": 0.1677,
       "params": {
         "hop": 16,
         "model": "synthetic_gabor_centroids",
@@ -327,10 +327,10 @@
         "win_len": 32
       },
       "samples_ms": [
-        0.2305,
-        0.19,
-        0.1837,
-        0.1764
+        0.2131,
+        0.1753,
+        0.169,
+        0.1677
       ],
       "series_length": 240,
       "series_shape": [
@@ -341,45 +341,45 @@
   "summary": [
     {
       "method": "SSA",
-      "native_mean_ms": 1.9056,
-      "python_mean_ms": 13.667625,
-      "speedup": 7.172347
+      "native_mean_ms": 1.90555,
+      "python_mean_ms": 13.92475,
+      "speedup": 7.30747
     },
     {
       "method": "STD",
-      "native_mean_ms": 0.023525,
-      "python_mean_ms": 0.152525,
-      "speedup": 6.483528
+      "native_mean_ms": 0.0239,
+      "python_mean_ms": 0.154025,
+      "speedup": 6.444561
     },
     {
       "method": "STDR",
-      "native_mean_ms": 0.017775,
-      "python_mean_ms": 0.17625,
-      "speedup": 9.915612
+      "native_mean_ms": 0.017875,
+      "python_mean_ms": 0.1753,
+      "speedup": 9.806993
     },
     {
       "method": "MA_BASELINE",
-      "native_mean_ms": 0.014825,
-      "python_mean_ms": 0.070725,
-      "speedup": 4.770658
+      "native_mean_ms": 0.0159,
+      "python_mean_ms": 0.070325,
+      "speedup": 4.422956
     },
     {
       "method": "MSSA",
-      "native_mean_ms": 25.727025,
-      "python_mean_ms": 70.039125,
-      "speedup": 2.722395
+      "native_mean_ms": 22.90045,
+      "python_mean_ms": 60.855525,
+      "speedup": 2.657394
     },
     {
       "method": "VMD",
-      "native_mean_ms": 14.48235,
-      "python_mean_ms": 50.13955,
-      "speedup": 3.462114
+      "native_mean_ms": 13.8121,
+      "python_mean_ms": 47.85585,
+      "speedup": 3.464777
     },
     {
       "method": "GABOR_CLUSTER",
-      "native_mean_ms": 0.19515,
-      "python_mean_ms": 2.694275,
-      "speedup": 13.806175
+      "native_mean_ms": 0.181275,
+      "python_mean_ms": 3.303675,
+      "speedup": 18.224659
     }
   ]
 }

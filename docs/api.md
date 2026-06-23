@@ -25,12 +25,12 @@ comparison, see [Method Matrix](method-matrix.md).
   Method-specific parameters. Examples include `period` for `STD`, `window`
   and `rank` for `SSA`, and `primary_period` for automatic grouping.
 - `return_components: list[str] | None = None`
-  Reserved compatibility field. Current decomposition entrypoints return the
-  full `DecompResult`; methods may ignore this field.
+  Compatibility field reserved for older callers. Current stable entrypoints
+  return the full `DecompResult`; methods may ignore this field.
 - `backend: "auto" | "native" | "python" | "gpu" = "auto"`
   Backend preference. `auto` uses a native kernel when one exists, `python`
   forces the Python implementation, `native` requires the native path, and
-  `gpu` raises unless a method explicitly supports it.
+  `gpu` is reserved and raises unless a method explicitly documents support.
 - `speed_mode: "exact" | "fast" = "exact"`
   Runtime accuracy policy. For native `SSA`, `exact` follows the deterministic
   SVD-backed path and `fast` uses the approximate iterative kernel.
@@ -38,8 +38,9 @@ comparison, see [Method Matrix](method-matrix.md).
   When `True`, attach runtime metadata such as `runtime_ms` to result metadata
   or profile reports.
 - `device: str | None = "cpu"`
-  Reserved execution device selector. Current retained methods are CPU
-  workflows unless a wrapper says otherwise.
+  Reserved execution device selector. The maintained 0.1.x decomposition
+  surface is CPU-first unless a wrapper or experimental operator documents
+  another device.
 - `n_jobs: int = 1`
   Requested parallelism hint for methods or wrappers that support it.
 - `seed: int | None = 42`
@@ -108,7 +109,8 @@ method catalog.
 - `MethodRegistry.list_methods()`
   Return registered public method names.
 - `MethodRegistry.list_catalog()`
-  Return the full catalog used by docs generation, recommendation, and MCP.
+  Return the full catalog used by docs generation, metadata-based shortlists,
+  and MCP.
 - `MethodRegistry.get_metadata(method_name)`
   Return one catalog entry as a dictionary.
 - `MethodRegistry.get(method_name)`

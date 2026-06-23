@@ -1,0 +1,8 @@
+package,json_schema_assets,compact_result_modes,metadata_shortlist_interface,machine_readable_catalog,cli_schema_command,artifact_contract,mcp_surface
+DeTime,yes,full/summary/meta,yes,yes,yes,yes,optional local-first
+statsmodels,no,no,no,no,no,no,no
+PyEMD,no,no,no,no,no,no,no
+PyWavelets,no,no,no,no,no,no,no
+PySDKit,no,no,no,no,no,no,no
+SSALib,no,no,no,no,no,no,no
+sktime,no,no,no,no,no,no,no

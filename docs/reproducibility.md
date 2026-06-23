@@ -59,7 +59,7 @@ reproduction path for the benchmark claims.
 
 The documentation is part of the reviewed software surface, not only a landing
 page. It includes executable examples, rendered notebooks, generated method
-metadata, schemas, and reviewer-facing evidence files.
+metadata, schemas, and release evidence files.
 
 | Surface | Evidence |
 |---|---|
@@ -93,8 +93,6 @@ The current release and docs were checked with:
 - `python scripts/generate_method_cards.py`
 - `python benchmarks/software_comparison/generate_comparison_evidence.py`
 - `python examples/workflow_comparisons/compare_specialist_glue_vs_detime.py`
-- `python benchmarks/token_benchmarks/generate_token_benchmarks.py`
-- `python evals/agent/run_agent_evals.py`
 - `python scripts/generate_reviewer_bundle.py`
 - `python -m twine check dist/*`
 
@@ -123,12 +121,14 @@ The core-surface denominator intentionally omits:
 - optional wrappers and non-core integrations that remain tested but are
   not part of the gated coverage surface.
 
-The latest local `0.1.1` release-candidate run reached `93.73%`
-core-surface coverage and `84.00%` package-wide coverage.
+The 2026-06-22 `0.1.2` release-candidate audit was run against the checkout
+source by removing the stale `_de_time_editable` import hook before pytest
+startup and putting `src/` first on `sys.path`. It reached `92.58%`
+core-contract coverage and `88.41%` package-wide coverage.
 
 Package-wide coverage is emitted separately in CI and uploaded as a second
-artifact so reviewer-facing reports can show both the narrow safety gate and
-the broader installable surface.
+artifact so release reports can show both the narrow safety gate and the
+broader installable surface.
 
 Optional `.[multivar]` integrations are validated separately in a dedicated
 smoke path so `MVMD` / `MEMD` execution evidence is published without
@@ -148,6 +148,22 @@ The documented tolerances are:
 - `SSA`: `atol=1e-6`
 - `STD` / `STDR`: `atol=1e-9`
 
+Native correctness status:
+
+| Native path | Reference path | Check type | Public tolerance | Status |
+|---|---|---|---:|---|
+| `SSA` | Python SSA | numerical agreement | `1e-6` | agreement-tested |
+| `STD` | Python STD | numerical agreement | `1e-9` | agreement-tested |
+| `STDR` | Python STDR | numerical agreement | `1e-9` | agreement-tested |
+| `MA_BASELINE` | Python fallback | callable/schema smoke | n/a | smoke-tested |
+| `MSSA` | Python fallback | callable/schema smoke | n/a | smoke-tested |
+| `VMD` | Python fallback | callable/schema smoke | n/a | smoke-tested |
+| `GABOR_CLUSTER` | experimental native path | callable/schema smoke | n/a | experimental smoke-tested |
+
+Only the agreement-tested rows should be cited as numerical-equivalence
+evidence. The remaining rows verify routing, result-shape/schema behavior, and
+native availability in the release environment.
+
 ## Release-validation runtime snapshot
 
 The following snapshot records selected native-backed release-validation paths
@@ -157,13 +173,13 @@ result contract. It is not a portable runtime ranking against other packages.
 
 | Method | Python mean (ms) | Native mean (ms) | Speedup |
 |---|---:|---:|---:|
-| `SSA` | 13.668 | 1.906 | 7.17x |
-| `STD` | 0.153 | 0.024 | 6.48x |
-| `STDR` | 0.176 | 0.018 | 9.92x |
-| `MA_BASELINE` | 0.071 | 0.015 | 4.77x |
-| `MSSA` | 70.039 | 25.727 | 2.72x |
-| `VMD` | 50.140 | 14.482 | 3.46x |
-| `GABOR_CLUSTER` (experimental) | 2.694 | 0.195 | 13.81x |
+| `SSA` | 13.925 | 1.906 | 7.31x |
+| `STD` | 0.154 | 0.024 | 6.44x |
+| `STDR` | 0.175 | 0.018 | 9.81x |
+| `MA_BASELINE` | 0.070 | 0.016 | 4.42x |
+| `MSSA` | 60.856 | 22.900 | 2.66x |
+| `VMD` | 47.856 | 13.812 | 3.46x |
+| `GABOR_CLUSTER` (experimental) | 3.304 | 0.181 | 18.22x |
 
 ## Experimental neural block table
 
@@ -194,10 +210,11 @@ coverage. They remain experimental package-level operators.
 
 - [Performance snapshot JSON](assets/generated/evidence/performance_snapshot.json)
 - [Performance summary CSV](assets/generated/evidence/performance_snapshot.csv)
+- [Core coverage JSON](assets/generated/evidence/coverage_core.json)
+- [Package-wide coverage JSON](assets/generated/evidence/coverage_package.json)
+- [Coverage summary JSON](assets/generated/evidence/coverage_summary.json)
 - [Comparison evidence JSON](assets/generated/evidence/comparison_evidence.json)
 - [Workflow comparison demo JSON](assets/generated/evidence/workflow_comparison.json)
-- [Token benchmark summary JSON](assets/generated/evidence/token_benchmarks.json)
-- [Agent eval summary JSON](assets/generated/evidence/agent_eval_summary.json)
 - JSON schemas: `src/detime/schema_assets/*.json`
 
 The performance snapshot is reproducible from

@@ -33,7 +33,17 @@ BANNED_SDIST = {
 }
 
 BANNED_SDIST_PREFIXES = (
+    ".pytest_cache/",
+    "benchmarks/",
+    "docs/assets/generated/evidence/agent_",
+    "docs/assets/generated/evidence/token_",
     "docs/assets/generated/tutorials/visual-benchmark/",
+    "docs/tutorials/hot-trend-lab/notebooks/",
+    "docs/tutorials/quant-trading/notebooks/",
+    "evals/",
+    "examples/hot_trends/",
+    "examples/notebooks/",
+    "examples/quant_trading/",
 )
 
 

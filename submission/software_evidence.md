@@ -1,16 +1,17 @@
 # DeTime Software Evidence Snapshot
 
-This note records the reviewer-facing software evidence for the current
-`0.1.1` submission target.
+This note records the release software evidence for the current `0.1.2`
+submission target.
 
 ## Install and release story
 
 - Public install path in docs: `pip install de-time`
-- Submission target version: `0.1.1`
-- Candidate freeze date: April 14, 2026
-- Planned public release tag from the frozen candidate: `de-time-v0.1.1`
+- Submission target version: `0.1.2`
+- Candidate freeze date: June 19, 2026
+- Planned public release tag from the frozen candidate: `de-time-v0.1.2`
 - Canonical import: `detime`
 - Deprecated compatibility scope: top-level `tsdecomp` import and CLI only
+- Existing public tag `de-time-v0.1.1` is not moved.
 
 ## Package-boundary evidence
 
@@ -42,18 +43,18 @@ This note records the reviewer-facing software evidence for the current
 ## Coverage discipline
 
 - Coverage gate: `fail_under = 90`
-- Coverage scope: canonical `detime` core-plus-flagship path
-- Separate reviewer-facing package-wide report: yes
+- Coverage scope: canonical `detime` core-plus-maintained path
+- Separate package-wide report: yes
 - CLI, I/O, visualization helpers, and optional wrappers remain tested, but
   they are not counted inside the gated coverage denominator
-- Latest gated local core-surface coverage: `93.73%`
-- Latest local package-wide coverage: `84.00%`
+- Latest gated local core-contract coverage: `92.58%`
+- Latest local package-wide coverage: `88.41%`
 
 ## Related software matrix
 
 | Package | Deeper strength | DeTime distinction |
 |---|---|---|
-| [`statsmodels`](https://www.statsmodels.org/) | mature classical decomposition and modeling | DeTime standardizes a cross-family workflow layer |
+| [`statsmodels`](https://www.statsmodels.org/) | mature classical decomposition and modeling | DeTime standardizes a cross-family software contract |
 | [`PyEMD`](https://github.com/laszukdawid/PyEMD) | deeper EMD-family tooling | DeTime places EMD-family methods inside the same config/result/CLI contract as other families |
 | [`PyWavelets`](https://pywavelets.readthedocs.io/en/latest/) | deeper wavelet transforms and wavelet-specific APIs | DeTime treats wavelets as one workflow option rather than a wavelet-first toolkit |
 | [`PySDKit`](https://pysdkit.readthedocs.io/en/latest/) | broader signal-decomposition toolkit, including optional multivariate methods | DeTime uses `PySDKit` selectively while keeping a time-series-centered package interface |
@@ -81,9 +82,13 @@ claim.
 
 | Method | Python mean runtime (ms) | Native mean runtime (ms) | Speedup |
 |---|---:|---:|---:|
-| `SSA` | 14.239 | 1.833 | 7.770x |
-| `STD` | 0.181 | 0.031 | 5.825x |
-| `STDR` | 0.192 | 0.021 | 9.319x |
+| `SSA` | 13.925 | 1.906 | 7.307x |
+| `STD` | 0.154 | 0.024 | 6.445x |
+| `STDR` | 0.175 | 0.018 | 9.807x |
+| `MA_BASELINE` | 0.070 | 0.016 | 4.423x |
+| `MSSA` | 60.856 | 22.900 | 2.657x |
+| `VMD` | 47.856 | 13.812 | 3.465x |
+| `GABOR_CLUSTER` | 3.304 | 0.181 | 18.225x |
 
 ## Early adoption surface
 

@@ -69,8 +69,8 @@ This example is intentionally small. The point is not that DeTime replaces
 scikit-learn, but that decomposition outputs can feed a downstream estimator
 through a stable package-level workflow.
 
-## Project and review notes
+## Project notes
 
-Release checks, coverage boundaries, and reviewer-facing evidence live in
+Release checks, coverage boundaries, and validation evidence live in
 [Reproducibility](reproducibility.md). This page stays focused on where the
 package fits in downstream ML work.
