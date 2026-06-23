@@ -1,5 +1,5 @@
 site_name: DeTime
-site_description: DeTime is workflow-oriented research software for reproducible time-series decomposition.
+site_description: DeTime is Python and CLI research software for reusable time-series decomposition outputs.
 site_author: Zipeng Wu
 site_url: https://systems-mechanobiology.github.io/DeTime/
 repo_name: systems-mechanobiology/DeTime

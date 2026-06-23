@@ -9,7 +9,7 @@
       "mcp_tool_surface": "yes",
       "multivariate_support": "yes",
       "package": "DeTime",
-      "primary_scope": "workflow-oriented decomposition layer",
+      "primary_scope": "Python/CLI decomposition package with a shared software contract",
       "profiling_path": "yes",
       "unified_config_object": "yes",
       "unified_result_object": "yes"

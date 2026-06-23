@@ -1,13 +1,13 @@
-# DeTime: Workflow-Oriented Research Software for Reproducible Time-Series Decomposition
+# DeTime: Python and CLI Research Software for Time-Series Decomposition
 
 ## Abstract
 
 Time-series decomposition is widely used for denoising, feature extraction,
-representation shaping, and exploratory analysis in machine-learning
-workflows. DeTime is open-source research software that makes this workflow
-reproducible across heterogeneous decomposition families. It provides a
-coherent software surface for configuring, running, profiling, saving, and
-validating decomposition workflows. The canonical package namespace is
+representation shaping, and exploratory analysis. DeTime is open-source
+research software that makes decomposition outputs reusable across
+heterogeneous decomposition families. It provides a coherent software surface
+for configuring, running, profiling, saving, and validating decomposition
+runs. The canonical package namespace is
 `detime`, while `tsdecomp` remains only as a deprecated top-level import and
 CLI alias. The software surface centers on core maintained workflows such as
 `SSA`, `STD`, `STDR`, and `MSSA`, and retains additional wrapper-based or
@@ -28,20 +28,20 @@ creates unnecessary friction when researchers need to compare methods, preserve
 runtime metadata, serialize outputs, or move an analysis from one user or
 machine to another.
 
-DeTime addresses that software problem through a reusable workflow layer:
+DeTime addresses that software problem through a reusable software contract:
 
 - one configuration contract,
 - one result contract,
 - one public import surface,
-- one public CLI for retained package workflows,
+- one public CLI for retained package runs,
 - selected native acceleration where it materially improves throughput,
 - one machine-facing surface for schemas, metadata shortlists, and compact
   handoff.
 
-This workflow layer is relevant to machine learning practice. In typical ML
+This software contract is relevant to machine learning practice. In typical ML
 pipelines, decomposition is used for denoising, feature extraction,
 representation shaping, and preprocessing ahead of downstream estimators.
-DeTime targets that workflow friction directly by standardizing
+DeTime targets that software friction directly by standardizing
 configuration, results, profiling, and saved outputs across retained
 decomposition families.
 
@@ -117,9 +117,9 @@ release should be cut as `de-time-v0.1.2`. The package includes:
 - optional `.[multivar]` smoke coverage for `MVMD` / `MEMD`,
 - reproducible performance snapshot generation.
 
-In the 2026-06-19 local release review run, the gated `detime` core-surface
-coverage report reached `91.49%`, while the separate package-wide report
-reached `84.96%`.
+In the latest local release review run, the gated `detime` core-contract
+coverage report reached `92.58%`, while the separate package-wide report
+reached `88.41%`.
 
 ## 5. Relationship to related software
 
@@ -128,19 +128,19 @@ them.
 
 | Package | Where it is deeper | DeTime position |
 |---|---|---|
-| [`statsmodels`](https://www.statsmodels.org/) | mature classical decomposition and modeling | DeTime wraps selected classical methods while standardizing the workflow layer |
+| [`statsmodels`](https://www.statsmodels.org/) | mature classical decomposition and modeling | DeTime wraps selected classical methods while standardizing the config/result contract |
 | [`PyEMD`](https://github.com/laszukdawid/PyEMD) | deeper EMD-family tooling | DeTime uses EMD-family methods as one family inside a broader workflow contract |
 | [`PyWavelets`](https://pywavelets.readthedocs.io/en/latest/) | deeper wavelet transforms and transform-specific APIs | DeTime exposes wavelet decomposition for workflow consistency, not wavelet leadership |
 | [`PySDKit`](https://pysdkit.readthedocs.io/en/latest/) | broader signal-decomposition toolkit and optional multivariate backends | DeTime uses `PySDKit` selectively for `MVMD` and `MEMD` while maintaining its own config/result layer |
 | [`SSALib`](https://github.com/ADSCIAN/ssalib) | deeper SSA-only environment | DeTime offers SSA as one maintained path inside a cross-family package |
 | [`sktime`](https://www.sktime.net/en/stable/) | current maintained VMD reality plus a broader time-series transform ecosystem | DeTime treats the maintained `sktime` VMD path as the relevant comparison rather than relying on the older standalone `vmdpy` identity |
 
-The main software claim is therefore not method-count breadth alone. It is the
+The main software claim is therefore not method-count breadth. It is the
 combination of:
 
 - a common `DecompositionConfig`,
 - a common `DecompResult`,
-- one CLI workflow surface,
+- one CLI surface,
 - one package-level story for native support, profiling, and saved outputs,
 - one machine-facing story for schemas, metadata shortlists, and tool-based access.
 
@@ -198,8 +198,8 @@ uptake.
 
 ## 8. Conclusion
 
-DeTime contributes workflow-oriented research software for reproducible
-time-series decomposition. Version `0.1.2` emphasizes a canonical `detime`
+DeTime contributes Python and CLI research software for reusable
+time-series decomposition outputs. Version `0.1.2` emphasizes a canonical `detime`
 package identity, a narrower and cleaner public software surface, a separation
 from benchmark artifacts, explicit positioning relative to specialist libraries
 such as `PySDKit`, `SSALib`, and `sktime`, and a quality story grounded in

@@ -4,7 +4,7 @@ Generated for release target `0.1.2`.
 
 | Axis | DeTime |
 | --- | --- |
-| Primary scope | workflow-oriented decomposition layer |
+| Primary scope | Python/CLI decomposition package with a shared software contract |
 | Common config object | yes |
 | Common result object | yes |
 | Machine-readable catalog | yes |

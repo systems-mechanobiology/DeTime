@@ -19,7 +19,7 @@ Runtime and memory boundary: feature audit only; no cross-package runtime or pea
 
 | package | primary_scope | unified_config_object | unified_result_object | machine_readable_catalog | batch_cli | profiling_path | multivariate_support | maturity_labeling | compact_output | mcp_tool_surface |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| DeTime | workflow-oriented decomposition layer | yes | yes | yes | yes | yes | yes | explicit | yes | yes |
+| DeTime | Python/CLI decomposition package with a shared software contract | yes | yes | yes | yes | yes | yes | explicit | yes | yes |
 | statsmodels | classical decomposition and modeling | no | partial | no | no | no | limited | implicit | no | no |
 | PyEMD | EMD-family toolkit | no | no | no | no | no | family-specific | family-specific | no | no |
 | PyWavelets | wavelet toolkit | no | no | no | no | no | transform-specific | family-specific | no | no |

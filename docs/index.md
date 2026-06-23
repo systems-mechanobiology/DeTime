@@ -1,14 +1,14 @@
 # DeTime
 
-DeTime is a time-series decomposition Python package and CLI workflow layer for
+DeTime is a time-series decomposition Python package and CLI software contract for
 trend, oscillation, residual, method-specific components, and metadata across
 univariate and aligned multichannel decomposition workflows.
 
 <div class="hero-panel hero-split linear-theme">
   <div class="hero-copy">
     <img class="hero-logo-floating" alt="DeTime logo" src="assets/brand/logo_pure_white_transparent.png">
-    <p class="hero-label">Scientific toolkit / workflow system</p>
-    <h2>Decompose time series without redesigning the workflow.</h2>
+    <p class="hero-label">Scientific toolkit / software contract</p>
+    <h2>Decompose time series with reusable outputs.</h2>
     <p class="hero-kicker">One interface for trend, oscillation, residual, and metadata.</p>
     <p>Give DeTime one series or aligned multichannel data. It returns trend, seasonal or oscillatory structure, residuals, method-specific components, and metadata through the same Python and CLI interface.</p>
     <div class="hero-actions">
@@ -36,7 +36,7 @@ univariate and aligned multichannel decomposition workflows.
           <div class="app-head">
             <div>
               <small>STL Decomposition</small>
-              <strong>workflow-oriented time-series decomposition</strong>
+              <strong>Python and CLI time-series decomposition</strong>
             </div>
             <button type="button">Run</button>
           </div>
@@ -65,7 +65,7 @@ univariate and aligned multichannel decomposition workflows.
       <ul>
         <li>
           <span class="point-icon icon-entry"></span>
-          <span><strong>Python and CLI entrypoints</strong><small>Stable commands for decomposition workflows.</small></span>
+          <span><strong>Python and CLI entrypoints</strong><small>Stable commands for decomposition runs.</small></span>
         </li>
         <li>
           <span class="point-icon icon-method"></span>
@@ -97,7 +97,7 @@ univariate and aligned multichannel decomposition workflows.
 <div class="why-module">
   <div class="why-copy">
     <span class="section-kicker">Reason for the tool</span>
-    <h3>A stable workflow layer for time-series decomposition.</h3>
+    <h3>A stable software contract for time-series decomposition.</h3>
     <p>DeTime exists because decomposition work often moves between notebooks, method-specific wrappers, CLI scripts, and machine-facing automation. The package keeps the method choice flexible while preserving one Python/CLI surface and one result contract.</p>
   </div>
   <div class="why-table">

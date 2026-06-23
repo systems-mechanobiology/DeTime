@@ -19,6 +19,6 @@
   </g>
   <g fill="#0f172a" font-family="Segoe UI, Helvetica, Arial, sans-serif">
     <text x="190" y="83" font-size="52" font-weight="800" letter-spacing="-1">DeTime</text>
-    <text x="193" y="122" font-size="22" font-weight="600" fill="#334155">workflow-oriented time-series decomposition</text>
+    <text x="193" y="122" font-size="22" font-weight="600" fill="#334155">Python and CLI time-series decomposition</text>
   </g>
 </svg>
