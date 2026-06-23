@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Zipeng Wu">
-        <link rel="canonical" href="https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/data-sources/">
+        <link rel="canonical" href="https://systems-mechanobiology.github.io/DeTime/tutorials/hot-trend-lab/data-sources/">
         <link rel="shortcut icon" href="../../../img/favicon.ico">
-        <title>Real Data Sources - De-Time</title>
+        <title>Real Data Sources - DeTime</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../../css/brands.min.css" rel="stylesheet">
@@ -22,6 +22,49 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
         <script>hljs.highlightAll();</script>
    
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="keywords" content="DeTime, detime, de-time, time series decomposition, Python time series, SSA, MSSA, VMD, STL, decomposition software">
+  <meta property="og:site_name" content="DeTime">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DeTime - Python and CLI time-series decomposition">
+  <meta property="og:description" content="DeTime is a Python and CLI toolkit for reproducible time-series decomposition across SSA, MSSA, VMD, STL, EMD, wavelet, and native C++ backed methods.">
+  <meta property="og:url" content="https://systems-mechanobiology.github.io/DeTime/">
+  <meta property="og:image" content="https://systems-mechanobiology.github.io/DeTime/assets/brand/detime-title-card.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DeTime - time-series decomposition for Python">
+  <meta name="twitter:description" content="Python and CLI software for reusable trend, oscillation, residual, metadata, schema, and artifact outputs.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://systems-mechanobiology.github.io/DeTime/#website",
+        "name": "DeTime",
+        "alternateName": ["detime", "de-time", "De-Time"],
+        "url": "https://systems-mechanobiology.github.io/DeTime/",
+        "description": "DeTime documentation for Python and CLI time-series decomposition software.",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://systems-mechanobiology.github.io/DeTime/#software",
+        "name": "DeTime",
+        "alternateName": ["detime", "de-time", "De-Time"],
+        "description": "Python and CLI toolkit for reproducible time-series decomposition with native C++ backed SSA, MSSA, VMD, STD, STDR, MA baseline, and Gabor clustering paths.",
+        "codeRepository": "https://github.com/systems-mechanobiology/DeTime",
+        "url": "https://systems-mechanobiology.github.io/DeTime/",
+        "programmingLanguage": ["Python", "C++"],
+        "applicationCategory": "Scientific software",
+        "keywords": "DeTime, time-series decomposition, Python, SSA, MSSA, VMD, STL, EMD, wavelet, native C++",
+        "author": {
+          "@type": "Person",
+          "name": "Zipeng Wu"
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="stylesheet" href="../../../stylesheets/extra.css?v=7">
 
     </head>
@@ -29,7 +72,7 @@
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="../../..">De-Time</a>
+                <a class="navbar-brand" href="../../..">DeTime</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -93,7 +136,7 @@
 </li>
                                     
   <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">Quant Trading Column</a>
+    <a href="#" class="dropdown-item">Quant Trading Tutorial</a>
     <ul class="dropdown-menu">
             
 <li>
@@ -101,48 +144,88 @@
 </li>
             
 <li>
-    <a href="../../quant-trading/notebooks/" class="dropdown-item">Rendered Notebooks</a>
+    <a href="../../quant-trading/notebooks/" class="dropdown-item">Tutorial Notebooks</a>
 </li>
             
 <li>
-    <a href="../../quant-trading/notebooks/00_quant_trading_column_overview/" class="dropdown-item">00 Column Overview</a>
+    <a href="../../quant-trading/notebooks/00_decomposition_first_quant_trading_roadmap/" class="dropdown-item">Tutorial 00 Roadmap</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Lab</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../quant-trading/two-strategy-families/" class="dropdown-item">Two Strategy Families</a>
 </li>
             
 <li>
-    <a href="../../quant-trading/notebooks/01_real_market_data_and_detime_features/" class="dropdown-item">01 Real Market Data and Features</a>
+    <a href="../../quant-trading/notebooks/01_detime_trend_following_strategy_lab/" class="dropdown-item">01 Trend-Following Lab</a>
 </li>
             
 <li>
-    <a href="../../quant-trading/notebooks/02_single_asset_timing_vectorbt/" class="dropdown-item">02 Single-Asset Timing</a>
+    <a href="../../quant-trading/notebooks/02_detime_oscillation_reversion_strategy_lab/" class="dropdown-item">02 Oscillation-Reversion Lab</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Expansion</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../quant-trading/method-specific-strategy-expansion/" class="dropdown-item">Method-Specific Strategy Expansion</a>
 </li>
             
 <li>
-    <a href="../../quant-trading/notebooks/03_turtle_donchian_trend_filter/" class="dropdown-item">03 Turtle Donchian Trend Filter</a>
+    <a href="../../quant-trading/notebooks/03_detime_method_specific_strategy_variants/" class="dropdown-item">03 Method-Specific Variants</a>
 </li>
             
 <li>
-    <a href="../../quant-trading/notebooks/04_pairs_trading_residual_cycle/" class="dropdown-item">04 Pairs Trading Residual Cycle</a>
+    <a href="../../quant-trading/notebooks/04_detime_component_pair_trading_cointegration/" class="dropdown-item">04 Component Pair Trading</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Tutorial Sequence</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../quant-trading/notebooks/01_market_data_and_decomposition_feature_factory/" class="dropdown-item">01 Real Market Data and Feature Factory</a>
 </li>
             
 <li>
-    <a href="../../quant-trading/notebooks/05_cross_sectional_factor_selection/" class="dropdown-item">05 Cross-Sectional Factor Selection</a>
+    <a href="../../quant-trading/notebooks/02_decomposition_aware_moving_average_macd/" class="dropdown-item">02 Decomposition-aware MA and MACD</a>
 </li>
             
 <li>
-    <a href="../../quant-trading/notebooks/06_style_sector_asset_rotation_bt/" class="dropdown-item">06 Style and Sector Rotation</a>
+    <a href="../../quant-trading/notebooks/03_residual_mean_reversion_rsi_bollinger/" class="dropdown-item">03 Residual Mean Reversion</a>
 </li>
             
 <li>
-    <a href="../../quant-trading/notebooks/07_korea_us_crypto_multimarket/" class="dropdown-item">07 Korea, US, and Crypto</a>
+    <a href="../../quant-trading/notebooks/04_turtle_donchian_breakout_volume_confirmation/" class="dropdown-item">04 Donchian Breakout</a>
 </li>
             
 <li>
-    <a href="../../quant-trading/notebooks/08_backtesting_framework_adapters/" class="dropdown-item">08 Framework Adapters</a>
+    <a href="../../quant-trading/notebooks/05_pairs_spread_decomposition_stat_arb/" class="dropdown-item">05 Pair-Spread Stat-Arb</a>
 </li>
             
 <li>
-    <a href="../../quant-trading/notebooks/09_walkforward_validation_and_audit/" class="dropdown-item">09 Walk-Forward Validation</a>
+    <a href="../../quant-trading/notebooks/06_cross_sectional_rotation_portfolio/" class="dropdown-item">06 Cross-Sectional Rotation</a>
 </li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Native SSA Replay</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../quant-trading/notebooks/07_native_ssa_high_return_low_drawdown_tutorial/" class="dropdown-item">07 Native SSA High-Return / Low-Drawdown</a>
+</li>
+    </ul>
+  </li>
             
 <li>
     <a href="../../quant-trading/data/" class="dropdown-item">Real Data and Universes</a>
@@ -324,6 +407,10 @@
 </li>
                                     
 <li>
+    <a href="../../../release-artifacts/" class="dropdown-item">Release Artifacts</a>
+</li>
+                                    
+<li>
     <a href="../../../architecture/" class="dropdown-item">Architecture</a>
 </li>
                                     
@@ -359,7 +446,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="https://github.com/systems-mechanobiology/De-Time" class="nav-link">systems-mechanobiology/De-Time</a>
+                                <a href="https://github.com/systems-mechanobiology/DeTime" class="nav-link">systems-mechanobiology/DeTime</a>
                             </li>
                     </ul>
                 </div>
@@ -379,13 +466,21 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#hot-trend-lab-data-sources" class="nav-link">Hot Trend Lab Data Sources</a>
+            <li class="nav-item" data-bs-level="1"><a href="#hot-trend-lab-source-protocol" class="nav-link">Hot Trend Lab Source Protocol</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#source-card" class="nav-link">Source card</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#source-registry" class="nav-link">Source registry</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#source-table-requirements" class="nav-link">Source table requirements</a>
+            <li class="nav-item" data-bs-level="2"><a href="#reliability-matrix" class="nav-link">Reliability matrix</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#api-cache-and-timestamp-rules" class="nav-link">API, cache, and timestamp rules</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -393,7 +488,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#caching-policy" class="nav-link">Caching policy</a>
+            <li class="nav-item" data-bs-level="2"><a href="#replacement-sources" class="nav-link">Replacement sources</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -404,90 +499,162 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="hot-trend-lab-data-sources">Hot Trend Lab Data Sources</h1>
-<p>The column uses public data sources fetched by the notebooks and records source
-coverage in the registry below.</p>
+<h1 id="hot-trend-lab-source-protocol">Hot Trend Lab Source Protocol</h1>
+<p>Every Hot Trend Lab chart starts with a source card. The card tells the reader
+what the series measures, when it was collected, how much coverage it has, and
+which claim it can support. This keeps the column readable without hiding the
+measurement limits.</p>
+<h2 id="source-card">Source card</h2>
+<p>Use this checklist before publishing a chart or table:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>What to record</th>
+<th>Pass condition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source</td>
+<td>API, endpoint, vendor, or cached public snapshot</td>
+<td>the source can be named and re-fetched or inspected</td>
+</tr>
+<tr>
+<td>Query</td>
+<td>category, keyword, ticker basket, article title, or repo list</td>
+<td>another reader can reproduce the selection</td>
+</tr>
+<tr>
+<td>Timestamp</td>
+<td>access date plus source time field</td>
+<td>the collection date is visible in the table</td>
+</tr>
+<tr>
+<td>Coverage</td>
+<td>first timestamp, last timestamp, observation count, missing ratio</td>
+<td>gaps are small enough for the intended chart</td>
+</tr>
+<tr>
+<td>Refresh rule</td>
+<td>per run, daily, weekly, or event-driven</td>
+<td>cadence matches the claim being made</td>
+</tr>
+<tr>
+<td>Interpretation</td>
+<td>what the source measures and what it does not measure</td>
+<td>the article sentence stays inside the evidence</td>
+</tr>
+</tbody>
+</table>
 <h2 id="source-registry">Source registry</h2>
+<p>The registry is the live list of public feeds used by the notebooks. Each row
+maps a source to its metric, notebook use, refresh rule, and interpretation
+limit.</p>
+<h2 id="reliability-matrix">Reliability matrix</h2>
 <table>
 <thead>
 <tr>
 <th>Source</th>
-<th>What it measures</th>
-<th>Notebook use</th>
-<th>Freshness rule</th>
-<th>Interpretation scope</th>
+<th>Measures</th>
+<th>Best use</th>
+<th>Main limit</th>
+<th>Publish threshold</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>arXiv API</td>
-<td>preprint counts and metadata</td>
-<td>category pulse, agent research pulse</td>
-<td>refresh weekly or monthly</td>
-<td>preprints are not peer-reviewed; cross-listing can double count</td>
+<td>public preprint counts and metadata</td>
+<td>research-output trend, deadline pulses, topic watchlists</td>
+<td>preprints are not peer-reviewed; cross-listing and query wording change counts</td>
+<td>query and date window shown; spike explained against deadline context</td>
 </tr>
 <tr>
 <td>Hugging Face Hub API</td>
 <td>model metadata, downloads, likes</td>
-<td>open-model pulse</td>
-<td>collect daily or weekly snapshots</td>
-<td>repeated snapshots support time-series analysis; downloads are a public adoption proxy</td>
+<td>current open-model attention and repeated snapshot retention</td>
+<td>one snapshot is cross-sectional; downloads do not measure quality</td>
+<td>snapshot date shown; repeated snapshots required for momentum language</td>
 </tr>
 <tr>
 <td>GitHub REST API</td>
 <td>repo metadata and stargazer timestamps</td>
-<td>developer attention</td>
-<td>collect weekly; use token for high-volume pulls</td>
-<td>stars are attention, not production usage</td>
+<td>developer attention and launch-week velocity</td>
+<td>token limits, page limits, bots, and repo selection bias</td>
+<td>covered page/window shown; stars described as attention</td>
 </tr>
 <tr>
 <td>Wikimedia Analytics API</td>
 <td>article pageviews</td>
-<td>public attention and hype decay</td>
-<td>refresh daily or weekly</td>
-<td>pageviews reflect public attention during the selected period</td>
+<td>public attention and hype-decay curves</td>
+<td>article naming and media events can dominate the series</td>
+<td>project, article, date range, and access type shown</td>
 </tr>
 <tr>
 <td>DeFiLlama stablecoin API</td>
 <td>stablecoin supply and chain distribution</td>
-<td>crypto liquidity pulse</td>
-<td>refresh daily or weekly</td>
-<td>endpoint structure can change; verify before publication</td>
+<td>liquidity context around crypto events</td>
+<td>endpoint schema can change; supply is not execution liquidity</td>
+<td>schema inspected and top-chain context shown</td>
 </tr>
 <tr>
 <td>CoinGecko API</td>
 <td>crypto price and market data</td>
-<td>crypto pulse</td>
-<td>refresh per run</td>
-<td>rate limits and plan limits apply</td>
+<td>price residual context for BTC/ETH examples</td>
+<td>public API rate limits and vendor methodology</td>
+<td>market structure language; no trade recommendation</td>
 </tr>
 <tr>
 <td>Yahoo Finance through <code>yfinance</code></td>
 <td>public market prices</td>
-<td>AI infrastructure market pulse</td>
-<td>refresh per run</td>
-<td>tutorial-grade source; use a licensed point-in-time vendor for production</td>
+<td>AI infrastructure price-proxy examples</td>
+<td>unofficial public wrapper; not licensed point-in-time market data</td>
+<td>basket definition shown; valuation claims excluded</td>
 </tr>
 </tbody>
 </table>
-<h2 id="source-table-requirements">Source table requirements</h2>
-<p>Tables should be derived from one of the public sources above or from a clearly
-documented replacement source. The notebook must record:</p>
-<ul>
-<li>source name;</li>
-<li>URL or API endpoint;</li>
-<li>access date;</li>
-<li>query parameters;</li>
-<li>time range;</li>
-<li>data-quality and interpretation-scope notes.</li>
-</ul>
+<h2 id="api-cache-and-timestamp-rules">API, cache, and timestamp rules</h2>
+<p>Public APIs change shape, paginate results, and rate-limit unauthenticated
+requests. Each notebook records the endpoint or query context, then writes a
+source audit table with first timestamp, last timestamp, observation count, and
+missing ratio. Cached files are treated as dated public snapshots rather than
+anonymous local data.</p>
+<p>For snapshot sources, wording changes with depth:</p>
+<table>
+<thead>
+<tr>
+<th>Snapshot depth</th>
+<th>Allowed wording</th>
+<th>Avoid</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>One dated snapshot</td>
+<td>current public ranking or adoption proxy</td>
+<td>momentum, acceleration, retention</td>
+</tr>
+<tr>
+<td>Repeated snapshots</td>
+<td>change in downloads, likes, stars, or attention over time</td>
+<td>quality, production usage, valuation</td>
+</tr>
+<tr>
+<td>Full source history or scheduled collection</td>
+<td>trend, seasonality, residual events over the covered window</td>
+<td>claims outside the source universe</td>
+</tr>
+</tbody>
+</table>
 <h2 id="source-snapshot-rules">Source snapshot rules</h2>
-<p>Each table should be tied to a named source, query context, access date, and
-time range. Cached files are treated as source snapshots and should carry the
-same provenance fields as freshly fetched data.</p>
-<h2 id="caching-policy">Caching policy</h2>
-<p>Cache files represent fetched source snapshots and should include an access date
-in the filename or metadata.</p></div>
+<p>Cached source snapshots keep the same source-card fields as freshly fetched
+data: source, query, access date, time range, coverage, and interpretation
+scope. A cache can support a chart only when its date and query are visible.</p>
+<h2 id="replacement-sources">Replacement sources</h2>
+<p>A notebook may use a better licensed or institutional source, but the result
+still needs the same source card. For production work, add vendor name, point-in
+time policy, revision policy, calendar, and redistribution limits.</p></div>
             </div>
         </div>
 

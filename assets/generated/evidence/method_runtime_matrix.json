@@ -1,0 +1,942 @@
+{
+  "generated_at": "2026-06-19T18:16:36.763713+00:00",
+  "native_capabilities": {
+    "gabor_cluster_decompose": true,
+    "gabor_istft_rfft": true,
+    "gabor_stft_rfft": true,
+    "ma_baseline_decompose": true,
+    "mssa_decompose": true,
+    "ssa_decompose": true,
+    "std_decompose": true,
+    "vmd_decompose": true
+  },
+  "package_version": "0.1.2",
+  "platform": {
+    "machine": "AMD64",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python": "3.11.9"
+  },
+  "rows": [
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.2551,
+      "mean_ms": 0.160333,
+      "method": "AMD_BLOCK",
+      "min_ms": 0.1086,
+      "params": {
+        "fit_scope": "full",
+        "moving_avg": 13,
+        "primary_period": 12,
+        "trend_window": 13
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.2551,
+        0.1173,
+        0.1086
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.0314,
+      "mean_ms": 0.0262,
+      "method": "AUTOFORMER_BLOCK",
+      "min_ms": 0.0234,
+      "params": {
+        "fit_scope": "full",
+        "moving_avg": 13,
+        "primary_period": 12,
+        "trend_window": 13
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.0314,
+        0.0238,
+        0.0234
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 25.6802,
+      "mean_ms": 24.0472,
+      "method": "CEEMDAN",
+      "min_ms": 22.4142,
+      "params": {
+        "primary_period": 12,
+        "trials": 4
+      },
+      "repeat": 2,
+      "samples_ms": [
+        22.4142,
+        25.6802
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.121,
+      "mean_ms": 0.1036,
+      "method": "DELELSTM_BLOCK",
+      "min_ms": 0.0946,
+      "params": {
+        "fit_scope": "full",
+        "moving_avg": 13,
+        "primary_period": 12,
+        "trend_window": 13
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.121,
+        0.0946,
+        0.0952
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.0411,
+      "mean_ms": 0.0305,
+      "method": "DLINEAR_BLOCK",
+      "min_ms": 0.0237,
+      "params": {
+        "fit_scope": "full",
+        "moving_avg": 13,
+        "primary_period": 12,
+        "trend_window": 13
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.0411,
+        0.0267,
+        0.0237
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.7221,
+      "mean_ms": 0.6851,
+      "method": "EMD",
+      "min_ms": 0.6652,
+      "params": {
+        "n_imfs": 4,
+        "primary_period": 12
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.7221,
+        0.6652,
+        0.668
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.2816,
+      "mean_ms": 0.1995,
+      "method": "FREQMOE_BLOCK",
+      "min_ms": 0.1469,
+      "params": {
+        "fit_scope": "full",
+        "moving_avg": 13,
+        "primary_period": 12,
+        "trend_window": 13
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.2816,
+        0.17,
+        0.1469
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 5.2432,
+      "mean_ms": 2.267367,
+      "method": "GABOR_CLUSTER",
+      "min_ms": 0.5546,
+      "params": {
+        "hop": 16,
+        "model": "synthetic_gabor_centroids",
+        "n_clusters": 6,
+        "n_fft": 64,
+        "trend_freq_thr": 0.15,
+        "win_len": 32
+      },
+      "repeat": 3,
+      "samples_ms": [
+        5.2432,
+        0.5546,
+        1.0043
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "native",
+      "backend_used": "native",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.2081,
+      "mean_ms": 0.154533,
+      "method": "GABOR_CLUSTER",
+      "min_ms": 0.1233,
+      "params": {
+        "hop": 16,
+        "model": "synthetic_gabor_centroids",
+        "n_clusters": 6,
+        "n_fft": 64,
+        "trend_freq_thr": 0.15,
+        "win_len": 32
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.2081,
+        0.1322,
+        0.1233
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.1572,
+      "mean_ms": 0.143433,
+      "method": "INPARFORMER_BLOCK",
+      "min_ms": 0.1358,
+      "params": {
+        "fit_scope": "full",
+        "moving_avg": 13,
+        "primary_period": 12,
+        "trend_window": 13
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.1572,
+        0.1373,
+        0.1358
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.0908,
+      "mean_ms": 0.0794,
+      "method": "LEDDAM_BLOCK",
+      "min_ms": 0.072,
+      "params": {
+        "fit_scope": "full",
+        "moving_avg": 13,
+        "primary_period": 12,
+        "trend_window": 13
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.0908,
+        0.0754,
+        0.072
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.2289,
+      "mean_ms": 0.213433,
+      "method": "MA_BASELINE",
+      "min_ms": 0.1988,
+      "params": {
+        "season_period": 12,
+        "trend_window": 7
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.2289,
+        0.2126,
+        0.1988
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "native",
+      "backend_used": "native",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.043,
+      "mean_ms": 0.035367,
+      "method": "MA_BASELINE",
+      "min_ms": 0.0304,
+      "params": {
+        "season_period": 12,
+        "trend_window": 7
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.043,
+        0.0327,
+        0.0304
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": "(2, 128)\n(2, 128)\n(2, 128)\n(2, 128)",
+      "error": null,
+      "max_ms": 71.8545,
+      "mean_ms": 48.8977,
+      "method": "MEMD",
+      "min_ms": 25.9409,
+      "params": {
+        "primary_period": 12
+      },
+      "repeat": 2,
+      "samples_ms": [
+        71.8545,
+        25.9409
+      ],
+      "series_shape": [
+        128,
+        2
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.0727,
+      "mean_ms": 0.043333,
+      "method": "MOVING_AVERAGE_DECOMPOSITION_BLOCK",
+      "min_ms": 0.0242,
+      "params": {
+        "fit_scope": "full",
+        "moving_avg": 13,
+        "primary_period": 12,
+        "trend_window": 13
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.0727,
+        0.0331,
+        0.0242
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 7.9688,
+      "mean_ms": 7.8988,
+      "method": "MSSA",
+      "min_ms": 7.8454,
+      "params": {
+        "primary_period": 12,
+        "rank": 6,
+        "window": 24
+      },
+      "repeat": 3,
+      "samples_ms": [
+        7.9688,
+        7.8822,
+        7.8454
+      ],
+      "series_shape": [
+        128,
+        2
+      ]
+    },
+    {
+      "backend_requested": "native",
+      "backend_used": "native",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 1.3455,
+      "mean_ms": 1.293867,
+      "method": "MSSA",
+      "min_ms": 1.2615,
+      "params": {
+        "primary_period": 12,
+        "rank": 6,
+        "window": 24
+      },
+      "repeat": 3,
+      "samples_ms": [
+        1.3455,
+        1.2746,
+        1.2615
+      ],
+      "series_shape": [
+        128,
+        2
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 17.3427,
+      "mean_ms": 9.353467,
+      "method": "MSTL",
+      "min_ms": 5.3586,
+      "params": {
+        "periods": [
+          12,
+          24
+        ]
+      },
+      "repeat": 3,
+      "samples_ms": [
+        17.3427,
+        5.3586,
+        5.3591
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 16.8935,
+      "mean_ms": 16.75475,
+      "method": "MVMD",
+      "min_ms": 16.616,
+      "params": {
+        "K": 3,
+        "alpha": 300.0,
+        "primary_period": 12
+      },
+      "repeat": 2,
+      "samples_ms": [
+        16.616,
+        16.8935
+      ],
+      "series_shape": [
+        128,
+        2
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 7513.0693,
+      "mean_ms": 7100.99945,
+      "method": "NBEATS_INTERPRETABLE",
+      "min_ms": 6688.9296,
+      "params": {
+        "fit_scope": "full",
+        "n_epochs": 200,
+        "num_harmonics": 8,
+        "restarts": 2
+      },
+      "repeat": 2,
+      "samples_ms": [
+        7513.0693,
+        6688.9296
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.312,
+      "mean_ms": 0.220067,
+      "method": "PARSIMONY_BLOCK",
+      "min_ms": 0.17,
+      "params": {
+        "fit_scope": "full",
+        "moving_avg": 13,
+        "primary_period": 12,
+        "trend_window": 13
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.312,
+        0.1782,
+        0.17
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 12.1681,
+      "mean_ms": 12.033467,
+      "method": "ROBUST_STL",
+      "min_ms": 11.928,
+      "params": {
+        "period": 12
+      },
+      "repeat": 3,
+      "samples_ms": [
+        11.928,
+        12.0043,
+        12.1681
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 7.5773,
+      "mean_ms": 6.7428,
+      "method": "SSA",
+      "min_ms": 6.2574,
+      "params": {
+        "primary_period": 12,
+        "rank": 6,
+        "window": 24
+      },
+      "repeat": 3,
+      "samples_ms": [
+        6.3937,
+        7.5773,
+        6.2574
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "native",
+      "backend_used": "native",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 1.2156,
+      "mean_ms": 1.172067,
+      "method": "SSA",
+      "min_ms": 1.146,
+      "params": {
+        "primary_period": 12,
+        "rank": 6,
+        "window": 24
+      },
+      "repeat": 3,
+      "samples_ms": [
+        1.2156,
+        1.1546,
+        1.146
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.2942,
+      "mean_ms": 0.2665,
+      "method": "STD",
+      "min_ms": 0.2462,
+      "params": {
+        "period": 12
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.2942,
+        0.2591,
+        0.2462
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "native",
+      "backend_used": "native",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.0559,
+      "mean_ms": 0.0437,
+      "method": "STD",
+      "min_ms": 0.0362,
+      "params": {
+        "period": 12
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.0559,
+        0.039,
+        0.0362
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.3329,
+      "mean_ms": 0.3222,
+      "method": "STDR",
+      "min_ms": 0.3149,
+      "params": {
+        "period": 12
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.3329,
+        0.3188,
+        0.3149
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "native",
+      "backend_used": "native",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.0407,
+      "mean_ms": 0.037767,
+      "method": "STDR",
+      "min_ms": 0.0352,
+      "params": {
+        "period": 12
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.0407,
+        0.0374,
+        0.0352
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 2.1621,
+      "mean_ms": 1.959333,
+      "method": "STL",
+      "min_ms": 1.81,
+      "params": {
+        "period": 12
+      },
+      "repeat": 3,
+      "samples_ms": [
+        2.1621,
+        1.9059,
+        1.81
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.2098,
+      "mean_ms": 0.1772,
+      "method": "ST_MTM_BLOCK",
+      "min_ms": 0.1574,
+      "params": {
+        "fit_scope": "full",
+        "moving_avg": 13,
+        "primary_period": 12,
+        "trend_window": 13
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.2098,
+        0.1644,
+        0.1574
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.4043,
+      "mean_ms": 0.359,
+      "method": "TIMEKAN_BLOCK",
+      "min_ms": 0.3339,
+      "params": {
+        "fit_scope": "full",
+        "moving_avg": 13,
+        "primary_period": 12,
+        "trend_window": 13
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.4043,
+        0.3388,
+        0.3339
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.2502,
+      "mean_ms": 0.239533,
+      "method": "TIMES2D_BLOCK",
+      "min_ms": 0.2338,
+      "params": {
+        "fit_scope": "full",
+        "moving_avg": 13,
+        "primary_period": 12,
+        "trend_window": 13
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.2502,
+        0.2346,
+        0.2338
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 95.6996,
+      "mean_ms": 94.6436,
+      "method": "VMD",
+      "min_ms": 94.0898,
+      "params": {
+        "K": 4,
+        "alpha": 300.0,
+        "primary_period": 12
+      },
+      "repeat": 3,
+      "samples_ms": [
+        95.6996,
+        94.0898,
+        94.1414
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "native",
+      "backend_used": "native",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 13.5509,
+      "mean_ms": 13.126967,
+      "method": "VMD",
+      "min_ms": 12.8835,
+      "params": {
+        "K": 4,
+        "alpha": 300.0,
+        "primary_period": 12
+      },
+      "repeat": 3,
+      "samples_ms": [
+        12.9465,
+        13.5509,
+        12.8835
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.3104,
+      "mean_ms": 0.1998,
+      "method": "WAVEFORM_BLOCK",
+      "min_ms": 0.1376,
+      "params": {
+        "fit_scope": "full",
+        "moving_avg": 13,
+        "primary_period": 12,
+        "trend_window": 13
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.3104,
+        0.1514,
+        0.1376
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.1337,
+      "mean_ms": 0.126833,
+      "method": "WAVELET",
+      "min_ms": 0.1221,
+      "params": {
+        "level": 3,
+        "wavelet": "db4"
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.1337,
+        0.1247,
+        0.1221
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.1056,
+      "mean_ms": 0.101567,
+      "method": "WAVELETMIXER_BLOCK",
+      "min_ms": 0.0969,
+      "params": {
+        "fit_scope": "full",
+        "level": 2,
+        "moving_avg": 13,
+        "primary_period": 12,
+        "season_levels": [
+          1
+        ],
+        "trend_window": 13,
+        "wavelet": "db1"
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.1056,
+        0.1022,
+        0.0969
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.1155,
+      "mean_ms": 0.100433,
+      "method": "XPATCH_BLOCK",
+      "min_ms": 0.0911,
+      "params": {
+        "fit_scope": "full",
+        "moving_avg": 13,
+        "primary_period": 12,
+        "trend_window": 13
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.1155,
+        0.0947,
+        0.0911
+      ],
+      "series_shape": [
+        128
+      ]
+    }
+  ]
+}

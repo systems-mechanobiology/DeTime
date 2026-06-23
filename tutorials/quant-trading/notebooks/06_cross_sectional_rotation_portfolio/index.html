@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Zipeng Wu">
+        <link rel="canonical" href="https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/notebooks/06_cross_sectional_rotation_portfolio/">
+        <link rel="shortcut icon" href="../../../../img/favicon.ico">
+        <title>06 Cross-Sectional Rotation - DeTime</title>
+        <link href="../../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../../../stylesheets/brand.css" rel="stylesheet">
+        <link href="../../../../stylesheets/extra.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+   
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="keywords" content="DeTime, detime, de-time, time series decomposition, Python time series, SSA, MSSA, VMD, STL, decomposition software">
+  <meta property="og:site_name" content="DeTime">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DeTime - Python and CLI time-series decomposition">
+  <meta property="og:description" content="DeTime is a Python and CLI toolkit for reproducible time-series decomposition across SSA, MSSA, VMD, STL, EMD, wavelet, and native C++ backed methods.">
+  <meta property="og:url" content="https://systems-mechanobiology.github.io/DeTime/">
+  <meta property="og:image" content="https://systems-mechanobiology.github.io/DeTime/assets/brand/detime-title-card.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DeTime - time-series decomposition for Python">
+  <meta name="twitter:description" content="Python and CLI software for reusable trend, oscillation, residual, metadata, schema, and artifact outputs.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://systems-mechanobiology.github.io/DeTime/#website",
+        "name": "DeTime",
+        "alternateName": ["detime", "de-time", "De-Time"],
+        "url": "https://systems-mechanobiology.github.io/DeTime/",
+        "description": "DeTime documentation for Python and CLI time-series decomposition software.",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://systems-mechanobiology.github.io/DeTime/#software",
+        "name": "DeTime",
+        "alternateName": ["detime", "de-time", "De-Time"],
+        "description": "Python and CLI toolkit for reproducible time-series decomposition with native C++ backed SSA, MSSA, VMD, STD, STDR, MA baseline, and Gabor clustering paths.",
+        "codeRepository": "https://github.com/systems-mechanobiology/DeTime",
+        "url": "https://systems-mechanobiology.github.io/DeTime/",
+        "programmingLanguage": ["Python", "C++"],
+        "applicationCategory": "Scientific software",
+        "keywords": "DeTime, time-series decomposition, Python, SSA, MSSA, VMD, STL, EMD, wavelet, native C++",
+        "author": {
+          "@type": "Person",
+          "name": "Zipeng Wu"
+        }
+      }
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="../../../../stylesheets/extra.css?v=7">
+
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../../..">DeTime</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../../../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Start</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../../install/" class="dropdown-item">Install</a>
+</li>
+                                    
+<li>
+    <a href="../../../../quickstart/" class="dropdown-item">Quickstart</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Methods</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../../methods/" class="dropdown-item">Methods & Chooser</a>
+</li>
+                                    
+<li>
+    <a href="../../../../method-matrix/" class="dropdown-item">Method Matrix</a>
+</li>
+                                    
+<li>
+    <a href="../../../../method-references/" class="dropdown-item">Method References</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Workflows</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../../notebook-gallery/" class="dropdown-item">Notebook Gallery</a>
+</li>
+                                    
+<li>
+    <a href="../../../univariate/" class="dropdown-item">Univariate Tutorial</a>
+</li>
+                                    
+<li>
+    <a href="../../../multivariate/" class="dropdown-item">Multivariate Tutorial</a>
+</li>
+                                    
+<li>
+    <a href="../../../cli-and-profiling/" class="dropdown-item">CLI Guide</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Quant Trading Tutorial</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../" class="dropdown-item">Overview</a>
+</li>
+            
+<li>
+    <a href="../" class="dropdown-item">Tutorial Notebooks</a>
+</li>
+            
+<li>
+    <a href="../00_decomposition_first_quant_trading_roadmap/" class="dropdown-item">Tutorial 00 Roadmap</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Lab</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../two-strategy-families/" class="dropdown-item">Two Strategy Families</a>
+</li>
+            
+<li>
+    <a href="../01_detime_trend_following_strategy_lab/" class="dropdown-item">01 Trend-Following Lab</a>
+</li>
+            
+<li>
+    <a href="../02_detime_oscillation_reversion_strategy_lab/" class="dropdown-item">02 Oscillation-Reversion Lab</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Expansion</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../method-specific-strategy-expansion/" class="dropdown-item">Method-Specific Strategy Expansion</a>
+</li>
+            
+<li>
+    <a href="../03_detime_method_specific_strategy_variants/" class="dropdown-item">03 Method-Specific Variants</a>
+</li>
+            
+<li>
+    <a href="../04_detime_component_pair_trading_cointegration/" class="dropdown-item">04 Component Pair Trading</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Tutorial Sequence</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../01_market_data_and_decomposition_feature_factory/" class="dropdown-item">01 Real Market Data and Feature Factory</a>
+</li>
+            
+<li>
+    <a href="../02_decomposition_aware_moving_average_macd/" class="dropdown-item">02 Decomposition-aware MA and MACD</a>
+</li>
+            
+<li>
+    <a href="../03_residual_mean_reversion_rsi_bollinger/" class="dropdown-item">03 Residual Mean Reversion</a>
+</li>
+            
+<li>
+    <a href="../04_turtle_donchian_breakout_volume_confirmation/" class="dropdown-item">04 Donchian Breakout</a>
+</li>
+            
+<li>
+    <a href="../05_pairs_spread_decomposition_stat_arb/" class="dropdown-item">05 Pair-Spread Stat-Arb</a>
+</li>
+            
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">06 Cross-Sectional Rotation</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Native SSA Replay</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../07_native_ssa_high_return_low_drawdown_tutorial/" class="dropdown-item">07 Native SSA High-Return / Low-Drawdown</a>
+</li>
+    </ul>
+  </li>
+            
+<li>
+    <a href="../../data/" class="dropdown-item">Real Data and Universes</a>
+</li>
+            
+<li>
+    <a href="../../strategy-map/" class="dropdown-item">Strategy Map</a>
+</li>
+            
+<li>
+    <a href="../../backtesting-frameworks/" class="dropdown-item">Backtesting Frameworks</a>
+</li>
+            
+<li>
+    <a href="../../walkforward/" class="dropdown-item">Walk-Forward Validation</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Hot Trend Lab</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../../hot-trend-lab/" class="dropdown-item">Overview</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/" class="dropdown-item">Rendered Notebooks</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/00_hot_trend_lab_overview/" class="dropdown-item">00 Column Overview</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/01_arxiv_category_pulse/" class="dropdown-item">01 arXiv Category Pulse</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/02_arxiv_agent_research_pulse/" class="dropdown-item">02 arXiv Agent Research Pulse</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/03_huggingface_open_model_pulse/" class="dropdown-item">03 Hugging Face Open-Model Pulse</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/04_github_ai_agent_star_velocity/" class="dropdown-item">04 GitHub Star Velocity</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/05_wikipedia_attention_hype_decay/" class="dropdown-item">05 Wikipedia Attention Decay</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/06_crypto_stablecoin_liquidity_pulse/" class="dropdown-item">06 Crypto Stablecoin Liquidity</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/07_ai_infrastructure_market_pulse/" class="dropdown-item">07 AI Infrastructure Market Pulse</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/data-sources/" class="dropdown-item">Real Data Sources</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/arxiv-research-pulse/" class="dropdown-item">arXiv Research Pulse</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/open-model-and-developer-attention/" class="dropdown-item">Open Models and Developer Attention</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/wiki-market-crypto-attention/" class="dropdown-item">Public Attention, Markets, and Crypto</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/release-calendar/" class="dropdown-item">Release Calendar</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Gallery</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../../gallery/ssa/" class="dropdown-item">SSA</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/std/" class="dropdown-item">STD</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/stdr/" class="dropdown-item">STDR</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/mssa/" class="dropdown-item">MSSA</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/stl/" class="dropdown-item">STL</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/mstl/" class="dropdown-item">MSTL</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/robust-stl/" class="dropdown-item">ROBUST_STL</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/emd/" class="dropdown-item">EMD</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/ceemdan/" class="dropdown-item">CEEMDAN</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/vmd/" class="dropdown-item">VMD</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/wavelet/" class="dropdown-item">WAVELET</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/ma-baseline/" class="dropdown-item">MA_BASELINE</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/mvmd/" class="dropdown-item">MVMD</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/memd/" class="dropdown-item">MEMD</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/gabor-cluster/" class="dropdown-item">GABOR_CLUSTER</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Reference</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../../api/" class="dropdown-item">API Overview</a>
+</li>
+                                    
+<li>
+    <a href="../../../../config-reference/" class="dropdown-item">Config Reference</a>
+</li>
+                                    
+<li>
+    <a href="../../../../machine-api/" class="dropdown-item">Machine API</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Project</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../../comparisons/" class="dropdown-item">Compare Alternatives</a>
+</li>
+                                    
+<li>
+    <a href="../../../../reproducibility/" class="dropdown-item">Reproducibility</a>
+</li>
+                                    
+<li>
+    <a href="../../../../release-artifacts/" class="dropdown-item">Release Artifacts</a>
+</li>
+                                    
+<li>
+    <a href="../../../../architecture/" class="dropdown-item">Architecture</a>
+</li>
+                                    
+<li>
+    <a href="../../../../migration/" class="dropdown-item">Migration from `tsdecomp`</a>
+</li>
+                                    
+<li>
+    <a href="../../../../contributing/" class="dropdown-item">Contributing</a>
+</li>
+                                    
+<li>
+    <a href="../../../../citation/" class="dropdown-item">Citation / Release Notes</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../05_pairs_spread_decomposition_stat_arb/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../07_native_ssa_high_return_low_drawdown_tutorial/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/systems-mechanobiology/DeTime" class="nav-link">systems-mechanobiology/DeTime</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#tutorial-06-cross-sectional-rotation-and-portfolio-construction" class="nav-link">Tutorial 06 - Cross-sectional rotation and portfolio construction</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#tutorial-navigation" class="nav-link">Tutorial Navigation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#executed-notebook" class="nav-link">Executed Notebook</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#1-load-real-offline-market-data" class="nav-link">1. Load real offline market data</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#2-build-walk-forward-asset-features" class="nav-link">2. Build walk-forward asset features</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#3-inspect-the-detime-rotation-score" class="nav-link">3. Inspect the DeTime rotation score</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#4-backtest-a-compact-rotation-suite" class="nav-link">4. Backtest a compact rotation suite</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#5-live-data-extension" class="nav-link">5. Live-data extension</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<!-- Generated by scripts/generate_column_notebook_pages.py; do not edit manually. -->
+<h1 id="tutorial-06-cross-sectional-rotation-and-portfolio-construction">Tutorial 06 - Cross-sectional rotation and portfolio construction</h1>
+<div class="gallery-note notebook-transcript-note">
+  <strong>Executed tutorial notebook.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/DeTime/blob/main/examples/notebooks/quant_trading/06_cross_sectional_rotation_portfolio.ipynb"><code>examples/notebooks/quant_trading/06_cross_sectional_rotation_portfolio.ipynb</code></a> and includes markdown cells, code cells, stdout, tables, and captured figures from the committed notebook.
+</div>
+
+<h2 id="tutorial-navigation">Tutorial Navigation</h2>
+<table>
+<thead>
+<tr>
+<th>Track</th>
+<th>Tutorial notebook</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Roadmap</td>
+<td><a href="../00_decomposition_first_quant_trading_roadmap/">Tutorial 00 - Roadmap</a></td>
+</tr>
+<tr>
+<td>Strategy Lab</td>
+<td><a href="../01_detime_trend_following_strategy_lab/">01 Trend-Following Lab</a></td>
+</tr>
+<tr>
+<td>Tutorial Sequence</td>
+<td><a href="../01_market_data_and_decomposition_feature_factory/">01 Real Market Data and Feature Factory</a></td>
+</tr>
+<tr>
+<td>Tutorial Sequence</td>
+<td><a href="../02_decomposition_aware_moving_average_macd/">02 Decomposition-aware MA and MACD</a></td>
+</tr>
+<tr>
+<td>Strategy Lab</td>
+<td><a href="../02_detime_oscillation_reversion_strategy_lab/">02 Oscillation-Reversion Lab</a></td>
+</tr>
+<tr>
+<td>Strategy Expansion</td>
+<td><a href="../03_detime_method_specific_strategy_variants/">03 Method-Specific Variants</a></td>
+</tr>
+<tr>
+<td>Tutorial Sequence</td>
+<td><a href="../03_residual_mean_reversion_rsi_bollinger/">03 Residual Mean Reversion</a></td>
+</tr>
+<tr>
+<td>Strategy Expansion</td>
+<td><a href="../04_detime_component_pair_trading_cointegration/">04 Component Pair Trading</a></td>
+</tr>
+<tr>
+<td>Tutorial Sequence</td>
+<td><a href="../04_turtle_donchian_breakout_volume_confirmation/">04 Donchian Breakout</a></td>
+</tr>
+<tr>
+<td>Tutorial Sequence</td>
+<td><a href="../05_pairs_spread_decomposition_stat_arb/">05 Pair-Spread Stat-Arb</a></td>
+</tr>
+<tr>
+<td>Tutorial Sequence</td>
+<td><strong>06 Cross-Sectional Rotation</strong></td>
+</tr>
+<tr>
+<td>Native SSA Replay</td>
+<td><a href="../07_native_ssa_high_return_low_drawdown_tutorial/">07 Native SSA High-Return / Low-Drawdown</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="executed-notebook">Executed Notebook</h2>
+<p>This notebook turns DeTime features into a portfolio ranking language: trend decides direction, cycle adjusts timing, residual controls overextension and volume/reconstruction features control reliability.</p>
+<div class="notebook-cell">
+<div class="notebook-input-label">In [1]</div>
+
+
+<pre><code class="language-python">import matplotlib.pyplot as plt
+import pandas as pd
+
+from quant_trading.data import load_bundled_real_ohlcv_panel, ohlcv_audit_report
+from quant_trading.features import walkforward_decompose_ohlcv
+from quant_trading.decomposition_features import feature_coverage_report, build_feature_table
+from quant_trading.strategy_baselines import buy_and_hold_weights
+from quant_trading.strategy_rotation import (
+    classic_momentum_rotation_weights, detime_cross_sectional_score,
+    detime_long_short_rotation_weights, detime_rotation_weights,
+    rotation_diagnostic_table, volume_availability,
+)
+from quant_trading.validation import compare_weight_strategies, turnover_report
+</code></pre>
+
+</div>
+
+<h2 id="1-load-real-offline-market-data">1. Load real offline market data</h2>
+<div class="notebook-cell">
+<div class="notebook-input-label">In [2]</div>
+
+
+<pre><code class="language-python">tickers = [&quot;AUDUSD=X&quot;, &quot;NZDUSD=X&quot;, &quot;EURUSD=X&quot;, &quot;GBPUSD=X&quot;]
+ohlcv = load_bundled_real_ohlcv_panel(tickers, min_observations=120)
+ohlcv = {field: table.tail(760).copy() for field, table in ohlcv.items()}
+prices = ohlcv[&quot;Close&quot;]
+volumes = ohlcv.get(&quot;Volume&quot;)
+print(&quot;volume_available:&quot;, volume_availability(volumes))
+ohlcv_audit_report(ohlcv)
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">stdout</div>
+
+<pre><code class="language-text">volume_available: False
+</code></pre>
+
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ticker</th>
+      <th>first_timestamp</th>
+      <th>last_timestamp</th>
+      <th>observations</th>
+      <th>close_missing_ratio</th>
+      <th>volume_missing_ratio</th>
+      <th>zero_volume_ratio</th>
+      <th>min_close</th>
+      <th>max_close</th>
+      <th>median_volume</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>AUDUSD=X</td>
+      <td>2015-02-02</td>
+      <td>2018-01-02</td>
+      <td>760</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.686106</td>
+      <td>0.811293</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NZDUSD=X</td>
+      <td>2015-02-02</td>
+      <td>2018-01-02</td>
+      <td>760</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.626684</td>
+      <td>0.772380</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>EURUSD=X</td>
+      <td>2015-02-02</td>
+      <td>2018-01-02</td>
+      <td>760</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.039047</td>
+      <td>1.202906</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>GBPUSD=X</td>
+      <td>2015-02-02</td>
+      <td>2018-01-02</td>
+      <td>760</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.203935</td>
+      <td>1.588512</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<h2 id="2-build-walk-forward-asset-features">2. Build walk-forward asset features</h2>
+<div class="notebook-cell">
+<div class="notebook-input-label">In [3]</div>
+
+
+<pre><code class="language-python">features = walkforward_decompose_ohlcv(
+    ohlcv,
+    method=&quot;STL&quot;,
+    period=&quot;auto&quot;,
+    period_candidates=(63, 126, 252),
+    train_window=504,
+    step=5,
+    z_window=63,
+)
+feature_coverage_report(features).query(&quot;feature in ['trend_slope', 'trend_strength', 'cycle_slope', 'residual_z', 'residual_abs_z', 'volume_participation']&quot;).head(18)
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>feature</th>
+      <th>asset</th>
+      <th>observations</th>
+      <th>non_null</th>
+      <th>coverage</th>
+      <th>first_valid</th>
+      <th>last_valid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>12</th>
+      <td>trend_slope</td>
+      <td>AUDUSD=X</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
+      <td>2018-01-02</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>trend_slope</td>
+      <td>NZDUSD=X</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
+      <td>2018-01-02</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>trend_slope</td>
+      <td>EURUSD=X</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
+      <td>2018-01-02</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>trend_slope</td>
+      <td>GBPUSD=X</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
+      <td>2018-01-02</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>trend_strength</td>
+      <td>AUDUSD=X</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
+      <td>2018-01-02</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>trend_strength</td>
+      <td>NZDUSD=X</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
+      <td>2018-01-02</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>trend_strength</td>
+      <td>EURUSD=X</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
+      <td>2018-01-02</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>trend_strength</td>
+      <td>GBPUSD=X</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
+      <td>2018-01-02</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>cycle_slope</td>
+      <td>AUDUSD=X</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
+      <td>2018-01-02</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>cycle_slope</td>
+      <td>NZDUSD=X</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
+      <td>2018-01-02</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>cycle_slope</td>
+      <td>EURUSD=X</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
+      <td>2018-01-02</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>cycle_slope</td>
+      <td>GBPUSD=X</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
+      <td>2018-01-02</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>residual_z</td>
+      <td>AUDUSD=X</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
+      <td>2018-01-02</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>residual_z</td>
+      <td>NZDUSD=X</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
+      <td>2018-01-02</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>residual_z</td>
+      <td>EURUSD=X</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
+      <td>2018-01-02</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>residual_z</td>
+      <td>GBPUSD=X</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
+      <td>2018-01-02</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>residual_abs_z</td>
+      <td>AUDUSD=X</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
+      <td>2018-01-02</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>residual_abs_z</td>
+      <td>NZDUSD=X</td>
+      <td>760</td>
+      <td>257</td>
+      <td>0.338158</td>
+      <td>2017-01-05</td>
+      <td>2018-01-02</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [4]</div>
+
+
+<pre><code class="language-python">build_feature_table(prices, features).tail(3).iloc[:, :12].round(4)
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="4" halign="left">component_stability</th>
+      <th colspan="4" halign="left">cycle</th>
+      <th colspan="4" halign="left">cycle_amplitude</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>AUDUSD=X</th>
+      <th>EURUSD=X</th>
+      <th>GBPUSD=X</th>
+      <th>NZDUSD=X</th>
+      <th>AUDUSD=X</th>
+      <th>EURUSD=X</th>
+      <th>GBPUSD=X</th>
+      <th>NZDUSD=X</th>
+      <th>AUDUSD=X</th>
+      <th>EURUSD=X</th>
+      <th>GBPUSD=X</th>
+      <th>NZDUSD=X</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2017-12-29</th>
+      <td>0.9957</td>
+      <td>0.9939</td>
+      <td>0.9935</td>
+      <td>0.9935</td>
+      <td>-0.0227</td>
+      <td>-0.0174</td>
+      <td>0.0056</td>
+      <td>-0.0092</td>
+      <td>0.0306</td>
+      <td>0.0198</td>
+      <td>0.0103</td>
+      <td>0.0311</td>
+    </tr>
+    <tr>
+      <th>2018-01-01</th>
+      <td>0.9959</td>
+      <td>0.9943</td>
+      <td>0.9932</td>
+      <td>0.9941</td>
+      <td>-0.0147</td>
+      <td>-0.0086</td>
+      <td>0.0114</td>
+      <td>0.0075</td>
+      <td>0.0306</td>
+      <td>0.0187</td>
+      <td>0.0100</td>
+      <td>0.0304</td>
+    </tr>
+    <tr>
+      <th>2018-01-02</th>
+      <td>0.9959</td>
+      <td>0.9943</td>
+      <td>0.9932</td>
+      <td>0.9941</td>
+      <td>-0.0147</td>
+      <td>-0.0086</td>
+      <td>0.0114</td>
+      <td>0.0075</td>
+      <td>0.0306</td>
+      <td>0.0187</td>
+      <td>0.0100</td>
+      <td>0.0304</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<h2 id="3-inspect-the-detime-rotation-score">3. Inspect the DeTime rotation score</h2>
+<div class="notebook-cell">
+<div class="notebook-input-label">In [5]</div>
+
+
+<pre><code class="language-python">score = detime_cross_sectional_score(prices, features)
+score.tail(5).round(3)
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AUDUSD=X</th>
+      <th>NZDUSD=X</th>
+      <th>EURUSD=X</th>
+      <th>GBPUSD=X</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2017-12-27</th>
+      <td>1.894</td>
+      <td>0.294</td>
+      <td>2.531</td>
+      <td>1.656</td>
+    </tr>
+    <tr>
+      <th>2017-12-28</th>
+      <td>1.894</td>
+      <td>0.294</td>
+      <td>2.531</td>
+      <td>1.656</td>
+    </tr>
+    <tr>
+      <th>2017-12-29</th>
+      <td>1.894</td>
+      <td>0.294</td>
+      <td>2.531</td>
+      <td>1.656</td>
+    </tr>
+    <tr>
+      <th>2018-01-01</th>
+      <td>1.656</td>
+      <td>0.644</td>
+      <td>2.519</td>
+      <td>1.556</td>
+    </tr>
+    <tr>
+      <th>2018-01-02</th>
+      <td>1.656</td>
+      <td>0.644</td>
+      <td>2.519</td>
+      <td>1.556</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [6]</div>
+
+
+<pre><code class="language-python">fig, ax = plt.subplots(figsize=(10, 4))
+score.tail(120).plot(ax=ax, linewidth=1.1)
+ax.axhline(0, color=&quot;black&quot;, linewidth=0.8)
+ax.set_title(&quot;DeTime cross-sectional score on real FX samples&quot;)
+ax.set_ylabel(&quot;Score&quot;)
+ax.grid(True, alpha=0.25)
+plt.tight_layout()
+plt.show()
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">image/png</div>
+<img src="../../../../assets/generated/notebooks/tutorials/quant-trading/06_cross_sectional_rotation_portfolio/cell-010-output-01.png" alt="Notebook output cell 10" class="notebook-output-image">
+</div>
+</div>
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [7]</div>
+
+
+<pre><code class="language-python">rotation_diagnostic_table(prices, features, tail=2).round(4)
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>date</th>
+      <th>asset</th>
+      <th>score</th>
+      <th>trend_strength</th>
+      <th>cycle_slope</th>
+      <th>residual_z</th>
+      <th>volume_participation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2018-01-01</td>
+      <td>EURUSD=X</td>
+      <td>2.5188</td>
+      <td>0.1228</td>
+      <td>0.0016</td>
+      <td>-0.4600</td>
+      <td>1.25</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2018-01-01</td>
+      <td>AUDUSD=X</td>
+      <td>1.6563</td>
+      <td>0.0496</td>
+      <td>0.0010</td>
+      <td>0.2019</td>
+      <td>1.25</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2018-01-01</td>
+      <td>GBPUSD=X</td>
+      <td>1.5562</td>
+      <td>0.0393</td>
+      <td>0.0011</td>
+      <td>0.1007</td>
+      <td>1.25</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2018-01-01</td>
+      <td>NZDUSD=X</td>
+      <td>0.6438</td>
+      <td>-0.0190</td>
+      <td>0.0036</td>
+      <td>-0.8123</td>
+      <td>1.25</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2018-01-02</td>
+      <td>EURUSD=X</td>
+      <td>2.5188</td>
+      <td>0.1228</td>
+      <td>0.0016</td>
+      <td>-0.4600</td>
+      <td>1.25</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2018-01-02</td>
+      <td>AUDUSD=X</td>
+      <td>1.6563</td>
+      <td>0.0496</td>
+      <td>0.0010</td>
+      <td>0.2019</td>
+      <td>1.25</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2018-01-02</td>
+      <td>GBPUSD=X</td>
+      <td>1.5562</td>
+      <td>0.0393</td>
+      <td>0.0011</td>
+      <td>0.1007</td>
+      <td>1.25</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2018-01-02</td>
+      <td>NZDUSD=X</td>
+      <td>0.6438</td>
+      <td>-0.0190</td>
+      <td>0.0036</td>
+      <td>-0.8123</td>
+      <td>1.25</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<h2 id="4-backtest-a-compact-rotation-suite">4. Backtest a compact rotation suite</h2>
+<div class="notebook-cell">
+<div class="notebook-input-label">In [8]</div>
+
+
+<pre><code class="language-python">strategies = {
+    &quot;buy_hold_equal_weight&quot;: buy_and_hold_weights(prices),
+    &quot;classic_momentum_63_top&quot;: classic_momentum_rotation_weights(prices, lookback=63, top_n=2, rebalance_freq=&quot;W-FRI&quot;, vol_target=None),
+    &quot;detime_rotation_top_trend_cycle_residual_volume&quot;: detime_rotation_weights(prices, features, top_n=2, rebalance_freq=&quot;W-FRI&quot;, vol_target=None),
+    &quot;detime_rotation_long_short&quot;: detime_long_short_rotation_weights(prices, features, top_n=2, bottom_n=2),
+}
+comparison, results = compare_weight_strategies(prices, strategies, fee_bps=1.0, slippage_bps=2.0)
+comparison[[&quot;total_return&quot;, &quot;sharpe&quot;, &quot;max_drawdown&quot;, &quot;average_turnover&quot;]].round(4)
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>total_return</th>
+      <th>sharpe</th>
+      <th>max_drawdown</th>
+      <th>average_turnover</th>
+    </tr>
+    <tr>
+      <th>strategy</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>detime_rotation_long_short</th>
+      <td>0.0052</td>
+      <td>0.0686</td>
+      <td>-0.1563</td>
+      <td>0.0572</td>
+    </tr>
+    <tr>
+      <th>detime_rotation_top_trend_cycle_residual_volume</th>
+      <td>-0.0112</td>
+      <td>0.0095</td>
+      <td>-0.1596</td>
+      <td>0.0289</td>
+    </tr>
+    <tr>
+      <th>buy_hold_equal_weight</th>
+      <td>-0.0115</td>
+      <td>-0.0085</td>
+      <td>-0.1234</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>classic_momentum_63_top</th>
+      <td>-0.0799</td>
+      <td>-0.2850</td>
+      <td>-0.1403</td>
+      <td>0.0461</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [9]</div>
+
+
+<pre><code class="language-python">fig, ax = plt.subplots(figsize=(10, 4))
+for name, result in results.items():
+    result.equity.plot(ax=ax, linewidth=1.2, label=name)
+ax.set_title(&quot;Rotation equity curves on real FX samples&quot;)
+ax.set_ylabel(&quot;Equity&quot;)
+ax.legend(loc=&quot;best&quot;, fontsize=8)
+ax.grid(True, alpha=0.25)
+plt.tight_layout()
+plt.show()
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">image/png</div>
+<img src="../../../../assets/generated/notebooks/tutorials/quant-trading/06_cross_sectional_rotation_portfolio/cell-014-output-01.png" alt="Notebook output cell 14" class="notebook-output-image">
+</div>
+</div>
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [10]</div>
+
+
+<pre><code class="language-python">turnover_report(strategies).round(4)
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>average_turnover</th>
+      <th>median_turnover</th>
+      <th>max_turnover</th>
+      <th>average_gross_exposure</th>
+    </tr>
+    <tr>
+      <th>strategy</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>buy_hold_equal_weight</th>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>1.0000</td>
+    </tr>
+    <tr>
+      <th>classic_momentum_63_top</th>
+      <td>0.0461</td>
+      <td>0.0000</td>
+      <td>2.0</td>
+      <td>0.9158</td>
+    </tr>
+    <tr>
+      <th>detime_rotation_top_trend_cycle_residual_volume</th>
+      <td>0.0289</td>
+      <td>0.0000</td>
+      <td>2.0</td>
+      <td>0.9947</td>
+    </tr>
+    <tr>
+      <th>detime_rotation_long_short</th>
+      <td>0.0572</td>
+      <td>0.0034</td>
+      <td>3.0</td>
+      <td>1.2333</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<h2 id="5-live-data-extension">5. Live-data extension</h2>
+<p>Run <code>run_column_06_cross_sectional_rotation.py</code> without <code>--use-bundled-sample</code> to use sector ETFs and real equity/ETF volume. In the bundled FX sample, raw volume is unavailable, so volume is neutral rather than invented.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../../js/base.js"></script>
+        <script src="../../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

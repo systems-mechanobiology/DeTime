@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Zipeng Wu">
+        <link rel="canonical" href="https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/notebooks/01_detime_trend_following_strategy_lab/">
+        <link rel="shortcut icon" href="../../../../img/favicon.ico">
+        <title>01 Trend-Following Lab - DeTime</title>
+        <link href="../../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../../../stylesheets/brand.css" rel="stylesheet">
+        <link href="../../../../stylesheets/extra.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+   
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="keywords" content="DeTime, detime, de-time, time series decomposition, Python time series, SSA, MSSA, VMD, STL, decomposition software">
+  <meta property="og:site_name" content="DeTime">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DeTime - Python and CLI time-series decomposition">
+  <meta property="og:description" content="DeTime is a Python and CLI toolkit for reproducible time-series decomposition across SSA, MSSA, VMD, STL, EMD, wavelet, and native C++ backed methods.">
+  <meta property="og:url" content="https://systems-mechanobiology.github.io/DeTime/">
+  <meta property="og:image" content="https://systems-mechanobiology.github.io/DeTime/assets/brand/detime-title-card.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DeTime - time-series decomposition for Python">
+  <meta name="twitter:description" content="Python and CLI software for reusable trend, oscillation, residual, metadata, schema, and artifact outputs.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://systems-mechanobiology.github.io/DeTime/#website",
+        "name": "DeTime",
+        "alternateName": ["detime", "de-time", "De-Time"],
+        "url": "https://systems-mechanobiology.github.io/DeTime/",
+        "description": "DeTime documentation for Python and CLI time-series decomposition software.",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://systems-mechanobiology.github.io/DeTime/#software",
+        "name": "DeTime",
+        "alternateName": ["detime", "de-time", "De-Time"],
+        "description": "Python and CLI toolkit for reproducible time-series decomposition with native C++ backed SSA, MSSA, VMD, STD, STDR, MA baseline, and Gabor clustering paths.",
+        "codeRepository": "https://github.com/systems-mechanobiology/DeTime",
+        "url": "https://systems-mechanobiology.github.io/DeTime/",
+        "programmingLanguage": ["Python", "C++"],
+        "applicationCategory": "Scientific software",
+        "keywords": "DeTime, time-series decomposition, Python, SSA, MSSA, VMD, STL, EMD, wavelet, native C++",
+        "author": {
+          "@type": "Person",
+          "name": "Zipeng Wu"
+        }
+      }
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="../../../../stylesheets/extra.css?v=7">
+
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../../..">DeTime</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../../../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Start</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../../install/" class="dropdown-item">Install</a>
+</li>
+                                    
+<li>
+    <a href="../../../../quickstart/" class="dropdown-item">Quickstart</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Methods</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../../methods/" class="dropdown-item">Methods & Chooser</a>
+</li>
+                                    
+<li>
+    <a href="../../../../method-matrix/" class="dropdown-item">Method Matrix</a>
+</li>
+                                    
+<li>
+    <a href="../../../../method-references/" class="dropdown-item">Method References</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Workflows</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../../notebook-gallery/" class="dropdown-item">Notebook Gallery</a>
+</li>
+                                    
+<li>
+    <a href="../../../univariate/" class="dropdown-item">Univariate Tutorial</a>
+</li>
+                                    
+<li>
+    <a href="../../../multivariate/" class="dropdown-item">Multivariate Tutorial</a>
+</li>
+                                    
+<li>
+    <a href="../../../cli-and-profiling/" class="dropdown-item">CLI Guide</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Quant Trading Tutorial</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../" class="dropdown-item">Overview</a>
+</li>
+            
+<li>
+    <a href="../" class="dropdown-item">Tutorial Notebooks</a>
+</li>
+            
+<li>
+    <a href="../00_decomposition_first_quant_trading_roadmap/" class="dropdown-item">Tutorial 00 Roadmap</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Lab</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../two-strategy-families/" class="dropdown-item">Two Strategy Families</a>
+</li>
+            
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">01 Trend-Following Lab</a>
+</li>
+            
+<li>
+    <a href="../02_detime_oscillation_reversion_strategy_lab/" class="dropdown-item">02 Oscillation-Reversion Lab</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Expansion</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../method-specific-strategy-expansion/" class="dropdown-item">Method-Specific Strategy Expansion</a>
+</li>
+            
+<li>
+    <a href="../03_detime_method_specific_strategy_variants/" class="dropdown-item">03 Method-Specific Variants</a>
+</li>
+            
+<li>
+    <a href="../04_detime_component_pair_trading_cointegration/" class="dropdown-item">04 Component Pair Trading</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Tutorial Sequence</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../01_market_data_and_decomposition_feature_factory/" class="dropdown-item">01 Real Market Data and Feature Factory</a>
+</li>
+            
+<li>
+    <a href="../02_decomposition_aware_moving_average_macd/" class="dropdown-item">02 Decomposition-aware MA and MACD</a>
+</li>
+            
+<li>
+    <a href="../03_residual_mean_reversion_rsi_bollinger/" class="dropdown-item">03 Residual Mean Reversion</a>
+</li>
+            
+<li>
+    <a href="../04_turtle_donchian_breakout_volume_confirmation/" class="dropdown-item">04 Donchian Breakout</a>
+</li>
+            
+<li>
+    <a href="../05_pairs_spread_decomposition_stat_arb/" class="dropdown-item">05 Pair-Spread Stat-Arb</a>
+</li>
+            
+<li>
+    <a href="../06_cross_sectional_rotation_portfolio/" class="dropdown-item">06 Cross-Sectional Rotation</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Native SSA Replay</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../07_native_ssa_high_return_low_drawdown_tutorial/" class="dropdown-item">07 Native SSA High-Return / Low-Drawdown</a>
+</li>
+    </ul>
+  </li>
+            
+<li>
+    <a href="../../data/" class="dropdown-item">Real Data and Universes</a>
+</li>
+            
+<li>
+    <a href="../../strategy-map/" class="dropdown-item">Strategy Map</a>
+</li>
+            
+<li>
+    <a href="../../backtesting-frameworks/" class="dropdown-item">Backtesting Frameworks</a>
+</li>
+            
+<li>
+    <a href="../../walkforward/" class="dropdown-item">Walk-Forward Validation</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Hot Trend Lab</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../../hot-trend-lab/" class="dropdown-item">Overview</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/" class="dropdown-item">Rendered Notebooks</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/00_hot_trend_lab_overview/" class="dropdown-item">00 Column Overview</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/01_arxiv_category_pulse/" class="dropdown-item">01 arXiv Category Pulse</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/02_arxiv_agent_research_pulse/" class="dropdown-item">02 arXiv Agent Research Pulse</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/03_huggingface_open_model_pulse/" class="dropdown-item">03 Hugging Face Open-Model Pulse</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/04_github_ai_agent_star_velocity/" class="dropdown-item">04 GitHub Star Velocity</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/05_wikipedia_attention_hype_decay/" class="dropdown-item">05 Wikipedia Attention Decay</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/06_crypto_stablecoin_liquidity_pulse/" class="dropdown-item">06 Crypto Stablecoin Liquidity</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/07_ai_infrastructure_market_pulse/" class="dropdown-item">07 AI Infrastructure Market Pulse</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/data-sources/" class="dropdown-item">Real Data Sources</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/arxiv-research-pulse/" class="dropdown-item">arXiv Research Pulse</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/open-model-and-developer-attention/" class="dropdown-item">Open Models and Developer Attention</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/wiki-market-crypto-attention/" class="dropdown-item">Public Attention, Markets, and Crypto</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/release-calendar/" class="dropdown-item">Release Calendar</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Gallery</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../../gallery/ssa/" class="dropdown-item">SSA</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/std/" class="dropdown-item">STD</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/stdr/" class="dropdown-item">STDR</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/mssa/" class="dropdown-item">MSSA</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/stl/" class="dropdown-item">STL</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/mstl/" class="dropdown-item">MSTL</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/robust-stl/" class="dropdown-item">ROBUST_STL</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/emd/" class="dropdown-item">EMD</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/ceemdan/" class="dropdown-item">CEEMDAN</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/vmd/" class="dropdown-item">VMD</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/wavelet/" class="dropdown-item">WAVELET</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/ma-baseline/" class="dropdown-item">MA_BASELINE</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/mvmd/" class="dropdown-item">MVMD</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/memd/" class="dropdown-item">MEMD</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/gabor-cluster/" class="dropdown-item">GABOR_CLUSTER</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Reference</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../../api/" class="dropdown-item">API Overview</a>
+</li>
+                                    
+<li>
+    <a href="../../../../config-reference/" class="dropdown-item">Config Reference</a>
+</li>
+                                    
+<li>
+    <a href="../../../../machine-api/" class="dropdown-item">Machine API</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Project</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../../comparisons/" class="dropdown-item">Compare Alternatives</a>
+</li>
+                                    
+<li>
+    <a href="../../../../reproducibility/" class="dropdown-item">Reproducibility</a>
+</li>
+                                    
+<li>
+    <a href="../../../../release-artifacts/" class="dropdown-item">Release Artifacts</a>
+</li>
+                                    
+<li>
+    <a href="../../../../architecture/" class="dropdown-item">Architecture</a>
+</li>
+                                    
+<li>
+    <a href="../../../../migration/" class="dropdown-item">Migration from `tsdecomp`</a>
+</li>
+                                    
+<li>
+    <a href="../../../../contributing/" class="dropdown-item">Contributing</a>
+</li>
+                                    
+<li>
+    <a href="../../../../citation/" class="dropdown-item">Citation / Release Notes</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../../two-strategy-families/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../02_detime_oscillation_reversion_strategy_lab/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/systems-mechanobiology/DeTime" class="nav-link">systems-mechanobiology/DeTime</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#strategy-lab-01-trend-following-strategy" class="nav-link">Strategy Lab 01 - Trend-following strategy</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#tutorial-navigation" class="nav-link">Tutorial Navigation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#executed-notebook" class="nav-link">Executed Notebook</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<!-- Generated by scripts/generate_column_notebook_pages.py; do not edit manually. -->
+<h1 id="strategy-lab-01-trend-following-strategy">Strategy Lab 01 - Trend-following strategy</h1>
+<div class="gallery-note notebook-transcript-note">
+  <strong>Executed tutorial notebook.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/DeTime/blob/main/examples/notebooks/quant_trading/01_detime_trend_following_strategy_lab.ipynb"><code>examples/notebooks/quant_trading/01_detime_trend_following_strategy_lab.ipynb</code></a> and includes markdown cells, code cells, stdout, tables, and captured figures from the committed notebook.
+</div>
+
+<h2 id="tutorial-navigation">Tutorial Navigation</h2>
+<table>
+<thead>
+<tr>
+<th>Track</th>
+<th>Tutorial notebook</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Roadmap</td>
+<td><a href="../00_decomposition_first_quant_trading_roadmap/">Tutorial 00 - Roadmap</a></td>
+</tr>
+<tr>
+<td>Strategy Lab</td>
+<td><strong>01 Trend-Following Lab</strong></td>
+</tr>
+<tr>
+<td>Tutorial Sequence</td>
+<td><a href="../01_market_data_and_decomposition_feature_factory/">01 Real Market Data and Feature Factory</a></td>
+</tr>
+<tr>
+<td>Tutorial Sequence</td>
+<td><a href="../02_decomposition_aware_moving_average_macd/">02 Decomposition-aware MA and MACD</a></td>
+</tr>
+<tr>
+<td>Strategy Lab</td>
+<td><a href="../02_detime_oscillation_reversion_strategy_lab/">02 Oscillation-Reversion Lab</a></td>
+</tr>
+<tr>
+<td>Strategy Expansion</td>
+<td><a href="../03_detime_method_specific_strategy_variants/">03 Method-Specific Variants</a></td>
+</tr>
+<tr>
+<td>Tutorial Sequence</td>
+<td><a href="../03_residual_mean_reversion_rsi_bollinger/">03 Residual Mean Reversion</a></td>
+</tr>
+<tr>
+<td>Strategy Expansion</td>
+<td><a href="../04_detime_component_pair_trading_cointegration/">04 Component Pair Trading</a></td>
+</tr>
+<tr>
+<td>Tutorial Sequence</td>
+<td><a href="../04_turtle_donchian_breakout_volume_confirmation/">04 Donchian Breakout</a></td>
+</tr>
+<tr>
+<td>Tutorial Sequence</td>
+<td><a href="../05_pairs_spread_decomposition_stat_arb/">05 Pair-Spread Stat-Arb</a></td>
+</tr>
+<tr>
+<td>Tutorial Sequence</td>
+<td><a href="../06_cross_sectional_rotation_portfolio/">06 Cross-Sectional Rotation</a></td>
+</tr>
+<tr>
+<td>Native SSA Replay</td>
+<td><a href="../07_native_ssa_high_return_low_drawdown_tutorial/">07 Native SSA High-Return / Low-Drawdown</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="executed-notebook">Executed Notebook</h2>
+<p>这篇只做一件事：用 DeTime 分解出来的 <code>trend</code> 直接产生交易信号。</p>
+<p>策略逻辑：</p>
+<ol>
+<li><code>trend_slope &gt; 0</code> 且 <code>trend_strength</code> 足够强，说明进入上涨趋势状态。</li>
+<li><code>cycle_position</code> 不在过热区，避免在周期顶部追进去。</li>
+<li><code>residual_abs_z</code> 不过大，避免追到结构外的异常拉伸。</li>
+<li>如果有成交量分解，则用 <code>volume_trend_slope / volume_residual_z</code> 确认参与度。</li>
+<li>信号在第 t 根 bar 结束后生成，回测用下一根 bar 的开盘价成交。</li>
+</ol>
+<div class="notebook-cell">
+<div class="notebook-input-label">In [1]</div>
+
+
+<pre><code class="language-python">from pathlib import Path
+
+import pandas as pd
+from IPython.display import Image, display
+from quant_trading.data import load_sample_goog_ohlcv
+from quant_trading.decomposition_features import walkforward_price_volume_features
+from quant_trading.strategy_lab import (
+    TrendFollowingConfig,
+    OscillationReversionConfig,
+    backtest_signal_set,
+    execution_price_panel,
+    decomposition_trend_following_signals,
+    decomposition_oscillation_reversion_signals,
+    plot_signal_analysis,
+    stats_table,
+)
+from quant_trading.strategy_baselines import (
+    buy_and_hold_weights,
+    dual_moving_average_weights,
+    bollinger_mean_reversion_weights,
+)
+from quant_trading.strategy_lab import backtest_target_weights_next_bar
+
+CHART_DIR = Path(&quot;examples/quant_trading/reports/strategy_lab/charts&quot;)
+</code></pre>
+
+</div>
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [2]</div>
+
+
+<pre><code class="language-python">ohlcv = load_sample_goog_ohlcv(trim_start=&quot;2014-01-01&quot;)
+symbol = &quot;GOOG&quot;
+close = ohlcv[&quot;Close&quot;].rename(symbol).to_frame()
+volume = ohlcv[&quot;Volume&quot;].rename(symbol).to_frame()
+execution_prices = execution_price_panel(ohlcv, field=&quot;Open&quot;, next_bar=True)
+execution_prices.columns = [symbol]
+
+features = walkforward_price_volume_features(
+    close, volume, method=&quot;STL&quot;, period=126, train_window=504, step=5, z_window=63
+)
+list(features)[:8]
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/plain</div>
+
+<pre><code class="language-text">['trend',
+ 'cycle',
+ 'residual',
+ 'trend_slope',
+ 'trend_acceleration',
+ 'trend_strength',
+ 'trend_gap',
+ 'cycle_z']
+</code></pre>
+
+</div>
+</div>
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [3]</div>
+
+
+<pre><code class="language-python">signal = decomposition_trend_following_signals(
+    close,
+    features,
+    config=TrendFollowingConfig(
+        entry_trend_strength=0.15,
+        exit_trend_strength=0.02,
+        max_entry_cycle_position=1.25,
+        max_entry_residual_abs_z=2.5,
+        use_volume_confirmation=True,
+        allow_short=False,
+    ),
+    name=&quot;detime_STL_trend_following&quot;,
+)
+
+bt = backtest_signal_set(
+    close, signal, execution_prices=execution_prices, fee_bps=5, slippage_bps=2, periods_per_year=252
+)
+
+baselines = {
+    &quot;buy_hold&quot;: buy_and_hold_weights(close),
+    &quot;classic_sma_20_100&quot;: dual_moving_average_weights(close, fast=20, slow=100),
+}
+results = {signal.name: bt}
+for name, weights in baselines.items():
+    results[name] = backtest_target_weights_next_bar(
+        close, weights, execution_prices=execution_prices, fee_bps=5, slippage_bps=2, periods_per_year=252, name=name
+    )
+
+stats_table(results)
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>strategy</th>
+      <th>total_return</th>
+      <th>cagr</th>
+      <th>sharpe</th>
+      <th>max_drawdown</th>
+      <th>calmar</th>
+      <th>volatility</th>
+      <th>hit_rate</th>
+      <th>trade_win_rate</th>
+      <th>average_trade_directional_return</th>
+      <th>orders</th>
+      <th>round_trips</th>
+      <th>median_bars_held</th>
+      <th>average_turnover</th>
+      <th>average_gross_exposure</th>
+      <th>fee_bps</th>
+      <th>slippage_bps</th>
+      <th>periods_per_year</th>
+      <th>execution_model</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>buy_hold</td>
+      <td>0.887479</td>
+      <td>0.172116</td>
+      <td>0.799165</td>
+      <td>-0.192787</td>
+      <td>0.892778</td>
+      <td>0.232171</td>
+      <td>0.524802</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>5.0</td>
+      <td>2.0</td>
+      <td>252.0</td>
+      <td>signal_on_bar_t_fill_next_bar_open_or_proxy</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>classic_sma_20_100</td>
+      <td>0.010232</td>
+      <td>0.002548</td>
+      <td>0.107019</td>
+      <td>-0.297157</td>
+      <td>0.008576</td>
+      <td>0.187310</td>
+      <td>0.332341</td>
+      <td>0.25</td>
+      <td>-0.002942</td>
+      <td>17.0</td>
+      <td>8.0</td>
+      <td>67.0</td>
+      <td>0.016865</td>
+      <td>0.630952</td>
+      <td>5.0</td>
+      <td>2.0</td>
+      <td>252.0</td>
+      <td>signal_on_bar_t_fill_next_bar_open_or_proxy</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>detime_STL_trend_following</td>
+      <td>-0.006633</td>
+      <td>-0.001663</td>
+      <td>-0.213044</td>
+      <td>-0.018183</td>
+      <td>-0.091433</td>
+      <td>0.007671</td>
+      <td>0.002976</td>
+      <td>0.00</td>
+      <td>-0.018574</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>0.000678</td>
+      <td>0.001696</td>
+      <td>5.0</td>
+      <td>2.0</td>
+      <td>252.0</td>
+      <td>signal_on_bar_t_fill_next_bar_open_or_proxy</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [4]</div>
+
+
+<pre><code class="language-python">bt.orders.tail(10)
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>asset</th>
+      <th>signal_date</th>
+      <th>fill_date</th>
+      <th>action</th>
+      <th>previous_weight</th>
+      <th>new_weight</th>
+      <th>delta_weight</th>
+      <th>fill_price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>GOOG</td>
+      <td>2016-01-08</td>
+      <td>2016-01-11</td>
+      <td>buy</td>
+      <td>0.000000</td>
+      <td>0.341871</td>
+      <td>0.341871</td>
+      <td>716.609985</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>GOOG</td>
+      <td>2016-01-15</td>
+      <td>2016-01-19</td>
+      <td>sell</td>
+      <td>0.341871</td>
+      <td>0.000000</td>
+      <td>-0.341871</td>
+      <td>703.299988</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [5]</div>
+
+
+<pre><code class="language-python">bt.trades.tail(10)
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>asset</th>
+      <th>side</th>
+      <th>entry_signal_date</th>
+      <th>entry_fill_date</th>
+      <th>exit_signal_date</th>
+      <th>exit_fill_date</th>
+      <th>entry_price</th>
+      <th>exit_price</th>
+      <th>bars_held</th>
+      <th>entry_weight</th>
+      <th>directional_return</th>
+      <th>approx_weighted_return_after_cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>GOOG</td>
+      <td>long</td>
+      <td>2016-01-08</td>
+      <td>2016-01-11</td>
+      <td>2016-01-15</td>
+      <td>2016-01-19</td>
+      <td>716.609985</td>
+      <td>703.299988</td>
+      <td>5</td>
+      <td>0.341871</td>
+      <td>-0.018574</td>
+      <td>-0.006589</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [6]</div>
+
+
+<pre><code class="language-python">out = CHART_DIR / &quot;notebook_01_trend_following.png&quot;
+plot_signal_analysis(ohlcv, signal, bt, asset=symbol, output_path=out, title=&quot;DeTime STL trend-following strategy&quot;)
+display(Image(filename=str(out)))
+out.as_posix()
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">image/png</div>
+<img src="../../../../assets/generated/notebooks/tutorials/quant-trading/01_detime_trend_following_strategy_lab/cell-007-output-01.png" alt="Notebook output cell 7" class="notebook-output-image">
+<div class="notebook-output-label">text/plain</div>
+
+<pre><code class="language-text">'examples/quant_trading/reports/strategy_lab/charts/notebook_01_trend_following.png'
+</code></pre>
+
+</div>
+</div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../../js/base.js"></script>
+        <script src="../../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

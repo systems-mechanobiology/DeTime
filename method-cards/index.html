@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Zipeng Wu">
-        <link rel="canonical" href="https://systems-mechanobiology.github.io/De-Time/method-cards/">
+        <link rel="canonical" href="https://systems-mechanobiology.github.io/DeTime/method-cards/">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Method Cards - De-Time</title>
+        <title>Method Cards - DeTime</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fontawesome.min.css" rel="stylesheet">
         <link href="../css/brands.min.css" rel="stylesheet">
@@ -22,6 +22,49 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
         <script>hljs.highlightAll();</script>
    
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="keywords" content="DeTime, detime, de-time, time series decomposition, Python time series, SSA, MSSA, VMD, STL, decomposition software">
+  <meta property="og:site_name" content="DeTime">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DeTime - Python and CLI time-series decomposition">
+  <meta property="og:description" content="DeTime is a Python and CLI toolkit for reproducible time-series decomposition across SSA, MSSA, VMD, STL, EMD, wavelet, and native C++ backed methods.">
+  <meta property="og:url" content="https://systems-mechanobiology.github.io/DeTime/">
+  <meta property="og:image" content="https://systems-mechanobiology.github.io/DeTime/assets/brand/detime-title-card.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DeTime - time-series decomposition for Python">
+  <meta name="twitter:description" content="Python and CLI software for reusable trend, oscillation, residual, metadata, schema, and artifact outputs.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://systems-mechanobiology.github.io/DeTime/#website",
+        "name": "DeTime",
+        "alternateName": ["detime", "de-time", "De-Time"],
+        "url": "https://systems-mechanobiology.github.io/DeTime/",
+        "description": "DeTime documentation for Python and CLI time-series decomposition software.",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://systems-mechanobiology.github.io/DeTime/#software",
+        "name": "DeTime",
+        "alternateName": ["detime", "de-time", "De-Time"],
+        "description": "Python and CLI toolkit for reproducible time-series decomposition with native C++ backed SSA, MSSA, VMD, STD, STDR, MA baseline, and Gabor clustering paths.",
+        "codeRepository": "https://github.com/systems-mechanobiology/DeTime",
+        "url": "https://systems-mechanobiology.github.io/DeTime/",
+        "programmingLanguage": ["Python", "C++"],
+        "applicationCategory": "Scientific software",
+        "keywords": "DeTime, time-series decomposition, Python, SSA, MSSA, VMD, STL, EMD, wavelet, native C++",
+        "author": {
+          "@type": "Person",
+          "name": "Zipeng Wu"
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="stylesheet" href="../stylesheets/extra.css?v=7">
 
     </head>
@@ -29,7 +72,7 @@
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="..">De-Time</a>
+                <a class="navbar-brand" href="..">DeTime</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -93,7 +136,7 @@
 </li>
                                     
   <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">Quant Trading Column</a>
+    <a href="#" class="dropdown-item">Quant Trading Tutorial</a>
     <ul class="dropdown-menu">
             
 <li>
@@ -101,48 +144,88 @@
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/" class="dropdown-item">Rendered Notebooks</a>
+    <a href="../tutorials/quant-trading/notebooks/" class="dropdown-item">Tutorial Notebooks</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/00_quant_trading_column_overview/" class="dropdown-item">00 Column Overview</a>
+    <a href="../tutorials/quant-trading/notebooks/00_decomposition_first_quant_trading_roadmap/" class="dropdown-item">Tutorial 00 Roadmap</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Lab</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../tutorials/quant-trading/two-strategy-families/" class="dropdown-item">Two Strategy Families</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/01_real_market_data_and_detime_features/" class="dropdown-item">01 Real Market Data and Features</a>
+    <a href="../tutorials/quant-trading/notebooks/01_detime_trend_following_strategy_lab/" class="dropdown-item">01 Trend-Following Lab</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/02_single_asset_timing_vectorbt/" class="dropdown-item">02 Single-Asset Timing</a>
+    <a href="../tutorials/quant-trading/notebooks/02_detime_oscillation_reversion_strategy_lab/" class="dropdown-item">02 Oscillation-Reversion Lab</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Expansion</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../tutorials/quant-trading/method-specific-strategy-expansion/" class="dropdown-item">Method-Specific Strategy Expansion</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/03_turtle_donchian_trend_filter/" class="dropdown-item">03 Turtle Donchian Trend Filter</a>
+    <a href="../tutorials/quant-trading/notebooks/03_detime_method_specific_strategy_variants/" class="dropdown-item">03 Method-Specific Variants</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/04_pairs_trading_residual_cycle/" class="dropdown-item">04 Pairs Trading Residual Cycle</a>
+    <a href="../tutorials/quant-trading/notebooks/04_detime_component_pair_trading_cointegration/" class="dropdown-item">04 Component Pair Trading</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Tutorial Sequence</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../tutorials/quant-trading/notebooks/01_market_data_and_decomposition_feature_factory/" class="dropdown-item">01 Real Market Data and Feature Factory</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/05_cross_sectional_factor_selection/" class="dropdown-item">05 Cross-Sectional Factor Selection</a>
+    <a href="../tutorials/quant-trading/notebooks/02_decomposition_aware_moving_average_macd/" class="dropdown-item">02 Decomposition-aware MA and MACD</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/06_style_sector_asset_rotation_bt/" class="dropdown-item">06 Style and Sector Rotation</a>
+    <a href="../tutorials/quant-trading/notebooks/03_residual_mean_reversion_rsi_bollinger/" class="dropdown-item">03 Residual Mean Reversion</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/07_korea_us_crypto_multimarket/" class="dropdown-item">07 Korea, US, and Crypto</a>
+    <a href="../tutorials/quant-trading/notebooks/04_turtle_donchian_breakout_volume_confirmation/" class="dropdown-item">04 Donchian Breakout</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/08_backtesting_framework_adapters/" class="dropdown-item">08 Framework Adapters</a>
+    <a href="../tutorials/quant-trading/notebooks/05_pairs_spread_decomposition_stat_arb/" class="dropdown-item">05 Pair-Spread Stat-Arb</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/09_walkforward_validation_and_audit/" class="dropdown-item">09 Walk-Forward Validation</a>
+    <a href="../tutorials/quant-trading/notebooks/06_cross_sectional_rotation_portfolio/" class="dropdown-item">06 Cross-Sectional Rotation</a>
 </li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Native SSA Replay</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../tutorials/quant-trading/notebooks/07_native_ssa_high_return_low_drawdown_tutorial/" class="dropdown-item">07 Native SSA High-Return / Low-Drawdown</a>
+</li>
+    </ul>
+  </li>
             
 <li>
     <a href="../tutorials/quant-trading/data/" class="dropdown-item">Real Data and Universes</a>
@@ -324,6 +407,10 @@
 </li>
                                     
 <li>
+    <a href="../release-artifacts/" class="dropdown-item">Release Artifacts</a>
+</li>
+                                    
+<li>
     <a href="../architecture/" class="dropdown-item">Architecture</a>
 </li>
                                     
@@ -349,7 +436,7 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a href="https://github.com/systems-mechanobiology/De-Time" class="nav-link">systems-mechanobiology/De-Time</a>
+                                <a href="https://github.com/systems-mechanobiology/DeTime" class="nav-link">systems-mechanobiology/DeTime</a>
                             </li>
                     </ul>
                 </div>
@@ -371,7 +458,7 @@
             
             <li class="nav-item" data-bs-level="1"><a href="#method-cards" class="nav-link">Method Cards</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#flagship-methods" class="nav-link">Flagship methods</a>
+            <li class="nav-item" data-bs-level="2"><a href="#core-maintained-methods" class="nav-link">Core maintained methods</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -397,7 +484,7 @@
 <h1 id="method-cards">Method Cards</h1>
 <p>This page is generated from <code>MethodRegistry.list_catalog()</code> so the human-facing
 method cards stay aligned with the machine-facing catalog contract.</p>
-<p>Current package version target: <code>0.1.1</code>.</p>
+<p>Current package version target: <code>0.1.2</code>.</p>
 <p>Source citations and official upstream package links are collected in
 <a href="../method-references/">Method References</a>.</p>
 <p>This page intentionally keeps cards compact. Use
@@ -405,14 +492,14 @@ method cards stay aligned with the machine-facing catalog contract.</p>
 <a href="../config-reference/">Config Reference</a> for full parameter semantics.</p>
 <p>The <code>tsdecomp</code> top-level alias remains compatibility-only through <code>0.1.x</code> and is
 not the canonical surface for any method listed below.</p>
-<h2 id="flagship-methods">Flagship methods</h2>
+<h2 id="core-maintained-methods">Core maintained methods</h2>
 <h3 id="mssa"><code>MSSA</code></h3>
 <ul>
 <li>Summary: Multivariate SSA for shared-structure decomposition across channels.</li>
 <li>Use when: multivariate component recovery; shared seasonal structure across channels</li>
-<li>Avoid when: single-series workflows where a univariate flagship method is sufficient; very short series that cannot support a sensible window length</li>
+<li>Avoid when: single-series workflows where a univariate core method is sufficient; very short series that cannot support a sensible window length</li>
 <li>Key params: <code>window</code> (required), <code>rank</code> (null), <code>primary_period</code> (null)</li>
-<li>Input/backend: <code>multivariate</code> input, <code>python</code> implementation, maturity <code>flagship</code></li>
+<li>Input/backend: <code>multivariate</code> input, <code>native-backed</code> implementation, maturity <code>core maintained</code></li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.elementary</code></li>
 <li>References: <a href="../method-references/#mssa">Method References</a></li>
@@ -424,7 +511,7 @@ not the canonical surface for any method listed below.</p>
 <li>Use when: accuracy-first univariate decomposition; component recovery</li>
 <li>Avoid when: shared-model multivariate decomposition problems; very short series that cannot support a sensible window length</li>
 <li>Key params: <code>window</code> (required), <code>rank</code> (null), <code>primary_period</code> (null)</li>
-<li>Input/backend: <code>univariate</code> input, <code>native-backed</code> implementation, maturity <code>flagship</code></li>
+<li>Input/backend: <code>univariate</code> input, <code>native-backed</code> implementation, maturity <code>core maintained</code></li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.elementary</code></li>
 <li>References: <a href="../method-references/#ssa">Method References</a></li>
@@ -436,7 +523,7 @@ not the canonical surface for any method listed below.</p>
 <li>Use when: fast seasonal-trend baselines; channelwise multivariate workflows</li>
 <li>Avoid when: problems that require one shared latent model across channels; series where the dominant period is unknown and cannot be inferred reliably</li>
 <li>Key params: <code>period</code> (required)</li>
-<li>Input/backend: <code>channelwise</code> input, <code>native-backed</code> implementation, maturity <code>flagship</code></li>
+<li>Input/backend: <code>channelwise</code> input, <code>native-backed</code> implementation, maturity <code>core maintained</code></li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.dispersion</code>, <code>components.seasonal_shape</code></li>
 <li>References: <a href="../method-references/#std">Method References</a></li>
@@ -448,7 +535,7 @@ not the canonical surface for any method listed below.</p>
 <li>Use when: robust seasonal-trend decomposition; channelwise multivariate workflows</li>
 <li>Avoid when: problems that require one shared latent model across channels; series where the dominant period is unknown and cannot be inferred reliably</li>
 <li>Key params: <code>period</code> (required)</li>
-<li>Input/backend: <code>channelwise</code> input, <code>native-backed</code> implementation, maturity <code>flagship</code></li>
+<li>Input/backend: <code>channelwise</code> input, <code>native-backed</code> implementation, maturity <code>core maintained</code></li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.dispersion</code>, <code>components.seasonal_shape</code></li>
 <li>References: <a href="../method-references/#stdr">Method References</a></li>
@@ -469,7 +556,7 @@ not the canonical surface for any method listed below.</p>
 <p>See <a href="../config-reference/#ceemdan">Config Reference</a> for the full parameter table.</p>
 <h3 id="emd"><code>EMD</code></h3>
 <ul>
-<li>Summary: Empirical mode decomposition under the De-Time result contract.</li>
+<li>Summary: Empirical mode decomposition under the DeTime result contract.</li>
 <li>Use when: adaptive decomposition of nonlinear signals; IMF-oriented exploratory analysis</li>
 <li>Avoid when: shared-model multivariate decomposition problems</li>
 <li>Key params: <code>n_imfs</code> (null), <code>primary_period</code> (null)</li>
@@ -485,7 +572,7 @@ not the canonical surface for any method listed below.</p>
 <li>Use when: sanity checks; lightweight baseline decomposition</li>
 <li>Avoid when: shared-model multivariate decomposition problems</li>
 <li>Key params: <code>trend_window</code> (7), <code>season_period</code> (null)</li>
-<li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>stable</code></li>
+<li>Input/backend: <code>univariate</code> input, <code>native-backed</code> implementation, maturity <code>stable</code></li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code></li>
 <li>References: <a href="../method-references/#ma_baseline">Method References</a></li>
@@ -493,7 +580,7 @@ not the canonical surface for any method listed below.</p>
 <p>See <a href="../config-reference/#ma_baseline">Config Reference</a> for the full parameter table.</p>
 <h3 id="mstl"><code>MSTL</code></h3>
 <ul>
-<li>Summary: Statsmodels MSTL wrapped into the De-Time workflow surface.</li>
+<li>Summary: Statsmodels MSTL wrapped into the DeTime workflow surface.</li>
 <li>Use when: multiple seasonalities in univariate data; classical decomposition baselines</li>
 <li>Avoid when: shared-model multivariate decomposition problems; series where the dominant period is unknown and cannot be inferred reliably</li>
 <li>Key params: <code>periods</code> (required)</li>
@@ -517,7 +604,7 @@ not the canonical surface for any method listed below.</p>
 <p>See <a href="../config-reference/#robust_stl">Config Reference</a> for the full parameter table.</p>
 <h3 id="stl"><code>STL</code></h3>
 <ul>
-<li>Summary: Classical STL wrapped into the De-Time workflow contract.</li>
+<li>Summary: Classical STL wrapped into the DeTime workflow contract.</li>
 <li>Use when: classical seasonal-trend baselines; statsmodels-compatible workflows</li>
 <li>Avoid when: shared-model multivariate decomposition problems; series where the dominant period is unknown and cannot be inferred reliably</li>
 <li>Key params: <code>period</code> (required)</li>
@@ -533,7 +620,7 @@ not the canonical surface for any method listed below.</p>
 <li>Use when: band-limited mode separation; frequency-structured univariate workflows</li>
 <li>Avoid when: shared-model multivariate decomposition problems</li>
 <li>Key params: <code>K</code> (4), <code>alpha</code> (2000.0), <code>primary_period</code> (null)</li>
-<li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>stable</code></li>
+<li>Input/backend: <code>univariate</code> input, <code>native-backed</code> implementation, maturity <code>stable</code></li>
 <li>Optional dependencies: vmdpy, sktime</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.modes</code></li>
 <li>References: <a href="../method-references/#vmd">Method References</a></li>
@@ -556,7 +643,7 @@ not the canonical surface for any method listed below.</p>
 <ul>
 <li>Summary: Optional multivariate EMD backend for shared oscillatory structure.</li>
 <li>Use when: multivariate adaptive decomposition; shared oscillatory modes across channels</li>
-<li>Avoid when: single-series workflows where a univariate flagship method is sufficient; environments where optional backend dependencies cannot be installed</li>
+<li>Avoid when: single-series workflows where a univariate core method is sufficient; environments where optional backend dependencies cannot be installed</li>
 <li>Key params: <code>primary_period</code> (null)</li>
 <li>Input/backend: <code>multivariate</code> input, <code>optional-backend</code> implementation, maturity <code>optional-backend</code></li>
 <li>Optional dependencies: PySDKit</li>
@@ -568,7 +655,7 @@ not the canonical surface for any method listed below.</p>
 <ul>
 <li>Summary: Optional multivariate VMD backend for shared frequency structure.</li>
 <li>Use when: multivariate variational decomposition; shared frequency structure across channels</li>
-<li>Avoid when: single-series workflows where a univariate flagship method is sufficient; environments where optional backend dependencies cannot be installed</li>
+<li>Avoid when: single-series workflows where a univariate core method is sufficient; environments where optional backend dependencies cannot be installed</li>
 <li>Key params: <code>K</code> (4), <code>alpha</code> (2000.0), <code>primary_period</code> (null)</li>
 <li>Input/backend: <code>multivariate</code> input, <code>optional-backend</code> implementation, maturity <code>optional-backend</code></li>
 <li>Optional dependencies: PySDKit</li>
@@ -577,18 +664,210 @@ not the canonical surface for any method listed below.</p>
 </ul>
 <p>See <a href="../config-reference/#mvmd">Config Reference</a> for the full parameter table.</p>
 <h2 id="experimental-methods">Experimental methods</h2>
+<h3 id="amd_block"><code>AMD_BLOCK</code></h3>
+<ul>
+<li>Summary: AMD-inspired multiscale smoothing head with periodic-template seasonal reconstruction.</li>
+<li>Use when: multiscale neural decomposition comparisons; seasonal signals where multiple smoothing scales are informative</li>
+<li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
+<li>Key params: <code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>multiscale_windows</code> (null)</li>
+<li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Optional dependencies: none</li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+<li>References: <a href="../method-references/#amd_block">Method References</a></li>
+</ul>
+<p>See <a href="../config-reference/#amd_block">Config Reference</a> for the full parameter table.</p>
+<h3 id="autoformer_block"><code>AUTOFORMER_BLOCK</code></h3>
+<ul>
+<li>Summary: Standalone moving-average decomposition head extracted from the Autoformer architecture.</li>
+<li>Use when: neural-architecture-inspired seasonal-trend baselines; Autoformer-style decomposition ablations</li>
+<li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
+<li>Key params: <code>moving_avg</code> (null), <code>primary_period</code> (null)</li>
+<li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Optional dependencies: none</li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.moving_mean</code></li>
+<li>References: <a href="../method-references/#autoformer_block">Method References</a></li>
+</ul>
+<p>See <a href="../config-reference/#autoformer_block">Config Reference</a> for the full parameter table.</p>
+<h3 id="delelstm_block"><code>DELELSTM_BLOCK</code></h3>
+<ul>
+<li>Summary: DeLELSTM-inspired Holt trend plus periodic-template seasonal decomposition head.</li>
+<li>Use when: LSTM decomposition-head ablations; signals with smooth level and slope structure</li>
+<li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
+<li>Key params: <code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>alpha</code> (0.4), <code>beta</code> (0.2)</li>
+<li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Optional dependencies: none</li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+<li>References: <a href="../method-references/#delelstm_block">Method References</a></li>
+</ul>
+<p>See <a href="../config-reference/#delelstm_block">Config Reference</a> for the full parameter table.</p>
+<h3 id="dlinear_block"><code>DLINEAR_BLOCK</code></h3>
+<ul>
+<li>Summary: Standalone moving-average decomposition head extracted from DLinear-style forecasting blocks.</li>
+<li>Use when: DLinear-style trend/season split baselines; fast neural decomposition head comparisons</li>
+<li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
+<li>Key params: <code>moving_avg</code> (null), <code>primary_period</code> (null)</li>
+<li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Optional dependencies: none</li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.moving_mean</code></li>
+<li>References: <a href="../method-references/#dlinear_block">Method References</a></li>
+</ul>
+<p>See <a href="../config-reference/#dlinear_block">Config Reference</a> for the full parameter table.</p>
+<h3 id="freqmoe_block"><code>FREQMOE_BLOCK</code></h3>
+<ul>
+<li>Summary: FreqMoE-inspired frequency mixture head for trend plus multi-band seasonal reconstruction.</li>
+<li>Use when: frequency-mixture neural head ablations; multi-band seasonal decomposition experiments</li>
+<li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
+<li>Key params: <code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>trend_window</code> (null), <code>num_bands</code> (4)</li>
+<li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Optional dependencies: none</li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+<li>References: <a href="../method-references/#freqmoe_block">Method References</a></li>
+</ul>
+<p>See <a href="../config-reference/#freqmoe_block">Config Reference</a> for the full parameter table.</p>
 <h3 id="gabor_cluster"><code>GABOR_CLUSTER</code></h3>
 <ul>
 <li>Summary: Experimental clustering-based decomposition path.</li>
 <li>Use when: research prototypes; exploratory clustering-style decomposition</li>
 <li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
 <li>Key params: <code>model</code> (null), <code>model_path</code> (null)</li>
-<li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Input/backend: <code>univariate</code> input, <code>native-backed</code> implementation, maturity <code>experimental</code></li>
 <li>Optional dependencies: faiss</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.clusters</code></li>
 <li>References: <a href="../method-references/#gabor_cluster">Method References</a></li>
 </ul>
-<p>See <a href="../config-reference/#gabor_cluster">Config Reference</a> for the full parameter table.</p></div>
+<p>See <a href="../config-reference/#gabor_cluster">Config Reference</a> for the full parameter table.</p>
+<h3 id="inparformer_block"><code>INPARFORMER_BLOCK</code></h3>
+<ul>
+<li>Summary: InParformer-inspired moving-average trend plus periodic-template seasonal decomposition head.</li>
+<li>Use when: periodic-template neural decomposition baselines; prefix/full-scope ablation experiments</li>
+<li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
+<li>Key params: <code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>trend_window</code> (null)</li>
+<li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Optional dependencies: none</li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+<li>References: <a href="../method-references/#inparformer_block">Method References</a></li>
+</ul>
+<p>See <a href="../config-reference/#inparformer_block">Config Reference</a> for the full parameter table.</p>
+<h3 id="leddam_block"><code>LEDDAM_BLOCK</code></h3>
+<ul>
+<li>Summary: LEDDAM LD smoothing block exposed as a Gaussian-kernel decomposition operator.</li>
+<li>Use when: LEDDAM-style decomposition ablations; kernel smoothing neural head comparisons</li>
+<li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
+<li>Key params: <code>kernel_size</code> (25), <code>sigma</code> (1.0)</li>
+<li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Optional dependencies: none</li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.ld_trend</code>, <code>components.kernel</code></li>
+<li>References: <a href="../method-references/#leddam_block">Method References</a></li>
+</ul>
+<p>See <a href="../config-reference/#leddam_block">Config Reference</a> for the full parameter table.</p>
+<h3 id="moving_average_decomposition_block"><code>MOVING_AVERAGE_DECOMPOSITION_BLOCK</code></h3>
+<ul>
+<li>Summary: Generic neural forecasting moving-average decomposition block exposed as a DeTime method.</li>
+<li>Use when: generic decomposition-block smoke tests; fast moving-average neural head baselines</li>
+<li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
+<li>Key params: <code>moving_avg</code> (null), <code>primary_period</code> (null)</li>
+<li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Optional dependencies: none</li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.moving_mean</code></li>
+<li>References: <a href="../method-references/#moving_average_decomposition_block">Method References</a></li>
+</ul>
+<p>See <a href="../config-reference/#moving_average_decomposition_block">Config Reference</a> for the full parameter table.</p>
+<h3 id="nbeats_interpretable"><code>NBEATS_INTERPRETABLE</code></h3>
+<ul>
+<li>Summary: Torch-backed interpretable N-BEATS trend and seasonality stacks used as a learned decomposition prior.</li>
+<li>Use when: learned-basis decomposition experiments; N-BEATS interpretable-stack ablations</li>
+<li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
+<li>Key params: <code>degree_of_polynomial</code> (3), <code>num_harmonics</code> (8), <code>fit_scope</code> ("full"), <code>n_epochs</code> (200)</li>
+<li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Optional dependencies: torch</li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+<li>References: <a href="../method-references/#nbeats_interpretable">Method References</a></li>
+</ul>
+<p>See <a href="../config-reference/#nbeats_interpretable">Config Reference</a> for the full parameter table.</p>
+<h3 id="parsimony_block"><code>PARSIMONY_BLOCK</code></h3>
+<ul>
+<li>Summary: Parsimony-inspired trend head with compact harmonic seasonal projection.</li>
+<li>Use when: compact harmonic decomposition baselines; low-parameter neural head comparisons</li>
+<li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
+<li>Key params: <code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>trend_window</code> (null), <code>num_harmonics</code> (2)</li>
+<li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Optional dependencies: none</li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+<li>References: <a href="../method-references/#parsimony_block">Method References</a></li>
+</ul>
+<p>See <a href="../config-reference/#parsimony_block">Config Reference</a> for the full parameter table.</p>
+<h3 id="st_mtm_block"><code>ST_MTM_BLOCK</code></h3>
+<ul>
+<li>Summary: ST-MTM-inspired smoothing head combining trend smoothing and smoothed periodic seasonality.</li>
+<li>Use when: seasonal-trend pretraining block ablations; smooth periodic decomposition baselines</li>
+<li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
+<li>Key params: <code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>trend_window</code> (null), <code>season_smooth_window</code> (null)</li>
+<li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Optional dependencies: none</li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+<li>References: <a href="../method-references/#st_mtm_block">Method References</a></li>
+</ul>
+<p>See <a href="../config-reference/#st_mtm_block">Config Reference</a> for the full parameter table.</p>
+<h3 id="timekan_block"><code>TIMEKAN_BLOCK</code></h3>
+<ul>
+<li>Summary: TimeKAN-inspired decomposition head blending template and harmonic seasonal estimates.</li>
+<li>Use when: KAN-inspired neural decomposition ablations; frequency-template hybrid seasonal baselines</li>
+<li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
+<li>Key params: <code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>trend_window</code> (null), <code>num_bands</code> (2)</li>
+<li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Optional dependencies: none</li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+<li>References: <a href="../method-references/#timekan_block">Method References</a></li>
+</ul>
+<p>See <a href="../config-reference/#timekan_block">Config Reference</a> for the full parameter table.</p>
+<h3 id="times2d_block"><code>TIMES2D_BLOCK</code></h3>
+<ul>
+<li>Summary: Times2D-inspired multi-period harmonic decomposition head.</li>
+<li>Use when: multi-period neural decomposition baselines; FFT-selected seasonal period comparisons</li>
+<li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
+<li>Key params: <code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>top_k_periods</code> (2), <code>num_harmonics</code> (1), <code>trend_window</code> (null)</li>
+<li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Optional dependencies: none</li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+<li>References: <a href="../method-references/#times2d_block">Method References</a></li>
+</ul>
+<p>See <a href="../config-reference/#times2d_block">Config Reference</a> for the full parameter table.</p>
+<h3 id="waveform_block"><code>WAVEFORM_BLOCK</code></h3>
+<ul>
+<li>Summary: WaveForM-inspired wavelet multiresolution decomposition head.</li>
+<li>Use when: wavelet neural-head ablations; multiresolution trend/detail comparisons</li>
+<li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
+<li>Key params: <code>wavelet</code> ("db4"), <code>level</code> (3), <code>season_levels</code> ([1, 2])</li>
+<li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Optional dependencies: PyWavelets</li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+<li>References: <a href="../method-references/#waveform_block">Method References</a></li>
+</ul>
+<p>See <a href="../config-reference/#waveform_block">Config Reference</a> for the full parameter table.</p>
+<h3 id="waveletmixer_block"><code>WAVELETMIXER_BLOCK</code></h3>
+<ul>
+<li>Summary: WaveletMixer-inspired multiresolution decomposition head using mixed wavelet detail levels.</li>
+<li>Use when: wavelet-mixer neural decomposition baselines; multi-level detail seasonal reconstruction</li>
+<li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
+<li>Key params: <code>wavelet</code> ("sym4"), <code>level</code> (4), <code>season_levels</code> ([1, 2, 3])</li>
+<li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Optional dependencies: PyWavelets</li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+<li>References: <a href="../method-references/#waveletmixer_block">Method References</a></li>
+</ul>
+<p>See <a href="../config-reference/#waveletmixer_block">Config Reference</a> for the full parameter table.</p>
+<h3 id="xpatch_block"><code>XPATCH_BLOCK</code></h3>
+<ul>
+<li>Summary: xPatch-inspired exponential smoothing head for standalone trend and local-season decomposition.</li>
+<li>Use when: exponential smoothing neural head comparisons; fast local seasonal-trend decomposition</li>
+<li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
+<li>Key params: <code>ma_type</code> ("ema"), <code>trend_window</code> (null), <code>season_smooth</code> (null)</li>
+<li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Optional dependencies: none</li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+<li>References: <a href="../method-references/#xpatch_block">Method References</a></li>
+</ul>
+<p>See <a href="../config-reference/#xpatch_block">Config Reference</a> for the full parameter table.</p></div>
             </div>
         </div>
 

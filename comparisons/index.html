@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Zipeng Wu">
-        <link rel="canonical" href="https://systems-mechanobiology.github.io/De-Time/comparisons/">
+        <link rel="canonical" href="https://systems-mechanobiology.github.io/DeTime/comparisons/">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Compare Alternatives - De-Time</title>
+        <title>Compare Alternatives - DeTime</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fontawesome.min.css" rel="stylesheet">
         <link href="../css/brands.min.css" rel="stylesheet">
@@ -22,6 +22,49 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
         <script>hljs.highlightAll();</script>
    
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="keywords" content="DeTime, detime, de-time, time series decomposition, Python time series, SSA, MSSA, VMD, STL, decomposition software">
+  <meta property="og:site_name" content="DeTime">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DeTime - Python and CLI time-series decomposition">
+  <meta property="og:description" content="DeTime is a Python and CLI toolkit for reproducible time-series decomposition across SSA, MSSA, VMD, STL, EMD, wavelet, and native C++ backed methods.">
+  <meta property="og:url" content="https://systems-mechanobiology.github.io/DeTime/">
+  <meta property="og:image" content="https://systems-mechanobiology.github.io/DeTime/assets/brand/detime-title-card.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DeTime - time-series decomposition for Python">
+  <meta name="twitter:description" content="Python and CLI software for reusable trend, oscillation, residual, metadata, schema, and artifact outputs.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://systems-mechanobiology.github.io/DeTime/#website",
+        "name": "DeTime",
+        "alternateName": ["detime", "de-time", "De-Time"],
+        "url": "https://systems-mechanobiology.github.io/DeTime/",
+        "description": "DeTime documentation for Python and CLI time-series decomposition software.",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://systems-mechanobiology.github.io/DeTime/#software",
+        "name": "DeTime",
+        "alternateName": ["detime", "de-time", "De-Time"],
+        "description": "Python and CLI toolkit for reproducible time-series decomposition with native C++ backed SSA, MSSA, VMD, STD, STDR, MA baseline, and Gabor clustering paths.",
+        "codeRepository": "https://github.com/systems-mechanobiology/DeTime",
+        "url": "https://systems-mechanobiology.github.io/DeTime/",
+        "programmingLanguage": ["Python", "C++"],
+        "applicationCategory": "Scientific software",
+        "keywords": "DeTime, time-series decomposition, Python, SSA, MSSA, VMD, STL, EMD, wavelet, native C++",
+        "author": {
+          "@type": "Person",
+          "name": "Zipeng Wu"
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="stylesheet" href="../stylesheets/extra.css?v=7">
 
     </head>
@@ -29,7 +72,7 @@
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="..">De-Time</a>
+                <a class="navbar-brand" href="..">DeTime</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -93,7 +136,7 @@
 </li>
                                     
   <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">Quant Trading Column</a>
+    <a href="#" class="dropdown-item">Quant Trading Tutorial</a>
     <ul class="dropdown-menu">
             
 <li>
@@ -101,48 +144,88 @@
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/" class="dropdown-item">Rendered Notebooks</a>
+    <a href="../tutorials/quant-trading/notebooks/" class="dropdown-item">Tutorial Notebooks</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/00_quant_trading_column_overview/" class="dropdown-item">00 Column Overview</a>
+    <a href="../tutorials/quant-trading/notebooks/00_decomposition_first_quant_trading_roadmap/" class="dropdown-item">Tutorial 00 Roadmap</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Lab</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../tutorials/quant-trading/two-strategy-families/" class="dropdown-item">Two Strategy Families</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/01_real_market_data_and_detime_features/" class="dropdown-item">01 Real Market Data and Features</a>
+    <a href="../tutorials/quant-trading/notebooks/01_detime_trend_following_strategy_lab/" class="dropdown-item">01 Trend-Following Lab</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/02_single_asset_timing_vectorbt/" class="dropdown-item">02 Single-Asset Timing</a>
+    <a href="../tutorials/quant-trading/notebooks/02_detime_oscillation_reversion_strategy_lab/" class="dropdown-item">02 Oscillation-Reversion Lab</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Expansion</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../tutorials/quant-trading/method-specific-strategy-expansion/" class="dropdown-item">Method-Specific Strategy Expansion</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/03_turtle_donchian_trend_filter/" class="dropdown-item">03 Turtle Donchian Trend Filter</a>
+    <a href="../tutorials/quant-trading/notebooks/03_detime_method_specific_strategy_variants/" class="dropdown-item">03 Method-Specific Variants</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/04_pairs_trading_residual_cycle/" class="dropdown-item">04 Pairs Trading Residual Cycle</a>
+    <a href="../tutorials/quant-trading/notebooks/04_detime_component_pair_trading_cointegration/" class="dropdown-item">04 Component Pair Trading</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Tutorial Sequence</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../tutorials/quant-trading/notebooks/01_market_data_and_decomposition_feature_factory/" class="dropdown-item">01 Real Market Data and Feature Factory</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/05_cross_sectional_factor_selection/" class="dropdown-item">05 Cross-Sectional Factor Selection</a>
+    <a href="../tutorials/quant-trading/notebooks/02_decomposition_aware_moving_average_macd/" class="dropdown-item">02 Decomposition-aware MA and MACD</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/06_style_sector_asset_rotation_bt/" class="dropdown-item">06 Style and Sector Rotation</a>
+    <a href="../tutorials/quant-trading/notebooks/03_residual_mean_reversion_rsi_bollinger/" class="dropdown-item">03 Residual Mean Reversion</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/07_korea_us_crypto_multimarket/" class="dropdown-item">07 Korea, US, and Crypto</a>
+    <a href="../tutorials/quant-trading/notebooks/04_turtle_donchian_breakout_volume_confirmation/" class="dropdown-item">04 Donchian Breakout</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/08_backtesting_framework_adapters/" class="dropdown-item">08 Framework Adapters</a>
+    <a href="../tutorials/quant-trading/notebooks/05_pairs_spread_decomposition_stat_arb/" class="dropdown-item">05 Pair-Spread Stat-Arb</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/09_walkforward_validation_and_audit/" class="dropdown-item">09 Walk-Forward Validation</a>
+    <a href="../tutorials/quant-trading/notebooks/06_cross_sectional_rotation_portfolio/" class="dropdown-item">06 Cross-Sectional Rotation</a>
 </li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Native SSA Replay</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../tutorials/quant-trading/notebooks/07_native_ssa_high_return_low_drawdown_tutorial/" class="dropdown-item">07 Native SSA High-Return / Low-Drawdown</a>
+</li>
+    </ul>
+  </li>
             
 <li>
     <a href="../tutorials/quant-trading/data/" class="dropdown-item">Real Data and Universes</a>
@@ -324,6 +407,10 @@
 </li>
                                     
 <li>
+    <a href="../release-artifacts/" class="dropdown-item">Release Artifacts</a>
+</li>
+                                    
+<li>
     <a href="../architecture/" class="dropdown-item">Architecture</a>
 </li>
                                     
@@ -359,7 +446,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="https://github.com/systems-mechanobiology/De-Time" class="nav-link">systems-mechanobiology/De-Time</a>
+                                <a href="https://github.com/systems-mechanobiology/DeTime" class="nav-link">systems-mechanobiology/DeTime</a>
                             </li>
                     </ul>
                 </div>
@@ -397,6 +484,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#runtime-and-memory-boundary" class="nav-link">Runtime and memory boundary</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#evidence-appendix" class="nav-link">Evidence appendix</a>
               <ul class="nav flex-column">
               </ul>
@@ -409,7 +500,7 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="compare-alternatives">Compare Alternatives</h1>
-<p>De-Time is useful when the project needs one decomposition workflow across
+<p>DeTime is useful when the project needs one decomposition workflow across
 Python, CLI, saved artifacts, and machine-readable metadata. Specialist
 packages remain the better choice when you only need their deepest family-
 specific API.</p>
@@ -421,7 +512,7 @@ specific API.</p>
       <span>different configs, result objects, filenames, and backend rules per package</span>
     </div>
     <div class="pipeline-step">
-      <strong>De-Time layer</strong>
+      <strong>DeTime layer</strong>
       <span>one <code>DecompositionConfig</code>, one <code>DecompResult</code>, one CLI artifact contract</span>
     </div>
     <div class="pipeline-step">
@@ -432,11 +523,17 @@ specific API.</p>
 </div>
 
 <h2 id="software-matrix">Software matrix</h2>
+<p>Audit date: 2026-06-19. Local comparator package versions available in the
+review environment were <code>statsmodels==0.14.5</code>, <code>EMD-signal==1.6.4</code>,
+<code>PyWavelets==1.9.0</code>, <code>PySDKit==0.4.23</code>, and <code>sktime==0.33.2</code>. <code>SSALib</code> was not
+installed in the local audit environment, so its feature position is based on
+public documentation rather than a local import check. The feature matrix
+records workflow/API characteristics; it is not a runtime or memory ranking.</p>
 <table>
 <thead>
 <tr>
 <th>Axis</th>
-<th>De-Time</th>
+<th>DeTime</th>
 <th><a href="https://www.statsmodels.org/"><code>statsmodels</code></a></th>
 <th><a href="https://github.com/laszukdawid/PyEMD"><code>PyEMD</code></a></th>
 <th><a href="https://pywavelets.readthedocs.io/en/latest/"><code>PyWavelets</code></a></th>
@@ -514,7 +611,7 @@ specific API.</p>
 <tr>
 <th>Package</th>
 <th>Use it directly when</th>
-<th>Use De-Time when</th>
+<th>Use DeTime when</th>
 </tr>
 </thead>
 <tbody>
@@ -536,25 +633,26 @@ specific API.</p>
 <tr>
 <td><a href="https://pysdkit.readthedocs.io/en/latest/"><code>PySDKit</code></a></td>
 <td>you need its broad signal-decomposition catalog</td>
-<td>you want selected optional multivariate backends behind De-Time metadata and I/O</td>
+<td>you want selected optional multivariate backends behind DeTime metadata and I/O</td>
 </tr>
 <tr>
 <td><a href="https://github.com/ADSCIAN/ssalib"><code>SSALib</code></a></td>
 <td>you only need SSA-family tooling</td>
-<td>you want <code>SSA</code> as one flagship method in a cross-family package</td>
+<td>you want <code>SSA</code> as one core method in a cross-family package</td>
 </tr>
 <tr>
 <td><a href="https://www.sktime.net/en/stable/"><code>sktime</code></a></td>
 <td>you need a large time-series ML ecosystem</td>
-<td>you want decomposition outputs with De-Time's artifact and schema contract</td>
+<td>you want decomposition outputs with DeTime's artifact and schema contract</td>
 </tr>
 </tbody>
 </table>
 <h2 id="runtime-snapshot">Runtime snapshot</h2>
 <p>The release evidence includes a reproducible runtime snapshot generated by
 <code>scripts/generate_performance_snapshot.py</code>. The current committed snapshot was
-generated on Windows 10, Python 3.11.9, AMD64, with native <code>SSA</code> and <code>STD</code>
-capabilities available.</p>
+generated on Windows 10, Python 3.11.9, AMD64, with native <code>SSA</code>, <code>STD</code>,
+<code>STDR</code>, <code>MA_BASELINE</code>, <code>MSSA</code>, <code>VMD</code>, and <code>GABOR_CLUSTER</code> capabilities
+available.</p>
 <table>
 <thead>
 <tr>
@@ -567,25 +665,55 @@ capabilities available.</p>
 <tbody>
 <tr>
 <td><code>SSA</code></td>
-<td style="text-align: right;">14.239</td>
-<td style="text-align: right;">1.833</td>
-<td style="text-align: right;">7.770x</td>
+<td style="text-align: right;">13.925</td>
+<td style="text-align: right;">1.906</td>
+<td style="text-align: right;">7.307x</td>
 </tr>
 <tr>
 <td><code>STD</code></td>
-<td style="text-align: right;">0.181</td>
-<td style="text-align: right;">0.031</td>
-<td style="text-align: right;">5.825x</td>
+<td style="text-align: right;">0.154</td>
+<td style="text-align: right;">0.024</td>
+<td style="text-align: right;">6.445x</td>
 </tr>
 <tr>
 <td><code>STDR</code></td>
-<td style="text-align: right;">0.192</td>
-<td style="text-align: right;">0.021</td>
-<td style="text-align: right;">9.319x</td>
+<td style="text-align: right;">0.175</td>
+<td style="text-align: right;">0.018</td>
+<td style="text-align: right;">9.807x</td>
+</tr>
+<tr>
+<td><code>MA_BASELINE</code></td>
+<td style="text-align: right;">0.070</td>
+<td style="text-align: right;">0.016</td>
+<td style="text-align: right;">4.423x</td>
+</tr>
+<tr>
+<td><code>MSSA</code></td>
+<td style="text-align: right;">60.856</td>
+<td style="text-align: right;">22.900</td>
+<td style="text-align: right;">2.657x</td>
+</tr>
+<tr>
+<td><code>VMD</code></td>
+<td style="text-align: right;">47.856</td>
+<td style="text-align: right;">13.812</td>
+<td style="text-align: right;">3.465x</td>
+</tr>
+<tr>
+<td><code>GABOR_CLUSTER</code></td>
+<td style="text-align: right;">3.304</td>
+<td style="text-align: right;">0.181</td>
+<td style="text-align: right;">18.225x</td>
 </tr>
 </tbody>
 </table>
 <p>These numbers are a release smoke snapshot, not a universal benchmark.</p>
+<h2 id="runtime-and-memory-boundary">Runtime and memory boundary</h2>
+<p>The current comparison evidence does not claim cross-package runtime or memory
+superiority. Runtime rows above compare DeTime native-backed paths with DeTime
+Python fallback paths in one environment. Peak-memory and direct same-method
+comparisons against external packages are future comparison work unless a
+release artifact explicitly records them.</p>
 <h2 id="evidence-appendix">Evidence appendix</h2>
 <div class="compact-faq">
 
@@ -596,7 +724,7 @@ capabilities available.</p>
 - [`comparison_capability_matrix.csv`](assets/generated/evidence/comparison_capability_matrix.csv)
 - [`comparison_install_matrix.csv`](assets/generated/evidence/comparison_install_matrix.csv)
 - [`comparison_family_fairness.csv`](assets/generated/evidence/comparison_family_fairness.csv)
-- [`comparison_agent_matrix.csv`](assets/generated/evidence/comparison_agent_matrix.csv)
+- [`comparison_machine_contract_matrix.csv`](assets/generated/evidence/comparison_machine_contract_matrix.csv)
 - [`workflow_comparison.json`](assets/generated/evidence/workflow_comparison.json)
 
 Regenerate them with:

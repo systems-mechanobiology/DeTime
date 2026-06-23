@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Zipeng Wu">
-        <link rel="canonical" href="https://systems-mechanobiology.github.io/De-Time/reproducibility/">
+        <link rel="canonical" href="https://systems-mechanobiology.github.io/DeTime/reproducibility/">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Reproducibility - De-Time</title>
+        <title>Reproducibility - DeTime</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fontawesome.min.css" rel="stylesheet">
         <link href="../css/brands.min.css" rel="stylesheet">
@@ -22,6 +22,49 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
         <script>hljs.highlightAll();</script>
    
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="keywords" content="DeTime, detime, de-time, time series decomposition, Python time series, SSA, MSSA, VMD, STL, decomposition software">
+  <meta property="og:site_name" content="DeTime">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DeTime - Python and CLI time-series decomposition">
+  <meta property="og:description" content="DeTime is a Python and CLI toolkit for reproducible time-series decomposition across SSA, MSSA, VMD, STL, EMD, wavelet, and native C++ backed methods.">
+  <meta property="og:url" content="https://systems-mechanobiology.github.io/DeTime/">
+  <meta property="og:image" content="https://systems-mechanobiology.github.io/DeTime/assets/brand/detime-title-card.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DeTime - time-series decomposition for Python">
+  <meta name="twitter:description" content="Python and CLI software for reusable trend, oscillation, residual, metadata, schema, and artifact outputs.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://systems-mechanobiology.github.io/DeTime/#website",
+        "name": "DeTime",
+        "alternateName": ["detime", "de-time", "De-Time"],
+        "url": "https://systems-mechanobiology.github.io/DeTime/",
+        "description": "DeTime documentation for Python and CLI time-series decomposition software.",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://systems-mechanobiology.github.io/DeTime/#software",
+        "name": "DeTime",
+        "alternateName": ["detime", "de-time", "De-Time"],
+        "description": "Python and CLI toolkit for reproducible time-series decomposition with native C++ backed SSA, MSSA, VMD, STD, STDR, MA baseline, and Gabor clustering paths.",
+        "codeRepository": "https://github.com/systems-mechanobiology/DeTime",
+        "url": "https://systems-mechanobiology.github.io/DeTime/",
+        "programmingLanguage": ["Python", "C++"],
+        "applicationCategory": "Scientific software",
+        "keywords": "DeTime, time-series decomposition, Python, SSA, MSSA, VMD, STL, EMD, wavelet, native C++",
+        "author": {
+          "@type": "Person",
+          "name": "Zipeng Wu"
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="stylesheet" href="../stylesheets/extra.css?v=7">
 
     </head>
@@ -29,7 +72,7 @@
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="..">De-Time</a>
+                <a class="navbar-brand" href="..">DeTime</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -93,7 +136,7 @@
 </li>
                                     
   <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">Quant Trading Column</a>
+    <a href="#" class="dropdown-item">Quant Trading Tutorial</a>
     <ul class="dropdown-menu">
             
 <li>
@@ -101,48 +144,88 @@
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/" class="dropdown-item">Rendered Notebooks</a>
+    <a href="../tutorials/quant-trading/notebooks/" class="dropdown-item">Tutorial Notebooks</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/00_quant_trading_column_overview/" class="dropdown-item">00 Column Overview</a>
+    <a href="../tutorials/quant-trading/notebooks/00_decomposition_first_quant_trading_roadmap/" class="dropdown-item">Tutorial 00 Roadmap</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Lab</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../tutorials/quant-trading/two-strategy-families/" class="dropdown-item">Two Strategy Families</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/01_real_market_data_and_detime_features/" class="dropdown-item">01 Real Market Data and Features</a>
+    <a href="../tutorials/quant-trading/notebooks/01_detime_trend_following_strategy_lab/" class="dropdown-item">01 Trend-Following Lab</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/02_single_asset_timing_vectorbt/" class="dropdown-item">02 Single-Asset Timing</a>
+    <a href="../tutorials/quant-trading/notebooks/02_detime_oscillation_reversion_strategy_lab/" class="dropdown-item">02 Oscillation-Reversion Lab</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Expansion</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../tutorials/quant-trading/method-specific-strategy-expansion/" class="dropdown-item">Method-Specific Strategy Expansion</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/03_turtle_donchian_trend_filter/" class="dropdown-item">03 Turtle Donchian Trend Filter</a>
+    <a href="../tutorials/quant-trading/notebooks/03_detime_method_specific_strategy_variants/" class="dropdown-item">03 Method-Specific Variants</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/04_pairs_trading_residual_cycle/" class="dropdown-item">04 Pairs Trading Residual Cycle</a>
+    <a href="../tutorials/quant-trading/notebooks/04_detime_component_pair_trading_cointegration/" class="dropdown-item">04 Component Pair Trading</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Tutorial Sequence</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../tutorials/quant-trading/notebooks/01_market_data_and_decomposition_feature_factory/" class="dropdown-item">01 Real Market Data and Feature Factory</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/05_cross_sectional_factor_selection/" class="dropdown-item">05 Cross-Sectional Factor Selection</a>
+    <a href="../tutorials/quant-trading/notebooks/02_decomposition_aware_moving_average_macd/" class="dropdown-item">02 Decomposition-aware MA and MACD</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/06_style_sector_asset_rotation_bt/" class="dropdown-item">06 Style and Sector Rotation</a>
+    <a href="../tutorials/quant-trading/notebooks/03_residual_mean_reversion_rsi_bollinger/" class="dropdown-item">03 Residual Mean Reversion</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/07_korea_us_crypto_multimarket/" class="dropdown-item">07 Korea, US, and Crypto</a>
+    <a href="../tutorials/quant-trading/notebooks/04_turtle_donchian_breakout_volume_confirmation/" class="dropdown-item">04 Donchian Breakout</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/08_backtesting_framework_adapters/" class="dropdown-item">08 Framework Adapters</a>
+    <a href="../tutorials/quant-trading/notebooks/05_pairs_spread_decomposition_stat_arb/" class="dropdown-item">05 Pair-Spread Stat-Arb</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/09_walkforward_validation_and_audit/" class="dropdown-item">09 Walk-Forward Validation</a>
+    <a href="../tutorials/quant-trading/notebooks/06_cross_sectional_rotation_portfolio/" class="dropdown-item">06 Cross-Sectional Rotation</a>
 </li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Native SSA Replay</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../tutorials/quant-trading/notebooks/07_native_ssa_high_return_low_drawdown_tutorial/" class="dropdown-item">07 Native SSA High-Return / Low-Drawdown</a>
+</li>
+    </ul>
+  </li>
             
 <li>
     <a href="../tutorials/quant-trading/data/" class="dropdown-item">Real Data and Universes</a>
@@ -324,6 +407,10 @@
 </li>
                                     
 <li>
+    <a href="../release-artifacts/" class="dropdown-item">Release Artifacts</a>
+</li>
+                                    
+<li>
     <a href="../architecture/" class="dropdown-item">Architecture</a>
 </li>
                                     
@@ -354,12 +441,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../architecture/" class="nav-link">
+                                <a rel="next" href="../release-artifacts/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="https://github.com/systems-mechanobiology/De-Time" class="nav-link">systems-mechanobiology/De-Time</a>
+                                <a href="https://github.com/systems-mechanobiology/DeTime" class="nav-link">systems-mechanobiology/DeTime</a>
                             </li>
                     </ul>
                 </div>
@@ -389,6 +476,14 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#external-benchmark-bridge" class="nav-link">External benchmark bridge</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#documentation-and-tutorial-surface" class="nav-link">Documentation and tutorial surface</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#release-checks" class="nav-link">Release Checks</a>
               <ul class="nav flex-column">
               </ul>
@@ -398,6 +493,14 @@
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#native-agreement-checks" class="nav-link">Native agreement checks</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#release-validation-runtime-snapshot" class="nav-link">Release-validation runtime snapshot</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#experimental-neural-block-table" class="nav-link">Experimental neural block table</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -431,6 +534,56 @@ and benchmark-derived methods belong to the companion repository
 than as a mixed library-plus-benchmark artifact.</p>
 <p>The release artifacts also exclude transition-era compatibility submodules such
 as <code>tsdecomp.methods.*</code>, <code>tsdecomp.leaderboard</code>, and <code>tsdecomp.bench_config</code>.</p>
+<h2 id="external-benchmark-bridge">External benchmark bridge</h2>
+<p>DeTime includes a bridge command for the public Hugging Face bundle
+<a href="https://huggingface.co/datasets/Zipeng365/TSDecompose-Benchmark"><code>Zipeng365/TSDecompose-Benchmark</code></a>.
+The command downloads the bundle's <code>code/TSDecompose</code> source snapshot into a
+local cache and invokes its published paper benchmark runner.</p>
+<p>Smoke run:</p>
+<pre><code class="language-bash">detime benchmark --out-dir out/tsdecompose-smoke
+</code></pre>
+<p>Full paper-core run:</p>
+<pre><code class="language-bash">detime benchmark --full --out-dir out/tsdecompose-paper-core
+</code></pre>
+<p>Python API:</p>
+<pre><code class="language-python">from detime import run_tsdecompose_benchmark
+
+result = run_tsdecompose_benchmark(smoke=True, out_dir=&quot;out/tsdecompose-smoke&quot;)
+print(result.leaderboard_path)
+</code></pre>
+<p>This bridge keeps the benchmark source and benchmark-derived methods outside
+the installable DeTime package while still giving readers a direct
+reproduction path for the benchmark claims.</p>
+<h2 id="documentation-and-tutorial-surface">Documentation and tutorial surface</h2>
+<p>The documentation is part of the reviewed software surface, not only a landing
+page. It includes executable examples, rendered notebooks, generated method
+metadata, schemas, and release evidence files.</p>
+<table>
+<thead>
+<tr>
+<th>Surface</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quant Trading tutorial column</td>
+<td>11 applied notebooks plus one roadmap notebook, with captured code cells, stdout, tables, figures, strategy statistics, and audit outputs</td>
+</tr>
+<tr>
+<td>Hot Trend Lab</td>
+<td>7 case notebooks plus one overview notebook, with source-audit tables, component summaries, residual-event outputs, and publication-context notes</td>
+</tr>
+<tr>
+<td>Core workflow tutorials</td>
+<td>univariate decomposition, multivariate decomposition, CLI export/profiling, visual method comparison, and method-gallery workflows</td>
+</tr>
+<tr>
+<td>Review artifacts</td>
+<td>comparison matrices, release-smoke checks, reproducibility notes, JSON schemas, generated method cards, and evidence snapshots</td>
+</tr>
+</tbody>
+</table>
 <h2 id="release-checks">Release Checks</h2>
 <div class="compact-faq">
 
@@ -455,8 +608,6 @@ The current release and docs were checked with:
 - `python scripts/generate_method_cards.py`
 - `python benchmarks/software_comparison/generate_comparison_evidence.py`
 - `python examples/workflow_comparisons/compare_specialist_glue_vs_detime.py`
-- `python benchmarks/token_benchmarks/generate_token_benchmarks.py`
-- `python evals/agent/run_agent_evals.py`
 - `python scripts/generate_reviewer_bundle.py`
 - `python -m twine check dist/*`
 
@@ -468,29 +619,31 @@ The current release and docs were checked with:
 <p>The repository now publishes two coverage views so the denominator is explicit:</p>
 <ul>
 <li><strong>core-surface coverage</strong></li>
-<li>the gated <code>detime</code> core-plus-flagship contract</li>
+<li>the gated <code>detime</code> core-plus-maintained contract</li>
 <li><strong>package-wide coverage</strong></li>
 <li>the broader installable <code>detime</code> package, including CLI, I/O,
     visualization, wrappers, and machine-facing helpers</li>
 </ul>
-<p>The core gate is applied to the canonical <code>detime</code> core-plus-flagship surface.</p>
+<p>The core gate is applied to the canonical <code>detime</code> core-plus-maintained surface.</p>
 <p>The core-surface denominator intentionally omits:</p>
 <ul>
 <li>the deprecated <code>tsdecomp</code> compatibility layer,</li>
 <li>CLI wrappers,</li>
 <li>I/O helpers,</li>
 <li>visualization helpers,</li>
-<li>optional wrappers and non-flagship integrations that remain tested but are
+<li>optional wrappers and non-core integrations that remain tested but are
   not part of the gated coverage surface.</li>
 </ul>
-<p>The latest local <code>0.1.1</code> release-candidate run reached <code>93.73%</code>
-core-surface coverage and <code>84.00%</code> package-wide coverage.</p>
+<p>The 2026-06-22 <code>0.1.2</code> release-candidate audit was run against the checkout
+source by removing the stale <code>_de_time_editable</code> import hook before pytest
+startup and putting <code>src/</code> first on <code>sys.path</code>. It reached <code>92.58%</code>
+core-contract coverage and <code>88.41%</code> package-wide coverage.</p>
 <p>Package-wide coverage is emitted separately in CI and uploaded as a second
-artifact so reviewer-facing reports can show both the narrow safety gate and
-the broader installable surface.</p>
+artifact so release reports can show both the narrow safety gate and the
+broader installable surface.</p>
 <p>Optional <code>.[multivar]</code> integrations are validated separately in a dedicated
 smoke path so <code>MVMD</code> / <code>MEMD</code> execution evidence is published without
-broadening the flagship-method coverage gate.</p>
+broadening the core-method coverage gate.</p>
 <h2 id="native-agreement-checks">Native agreement checks</h2>
 <p>Native-backed methods are not treated as correctness shortcuts. The test suite
 includes numeric agreement checks between native and Python implementations for:</p>
@@ -504,14 +657,252 @@ includes numeric agreement checks between native and Python implementations for:
 <li><code>SSA</code>: <code>atol=1e-6</code></li>
 <li><code>STD</code> / <code>STDR</code>: <code>atol=1e-9</code></li>
 </ul>
+<p>Native correctness status:</p>
+<table>
+<thead>
+<tr>
+<th>Native path</th>
+<th>Reference path</th>
+<th>Check type</th>
+<th style="text-align: right;">Public tolerance</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SSA</code></td>
+<td>Python SSA</td>
+<td>numerical agreement</td>
+<td style="text-align: right;"><code>1e-6</code></td>
+<td>agreement-tested</td>
+</tr>
+<tr>
+<td><code>STD</code></td>
+<td>Python STD</td>
+<td>numerical agreement</td>
+<td style="text-align: right;"><code>1e-9</code></td>
+<td>agreement-tested</td>
+</tr>
+<tr>
+<td><code>STDR</code></td>
+<td>Python STDR</td>
+<td>numerical agreement</td>
+<td style="text-align: right;"><code>1e-9</code></td>
+<td>agreement-tested</td>
+</tr>
+<tr>
+<td><code>MA_BASELINE</code></td>
+<td>Python fallback</td>
+<td>callable/schema smoke</td>
+<td style="text-align: right;">n/a</td>
+<td>smoke-tested</td>
+</tr>
+<tr>
+<td><code>MSSA</code></td>
+<td>Python fallback</td>
+<td>callable/schema smoke</td>
+<td style="text-align: right;">n/a</td>
+<td>smoke-tested</td>
+</tr>
+<tr>
+<td><code>VMD</code></td>
+<td>Python fallback</td>
+<td>callable/schema smoke</td>
+<td style="text-align: right;">n/a</td>
+<td>smoke-tested</td>
+</tr>
+<tr>
+<td><code>GABOR_CLUSTER</code></td>
+<td>experimental native path</td>
+<td>callable/schema smoke</td>
+<td style="text-align: right;">n/a</td>
+<td>experimental smoke-tested</td>
+</tr>
+</tbody>
+</table>
+<p>Only the agreement-tested rows should be cited as numerical-equivalence
+evidence. The remaining rows verify routing, result-shape/schema behavior, and
+native availability in the release environment.</p>
+<h2 id="release-validation-runtime-snapshot">Release-validation runtime snapshot</h2>
+<p>The following snapshot records selected native-backed release-validation paths
+against internal Python fallback paths in one review environment. It verifies
+that the native paths are installed, callable, and routed through the same
+result contract. It is not a portable runtime ranking against other packages.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th style="text-align: right;">Python mean (ms)</th>
+<th style="text-align: right;">Native mean (ms)</th>
+<th style="text-align: right;">Speedup</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SSA</code></td>
+<td style="text-align: right;">13.925</td>
+<td style="text-align: right;">1.906</td>
+<td style="text-align: right;">7.31x</td>
+</tr>
+<tr>
+<td><code>STD</code></td>
+<td style="text-align: right;">0.154</td>
+<td style="text-align: right;">0.024</td>
+<td style="text-align: right;">6.44x</td>
+</tr>
+<tr>
+<td><code>STDR</code></td>
+<td style="text-align: right;">0.175</td>
+<td style="text-align: right;">0.018</td>
+<td style="text-align: right;">9.81x</td>
+</tr>
+<tr>
+<td><code>MA_BASELINE</code></td>
+<td style="text-align: right;">0.070</td>
+<td style="text-align: right;">0.016</td>
+<td style="text-align: right;">4.42x</td>
+</tr>
+<tr>
+<td><code>MSSA</code></td>
+<td style="text-align: right;">60.856</td>
+<td style="text-align: right;">22.900</td>
+<td style="text-align: right;">2.66x</td>
+</tr>
+<tr>
+<td><code>VMD</code></td>
+<td style="text-align: right;">47.856</td>
+<td style="text-align: right;">13.812</td>
+<td style="text-align: right;">3.46x</td>
+</tr>
+<tr>
+<td><code>GABOR_CLUSTER</code> (experimental)</td>
+<td style="text-align: right;">3.304</td>
+<td style="text-align: right;">0.181</td>
+<td style="text-align: right;">18.22x</td>
+</tr>
+</tbody>
+</table>
+<h2 id="experimental-neural-block-table">Experimental neural block table</h2>
+<p>These operators are exposed through the same DeTime config/result surface for
+decomposition-head ablations, reusable result-contract tests, and interface
+coverage. They remain experimental package-level operators.</p>
+<table>
+<thead>
+<tr>
+<th>Block</th>
+<th>Source architecture family</th>
+<th>Standalone operator exposed in DeTime</th>
+<th>Training status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AMD_BLOCK</code></td>
+<td>adaptive multiscale decomposition</td>
+<td>multiscale smoothing trend with periodic-template seasonal reconstruction</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>AUTOFORMER_BLOCK</code></td>
+<td>Autoformer</td>
+<td>moving-average trend and residual-seasonal split</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>DELELSTM_BLOCK</code></td>
+<td>DeLELSTM</td>
+<td>Holt-style trend with periodic-template seasonality</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>DLINEAR_BLOCK</code></td>
+<td>DLinear</td>
+<td>moving-average decomposition head from linear forecasting blocks</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>FREQMOE_BLOCK</code></td>
+<td>FreqMoE</td>
+<td>frequency-band trend plus multi-band seasonal reconstruction</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>INPARFORMER_BLOCK</code></td>
+<td>InParformer</td>
+<td>moving-average trend with periodic-template seasonal head</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>LEDDAM_BLOCK</code></td>
+<td>LEDDAM</td>
+<td>Gaussian-kernel smoothing operator inspired by learnable decomposition</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>MOVING_AVERAGE_DECOMPOSITION_BLOCK</code></td>
+<td>Autoformer/DLinear family</td>
+<td>generic moving-average neural decomposition head</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>NBEATS_INTERPRETABLE</code></td>
+<td>N-BEATS interpretable stacks</td>
+<td>trend and seasonality basis stacks used as a decomposition prior</td>
+<td>torch-backed learned prior</td>
+</tr>
+<tr>
+<td><code>PARSIMONY_BLOCK</code></td>
+<td>parsimony-oriented decomposition</td>
+<td>smooth trend with compact harmonic seasonal projection</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>ST_MTM_BLOCK</code></td>
+<td>ST-MTM</td>
+<td>trend smoothing with smoothed periodic seasonal template</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>TIMEKAN_BLOCK</code></td>
+<td>TimeKAN</td>
+<td>template and harmonic seasonal estimates with smoothed trend</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>TIMES2D_BLOCK</code></td>
+<td>Times2D</td>
+<td>multi-period harmonic decomposition head</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>WAVEFORM_BLOCK</code></td>
+<td>WaveForM</td>
+<td>wavelet multiresolution trend-detail decomposition</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>WAVELETMIXER_BLOCK</code></td>
+<td>WaveletMixer</td>
+<td>mixed wavelet detail-level decomposition</td>
+<td>non-learned extractor</td>
+</tr>
+<tr>
+<td><code>XPATCH_BLOCK</code></td>
+<td>xPatch</td>
+<td>exponential smoothing trend with local seasonal residual</td>
+<td>non-learned extractor</td>
+</tr>
+</tbody>
+</table>
 <h2 id="evidence-artifacts">Evidence Artifacts</h2>
 <ul>
 <li><a href="../assets/generated/evidence/performance_snapshot.json">Performance snapshot JSON</a></li>
 <li><a href="../assets/generated/evidence/performance_snapshot.csv">Performance summary CSV</a></li>
+<li><a href="../assets/generated/evidence/coverage_core.json">Core coverage JSON</a></li>
+<li><a href="../assets/generated/evidence/coverage_package.json">Package-wide coverage JSON</a></li>
+<li><a href="../assets/generated/evidence/coverage_summary.json">Coverage summary JSON</a></li>
 <li><a href="../assets/generated/evidence/comparison_evidence.json">Comparison evidence JSON</a></li>
 <li><a href="../assets/generated/evidence/workflow_comparison.json">Workflow comparison demo JSON</a></li>
-<li><a href="../assets/generated/evidence/token_benchmarks.json">Token benchmark summary JSON</a></li>
-<li><a href="../assets/generated/evidence/agent_eval_summary.json">Agent eval summary JSON</a></li>
 <li>JSON schemas: <code>src/detime/schema_assets/*.json</code></li>
 </ul>
 <p>The performance snapshot is reproducible from

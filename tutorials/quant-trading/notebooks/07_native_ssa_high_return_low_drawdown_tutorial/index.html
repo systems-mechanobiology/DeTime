@@ -1,0 +1,1956 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Zipeng Wu">
+        <link rel="canonical" href="https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/notebooks/07_native_ssa_high_return_low_drawdown_tutorial/">
+        <link rel="shortcut icon" href="../../../../img/favicon.ico">
+        <title>07 Native SSA High-Return / Low-Drawdown - DeTime</title>
+        <link href="../../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../../../stylesheets/brand.css" rel="stylesheet">
+        <link href="../../../../stylesheets/extra.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+   
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="keywords" content="DeTime, detime, de-time, time series decomposition, Python time series, SSA, MSSA, VMD, STL, decomposition software">
+  <meta property="og:site_name" content="DeTime">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DeTime - Python and CLI time-series decomposition">
+  <meta property="og:description" content="DeTime is a Python and CLI toolkit for reproducible time-series decomposition across SSA, MSSA, VMD, STL, EMD, wavelet, and native C++ backed methods.">
+  <meta property="og:url" content="https://systems-mechanobiology.github.io/DeTime/">
+  <meta property="og:image" content="https://systems-mechanobiology.github.io/DeTime/assets/brand/detime-title-card.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DeTime - time-series decomposition for Python">
+  <meta name="twitter:description" content="Python and CLI software for reusable trend, oscillation, residual, metadata, schema, and artifact outputs.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://systems-mechanobiology.github.io/DeTime/#website",
+        "name": "DeTime",
+        "alternateName": ["detime", "de-time", "De-Time"],
+        "url": "https://systems-mechanobiology.github.io/DeTime/",
+        "description": "DeTime documentation for Python and CLI time-series decomposition software.",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://systems-mechanobiology.github.io/DeTime/#software",
+        "name": "DeTime",
+        "alternateName": ["detime", "de-time", "De-Time"],
+        "description": "Python and CLI toolkit for reproducible time-series decomposition with native C++ backed SSA, MSSA, VMD, STD, STDR, MA baseline, and Gabor clustering paths.",
+        "codeRepository": "https://github.com/systems-mechanobiology/DeTime",
+        "url": "https://systems-mechanobiology.github.io/DeTime/",
+        "programmingLanguage": ["Python", "C++"],
+        "applicationCategory": "Scientific software",
+        "keywords": "DeTime, time-series decomposition, Python, SSA, MSSA, VMD, STL, EMD, wavelet, native C++",
+        "author": {
+          "@type": "Person",
+          "name": "Zipeng Wu"
+        }
+      }
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="../../../../stylesheets/extra.css?v=7">
+
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../../..">DeTime</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../../../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Start</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../../install/" class="dropdown-item">Install</a>
+</li>
+                                    
+<li>
+    <a href="../../../../quickstart/" class="dropdown-item">Quickstart</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Methods</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../../methods/" class="dropdown-item">Methods & Chooser</a>
+</li>
+                                    
+<li>
+    <a href="../../../../method-matrix/" class="dropdown-item">Method Matrix</a>
+</li>
+                                    
+<li>
+    <a href="../../../../method-references/" class="dropdown-item">Method References</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Workflows</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../../notebook-gallery/" class="dropdown-item">Notebook Gallery</a>
+</li>
+                                    
+<li>
+    <a href="../../../univariate/" class="dropdown-item">Univariate Tutorial</a>
+</li>
+                                    
+<li>
+    <a href="../../../multivariate/" class="dropdown-item">Multivariate Tutorial</a>
+</li>
+                                    
+<li>
+    <a href="../../../cli-and-profiling/" class="dropdown-item">CLI Guide</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Quant Trading Tutorial</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../" class="dropdown-item">Overview</a>
+</li>
+            
+<li>
+    <a href="../" class="dropdown-item">Tutorial Notebooks</a>
+</li>
+            
+<li>
+    <a href="../00_decomposition_first_quant_trading_roadmap/" class="dropdown-item">Tutorial 00 Roadmap</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Lab</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../two-strategy-families/" class="dropdown-item">Two Strategy Families</a>
+</li>
+            
+<li>
+    <a href="../01_detime_trend_following_strategy_lab/" class="dropdown-item">01 Trend-Following Lab</a>
+</li>
+            
+<li>
+    <a href="../02_detime_oscillation_reversion_strategy_lab/" class="dropdown-item">02 Oscillation-Reversion Lab</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Expansion</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../method-specific-strategy-expansion/" class="dropdown-item">Method-Specific Strategy Expansion</a>
+</li>
+            
+<li>
+    <a href="../03_detime_method_specific_strategy_variants/" class="dropdown-item">03 Method-Specific Variants</a>
+</li>
+            
+<li>
+    <a href="../04_detime_component_pair_trading_cointegration/" class="dropdown-item">04 Component Pair Trading</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Tutorial Sequence</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../01_market_data_and_decomposition_feature_factory/" class="dropdown-item">01 Real Market Data and Feature Factory</a>
+</li>
+            
+<li>
+    <a href="../02_decomposition_aware_moving_average_macd/" class="dropdown-item">02 Decomposition-aware MA and MACD</a>
+</li>
+            
+<li>
+    <a href="../03_residual_mean_reversion_rsi_bollinger/" class="dropdown-item">03 Residual Mean Reversion</a>
+</li>
+            
+<li>
+    <a href="../04_turtle_donchian_breakout_volume_confirmation/" class="dropdown-item">04 Donchian Breakout</a>
+</li>
+            
+<li>
+    <a href="../05_pairs_spread_decomposition_stat_arb/" class="dropdown-item">05 Pair-Spread Stat-Arb</a>
+</li>
+            
+<li>
+    <a href="../06_cross_sectional_rotation_portfolio/" class="dropdown-item">06 Cross-Sectional Rotation</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Native SSA Replay</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">07 Native SSA High-Return / Low-Drawdown</a>
+</li>
+    </ul>
+  </li>
+            
+<li>
+    <a href="../../data/" class="dropdown-item">Real Data and Universes</a>
+</li>
+            
+<li>
+    <a href="../../strategy-map/" class="dropdown-item">Strategy Map</a>
+</li>
+            
+<li>
+    <a href="../../backtesting-frameworks/" class="dropdown-item">Backtesting Frameworks</a>
+</li>
+            
+<li>
+    <a href="../../walkforward/" class="dropdown-item">Walk-Forward Validation</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Hot Trend Lab</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../../hot-trend-lab/" class="dropdown-item">Overview</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/" class="dropdown-item">Rendered Notebooks</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/00_hot_trend_lab_overview/" class="dropdown-item">00 Column Overview</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/01_arxiv_category_pulse/" class="dropdown-item">01 arXiv Category Pulse</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/02_arxiv_agent_research_pulse/" class="dropdown-item">02 arXiv Agent Research Pulse</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/03_huggingface_open_model_pulse/" class="dropdown-item">03 Hugging Face Open-Model Pulse</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/04_github_ai_agent_star_velocity/" class="dropdown-item">04 GitHub Star Velocity</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/05_wikipedia_attention_hype_decay/" class="dropdown-item">05 Wikipedia Attention Decay</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/06_crypto_stablecoin_liquidity_pulse/" class="dropdown-item">06 Crypto Stablecoin Liquidity</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/notebooks/07_ai_infrastructure_market_pulse/" class="dropdown-item">07 AI Infrastructure Market Pulse</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/data-sources/" class="dropdown-item">Real Data Sources</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/arxiv-research-pulse/" class="dropdown-item">arXiv Research Pulse</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/open-model-and-developer-attention/" class="dropdown-item">Open Models and Developer Attention</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/wiki-market-crypto-attention/" class="dropdown-item">Public Attention, Markets, and Crypto</a>
+</li>
+            
+<li>
+    <a href="../../../hot-trend-lab/release-calendar/" class="dropdown-item">Release Calendar</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Gallery</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../../gallery/ssa/" class="dropdown-item">SSA</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/std/" class="dropdown-item">STD</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/stdr/" class="dropdown-item">STDR</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/mssa/" class="dropdown-item">MSSA</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/stl/" class="dropdown-item">STL</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/mstl/" class="dropdown-item">MSTL</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/robust-stl/" class="dropdown-item">ROBUST_STL</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/emd/" class="dropdown-item">EMD</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/ceemdan/" class="dropdown-item">CEEMDAN</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/vmd/" class="dropdown-item">VMD</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/wavelet/" class="dropdown-item">WAVELET</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/ma-baseline/" class="dropdown-item">MA_BASELINE</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/mvmd/" class="dropdown-item">MVMD</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/memd/" class="dropdown-item">MEMD</a>
+</li>
+                                    
+<li>
+    <a href="../../../../gallery/gabor-cluster/" class="dropdown-item">GABOR_CLUSTER</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Reference</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../../api/" class="dropdown-item">API Overview</a>
+</li>
+                                    
+<li>
+    <a href="../../../../config-reference/" class="dropdown-item">Config Reference</a>
+</li>
+                                    
+<li>
+    <a href="../../../../machine-api/" class="dropdown-item">Machine API</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Project</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../../comparisons/" class="dropdown-item">Compare Alternatives</a>
+</li>
+                                    
+<li>
+    <a href="../../../../reproducibility/" class="dropdown-item">Reproducibility</a>
+</li>
+                                    
+<li>
+    <a href="../../../../release-artifacts/" class="dropdown-item">Release Artifacts</a>
+</li>
+                                    
+<li>
+    <a href="../../../../architecture/" class="dropdown-item">Architecture</a>
+</li>
+                                    
+<li>
+    <a href="../../../../migration/" class="dropdown-item">Migration from `tsdecomp`</a>
+</li>
+                                    
+<li>
+    <a href="../../../../contributing/" class="dropdown-item">Contributing</a>
+</li>
+                                    
+<li>
+    <a href="../../../../citation/" class="dropdown-item">Citation / Release Notes</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../06_cross_sectional_rotation_portfolio/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../../data/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/systems-mechanobiology/DeTime" class="nav-link">systems-mechanobiology/DeTime</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#native-ssa-high-return-low-drawdown-strategy-tutorial" class="nav-link">Native SSA high-return / low-drawdown strategy tutorial</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#tutorial-navigation" class="nav-link">Tutorial Navigation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#executed-notebook" class="nav-link">Executed Notebook</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#strategy-logic" class="nav-link">Strategy logic</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#reading-the-output" class="nav-link">Reading the output</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<!-- Generated by scripts/generate_column_notebook_pages.py; do not edit manually. -->
+<h1 id="native-ssa-high-return-low-drawdown-strategy-tutorial">Native SSA high-return / low-drawdown strategy tutorial</h1>
+<div class="gallery-note notebook-transcript-note">
+  <strong>Executed tutorial notebook.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/DeTime/blob/main/examples/notebooks/quant_trading/07_native_ssa_high_return_low_drawdown_tutorial.ipynb"><code>examples/notebooks/quant_trading/07_native_ssa_high_return_low_drawdown_tutorial.ipynb</code></a> and includes markdown cells, code cells, stdout, tables, and captured figures from the committed notebook.
+</div>
+
+<h2 id="tutorial-navigation">Tutorial Navigation</h2>
+<table>
+<thead>
+<tr>
+<th>Track</th>
+<th>Tutorial notebook</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Roadmap</td>
+<td><a href="../00_decomposition_first_quant_trading_roadmap/">Tutorial 00 - Roadmap</a></td>
+</tr>
+<tr>
+<td>Strategy Lab</td>
+<td><a href="../01_detime_trend_following_strategy_lab/">01 Trend-Following Lab</a></td>
+</tr>
+<tr>
+<td>Tutorial Sequence</td>
+<td><a href="../01_market_data_and_decomposition_feature_factory/">01 Real Market Data and Feature Factory</a></td>
+</tr>
+<tr>
+<td>Tutorial Sequence</td>
+<td><a href="../02_decomposition_aware_moving_average_macd/">02 Decomposition-aware MA and MACD</a></td>
+</tr>
+<tr>
+<td>Strategy Lab</td>
+<td><a href="../02_detime_oscillation_reversion_strategy_lab/">02 Oscillation-Reversion Lab</a></td>
+</tr>
+<tr>
+<td>Strategy Expansion</td>
+<td><a href="../03_detime_method_specific_strategy_variants/">03 Method-Specific Variants</a></td>
+</tr>
+<tr>
+<td>Tutorial Sequence</td>
+<td><a href="../03_residual_mean_reversion_rsi_bollinger/">03 Residual Mean Reversion</a></td>
+</tr>
+<tr>
+<td>Strategy Expansion</td>
+<td><a href="../04_detime_component_pair_trading_cointegration/">04 Component Pair Trading</a></td>
+</tr>
+<tr>
+<td>Tutorial Sequence</td>
+<td><a href="../04_turtle_donchian_breakout_volume_confirmation/">04 Donchian Breakout</a></td>
+</tr>
+<tr>
+<td>Tutorial Sequence</td>
+<td><a href="../05_pairs_spread_decomposition_stat_arb/">05 Pair-Spread Stat-Arb</a></td>
+</tr>
+<tr>
+<td>Tutorial Sequence</td>
+<td><a href="../06_cross_sectional_rotation_portfolio/">06 Cross-Sectional Rotation</a></td>
+</tr>
+<tr>
+<td>Native SSA Replay</td>
+<td><strong>07 Native SSA High-Return / Low-Drawdown</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="executed-notebook">Executed Notebook</h2>
+<ul>
+<li><code>GBPJPY</code>: FX, 2x notional cap, long/short, 8.41% total return, 92.86% trade win rate, -0.95% maximum drawdown in the search replay.</li>
+<li><code>SOLUSDT</code>: crypto spot, long-only, 38.87% total return, 54.37% trade win rate, -4.42% maximum drawdown in the search replay.</li>
+</ul>
+<p>The strategy is named <strong>SSA strategy</strong> throughout the plots. It uses DeTime's SSA decomposition as the fast and slow trend estimator; it does not use a separate oscillator-baseline signal here.</p>
+<h2 id="strategy-logic">Strategy logic</h2>
+<p>The SSA strategy is a decomposition version of a dual-trend mean-reversion system.</p>
+<ol>
+<li>Convert close prices to log prices.</li>
+<li>On a trailing training window only, compute a fast SSA trend and a slow SSA trend.</li>
+<li>Convert <code>fast SSA trend - slow SSA trend</code> to basis points. <code>1 bps = 0.01%</code>, so <code>100 bps = 1%</code>.</li>
+<li>In reversion mode, enter long when the fast SSA trend is far enough below the slow SSA trend and turns upward.</li>
+<li>Enter short when the fast SSA trend is far enough above the slow SSA trend and turns downward, if the configuration allows shorting.</li>
+<li>Exit when the spread mean-reverts or the fast SSA slope turns against the position.</li>
+<li>Signals are observed after bar <code>t</code>; orders fill at the next bar's open.</li>
+</ol>
+<p>All trend features are causal walk-forward values. The code only emits the last SSA trend value from each trailing window, then forward-fills it until the next recomputation point.</p>
+<div class="notebook-cell">
+<div class="notebook-input-label">In [1]</div>
+
+
+<pre><code class="language-python">from __future__ import annotations
+
+from dataclasses import dataclass
+from io import BytesIO
+from pathlib import Path
+from typing import Any
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+try:
+    from IPython.display import display, Image
+except ImportError:
+    Image = None
+    def display(obj):
+        print(obj)
+
+
+def display_png_figure(fig, *, dpi: int = 160) -&gt; None:
+    buffer = BytesIO()
+    fig.savefig(buffer, format=&quot;png&quot;, dpi=dpi, bbox_inches=&quot;tight&quot;)
+    buffer.seek(0)
+    if Image is not None:
+        display(Image(data=buffer.getvalue()))
+    else:
+        print(fig)
+
+PROJECT_DIR = Path.cwd().resolve()
+
+from detime import DecompositionConfig, decompose, native_capabilities, native_extension_available
+
+pd.set_option(&quot;display.max_columns&quot;, 80)
+pd.set_option(&quot;display.width&quot;, 160)
+plt.style.use(&quot;seaborn-v0_8-whitegrid&quot;)
+
+print(&quot;working directory:&quot;, PROJECT_DIR)
+print(&quot;native SSA available:&quot;, native_extension_available())
+print(&quot;native capabilities:&quot;, native_capabilities() if native_extension_available() else {})
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">stdout</div>
+
+<pre><code class="language-text">repository root: /rds/projects/s/spillf-systems-mechanobiology-health-disease/Zipeng/Detime/DeTime-main
+native SSA available: True
+native capabilities: {'ssa_decompose': True, 'std_decompose': True, 'gabor_stft_rfft': False, 'gabor_istft_rfft': False, 'gabor_cluster_decompose': False}
+</code></pre>
+
+</div>
+</div>
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [2]</div>
+
+
+<pre><code class="language-python">SEARCH_REPLAY_METRICS = pd.DataFrame(
+    [
+        {
+            &quot;asset_class&quot;: &quot;fx&quot;,
+            &quot;symbol&quot;: &quot;GBPJPY&quot;,
+            &quot;total_return&quot;: 0.084119,
+            &quot;trade_win_rate&quot;: 0.928571,
+            &quot;max_drawdown&quot;: -0.009466,
+            &quot;profit_factor&quot;: 22.104442,
+            &quot;round_trips&quot;: 14,
+            &quot;sharpe&quot;: 2.330493,
+            &quot;source&quot;: &quot;dukascopy&quot;,
+            &quot;bar_size&quot;: &quot;3m&quot;,
+            &quot;csv_path&quot;: &quot;examples/quant_trading/data/intraday_crypto_fx/dukascopy/dukascopy_GBPJPY_3m_2025-06-04_2026-06-04.csv&quot;,
+        },
+        {
+            &quot;asset_class&quot;: &quot;crypto&quot;,
+            &quot;symbol&quot;: &quot;SOLUSDT&quot;,
+            &quot;total_return&quot;: 0.388689,
+            &quot;trade_win_rate&quot;: 0.543689,
+            &quot;max_drawdown&quot;: -0.044184,
+            &quot;profit_factor&quot;: 2.053341,
+            &quot;round_trips&quot;: 103,
+            &quot;sharpe&quot;: 2.839898,
+            &quot;source&quot;: &quot;binance&quot;,
+            &quot;bar_size&quot;: &quot;3m&quot;,
+            &quot;csv_path&quot;: &quot;examples/quant_trading/data/intraday_crypto_fx/binance/binance_SOLUSDT_3m_2025-06-04_2026-06-04.csv&quot;,
+        },
+    ]
+)
+
+display(
+    SEARCH_REPLAY_METRICS.assign(
+        total_return=lambda x: (x[&quot;total_return&quot;] * 100).round(2),
+        trade_win_rate=lambda x: (x[&quot;trade_win_rate&quot;] * 100).round(2),
+        max_drawdown=lambda x: (x[&quot;max_drawdown&quot;] * 100).round(2),
+    ).rename(
+        columns={
+            &quot;total_return&quot;: &quot;total_return_%&quot;,
+            &quot;trade_win_rate&quot;: &quot;trade_win_rate_%&quot;,
+            &quot;max_drawdown&quot;: &quot;max_drawdown_%&quot;,
+        }
+    )
+)
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>asset_class</th>
+      <th>symbol</th>
+      <th>total_return_%</th>
+      <th>trade_win_rate_%</th>
+      <th>max_drawdown_%</th>
+      <th>profit_factor</th>
+      <th>round_trips</th>
+      <th>sharpe</th>
+      <th>source</th>
+      <th>bar_size</th>
+      <th>csv_path</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>fx</td>
+      <td>GBPJPY</td>
+      <td>8.41</td>
+      <td>92.86</td>
+      <td>-0.95</td>
+      <td>22.104442</td>
+      <td>14</td>
+      <td>2.330493</td>
+      <td>dukascopy</td>
+      <td>3m</td>
+      <td>examples/quant_trading/data/intraday_crypto_fx...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>crypto</td>
+      <td>SOLUSDT</td>
+      <td>38.87</td>
+      <td>54.37</td>
+      <td>-4.42</td>
+      <td>2.053341</td>
+      <td>103</td>
+      <td>2.839898</td>
+      <td>binance</td>
+      <td>3m</td>
+      <td>examples/quant_trading/data/intraday_crypto_fx...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [3]</div>
+
+
+<pre><code class="language-python">@dataclass(frozen=True)
+class SSAFeatureSpec:
+    fast_period: int
+    slow_period: int
+    train_mult: int
+    step: int
+    fast_rank: int = 6
+    slow_rank: int = 6
+    speed_mode: str = &quot;fast&quot;
+
+    @property
+    def fast_window(self) -&gt; int:
+        return int(max(self.fast_period * 2, 8))
+
+    @property
+    def slow_window(self) -&gt; int:
+        return int(max(self.slow_period * 2, 12))
+
+    @property
+    def train_window(self) -&gt; int:
+        return int(max(self.slow_period * self.train_mult, self.slow_window + 20, 80))
+
+
+@dataclass(frozen=True)
+class SSATradeSpec:
+    feature: SSAFeatureSpec
+    strategy_mode: str = &quot;trend_reversion&quot;
+    entry_spread_bps: float = 5.0
+    exit_spread_bps: float = 0.0
+    min_fast_slope_bps: float = 0.5
+    require_slow_slope: bool = True
+    min_slow_slope_bps: float = 0.0
+    allow_short: bool = False
+    initial_cash: float = 10_000.0
+    trade_notional: float = 10_000.0
+    max_position_notional: float = 10_000.0
+    fee_bps: float = 2.0
+    slippage_bps: float = 1.0
+
+    @property
+    def name(self) -&gt; str:
+        return (
+            f&quot;SSA_strategy_f{self.feature.fast_period}_s{self.feature.slow_period}&quot;
+            f&quot;_tw{self.feature.train_window}_st{self.feature.step}&quot;
+            f&quot;_entry{self.entry_spread_bps:g}_exit{self.exit_spread_bps:g}&quot;
+        ).replace(&quot;.&quot;, &quot;p&quot;)
+
+
+SELECTED_SPECS: dict[str, SSATradeSpec] = {
+    &quot;GBPJPY&quot;: SSATradeSpec(
+        feature=SSAFeatureSpec(fast_period=24, slow_period=96, train_mult=6, step=32, fast_rank=6, slow_rank=6),
+        entry_spread_bps=5.0,
+        exit_spread_bps=2.5,
+        min_fast_slope_bps=0.5,
+        require_slow_slope=True,
+        allow_short=True,
+        trade_notional=20_000.0,
+        max_position_notional=20_000.0,
+        fee_bps=0.35,
+        slippage_bps=0.5,
+    ),
+    &quot;SOLUSDT&quot;: SSATradeSpec(
+        feature=SSAFeatureSpec(fast_period=24, slow_period=192, train_mult=6, step=16, fast_rank=6, slow_rank=6),
+        entry_spread_bps=75.0,
+        exit_spread_bps=20.0,
+        min_fast_slope_bps=1.5,
+        require_slow_slope=True,
+        allow_short=False,
+        trade_notional=10_000.0,
+        max_position_notional=10_000.0,
+        fee_bps=2.0,
+        slippage_bps=1.0,
+    ),
+}
+
+pd.DataFrame(
+    [
+        {
+            &quot;symbol&quot;: symbol,
+            &quot;fast_ssa_period&quot;: spec.feature.fast_period,
+            &quot;slow_ssa_period&quot;: spec.feature.slow_period,
+            &quot;train_window&quot;: spec.feature.train_window,
+            &quot;step&quot;: spec.feature.step,
+            &quot;entry_bps&quot;: spec.entry_spread_bps,
+            &quot;exit_bps&quot;: spec.exit_spread_bps,
+            &quot;min_fast_slope_bps&quot;: spec.min_fast_slope_bps,
+            &quot;allow_short&quot;: spec.allow_short,
+            &quot;trade_notional&quot;: spec.trade_notional,
+            &quot;max_position_notional&quot;: spec.max_position_notional,
+            &quot;fee_bps&quot;: spec.fee_bps,
+            &quot;slippage_bps&quot;: spec.slippage_bps,
+        }
+        for symbol, spec in SELECTED_SPECS.items()
+    ]
+)
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>symbol</th>
+      <th>fast_ssa_period</th>
+      <th>slow_ssa_period</th>
+      <th>train_window</th>
+      <th>step</th>
+      <th>entry_bps</th>
+      <th>exit_bps</th>
+      <th>min_fast_slope_bps</th>
+      <th>allow_short</th>
+      <th>trade_notional</th>
+      <th>max_position_notional</th>
+      <th>fee_bps</th>
+      <th>slippage_bps</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>GBPJPY</td>
+      <td>24</td>
+      <td>96</td>
+      <td>576</td>
+      <td>32</td>
+      <td>5.0</td>
+      <td>2.5</td>
+      <td>0.5</td>
+      <td>True</td>
+      <td>20000.0</td>
+      <td>20000.0</td>
+      <td>0.35</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>SOLUSDT</td>
+      <td>24</td>
+      <td>192</td>
+      <td>1152</td>
+      <td>16</td>
+      <td>75.0</td>
+      <td>20.0</td>
+      <td>1.5</td>
+      <td>False</td>
+      <td>10000.0</td>
+      <td>10000.0</td>
+      <td>2.00</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [4]</div>
+
+
+<pre><code class="language-python">DATA_ROOT = PROJECT_DIR / &quot;examples&quot; / &quot;quant_trading&quot; / &quot;data&quot; / &quot;intraday_crypto_fx&quot;
+MANIFEST_PATHS = [
+    PROJECT_DIR / &quot;examples&quot; / &quot;quant_trading&quot; / &quot;reports&quot; / &quot;intraday_fx_3m_data&quot; / &quot;intraday_download_manifest.csv&quot;,
+    PROJECT_DIR / &quot;examples&quot; / &quot;quant_trading&quot; / &quot;reports&quot; / &quot;intraday_crypto_3m_data&quot; / &quot;intraday_download_manifest.csv&quot;,
+]
+
+
+def _as_repo_path(path: str | Path) -&gt; Path:
+    p = Path(path)
+    return p if p.is_absolute() else PROJECT_DIR / p
+
+
+def find_symbol_csv(symbol: str, *, bar_size: str = &quot;3m&quot;) -&gt; Path:
+    symbol = symbol.upper()
+    for manifest_path in MANIFEST_PATHS:
+        if not manifest_path.exists():
+            continue
+        manifest = pd.read_csv(manifest_path)
+        mask = manifest.get(&quot;symbol&quot;, pd.Series(dtype=str)).astype(str).str.upper().eq(symbol)
+        if &quot;bar_size&quot; in manifest.columns:
+            mask &amp;= manifest[&quot;bar_size&quot;].astype(str).eq(bar_size)
+        if &quot;status&quot; in manifest.columns:
+            mask &amp;= manifest[&quot;status&quot;].astype(str).str.lower().eq(&quot;ok&quot;)
+        hits = manifest.loc[mask]
+        for raw_path in hits.get(&quot;output_path&quot;, []):
+            p = _as_repo_path(raw_path)
+            if p.exists():
+                return p
+
+    patterns = [f&quot;**/*_{symbol}_{bar_size}_*.csv&quot;, f&quot;**/*{symbol}*{bar_size}*.csv&quot;]
+    for pattern in patterns:
+        for p in sorted(DATA_ROOT.glob(pattern)):
+            if p.is_file():
+                return p
+
+    raise FileNotFoundError(
+        f&quot;Could not find {symbol} {bar_size} CSV. Put the downloaded file under {DATA_ROOT} &quot;
+        &quot;or pass csv_path=... to run_selected_strategy().&quot;
+    )
+
+
+def load_ohlcv_csv(path: str | Path) -&gt; pd.DataFrame:
+    p = _as_repo_path(path)
+    df = pd.read_csv(p)
+    date_col = next((c for c in [&quot;Datetime&quot;, &quot;datetime&quot;, &quot;Date&quot;, &quot;date&quot;, &quot;timestamp&quot;, &quot;Timestamp&quot;, &quot;time&quot;, &quot;Time&quot;] if c in df.columns), None)
+    if date_col is not None:
+        df[date_col] = pd.to_datetime(df[date_col], errors=&quot;coerce&quot;, utc=True)
+        df = df.dropna(subset=[date_col]).set_index(date_col)
+    else:
+        df.index = pd.to_datetime(df.index, errors=&quot;coerce&quot;, utc=True)
+        df = df.loc[df.index.notna()]
+
+    rename = {}
+    for col in df.columns:
+        low = str(col).lower()
+        if low == &quot;open&quot;:
+            rename[col] = &quot;Open&quot;
+        elif low == &quot;high&quot;:
+            rename[col] = &quot;High&quot;
+        elif low == &quot;low&quot;:
+            rename[col] = &quot;Low&quot;
+        elif low == &quot;close&quot;:
+            rename[col] = &quot;Close&quot;
+        elif low in {&quot;volume&quot;, &quot;basevolume&quot;, &quot;tickvolume&quot;}:
+            rename[col] = &quot;Volume&quot;
+    df = df.rename(columns=rename)
+
+    if &quot;Close&quot; not in df.columns:
+        raise ValueError(f&quot;{p} must contain a Close column.&quot;)
+    if &quot;Open&quot; not in df.columns:
+        df[&quot;Open&quot;] = df[&quot;Close&quot;]
+    if &quot;High&quot; not in df.columns:
+        df[&quot;High&quot;] = df[[&quot;Open&quot;, &quot;Close&quot;]].max(axis=1)
+    if &quot;Low&quot; not in df.columns:
+        df[&quot;Low&quot;] = df[[&quot;Open&quot;, &quot;Close&quot;]].min(axis=1)
+    if &quot;Volume&quot; not in df.columns:
+        df[&quot;Volume&quot;] = 0.0
+
+    out = df[[&quot;Open&quot;, &quot;High&quot;, &quot;Low&quot;, &quot;Close&quot;, &quot;Volume&quot;]].apply(pd.to_numeric, errors=&quot;coerce&quot;)
+    out = out.sort_index().replace([np.inf, -np.inf], np.nan).ffill().bfill().dropna(subset=[&quot;Open&quot;, &quot;Close&quot;])
+    out = out[(out[&quot;Open&quot;] &gt; 0) &amp; (out[&quot;Close&quot;] &gt; 0)]
+    if out.empty:
+        raise ValueError(f&quot;{p} contains no positive OHLC rows.&quot;)
+    return out
+
+
+def infer_periods_per_year(symbol: str, *, source: str, bar_size: str) -&gt; int:
+    bars_per_day = {&quot;1m&quot;: 1440, &quot;3m&quot;: 480, &quot;15m&quot;: 96}.get(bar_size, 1)
+    is_fx = source.lower() == &quot;dukascopy&quot; or (len(symbol) == 6 and symbol.isalpha())
+    return int(bars_per_day * (252 if is_fx else 365))
+</code></pre>
+
+</div>
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [5]</div>
+
+
+<pre><code class="language-python">def last_ssa_trend(
+    values: np.ndarray,
+    *,
+    period: int,
+    window: int,
+    rank: int,
+    backend: str = &quot;auto&quot;,
+    speed_mode: str = &quot;fast&quot;,
+) -&gt; float:
+    cfg = DecompositionConfig(
+        method=&quot;SSA&quot;,
+        params={&quot;window&quot;: int(window), &quot;rank&quot;: int(rank), &quot;primary_period&quot;: int(period)},
+        backend=backend,
+        speed_mode=speed_mode,
+        seed=42,
+    )
+    result = decompose(np.asarray(values, dtype=float), cfg)
+    trend = np.asarray(result.trend, dtype=float).reshape(-1)
+    return float(trend[-1]) if trend.size else float(&quot;nan&quot;)
+
+
+def walkforward_dual_ssa_trends(close: pd.Series, spec: SSAFeatureSpec, *, backend: str = &quot;auto&quot;) -&gt; pd.DataFrame:
+    clean = pd.Series(close).sort_index().astype(float)
+    clean = clean.replace([np.inf, -np.inf], np.nan).ffill().bfill()
+    clean = clean[clean &gt; 0].dropna()
+    y = np.log(clean)
+
+    out = pd.DataFrame(index=clean.index, columns=[&quot;fast_trend&quot;, &quot;slow_trend&quot;], dtype=float)
+    start = int(max(spec.train_window, spec.slow_window + 2, spec.fast_window + 2))
+
+    for end in range(start, len(y) + 1, int(spec.step)):
+        window = y.iloc[max(0, end - spec.train_window) : end]
+        if len(window) &lt; start:
+            continue
+        values = window.to_numpy(dtype=float)
+        stamp = y.index[end - 1]
+        try:
+            fast = last_ssa_trend(
+                values,
+                period=spec.fast_period,
+                window=spec.fast_window,
+                rank=spec.fast_rank,
+                backend=backend,
+                speed_mode=spec.speed_mode,
+            )
+            slow = last_ssa_trend(
+                values,
+                period=spec.slow_period,
+                window=spec.slow_window,
+                rank=spec.slow_rank,
+                backend=backend,
+                speed_mode=spec.speed_mode,
+            )
+        except Exception as exc:
+            print(f&quot;SSA failed at {stamp}: {exc}&quot;)
+            continue
+        out.loc[stamp, &quot;fast_trend&quot;] = fast
+        out.loc[stamp, &quot;slow_trend&quot;] = slow
+
+    out = out.ffill()
+    out[&quot;log_close&quot;] = y.reindex(out.index)
+    out[&quot;fast_slope_bps&quot;] = out[&quot;fast_trend&quot;].diff(int(spec.step)).div(max(int(spec.step), 1)) * 10_000.0
+    out[&quot;slow_slope_bps&quot;] = out[&quot;slow_trend&quot;].diff(int(spec.step)).div(max(int(spec.step), 1)) * 10_000.0
+    out[&quot;spread_bps&quot;] = (out[&quot;fast_trend&quot;] - out[&quot;slow_trend&quot;]) * 10_000.0
+    out[&quot;fast_ssa_trend&quot;] = np.exp(out[&quot;fast_trend&quot;])
+    out[&quot;slow_ssa_trend&quot;] = np.exp(out[&quot;slow_trend&quot;])
+    return out
+</code></pre>
+
+</div>
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [6]</div>
+
+
+<pre><code class="language-python">def dual_ssa_events(features: pd.DataFrame, spec: SSATradeSpec) -&gt; dict[str, pd.Series]:
+    f = features.replace([np.inf, -np.inf], np.nan)
+    spread = f[&quot;spread_bps&quot;]
+    fast_slope = f[&quot;fast_slope_bps&quot;]
+    slow_slope = f[&quot;slow_slope_bps&quot;]
+    valid = spread.notna() &amp; fast_slope.notna() &amp; slow_slope.notna()
+
+    long_entries = (spread &lt;= -spec.entry_spread_bps) &amp; (fast_slope &gt;= spec.min_fast_slope_bps)
+    short_entries = (spread &gt;= spec.entry_spread_bps) &amp; (fast_slope &lt;= -spec.min_fast_slope_bps)
+    if spec.require_slow_slope:
+        long_entries &amp;= slow_slope &gt;= spec.min_slow_slope_bps
+        short_entries &amp;= slow_slope &lt;= -spec.min_slow_slope_bps
+
+    long_exits = (spread &gt;= -spec.exit_spread_bps) | (fast_slope &lt;= -spec.min_fast_slope_bps)
+    short_exits = (spread &lt;= spec.exit_spread_bps) | (fast_slope &gt;= spec.min_fast_slope_bps)
+
+    if not spec.allow_short:
+        short_entries = pd.Series(False, index=f.index)
+        short_exits = pd.Series(False, index=f.index)
+
+    return {
+        &quot;long_entries&quot;: (valid &amp; long_entries).fillna(False).astype(bool),
+        &quot;long_exits&quot;: long_exits.fillna(False).astype(bool),
+        &quot;short_entries&quot;: (valid &amp; short_entries).fillna(False).astype(bool),
+        &quot;short_exits&quot;: short_exits.fillna(False).astype(bool),
+    }
+
+
+def run_cash_backtest(ohlcv: pd.DataFrame, features: pd.DataFrame, spec: SSATradeSpec, *, periods_per_year: int) -&gt; dict[str, Any]:
+    data = ohlcv.sort_index().copy()
+    events = dual_ssa_events(features.reindex(data.index), spec)
+
+    cash = float(spec.initial_cash)
+    position = 0.0
+    avg_entry = 0.0
+    entry_fee = 0.0
+    entry_time = None
+    entry_side = None
+    pending_close = False
+    pending_open_side = 0
+    notional = min(float(spec.trade_notional), float(spec.max_position_notional))
+    fee_rate = float(spec.fee_bps) / 10_000.0
+    slip_rate = float(spec.slippage_bps) / 10_000.0
+
+    equity_rows = []
+    order_rows = []
+    trade_rows = []
+
+    for i, (stamp, row) in enumerate(data.iterrows()):
+        open_px = float(row[&quot;Open&quot;])
+        close_px = float(row[&quot;Close&quot;])
+
+        if pending_close and position != 0.0 and np.isfinite(open_px) and open_px &gt; 0:
+            if position &gt; 0:
+                fill = open_px * (1.0 - slip_rate)
+                gross = position * fill
+                fee = gross * fee_rate
+                cash += gross - fee
+                gross_pnl = (fill - avg_entry) * position
+                exit_side = &quot;sell&quot;
+            else:
+                fill = open_px * (1.0 + slip_rate)
+                units = abs(position)
+                gross = units * fill
+                fee = gross * fee_rate
+                cash -= gross + fee
+                gross_pnl = (avg_entry - fill) * units
+                exit_side = &quot;cover&quot;
+
+            net_pnl = gross_pnl - fee - entry_fee
+            order_rows.append({&quot;timestamp&quot;: stamp, &quot;action&quot;: exit_side, &quot;price&quot;: fill, &quot;units&quot;: abs(position), &quot;fee&quot;: fee})
+            trade_rows.append(
+                {
+                    &quot;entry_time&quot;: entry_time,
+                    &quot;exit_time&quot;: stamp,
+                    &quot;side&quot;: entry_side,
+                    &quot;entry_price&quot;: avg_entry,
+                    &quot;exit_price&quot;: fill,
+                    &quot;units&quot;: abs(position),
+                    &quot;gross_pnl&quot;: gross_pnl,
+                    &quot;net_pnl&quot;: net_pnl,
+                    &quot;return_on_notional&quot;: net_pnl / max(notional, 1e-12),
+                }
+            )
+            position = 0.0
+            avg_entry = 0.0
+            entry_fee = 0.0
+            entry_time = None
+            entry_side = None
+
+        if pending_open_side != 0 and position == 0.0 and np.isfinite(open_px) and open_px &gt; 0:
+            if pending_open_side == 1:
+                fill = open_px * (1.0 + slip_rate)
+                units = notional / fill
+                fee = notional * fee_rate
+                cash -= notional + fee
+                position = units
+                action = &quot;buy&quot;
+                entry_side = &quot;long&quot;
+            elif spec.allow_short:
+                fill = open_px * (1.0 - slip_rate)
+                units = notional / fill
+                fee = notional * fee_rate
+                cash += notional - fee
+                position = -units
+                action = &quot;short&quot;
+                entry_side = &quot;short&quot;
+            else:
+                fill = np.nan
+                units = 0.0
+                fee = 0.0
+                action = &quot;skip_short&quot;
+
+            if action != &quot;skip_short&quot;:
+                avg_entry = fill
+                entry_fee = fee
+                entry_time = stamp
+                order_rows.append({&quot;timestamp&quot;: stamp, &quot;action&quot;: action, &quot;price&quot;: fill, &quot;units&quot;: units, &quot;fee&quot;: fee})
+
+        pending_close = False
+        pending_open_side = 0
+
+        equity = cash + position * close_px
+        equity_rows.append({&quot;timestamp&quot;: stamp, &quot;cash&quot;: cash, &quot;position_units&quot;: position, &quot;close&quot;: close_px, &quot;equity&quot;: equity})
+
+        if i + 1 &gt;= len(data):
+            continue
+
+        le = bool(events[&quot;long_entries&quot;].iloc[i])
+        lx = bool(events[&quot;long_exits&quot;].iloc[i])
+        se = bool(events[&quot;short_entries&quot;].iloc[i])
+        sx = bool(events[&quot;short_exits&quot;].iloc[i])
+
+        if position &gt; 0:
+            pending_close = lx or se
+            pending_open_side = -1 if se and spec.allow_short else 0
+        elif position &lt; 0:
+            pending_close = sx or le
+            pending_open_side = 1 if le else 0
+        else:
+            pending_open_side = 1 if le else (-1 if se and spec.allow_short else 0)
+
+    account = pd.DataFrame(equity_rows).set_index(&quot;timestamp&quot;)
+    orders = pd.DataFrame(order_rows)
+    trades = pd.DataFrame(trade_rows)
+    stats = performance_summary(account, trades, periods_per_year=periods_per_year, initial_cash=spec.initial_cash)
+    return {&quot;account&quot;: account, &quot;orders&quot;: orders, &quot;trades&quot;: trades, &quot;stats&quot;: stats, &quot;events&quot;: events}
+</code></pre>
+
+</div>
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [7]</div>
+
+
+<pre><code class="language-python">def drawdown(equity: pd.Series) -&gt; pd.Series:
+    equity = pd.Series(equity).astype(float)
+    return equity / equity.cummax().replace(0, np.nan) - 1.0
+
+
+def performance_summary(account: pd.DataFrame, trades: pd.DataFrame, *, periods_per_year: int, initial_cash: float) -&gt; dict[str, float]:
+    equity = account[&quot;equity&quot;].astype(float)
+    returns = equity.pct_change().replace([np.inf, -np.inf], np.nan).fillna(0.0)
+    total_return = equity.iloc[-1] / initial_cash - 1.0
+    years = max(len(equity) / float(periods_per_year), 1e-12)
+    cagr = (equity.iloc[-1] / initial_cash) ** (1.0 / years) - 1.0 if equity.iloc[-1] &gt; 0 else np.nan
+    vol = returns.std(ddof=0) * np.sqrt(float(periods_per_year))
+    sharpe = returns.mean() * float(periods_per_year) / vol if vol &gt; 0 else np.nan
+    max_dd = drawdown(equity).min()
+
+    if trades.empty:
+        trade_win_rate = np.nan
+        profit_factor = np.nan
+        avg_trade_net_pnl = np.nan
+        round_trips = 0
+    else:
+        pnl = trades[&quot;net_pnl&quot;].astype(float)
+        wins = pnl[pnl &gt; 0].sum()
+        losses = -pnl[pnl &lt; 0].sum()
+        trade_win_rate = float((pnl &gt; 0).mean())
+        profit_factor = float(wins / losses) if losses &gt; 0 else np.inf
+        avg_trade_net_pnl = float(pnl.mean())
+        round_trips = int(len(trades))
+
+    return {
+        &quot;total_return&quot;: float(total_return),
+        &quot;cagr&quot;: float(cagr),
+        &quot;volatility&quot;: float(vol),
+        &quot;sharpe&quot;: float(sharpe),
+        &quot;max_drawdown&quot;: float(max_dd),
+        &quot;bar_hit_rate&quot;: float((returns &gt; 0).mean()),
+        &quot;trade_win_rate&quot;: float(trade_win_rate) if np.isfinite(trade_win_rate) else np.nan,
+        &quot;profit_factor&quot;: float(profit_factor) if np.isfinite(profit_factor) else np.inf,
+        &quot;round_trips&quot;: float(round_trips),
+        &quot;orders&quot;: float(round_trips * 2),
+        &quot;average_trade_net_pnl&quot;: float(avg_trade_net_pnl) if np.isfinite(avg_trade_net_pnl) else np.nan,
+        &quot;final_equity&quot;: float(equity.iloc[-1]),
+        &quot;net_profit&quot;: float(equity.iloc[-1] - initial_cash),
+    }
+
+
+def month_period_index(index: pd.Index) -&gt; pd.PeriodIndex:
+    dt_index = pd.DatetimeIndex(index)
+    if dt_index.tz is not None:
+        dt_index = dt_index.tz_convert(None)
+    return dt_index.to_period(&quot;M&quot;)
+
+
+def monthly_performance_table(account: pd.DataFrame, trades: pd.DataFrame, *, initial_cash: float) -&gt; pd.DataFrame:
+    equity = account[&quot;equity&quot;].astype(float)
+    rows = []
+    previous_equity = float(initial_cash)
+    trade_month = None
+    if not trades.empty:
+        trade_month = pd.to_datetime(trades[&quot;exit_time&quot;], utc=True).dt.tz_convert(None).dt.to_period(&quot;M&quot;)
+
+    for period, month_equity in equity.groupby(month_period_index(equity.index)):
+        month_return = month_equity.iloc[-1] / previous_equity - 1.0
+        month_dd = drawdown(month_equity).min()
+        if trade_month is None:
+            month_trades = trades.iloc[0:0]
+        else:
+            month_trades = trades.loc[trade_month == period]
+        win_rate = np.nan if month_trades.empty else float((month_trades[&quot;net_pnl&quot;] &gt; 0).mean())
+        rows.append(
+            {
+                &quot;month&quot;: str(period),
+                &quot;return_%&quot;: month_return * 100.0,
+                &quot;trade_win_rate_%&quot;: win_rate * 100.0 if np.isfinite(win_rate) else np.nan,
+                &quot;max_drawdown_%&quot;: month_dd * 100.0,
+                &quot;round_trips&quot;: int(len(month_trades)),
+                &quot;end_equity&quot;: float(month_equity.iloc[-1]),
+            }
+        )
+        previous_equity = float(month_equity.iloc[-1])
+    return pd.DataFrame(rows)
+
+
+def stats_frame(results: dict[str, dict[str, Any]]) -&gt; pd.DataFrame:
+    rows = []
+    for symbol, result in results.items():
+        row = {&quot;symbol&quot;: symbol}
+        row.update(result[&quot;stats&quot;])
+        rows.append(row)
+    out = pd.DataFrame(rows)
+    percent_cols = [&quot;total_return&quot;, &quot;cagr&quot;, &quot;volatility&quot;, &quot;max_drawdown&quot;, &quot;bar_hit_rate&quot;, &quot;trade_win_rate&quot;]
+    for col in percent_cols:
+        if col in out.columns:
+            out[col] = out[col] * 100.0
+    return out.rename(
+        columns={
+            &quot;total_return&quot;: &quot;total_return_%&quot;,
+            &quot;cagr&quot;: &quot;cagr_%&quot;,
+            &quot;volatility&quot;: &quot;volatility_%&quot;,
+            &quot;max_drawdown&quot;: &quot;max_drawdown_%&quot;,
+            &quot;bar_hit_rate&quot;: &quot;bar_hit_rate_%&quot;,
+            &quot;trade_win_rate&quot;: &quot;trade_win_rate_%&quot;,
+        }
+    )
+</code></pre>
+
+</div>
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [8]</div>
+
+
+<pre><code class="language-python">def plot_ssa_strategy_dashboard(symbol: str, ohlcv: pd.DataFrame, features: pd.DataFrame, result: dict[str, Any], *, months_in_table: int = 12) -&gt; pd.DataFrame:
+    account = result[&quot;account&quot;]
+    orders = result[&quot;orders&quot;]
+    trades = result[&quot;trades&quot;]
+    spec = SELECTED_SPECS[symbol]
+
+    close = ohlcv[&quot;Close&quot;].reindex(account.index)
+    strategy_equity = account[&quot;equity&quot;]
+    buy_hold_equity = spec.initial_cash * close / close.dropna().iloc[0]
+    strategy_dd = drawdown(strategy_equity) * 100.0
+    buy_hold_dd = drawdown(buy_hold_equity) * 100.0
+    monthly = monthly_performance_table(account, trades, initial_cash=spec.initial_cash)
+
+    fig = plt.figure(figsize=(16, 11), constrained_layout=True)
+    grid = fig.add_gridspec(3, 2, height_ratios=[1.25, 1.0, 0.9])
+    ax_price = fig.add_subplot(grid[0, :])
+    ax_equity = fig.add_subplot(grid[1, 0])
+    ax_dd = fig.add_subplot(grid[1, 1])
+    ax_table = fig.add_subplot(grid[2, :])
+
+    ax_price.plot(close.index, close, label=&quot;Close&quot;, color=&quot;#263238&quot;, linewidth=1.0)
+    ax_price.plot(features.index, features[&quot;fast_ssa_trend&quot;], label=&quot;Fast SSA trend&quot;, color=&quot;#1565c0&quot;, linewidth=1.0, alpha=0.9)
+    ax_price.plot(features.index, features[&quot;slow_ssa_trend&quot;], label=&quot;Slow SSA trend&quot;, color=&quot;#8e24aa&quot;, linewidth=1.0, alpha=0.9)
+
+    if not orders.empty:
+        plotted = set()
+        markers = {
+            &quot;buy&quot;: (&quot;^&quot;, &quot;#2e7d32&quot;, &quot;Buy&quot;),
+            &quot;sell&quot;: (&quot;v&quot;, &quot;#c62828&quot;, &quot;Sell&quot;),
+            &quot;short&quot;: (&quot;v&quot;, &quot;#ef6c00&quot;, &quot;Short&quot;),
+            &quot;cover&quot;: (&quot;^&quot;, &quot;#00695c&quot;, &quot;Cover&quot;),
+        }
+        for action, group in orders.groupby(&quot;action&quot;):
+            if action not in markers:
+                continue
+            marker, color, label = markers[action]
+            label = label if label not in plotted else None
+            ax_price.scatter(group[&quot;timestamp&quot;], group[&quot;price&quot;], marker=marker, s=44, color=color, edgecolor=&quot;white&quot;, linewidth=0.5, label=label, zorder=5)
+            plotted.add(markers[action][2])
+
+    ax_price.set_title(f&quot;{symbol} SSA strategy buy/sell analysis&quot;)
+    ax_price.set_ylabel(&quot;Price&quot;)
+    ax_price.legend(loc=&quot;upper left&quot;, ncols=3, fontsize=9)
+
+    ax_equity.plot(strategy_equity.index, strategy_equity, label=&quot;SSA strategy&quot;, color=&quot;#1565c0&quot;, linewidth=1.3)
+    ax_equity.plot(buy_hold_equity.index, buy_hold_equity, label=&quot;Buy and hold&quot;, color=&quot;#6d4c41&quot;, linewidth=1.0, alpha=0.85)
+    ax_equity.set_title(&quot;Equity comparison&quot;)
+    ax_equity.set_ylabel(&quot;Equity&quot;)
+    ax_equity.legend(loc=&quot;upper left&quot;, fontsize=9)
+
+    ax_dd.plot(strategy_dd.index, strategy_dd, label=&quot;SSA strategy drawdown&quot;, color=&quot;#1565c0&quot;, linewidth=1.2)
+    ax_dd.plot(buy_hold_dd.index, buy_hold_dd, label=&quot;Buy and hold drawdown&quot;, color=&quot;#6d4c41&quot;, linewidth=1.0, alpha=0.85)
+    ax_dd.axhline(-20.0, color=&quot;#b71c1c&quot;, linestyle=&quot;--&quot;, linewidth=1.0, label=&quot;-20% limit&quot;)
+    ax_dd.set_title(&quot;Maximum drawdown curve&quot;)
+    ax_dd.set_ylabel(&quot;Drawdown %&quot;)
+    ax_dd.legend(loc=&quot;lower left&quot;, fontsize=9)
+
+    ax_table.axis(&quot;off&quot;)
+    table_data = monthly.tail(months_in_table).copy()
+    display_table = table_data.copy()
+    for col in [&quot;return_%&quot;, &quot;trade_win_rate_%&quot;, &quot;max_drawdown_%&quot;]:
+        display_table[col] = display_table[col].map(lambda x: &quot;&quot; if pd.isna(x) else f&quot;{x:.2f}&quot;)
+    display_table[&quot;end_equity&quot;] = display_table[&quot;end_equity&quot;].map(lambda x: f&quot;{x:,.0f}&quot;)
+    table = ax_table.table(
+        cellText=display_table.values,
+        colLabels=display_table.columns,
+        loc=&quot;center&quot;,
+        cellLoc=&quot;center&quot;,
+        bbox=[0.0, 0.0, 1.0, 1.0],
+    )
+    table.auto_set_font_size(False)
+    table.set_fontsize(8.5)
+    table.scale(1.0, 1.15)
+    ax_table.set_title(&quot;Monthly return, win rate, maximum drawdown and trade count&quot;, pad=8)
+
+    display_png_figure(fig)
+    plt.close(fig)
+    return monthly
+</code></pre>
+
+</div>
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [9]</div>
+
+
+<pre><code class="language-python">def run_selected_strategy(symbol: str, *, csv_path: str | Path | None = None, backend: str = &quot;auto&quot;, max_bars: int | None = None) -&gt; dict[str, Any]:
+    spec = SELECTED_SPECS[symbol]
+    metrics_row = SEARCH_REPLAY_METRICS.loc[SEARCH_REPLAY_METRICS[&quot;symbol&quot;].eq(symbol)].iloc[0]
+    path = _as_repo_path(csv_path) if csv_path is not None else find_symbol_csv(symbol, bar_size=str(metrics_row[&quot;bar_size&quot;]))
+    ohlcv = load_ohlcv_csv(path)
+    if max_bars is not None:
+        ohlcv = ohlcv.tail(int(max_bars)).copy()
+    periods_per_year = infer_periods_per_year(symbol, source=str(metrics_row[&quot;source&quot;]), bar_size=str(metrics_row[&quot;bar_size&quot;]))
+    features = walkforward_dual_ssa_trends(ohlcv[&quot;Close&quot;], spec.feature, backend=backend)
+    backtest = run_cash_backtest(ohlcv, features, spec, periods_per_year=periods_per_year)
+    return {&quot;symbol&quot;: symbol, &quot;csv_path&quot;: path, &quot;ohlcv&quot;: ohlcv, &quot;features&quot;: features, **backtest}
+</code></pre>
+
+</div>
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [10]</div>
+
+
+<pre><code class="language-python"># For a quick notebook check, set MAX_BARS to a smaller value such as 20000.
+# For the full one-year replay used by the search table, keep MAX_BARS = None.
+SSA_BACKEND = &quot;auto&quot;
+MAX_BARS = None
+
+results = {symbol: run_selected_strategy(symbol, backend=SSA_BACKEND, max_bars=MAX_BARS) for symbol in SELECTED_SPECS}
+display(stats_frame(results).round(4))
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>symbol</th>
+      <th>total_return_%</th>
+      <th>cagr_%</th>
+      <th>volatility_%</th>
+      <th>sharpe</th>
+      <th>max_drawdown_%</th>
+      <th>bar_hit_rate_%</th>
+      <th>trade_win_rate_%</th>
+      <th>profit_factor</th>
+      <th>round_trips</th>
+      <th>orders</th>
+      <th>average_trade_net_pnl</th>
+      <th>final_equity</th>
+      <th>net_profit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>GBPJPY</td>
+      <td>8.4119</td>
+      <td>5.7347</td>
+      <td>2.4052</td>
+      <td>2.3305</td>
+      <td>-0.9466</td>
+      <td>0.6878</td>
+      <td>92.8571</td>
+      <td>22.1044</td>
+      <td>14.0</td>
+      <td>28.0</td>
+      <td>60.0850</td>
+      <td>10841.1903</td>
+      <td>841.1903</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>SOLUSDT</td>
+      <td>38.8689</td>
+      <td>38.8689</td>
+      <td>11.8078</td>
+      <td>2.8399</td>
+      <td>-4.4184</td>
+      <td>1.7751</td>
+      <td>54.3689</td>
+      <td>2.0533</td>
+      <td>103.0</td>
+      <td>206.0</td>
+      <td>37.7368</td>
+      <td>13886.8916</td>
+      <td>3886.8916</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div class="notebook-cell">
+<div class="notebook-input-label">In [11]</div>
+
+
+<pre><code class="language-python">monthly_tables = {}
+for symbol, result in results.items():
+    monthly_tables[symbol] = plot_ssa_strategy_dashboard(symbol, result[&quot;ohlcv&quot;], result[&quot;features&quot;], result)
+    display(monthly_tables[symbol].tail(12).round(2))
+</code></pre>
+
+
+<div class="gallery-out notebook-output">
+<div class="notebook-output-label">image/png</div>
+<img src="../../../../assets/generated/notebooks/tutorials/quant-trading/07_native_ssa_high_return_low_drawdown_tutorial/cell-013-output-01.png" alt="Notebook output cell 13" class="notebook-output-image">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>month</th>
+      <th>return_%</th>
+      <th>trade_win_rate_%</th>
+      <th>max_drawdown_%</th>
+      <th>round_trips</th>
+      <th>end_equity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>2025-07</td>
+      <td>0.23</td>
+      <td>100.0</td>
+      <td>-0.47</td>
+      <td>1</td>
+      <td>10047.05</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2025-08</td>
+      <td>0.95</td>
+      <td>100.0</td>
+      <td>-0.37</td>
+      <td>1</td>
+      <td>10142.01</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2025-09</td>
+      <td>0.00</td>
+      <td>NaN</td>
+      <td>0.00</td>
+      <td>0</td>
+      <td>10142.01</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2025-10</td>
+      <td>1.68</td>
+      <td>100.0</td>
+      <td>-0.95</td>
+      <td>3</td>
+      <td>10312.29</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2025-11</td>
+      <td>1.28</td>
+      <td>100.0</td>
+      <td>-0.43</td>
+      <td>1</td>
+      <td>10443.95</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2025-12</td>
+      <td>0.26</td>
+      <td>100.0</td>
+      <td>-0.31</td>
+      <td>1</td>
+      <td>10471.15</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2026-01</td>
+      <td>0.80</td>
+      <td>100.0</td>
+      <td>-0.75</td>
+      <td>1</td>
+      <td>10554.60</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2026-02</td>
+      <td>0.00</td>
+      <td>NaN</td>
+      <td>0.00</td>
+      <td>0</td>
+      <td>10554.60</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2026-03</td>
+      <td>0.00</td>
+      <td>NaN</td>
+      <td>0.00</td>
+      <td>0</td>
+      <td>10554.60</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>2026-04</td>
+      <td>1.92</td>
+      <td>100.0</td>
+      <td>-0.56</td>
+      <td>1</td>
+      <td>10757.65</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>2026-05</td>
+      <td>0.78</td>
+      <td>100.0</td>
+      <td>-0.28</td>
+      <td>2</td>
+      <td>10841.19</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>2026-06</td>
+      <td>0.00</td>
+      <td>NaN</td>
+      <td>0.00</td>
+      <td>0</td>
+      <td>10841.19</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+<div class="notebook-output-label">image/png</div>
+<img src="../../../../assets/generated/notebooks/tutorials/quant-trading/07_native_ssa_high_return_low_drawdown_tutorial/cell-013-output-03.png" alt="Notebook output cell 13" class="notebook-output-image">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>month</th>
+      <th>return_%</th>
+      <th>trade_win_rate_%</th>
+      <th>max_drawdown_%</th>
+      <th>round_trips</th>
+      <th>end_equity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>2025-07</td>
+      <td>-0.42</td>
+      <td>54.55</td>
+      <td>-3.75</td>
+      <td>11</td>
+      <td>11094.57</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2025-08</td>
+      <td>20.33</td>
+      <td>75.00</td>
+      <td>-1.97</td>
+      <td>20</td>
+      <td>13349.87</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2025-09</td>
+      <td>0.31</td>
+      <td>50.00</td>
+      <td>-2.36</td>
+      <td>8</td>
+      <td>13391.11</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2025-10</td>
+      <td>1.93</td>
+      <td>38.46</td>
+      <td>-2.31</td>
+      <td>13</td>
+      <td>13649.72</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2025-11</td>
+      <td>-2.02</td>
+      <td>50.00</td>
+      <td>-3.71</td>
+      <td>8</td>
+      <td>13373.74</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2025-12</td>
+      <td>1.10</td>
+      <td>55.56</td>
+      <td>-2.09</td>
+      <td>9</td>
+      <td>13521.16</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2026-01</td>
+      <td>2.86</td>
+      <td>100.00</td>
+      <td>-0.70</td>
+      <td>3</td>
+      <td>13908.24</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2026-02</td>
+      <td>2.16</td>
+      <td>50.00</td>
+      <td>-3.46</td>
+      <td>8</td>
+      <td>14209.12</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2026-03</td>
+      <td>-1.29</td>
+      <td>33.33</td>
+      <td>-2.24</td>
+      <td>6</td>
+      <td>14026.24</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>2026-04</td>
+      <td>-0.57</td>
+      <td>33.33</td>
+      <td>-1.59</td>
+      <td>3</td>
+      <td>13946.79</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>2026-05</td>
+      <td>-0.43</td>
+      <td>25.00</td>
+      <td>-1.60</td>
+      <td>4</td>
+      <td>13886.89</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>2026-06</td>
+      <td>0.00</td>
+      <td>NaN</td>
+      <td>0.00</td>
+      <td>0</td>
+      <td>13886.89</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<h2 id="reading-the-output">Reading the output</h2>
+<ul>
+<li>The equity panel compares a fixed-notional <strong>SSA strategy</strong> account against simple buy-and-hold on the same close series.</li>
+<li>The drawdown panel is the running percentage drawdown from each curve's own high-water mark. The dashed line marks the 20% drawdown constraint.</li>
+<li>The monthly table is separate from the chart panels so it does not cover the equity curve.</li>
+<li><code>round_trips</code> counts completed trades: one entry plus one exit is one round trip.</li>
+<li>The search table at the top records the full BlueBEAR replay. Re-running this notebook should be close, but exact values can differ if the data file, DeTime native backend, or dependency versions differ.</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../../js/base.js"></script>
+        <script src="../../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

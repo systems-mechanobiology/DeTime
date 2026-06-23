@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Zipeng Wu">
-        <link rel="canonical" href="https://systems-mechanobiology.github.io/De-Time/install/">
+        <link rel="canonical" href="https://systems-mechanobiology.github.io/DeTime/install/">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Install - De-Time</title>
+        <title>Install - DeTime</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fontawesome.min.css" rel="stylesheet">
         <link href="../css/brands.min.css" rel="stylesheet">
@@ -22,6 +22,49 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
         <script>hljs.highlightAll();</script>
    
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="keywords" content="DeTime, detime, de-time, time series decomposition, Python time series, SSA, MSSA, VMD, STL, decomposition software">
+  <meta property="og:site_name" content="DeTime">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DeTime - Python and CLI time-series decomposition">
+  <meta property="og:description" content="DeTime is a Python and CLI toolkit for reproducible time-series decomposition across SSA, MSSA, VMD, STL, EMD, wavelet, and native C++ backed methods.">
+  <meta property="og:url" content="https://systems-mechanobiology.github.io/DeTime/">
+  <meta property="og:image" content="https://systems-mechanobiology.github.io/DeTime/assets/brand/detime-title-card.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DeTime - time-series decomposition for Python">
+  <meta name="twitter:description" content="Python and CLI software for reusable trend, oscillation, residual, metadata, schema, and artifact outputs.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://systems-mechanobiology.github.io/DeTime/#website",
+        "name": "DeTime",
+        "alternateName": ["detime", "de-time", "De-Time"],
+        "url": "https://systems-mechanobiology.github.io/DeTime/",
+        "description": "DeTime documentation for Python and CLI time-series decomposition software.",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://systems-mechanobiology.github.io/DeTime/#software",
+        "name": "DeTime",
+        "alternateName": ["detime", "de-time", "De-Time"],
+        "description": "Python and CLI toolkit for reproducible time-series decomposition with native C++ backed SSA, MSSA, VMD, STD, STDR, MA baseline, and Gabor clustering paths.",
+        "codeRepository": "https://github.com/systems-mechanobiology/DeTime",
+        "url": "https://systems-mechanobiology.github.io/DeTime/",
+        "programmingLanguage": ["Python", "C++"],
+        "applicationCategory": "Scientific software",
+        "keywords": "DeTime, time-series decomposition, Python, SSA, MSSA, VMD, STL, EMD, wavelet, native C++",
+        "author": {
+          "@type": "Person",
+          "name": "Zipeng Wu"
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="stylesheet" href="../stylesheets/extra.css?v=7">
 
     </head>
@@ -29,7 +72,7 @@
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="..">De-Time</a>
+                <a class="navbar-brand" href="..">DeTime</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -93,7 +136,7 @@
 </li>
                                     
   <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">Quant Trading Column</a>
+    <a href="#" class="dropdown-item">Quant Trading Tutorial</a>
     <ul class="dropdown-menu">
             
 <li>
@@ -101,48 +144,88 @@
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/" class="dropdown-item">Rendered Notebooks</a>
+    <a href="../tutorials/quant-trading/notebooks/" class="dropdown-item">Tutorial Notebooks</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/00_quant_trading_column_overview/" class="dropdown-item">00 Column Overview</a>
+    <a href="../tutorials/quant-trading/notebooks/00_decomposition_first_quant_trading_roadmap/" class="dropdown-item">Tutorial 00 Roadmap</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Lab</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../tutorials/quant-trading/two-strategy-families/" class="dropdown-item">Two Strategy Families</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/01_real_market_data_and_detime_features/" class="dropdown-item">01 Real Market Data and Features</a>
+    <a href="../tutorials/quant-trading/notebooks/01_detime_trend_following_strategy_lab/" class="dropdown-item">01 Trend-Following Lab</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/02_single_asset_timing_vectorbt/" class="dropdown-item">02 Single-Asset Timing</a>
+    <a href="../tutorials/quant-trading/notebooks/02_detime_oscillation_reversion_strategy_lab/" class="dropdown-item">02 Oscillation-Reversion Lab</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Expansion</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../tutorials/quant-trading/method-specific-strategy-expansion/" class="dropdown-item">Method-Specific Strategy Expansion</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/03_turtle_donchian_trend_filter/" class="dropdown-item">03 Turtle Donchian Trend Filter</a>
+    <a href="../tutorials/quant-trading/notebooks/03_detime_method_specific_strategy_variants/" class="dropdown-item">03 Method-Specific Variants</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/04_pairs_trading_residual_cycle/" class="dropdown-item">04 Pairs Trading Residual Cycle</a>
+    <a href="../tutorials/quant-trading/notebooks/04_detime_component_pair_trading_cointegration/" class="dropdown-item">04 Component Pair Trading</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Tutorial Sequence</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../tutorials/quant-trading/notebooks/01_market_data_and_decomposition_feature_factory/" class="dropdown-item">01 Real Market Data and Feature Factory</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/05_cross_sectional_factor_selection/" class="dropdown-item">05 Cross-Sectional Factor Selection</a>
+    <a href="../tutorials/quant-trading/notebooks/02_decomposition_aware_moving_average_macd/" class="dropdown-item">02 Decomposition-aware MA and MACD</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/06_style_sector_asset_rotation_bt/" class="dropdown-item">06 Style and Sector Rotation</a>
+    <a href="../tutorials/quant-trading/notebooks/03_residual_mean_reversion_rsi_bollinger/" class="dropdown-item">03 Residual Mean Reversion</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/07_korea_us_crypto_multimarket/" class="dropdown-item">07 Korea, US, and Crypto</a>
+    <a href="../tutorials/quant-trading/notebooks/04_turtle_donchian_breakout_volume_confirmation/" class="dropdown-item">04 Donchian Breakout</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/08_backtesting_framework_adapters/" class="dropdown-item">08 Framework Adapters</a>
+    <a href="../tutorials/quant-trading/notebooks/05_pairs_spread_decomposition_stat_arb/" class="dropdown-item">05 Pair-Spread Stat-Arb</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/09_walkforward_validation_and_audit/" class="dropdown-item">09 Walk-Forward Validation</a>
+    <a href="../tutorials/quant-trading/notebooks/06_cross_sectional_rotation_portfolio/" class="dropdown-item">06 Cross-Sectional Rotation</a>
 </li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Native SSA Replay</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../tutorials/quant-trading/notebooks/07_native_ssa_high_return_low_drawdown_tutorial/" class="dropdown-item">07 Native SSA High-Return / Low-Drawdown</a>
+</li>
+    </ul>
+  </li>
             
 <li>
     <a href="../tutorials/quant-trading/data/" class="dropdown-item">Real Data and Universes</a>
@@ -324,6 +407,10 @@
 </li>
                                     
 <li>
+    <a href="../release-artifacts/" class="dropdown-item">Release Artifacts</a>
+</li>
+                                    
+<li>
     <a href="../architecture/" class="dropdown-item">Architecture</a>
 </li>
                                     
@@ -359,7 +446,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="https://github.com/systems-mechanobiology/De-Time" class="nav-link">systems-mechanobiology/De-Time</a>
+                                <a href="https://github.com/systems-mechanobiology/DeTime" class="nav-link">systems-mechanobiology/DeTime</a>
                             </li>
                     </ul>
                 </div>
@@ -401,6 +488,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#optional-emd-and-neural-backends" class="nav-link">Optional EMD and neural backends</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#compatibility-alias" class="nav-link">Compatibility alias</a>
               <ul class="nav flex-column">
               </ul>
@@ -418,15 +509,20 @@
 
 <h1 id="install">Install</h1>
 <h2 id="current-install-path">Current install path</h2>
-<p>PyPI publication is planned after the reviewed <code>0.1.1</code> release is cut. Until
-then, install the current public repository directly from GitHub:</p>
-<pre><code class="language-bash">python -m pip install &quot;git+https://github.com/systems-mechanobiology/De-Time.git&quot;
+<p>Install the latest released package from PyPI:</p>
+<pre><code class="language-bash">python -m pip install de-time
 </code></pre>
-<p>Optional multivariate backends for <code>MVMD</code> and <code>MEMD</code> install from GitHub with:</p>
-<pre><code class="language-bash">python -m pip install &quot;de-time[multivar] @ git+https://github.com/systems-mechanobiology/De-Time.git&quot;
+<p>Optional multivariate backends for <code>MVMD</code> and <code>MEMD</code> install with:</p>
+<pre><code class="language-bash">python -m pip install &quot;de-time[multivar]&quot;
+</code></pre>
+<p>Optional EMD-family wrappers for <code>EMD</code> and <code>CEEMDAN</code> install with:</p>
+<pre><code class="language-bash">python -m pip install &quot;de-time[emd]&quot;
+</code></pre>
+<p>Optional torch-backed neural block support for <code>NBEATS_INTERPRETABLE</code> installs with:</p>
+<pre><code class="language-bash">python -m pip install &quot;de-time[neural]&quot;
 </code></pre>
 <p>Notebook tooling for the method gallery installs with:</p>
-<pre><code class="language-bash">python -m pip install &quot;de-time[notebook] @ git+https://github.com/systems-mechanobiology/De-Time.git&quot;
+<pre><code class="language-bash">python -m pip install &quot;de-time[notebook]&quot;
 </code></pre>
 <p>Names used by this project:</p>
 <table>
@@ -439,10 +535,10 @@ then, install the current public repository directly from GitHub:</p>
 <tbody>
 <tr>
 <td>Project/product</td>
-<td><code>De-Time</code></td>
+<td><code>DeTime</code></td>
 </tr>
 <tr>
-<td>Planned Python distribution</td>
+<td>Python distribution</td>
 <td><code>de-time</code></td>
 </tr>
 <tr>
@@ -455,18 +551,22 @@ then, install the current public repository directly from GitHub:</p>
 </tr>
 </tbody>
 </table>
-<p>Do not install the unrelated <code>detime</code> package from PyPI when you want this
-project. Planned PyPI install after the release is:</p>
-<pre><code class="language-bash">pip install de-time
+<p>Do not install the unrelated <a href="https://pypi.org/project/detime/"><code>detime</code></a>
+package from PyPI when you want this project; that package is not DeTime.</p>
+<p>To install the unreleased <code>main</code> branch directly from GitHub:</p>
+<pre><code class="language-bash">python -m pip install &quot;git+https://github.com/systems-mechanobiology/DeTime.git&quot;
 </code></pre>
 <h2 id="editable-install">Editable install</h2>
 <p>Use an editable install for local development, release preparation, or when
-you need the unreleased <code>0.1.1</code> review target directly from the repository.</p>
+you need the unreleased <code>main</code> branch directly from the repository.</p>
 <pre><code class="language-bash">python -m pip install --upgrade pip
 python -m pip install -e .[dev,docs]
 </code></pre>
 <p>For optional multivariate wrappers during development:</p>
 <pre><code class="language-bash">python -m pip install -e .[dev,docs,multivar]
+</code></pre>
+<p>For the EMD and torch-backed neural extras during development:</p>
+<pre><code class="language-bash">python -m pip install -e .[dev,docs,emd,neural]
 </code></pre>
 <h2 id="platform-prerequisites">Platform Prerequisites</h2>
 <p>Most users will install from wheels and do not need a local compiler. If a
@@ -486,7 +586,7 @@ wheel is unavailable and pip falls back to building from source, you need:</p>
 <li>GCC or Clang, Python headers, and CMake</li>
 </ul>
 <h2 id="native-extension-behavior">Native extension behavior</h2>
-<p>De-Time ships native kernels for selected flagship methods:</p>
+<p>DeTime ships native kernels for selected core methods:</p>
 <ul>
 <li><code>SSA</code></li>
 <li><code>STD</code></li>
@@ -521,6 +621,14 @@ full method literature and upstream package links live in
 environment, run:</p>
 <pre><code class="language-bash">python examples/optional_multivariate_backends.py
 </code></pre>
+<h2 id="optional-emd-and-neural-backends">Optional EMD and neural backends</h2>
+<p><code>EMD</code> and <code>CEEMDAN</code> require the <code>emd</code> extra because they import PyEMD from the
+<code>EMD-signal</code> distribution at runtime. <code>WAVELET</code>, <code>WAVEFORM_BLOCK</code>, and
+<code>WAVELETMIXER_BLOCK</code> use PyWavelets, which is part of the default DeTime
+dependency set.</p>
+<p>Most neural block methods are lightweight NumPy implementations. The exception
+is <code>NBEATS_INTERPRETABLE</code>, which requires torch and is installed through the
+<code>neural</code> extra.</p>
 <h2 id="compatibility-alias">Compatibility alias</h2>
 <p>The preferred import is <code>detime</code>. The compatibility scope retained through
 <code>0.1.x</code> is limited to:</p>
@@ -540,12 +648,11 @@ from install artifacts.</p>
 
 Symptom: `import detime` imports an unrelated package.
 
-Fix: uninstall the unrelated `detime` package, then install this repository
-from GitHub.
+Fix: uninstall the unrelated `detime` package, then install `de-time`.
 
 
 <pre><code class="language-bash">python -m pip uninstall -y detime
-python -m pip install &quot;git+https://github.com/systems-mechanobiology/De-Time.git&quot;
+python -m pip install de-time
 </code></pre>
 
 
@@ -561,7 +668,7 @@ install.
 
 
 <pre><code class="language-bash">python -m pip install --upgrade pip
-python -m pip install --no-cache-dir &quot;git+https://github.com/systems-mechanobiology/De-Time.git&quot;
+python -m pip install --no-cache-dir de-time
 </code></pre>
 
 
@@ -582,12 +689,15 @@ native path is present.
 <details>
 <summary>Optional backend import error</summary>
 
-Symptom: `MVMD` or `MEMD` raises an `ImportError`.
+Symptom: `MVMD`, `MEMD`, `EMD`, `CEEMDAN`, or `NBEATS_INTERPRETABLE` raises an
+`ImportError`.
 
-Fix: install the multivariate extra.
+Fix: install the matching extra.
 
 
-<pre><code class="language-bash">python -m pip install &quot;de-time[multivar] @ git+https://github.com/systems-mechanobiology/De-Time.git&quot;
+<pre><code class="language-bash">python -m pip install &quot;de-time[multivar]&quot;
+python -m pip install &quot;de-time[emd]&quot;
+python -m pip install &quot;de-time[neural]&quot;
 </code></pre>
 
 

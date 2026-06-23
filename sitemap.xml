@@ -1,303 +1,327 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/api/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/api/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/architecture/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/architecture/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/choose-a-method/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/choose-a-method/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/citation/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/citation/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/comparison-evidence/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/comparison-evidence/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/comparisons/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/comparisons/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/config-reference/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/config-reference/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/contributing/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/contributing/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/install/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/install/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/machine-api/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/machine-api/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/method-cards/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/method-cards/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/method-matrix/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/method-matrix/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/method-references/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/method-references/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/methods/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/methods/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/migration/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/migration/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/ml-workflows/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/ml-workflows/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/notebook-gallery/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/notebook-gallery/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/quickstart/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/quickstart/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/reproducibility/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/release-artifacts/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/token-benchmarks/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/reproducibility/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/why/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/token-benchmarks/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/gallery/ceemdan/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/why/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/gallery/emd/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/assets/generated/evidence/comparison_evidence/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/gallery/gabor-cluster/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/gallery/ceemdan/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/gallery/ma-baseline/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/gallery/emd/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/gallery/memd/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/gallery/gabor-cluster/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/gallery/mssa/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/gallery/ma-baseline/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/gallery/mstl/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/gallery/memd/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/gallery/mvmd/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/gallery/mssa/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/gallery/robust-stl/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/gallery/mstl/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/gallery/ssa/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/gallery/mvmd/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/gallery/std/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/gallery/robust-stl/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/gallery/stdr/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/gallery/ssa/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/gallery/stl/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/gallery/std/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/gallery/vmd/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/gallery/stdr/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/gallery/wavelet/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/gallery/stl/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/cli-and-profiling/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/gallery/vmd/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/gallery/wavelet/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/multivariate/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/cli-and-profiling/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/profiling/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/hot-trend-lab/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/multivariate/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/univariate/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/profiling/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/visual-comparison/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/visual-multivariate/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/univariate/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/visual-univariate/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/visual-comparison/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/arxiv-research-pulse/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/visual-multivariate/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/data-sources/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/visual-univariate/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/open-model-and-developer-attention/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/hot-trend-lab/arxiv-research-pulse/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/release-calendar/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/hot-trend-lab/data-sources/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/wiki-market-crypto-attention/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/hot-trend-lab/open-model-and-developer-attention/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/notebooks/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/hot-trend-lab/release-calendar/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/notebooks/00_hot_trend_lab_overview/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/hot-trend-lab/wiki-market-crypto-attention/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/notebooks/01_arxiv_category_pulse/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/hot-trend-lab/notebooks/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/notebooks/02_arxiv_agent_research_pulse/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/hot-trend-lab/notebooks/00_hot_trend_lab_overview/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/notebooks/03_huggingface_open_model_pulse/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/hot-trend-lab/notebooks/01_arxiv_category_pulse/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/notebooks/04_github_ai_agent_star_velocity/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/hot-trend-lab/notebooks/02_arxiv_agent_research_pulse/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/notebooks/05_wikipedia_attention_hype_decay/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/hot-trend-lab/notebooks/03_huggingface_open_model_pulse/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/notebooks/06_crypto_stablecoin_liquidity_pulse/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/hot-trend-lab/notebooks/04_github_ai_agent_star_velocity/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/notebooks/07_ai_infrastructure_market_pulse/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/hot-trend-lab/notebooks/05_wikipedia_attention_hype_decay/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/backtesting-frameworks/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/hot-trend-lab/notebooks/06_crypto_stablecoin_liquidity_pulse/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/data/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/hot-trend-lab/notebooks/07_ai_infrastructure_market_pulse/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/strategy-map/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/backtesting-frameworks/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/walkforward/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/data/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/notebooks/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/method-specific-strategy-expansion/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/notebooks/00_quant_trading_column_overview/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/strategy-map/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/notebooks/01_real_market_data_and_detime_features/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/two-strategy-families/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/notebooks/02_single_asset_timing_vectorbt/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/walkforward/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/notebooks/03_turtle_donchian_trend_filter/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/notebooks/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/notebooks/04_pairs_trading_residual_cycle/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/notebooks/00_decomposition_first_quant_trading_roadmap/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/notebooks/05_cross_sectional_factor_selection/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/notebooks/01_detime_trend_following_strategy_lab/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/notebooks/06_style_sector_asset_rotation_bt/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/notebooks/01_market_data_and_decomposition_feature_factory/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/notebooks/07_korea_us_crypto_multimarket/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/notebooks/02_decomposition_aware_moving_average_macd/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/notebooks/08_backtesting_framework_adapters/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/notebooks/02_detime_oscillation_reversion_strategy_lab/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://systems-mechanobiology.github.io/De-Time/tutorials/quant-trading/notebooks/09_walkforward_validation_and_audit/</loc>
-         <lastmod>2026-05-22</lastmod>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/notebooks/03_detime_method_specific_strategy_variants/</loc>
+         <lastmod>2026-06-23</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/notebooks/03_residual_mean_reversion_rsi_bollinger/</loc>
+         <lastmod>2026-06-23</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/notebooks/04_detime_component_pair_trading_cointegration/</loc>
+         <lastmod>2026-06-23</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/notebooks/04_turtle_donchian_breakout_volume_confirmation/</loc>
+         <lastmod>2026-06-23</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/notebooks/05_pairs_spread_decomposition_stat_arb/</loc>
+         <lastmod>2026-06-23</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/notebooks/06_cross_sectional_rotation_portfolio/</loc>
+         <lastmod>2026-06-23</lastmod>
+    </url>
+    <url>
+         <loc>https://systems-mechanobiology.github.io/DeTime/tutorials/quant-trading/notebooks/07_native_ssa_high_return_low_drawdown_tutorial/</loc>
+         <lastmod>2026-06-23</lastmod>
     </url>
 </urlset>

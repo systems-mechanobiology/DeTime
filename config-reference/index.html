@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Zipeng Wu">
-        <link rel="canonical" href="https://systems-mechanobiology.github.io/De-Time/config-reference/">
+        <link rel="canonical" href="https://systems-mechanobiology.github.io/DeTime/config-reference/">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Config Reference - De-Time</title>
+        <title>Config Reference - DeTime</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fontawesome.min.css" rel="stylesheet">
         <link href="../css/brands.min.css" rel="stylesheet">
@@ -22,6 +22,49 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
         <script>hljs.highlightAll();</script>
    
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="keywords" content="DeTime, detime, de-time, time series decomposition, Python time series, SSA, MSSA, VMD, STL, decomposition software">
+  <meta property="og:site_name" content="DeTime">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DeTime - Python and CLI time-series decomposition">
+  <meta property="og:description" content="DeTime is a Python and CLI toolkit for reproducible time-series decomposition across SSA, MSSA, VMD, STL, EMD, wavelet, and native C++ backed methods.">
+  <meta property="og:url" content="https://systems-mechanobiology.github.io/DeTime/">
+  <meta property="og:image" content="https://systems-mechanobiology.github.io/DeTime/assets/brand/detime-title-card.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DeTime - time-series decomposition for Python">
+  <meta name="twitter:description" content="Python and CLI software for reusable trend, oscillation, residual, metadata, schema, and artifact outputs.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://systems-mechanobiology.github.io/DeTime/#website",
+        "name": "DeTime",
+        "alternateName": ["detime", "de-time", "De-Time"],
+        "url": "https://systems-mechanobiology.github.io/DeTime/",
+        "description": "DeTime documentation for Python and CLI time-series decomposition software.",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://systems-mechanobiology.github.io/DeTime/#software",
+        "name": "DeTime",
+        "alternateName": ["detime", "de-time", "De-Time"],
+        "description": "Python and CLI toolkit for reproducible time-series decomposition with native C++ backed SSA, MSSA, VMD, STD, STDR, MA baseline, and Gabor clustering paths.",
+        "codeRepository": "https://github.com/systems-mechanobiology/DeTime",
+        "url": "https://systems-mechanobiology.github.io/DeTime/",
+        "programmingLanguage": ["Python", "C++"],
+        "applicationCategory": "Scientific software",
+        "keywords": "DeTime, time-series decomposition, Python, SSA, MSSA, VMD, STL, EMD, wavelet, native C++",
+        "author": {
+          "@type": "Person",
+          "name": "Zipeng Wu"
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="stylesheet" href="../stylesheets/extra.css?v=7">
 
     </head>
@@ -29,7 +72,7 @@
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="..">De-Time</a>
+                <a class="navbar-brand" href="..">DeTime</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -93,7 +136,7 @@
 </li>
                                     
   <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">Quant Trading Column</a>
+    <a href="#" class="dropdown-item">Quant Trading Tutorial</a>
     <ul class="dropdown-menu">
             
 <li>
@@ -101,48 +144,88 @@
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/" class="dropdown-item">Rendered Notebooks</a>
+    <a href="../tutorials/quant-trading/notebooks/" class="dropdown-item">Tutorial Notebooks</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/00_quant_trading_column_overview/" class="dropdown-item">00 Column Overview</a>
+    <a href="../tutorials/quant-trading/notebooks/00_decomposition_first_quant_trading_roadmap/" class="dropdown-item">Tutorial 00 Roadmap</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Lab</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../tutorials/quant-trading/two-strategy-families/" class="dropdown-item">Two Strategy Families</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/01_real_market_data_and_detime_features/" class="dropdown-item">01 Real Market Data and Features</a>
+    <a href="../tutorials/quant-trading/notebooks/01_detime_trend_following_strategy_lab/" class="dropdown-item">01 Trend-Following Lab</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/02_single_asset_timing_vectorbt/" class="dropdown-item">02 Single-Asset Timing</a>
+    <a href="../tutorials/quant-trading/notebooks/02_detime_oscillation_reversion_strategy_lab/" class="dropdown-item">02 Oscillation-Reversion Lab</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Expansion</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../tutorials/quant-trading/method-specific-strategy-expansion/" class="dropdown-item">Method-Specific Strategy Expansion</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/03_turtle_donchian_trend_filter/" class="dropdown-item">03 Turtle Donchian Trend Filter</a>
+    <a href="../tutorials/quant-trading/notebooks/03_detime_method_specific_strategy_variants/" class="dropdown-item">03 Method-Specific Variants</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/04_pairs_trading_residual_cycle/" class="dropdown-item">04 Pairs Trading Residual Cycle</a>
+    <a href="../tutorials/quant-trading/notebooks/04_detime_component_pair_trading_cointegration/" class="dropdown-item">04 Component Pair Trading</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Tutorial Sequence</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../tutorials/quant-trading/notebooks/01_market_data_and_decomposition_feature_factory/" class="dropdown-item">01 Real Market Data and Feature Factory</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/05_cross_sectional_factor_selection/" class="dropdown-item">05 Cross-Sectional Factor Selection</a>
+    <a href="../tutorials/quant-trading/notebooks/02_decomposition_aware_moving_average_macd/" class="dropdown-item">02 Decomposition-aware MA and MACD</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/06_style_sector_asset_rotation_bt/" class="dropdown-item">06 Style and Sector Rotation</a>
+    <a href="../tutorials/quant-trading/notebooks/03_residual_mean_reversion_rsi_bollinger/" class="dropdown-item">03 Residual Mean Reversion</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/07_korea_us_crypto_multimarket/" class="dropdown-item">07 Korea, US, and Crypto</a>
+    <a href="../tutorials/quant-trading/notebooks/04_turtle_donchian_breakout_volume_confirmation/" class="dropdown-item">04 Donchian Breakout</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/08_backtesting_framework_adapters/" class="dropdown-item">08 Framework Adapters</a>
+    <a href="../tutorials/quant-trading/notebooks/05_pairs_spread_decomposition_stat_arb/" class="dropdown-item">05 Pair-Spread Stat-Arb</a>
 </li>
             
 <li>
-    <a href="../tutorials/quant-trading/notebooks/09_walkforward_validation_and_audit/" class="dropdown-item">09 Walk-Forward Validation</a>
+    <a href="../tutorials/quant-trading/notebooks/06_cross_sectional_rotation_portfolio/" class="dropdown-item">06 Cross-Sectional Rotation</a>
 </li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Native SSA Replay</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../tutorials/quant-trading/notebooks/07_native_ssa_high_return_low_drawdown_tutorial/" class="dropdown-item">07 Native SSA High-Return / Low-Drawdown</a>
+</li>
+    </ul>
+  </li>
             
 <li>
     <a href="../tutorials/quant-trading/data/" class="dropdown-item">Real Data and Universes</a>
@@ -324,6 +407,10 @@
 </li>
                                     
 <li>
+    <a href="../release-artifacts/" class="dropdown-item">Release Artifacts</a>
+</li>
+                                    
+<li>
     <a href="../architecture/" class="dropdown-item">Architecture</a>
 </li>
                                     
@@ -359,7 +446,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="https://github.com/systems-mechanobiology/De-Time" class="nav-link">systems-mechanobiology/De-Time</a>
+                                <a href="https://github.com/systems-mechanobiology/DeTime" class="nav-link">systems-mechanobiology/DeTime</a>
                             </li>
                     </ul>
                 </div>
@@ -403,7 +490,7 @@
 <h1 id="config-reference">Config Reference</h1>
 <p><code>DecompositionConfig</code> is the single runtime contract shared by Python, CLI,
 docs examples, and machine-facing schema exports.</p>
-<p>Current package version target: <code>0.1.1</code>.</p>
+<p>Current package version target: <code>0.1.2</code>.</p>
 <h2 id="top-level-fields">Top-level fields</h2>
 <table>
 <thead>
@@ -503,7 +590,7 @@ docs examples, and machine-facing schema exports.</p>
 </code></pre>
 <h3 id="multivariate-mssa">Multivariate MSSA</h3>
 <pre><code class="language-json">{
-  &quot;backend&quot;: &quot;python&quot;,
+  &quot;backend&quot;: &quot;auto&quot;,
   &quot;channel_names&quot;: [
     &quot;channel_a&quot;,
     &quot;channel_b&quot;,
@@ -519,6 +606,116 @@ docs examples, and machine-facing schema exports.</p>
 }
 </code></pre>
 <h2 id="method-specific-parameters">Method-specific parameters</h2>
+<h3 id="amd_block"><code>AMD_BLOCK</code></h3>
+<ul>
+<li>Input mode: <code>univariate</code></li>
+<li>Maturity: <code>experimental</code></li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th style="text-align: right;">Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>primary_period</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Dominant period hint used by neural block heuristics.</td>
+</tr>
+<tr>
+<td><code>fit_scope</code></td>
+<td>str</td>
+<td style="text-align: right;">no</td>
+<td><code>"full"</code></td>
+<td>Whether to fit templates on the full series or a prefix window.</td>
+</tr>
+<tr>
+<td><code>train_fraction</code></td>
+<td>float</td>
+<td style="text-align: right;">no</td>
+<td><code>0.6</code></td>
+<td>Prefix fraction used when fit_scope='prefix'.</td>
+</tr>
+<tr>
+<td><code>multiscale_windows</code></td>
+<td>list[int] | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Smoothing windows averaged into the multiscale trend.</td>
+</tr>
+</tbody>
+</table>
+<p>Example config:</p>
+<pre><code class="language-json">{
+  &quot;method&quot;: &quot;AMD_BLOCK&quot;,
+  &quot;params&quot;: {
+    &quot;fit_scope&quot;: &quot;full&quot;,
+    &quot;multiscale_windows&quot;: [
+      13,
+      25,
+      49
+    ],
+    &quot;primary_period&quot;: 12
+  }
+}
+</code></pre>
+<h3 id="autoformer_block"><code>AUTOFORMER_BLOCK</code></h3>
+<ul>
+<li>Input mode: <code>univariate</code></li>
+<li>Maturity: <code>experimental</code></li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.moving_mean</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th style="text-align: right;">Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>moving_avg</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Moving-average window used by the extracted forecasting block.</td>
+</tr>
+<tr>
+<td><code>window</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Alias for moving_avg.</td>
+</tr>
+<tr>
+<td><code>primary_period</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Period hint used to derive the moving-average window.</td>
+</tr>
+</tbody>
+</table>
+<p>Example config:</p>
+<pre><code class="language-json">{
+  &quot;method&quot;: &quot;AUTOFORMER_BLOCK&quot;,
+  &quot;params&quot;: {
+    &quot;moving_avg&quot;: 25,
+    &quot;primary_period&quot;: 12
+  }
+}
+</code></pre>
 <h3 id="ceemdan"><code>CEEMDAN</code></h3>
 <ul>
 <li>Input mode: <code>univariate</code></li>
@@ -573,6 +770,120 @@ docs examples, and machine-facing schema exports.</p>
     &quot;noise_width&quot;: 0.05,
     &quot;primary_period&quot;: 12,
     &quot;trials&quot;: 20
+  }
+}
+</code></pre>
+<h3 id="delelstm_block"><code>DELELSTM_BLOCK</code></h3>
+<ul>
+<li>Input mode: <code>univariate</code></li>
+<li>Maturity: <code>experimental</code></li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th style="text-align: right;">Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>primary_period</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Dominant period hint used by neural block heuristics.</td>
+</tr>
+<tr>
+<td><code>fit_scope</code></td>
+<td>str</td>
+<td style="text-align: right;">no</td>
+<td><code>"full"</code></td>
+<td>Whether to fit templates on the full series or a prefix window.</td>
+</tr>
+<tr>
+<td><code>train_fraction</code></td>
+<td>float</td>
+<td style="text-align: right;">no</td>
+<td><code>0.6</code></td>
+<td>Prefix fraction used when fit_scope='prefix'.</td>
+</tr>
+<tr>
+<td><code>alpha</code></td>
+<td>float</td>
+<td style="text-align: right;">no</td>
+<td><code>0.4</code></td>
+<td>Holt level smoothing coefficient.</td>
+</tr>
+<tr>
+<td><code>beta</code></td>
+<td>float</td>
+<td style="text-align: right;">no</td>
+<td><code>0.2</code></td>
+<td>Holt slope smoothing coefficient.</td>
+</tr>
+</tbody>
+</table>
+<p>Example config:</p>
+<pre><code class="language-json">{
+  &quot;method&quot;: &quot;DELELSTM_BLOCK&quot;,
+  &quot;params&quot;: {
+    &quot;alpha&quot;: 0.2,
+    &quot;beta&quot;: 0.1,
+    &quot;fit_scope&quot;: &quot;full&quot;,
+    &quot;primary_period&quot;: 12
+  }
+}
+</code></pre>
+<h3 id="dlinear_block"><code>DLINEAR_BLOCK</code></h3>
+<ul>
+<li>Input mode: <code>univariate</code></li>
+<li>Maturity: <code>experimental</code></li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.moving_mean</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th style="text-align: right;">Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>moving_avg</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Moving-average window used by the extracted forecasting block.</td>
+</tr>
+<tr>
+<td><code>window</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Alias for moving_avg.</td>
+</tr>
+<tr>
+<td><code>primary_period</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Period hint used to derive the moving-average window.</td>
+</tr>
+</tbody>
+</table>
+<p>Example config:</p>
+<pre><code class="language-json">{
+  &quot;method&quot;: &quot;DLINEAR_BLOCK&quot;,
+  &quot;params&quot;: {
+    &quot;moving_avg&quot;: 25,
+    &quot;primary_period&quot;: 12
   }
 }
 </code></pre>
@@ -639,6 +950,78 @@ docs examples, and machine-facing schema exports.</p>
   }
 }
 </code></pre>
+<h3 id="freqmoe_block"><code>FREQMOE_BLOCK</code></h3>
+<ul>
+<li>Input mode: <code>univariate</code></li>
+<li>Maturity: <code>experimental</code></li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th style="text-align: right;">Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>primary_period</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Dominant period hint used by neural block heuristics.</td>
+</tr>
+<tr>
+<td><code>fit_scope</code></td>
+<td>str</td>
+<td style="text-align: right;">no</td>
+<td><code>"full"</code></td>
+<td>Whether to fit templates on the full series or a prefix window.</td>
+</tr>
+<tr>
+<td><code>train_fraction</code></td>
+<td>float</td>
+<td style="text-align: right;">no</td>
+<td><code>0.6</code></td>
+<td>Prefix fraction used when fit_scope='prefix'.</td>
+</tr>
+<tr>
+<td><code>trend_window</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Moving-average trend window.</td>
+</tr>
+<tr>
+<td><code>num_bands</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>4</code></td>
+<td>Number of frequency bands in the mixture.</td>
+</tr>
+<tr>
+<td><code>expert_width</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>64</code></td>
+<td>Frequency expert width used by the scaffold.</td>
+</tr>
+</tbody>
+</table>
+<p>Example config:</p>
+<pre><code class="language-json">{
+  &quot;method&quot;: &quot;FREQMOE_BLOCK&quot;,
+  &quot;params&quot;: {
+    &quot;expert_width&quot;: 64,
+    &quot;fit_scope&quot;: &quot;full&quot;,
+    &quot;num_bands&quot;: 4,
+    &quot;primary_period&quot;: 12
+  }
+}
+</code></pre>
 <h3 id="gabor_cluster"><code>GABOR_CLUSTER</code></h3>
 <ul>
 <li>Input mode: <code>univariate</code></li>
@@ -691,6 +1074,105 @@ docs examples, and machine-facing schema exports.</p>
   &quot;method&quot;: &quot;GABOR_CLUSTER&quot;,
   &quot;params&quot;: {
     &quot;model_path&quot;: &quot;path/to/trained-gabor-model.pkl&quot;
+  }
+}
+</code></pre>
+<h3 id="inparformer_block"><code>INPARFORMER_BLOCK</code></h3>
+<ul>
+<li>Input mode: <code>univariate</code></li>
+<li>Maturity: <code>experimental</code></li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th style="text-align: right;">Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>primary_period</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Dominant period hint used by neural block heuristics.</td>
+</tr>
+<tr>
+<td><code>fit_scope</code></td>
+<td>str</td>
+<td style="text-align: right;">no</td>
+<td><code>"full"</code></td>
+<td>Whether to fit templates on the full series or a prefix window.</td>
+</tr>
+<tr>
+<td><code>train_fraction</code></td>
+<td>float</td>
+<td style="text-align: right;">no</td>
+<td><code>0.6</code></td>
+<td>Prefix fraction used when fit_scope='prefix'.</td>
+</tr>
+<tr>
+<td><code>trend_window</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Moving-average trend window.</td>
+</tr>
+</tbody>
+</table>
+<p>Example config:</p>
+<pre><code class="language-json">{
+  &quot;method&quot;: &quot;INPARFORMER_BLOCK&quot;,
+  &quot;params&quot;: {
+    &quot;fit_scope&quot;: &quot;full&quot;,
+    &quot;primary_period&quot;: 12,
+    &quot;trend_window&quot;: 25
+  }
+}
+</code></pre>
+<h3 id="leddam_block"><code>LEDDAM_BLOCK</code></h3>
+<ul>
+<li>Input mode: <code>univariate</code></li>
+<li>Maturity: <code>experimental</code></li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.ld_trend</code>, <code>components.kernel</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th style="text-align: right;">Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>kernel_size</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>25</code></td>
+<td>Odd Gaussian smoothing kernel size.</td>
+</tr>
+<tr>
+<td><code>sigma</code></td>
+<td>float</td>
+<td style="text-align: right;">no</td>
+<td><code>1.0</code></td>
+<td>Gaussian smoothing kernel sigma.</td>
+</tr>
+</tbody>
+</table>
+<p>Example config:</p>
+<pre><code class="language-json">{
+  &quot;method&quot;: &quot;LEDDAM_BLOCK&quot;,
+  &quot;params&quot;: {
+    &quot;kernel_size&quot;: 25,
+    &quot;sigma&quot;: 1.0
   }
 }
 </code></pre>
@@ -791,10 +1273,59 @@ docs examples, and machine-facing schema exports.</p>
   }
 }
 </code></pre>
+<h3 id="moving_average_decomposition_block"><code>MOVING_AVERAGE_DECOMPOSITION_BLOCK</code></h3>
+<ul>
+<li>Input mode: <code>univariate</code></li>
+<li>Maturity: <code>experimental</code></li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.moving_mean</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th style="text-align: right;">Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>moving_avg</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Moving-average window used by the extracted forecasting block.</td>
+</tr>
+<tr>
+<td><code>window</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Alias for moving_avg.</td>
+</tr>
+<tr>
+<td><code>primary_period</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Period hint used to derive the moving-average window.</td>
+</tr>
+</tbody>
+</table>
+<p>Example config:</p>
+<pre><code class="language-json">{
+  &quot;method&quot;: &quot;MOVING_AVERAGE_DECOMPOSITION_BLOCK&quot;,
+  &quot;params&quot;: {
+    &quot;moving_avg&quot;: 25,
+    &quot;primary_period&quot;: 12
+  }
+}
+</code></pre>
 <h3 id="mssa"><code>MSSA</code></h3>
 <ul>
 <li>Input mode: <code>multivariate</code></li>
-<li>Maturity: <code>flagship</code></li>
+<li>Maturity: <code>core maintained</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.elementary</code></li>
 </ul>
 <table>
@@ -854,7 +1385,7 @@ docs examples, and machine-facing schema exports.</p>
 </table>
 <p>Example config:</p>
 <pre><code class="language-json">{
-  &quot;backend&quot;: &quot;python&quot;,
+  &quot;backend&quot;: &quot;auto&quot;,
   &quot;channel_names&quot;: [
     &quot;channel_a&quot;,
     &quot;channel_b&quot;,
@@ -977,6 +1508,206 @@ docs examples, and machine-facing schema exports.</p>
   }
 }
 </code></pre>
+<h3 id="nbeats_interpretable"><code>NBEATS_INTERPRETABLE</code></h3>
+<ul>
+<li>Input mode: <code>univariate</code></li>
+<li>Maturity: <code>experimental</code></li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th style="text-align: right;">Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>degree_of_polynomial</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>3</code></td>
+<td>Polynomial trend basis degree.</td>
+</tr>
+<tr>
+<td><code>num_harmonics</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>8</code></td>
+<td>Number of Fourier harmonics in the seasonality stack.</td>
+</tr>
+<tr>
+<td><code>trend_blocks</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>2</code></td>
+<td>Number of interpretable trend blocks.</td>
+</tr>
+<tr>
+<td><code>seasonality_blocks</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>2</code></td>
+<td>Number of interpretable seasonality blocks.</td>
+</tr>
+<tr>
+<td><code>layers</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>6</code></td>
+<td>Fully connected layers per block.</td>
+</tr>
+<tr>
+<td><code>layer_size</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>128</code></td>
+<td>Hidden width for each block.</td>
+</tr>
+<tr>
+<td><code>fit_scope</code></td>
+<td>str</td>
+<td style="text-align: right;">no</td>
+<td><code>"full"</code></td>
+<td>Whether to fit on the full series or prefix window.</td>
+</tr>
+<tr>
+<td><code>train_fraction</code></td>
+<td>float</td>
+<td style="text-align: right;">no</td>
+<td><code>0.6</code></td>
+<td>Prefix fraction used when fit_scope='prefix'.</td>
+</tr>
+<tr>
+<td><code>n_epochs</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>200</code></td>
+<td>Maximum torch optimization epochs.</td>
+</tr>
+<tr>
+<td><code>patience</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>40</code></td>
+<td>Early-stopping patience.</td>
+</tr>
+<tr>
+<td><code>restarts</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>2</code></td>
+<td>Number of random restarts.</td>
+</tr>
+<tr>
+<td><code>learning_rate</code></td>
+<td>float</td>
+<td style="text-align: right;">no</td>
+<td><code>0.001</code></td>
+<td>Adam learning rate.</td>
+</tr>
+<tr>
+<td><code>weight_decay</code></td>
+<td>float</td>
+<td style="text-align: right;">no</td>
+<td><code>0.0001</code></td>
+<td>Adam weight decay.</td>
+</tr>
+<tr>
+<td><code>device</code></td>
+<td>str</td>
+<td style="text-align: right;">no</td>
+<td><code>"auto"</code></td>
+<td>Torch device: auto, cpu, cuda, or gpu.</td>
+</tr>
+<tr>
+<td><code>seed</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>0</code></td>
+<td>Base random seed for torch restarts.</td>
+</tr>
+</tbody>
+</table>
+<p>Example config:</p>
+<pre><code class="language-json">{
+  &quot;method&quot;: &quot;NBEATS_INTERPRETABLE&quot;,
+  &quot;params&quot;: {
+    &quot;fit_scope&quot;: &quot;full&quot;,
+    &quot;n_epochs&quot;: 200,
+    &quot;num_harmonics&quot;: 8,
+    &quot;restarts&quot;: 2
+  }
+}
+</code></pre>
+<h3 id="parsimony_block"><code>PARSIMONY_BLOCK</code></h3>
+<ul>
+<li>Input mode: <code>univariate</code></li>
+<li>Maturity: <code>experimental</code></li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th style="text-align: right;">Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>primary_period</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Dominant period hint used by neural block heuristics.</td>
+</tr>
+<tr>
+<td><code>fit_scope</code></td>
+<td>str</td>
+<td style="text-align: right;">no</td>
+<td><code>"full"</code></td>
+<td>Whether to fit templates on the full series or a prefix window.</td>
+</tr>
+<tr>
+<td><code>train_fraction</code></td>
+<td>float</td>
+<td style="text-align: right;">no</td>
+<td><code>0.6</code></td>
+<td>Prefix fraction used when fit_scope='prefix'.</td>
+</tr>
+<tr>
+<td><code>trend_window</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Moving-average trend window.</td>
+</tr>
+<tr>
+<td><code>num_harmonics</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>2</code></td>
+<td>Number of harmonic seasonal terms.</td>
+</tr>
+</tbody>
+</table>
+<p>Example config:</p>
+<pre><code class="language-json">{
+  &quot;method&quot;: &quot;PARSIMONY_BLOCK&quot;,
+  &quot;params&quot;: {
+    &quot;fit_scope&quot;: &quot;full&quot;,
+    &quot;num_harmonics&quot;: 2,
+    &quot;primary_period&quot;: 12,
+    &quot;trend_window&quot;: 13
+  }
+}
+</code></pre>
 <h3 id="robust_stl"><code>ROBUST_STL</code></h3>
 <ul>
 <li>Input mode: <code>univariate</code></li>
@@ -1028,7 +1759,7 @@ docs examples, and machine-facing schema exports.</p>
 <h3 id="ssa"><code>SSA</code></h3>
 <ul>
 <li>Input mode: <code>univariate</code></li>
-<li>Maturity: <code>flagship</code></li>
+<li>Maturity: <code>core maintained</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.elementary</code></li>
 </ul>
 <table>
@@ -1109,7 +1840,7 @@ docs examples, and machine-facing schema exports.</p>
 <h3 id="std"><code>STD</code></h3>
 <ul>
 <li>Input mode: <code>channelwise</code></li>
-<li>Maturity: <code>flagship</code></li>
+<li>Maturity: <code>core maintained</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.dispersion</code>, <code>components.seasonal_shape</code></li>
 </ul>
 <table>
@@ -1159,7 +1890,7 @@ docs examples, and machine-facing schema exports.</p>
 <h3 id="stdr"><code>STDR</code></h3>
 <ul>
 <li>Input mode: <code>channelwise</code></li>
-<li>Maturity: <code>flagship</code></li>
+<li>Maturity: <code>core maintained</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.dispersion</code>, <code>components.seasonal_shape</code></li>
 </ul>
 <table>
@@ -1261,6 +1992,215 @@ docs examples, and machine-facing schema exports.</p>
   }
 }
 </code></pre>
+<h3 id="st_mtm_block"><code>ST_MTM_BLOCK</code></h3>
+<ul>
+<li>Input mode: <code>univariate</code></li>
+<li>Maturity: <code>experimental</code></li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th style="text-align: right;">Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>primary_period</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Dominant period hint used by neural block heuristics.</td>
+</tr>
+<tr>
+<td><code>fit_scope</code></td>
+<td>str</td>
+<td style="text-align: right;">no</td>
+<td><code>"full"</code></td>
+<td>Whether to fit templates on the full series or a prefix window.</td>
+</tr>
+<tr>
+<td><code>train_fraction</code></td>
+<td>float</td>
+<td style="text-align: right;">no</td>
+<td><code>0.6</code></td>
+<td>Prefix fraction used when fit_scope='prefix'.</td>
+</tr>
+<tr>
+<td><code>trend_window</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Moving-average trend window.</td>
+</tr>
+<tr>
+<td><code>season_smooth_window</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Smoother applied to the periodic seasonal template.</td>
+</tr>
+</tbody>
+</table>
+<p>Example config:</p>
+<pre><code class="language-json">{
+  &quot;method&quot;: &quot;ST_MTM_BLOCK&quot;,
+  &quot;params&quot;: {
+    &quot;fit_scope&quot;: &quot;full&quot;,
+    &quot;primary_period&quot;: 12,
+    &quot;season_smooth_window&quot;: 7,
+    &quot;trend_window&quot;: 13
+  }
+}
+</code></pre>
+<h3 id="timekan_block"><code>TIMEKAN_BLOCK</code></h3>
+<ul>
+<li>Input mode: <code>univariate</code></li>
+<li>Maturity: <code>experimental</code></li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th style="text-align: right;">Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>primary_period</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Dominant period hint used by neural block heuristics.</td>
+</tr>
+<tr>
+<td><code>fit_scope</code></td>
+<td>str</td>
+<td style="text-align: right;">no</td>
+<td><code>"full"</code></td>
+<td>Whether to fit templates on the full series or a prefix window.</td>
+</tr>
+<tr>
+<td><code>train_fraction</code></td>
+<td>float</td>
+<td style="text-align: right;">no</td>
+<td><code>0.6</code></td>
+<td>Prefix fraction used when fit_scope='prefix'.</td>
+</tr>
+<tr>
+<td><code>trend_window</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Moving-average trend window.</td>
+</tr>
+<tr>
+<td><code>num_bands</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>2</code></td>
+<td>Number of dominant periods/templates to blend.</td>
+</tr>
+<tr>
+<td><code>kan_width</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>32</code></td>
+<td>KAN-inspired width used to choose harmonic capacity.</td>
+</tr>
+</tbody>
+</table>
+<p>Example config:</p>
+<pre><code class="language-json">{
+  &quot;method&quot;: &quot;TIMEKAN_BLOCK&quot;,
+  &quot;params&quot;: {
+    &quot;fit_scope&quot;: &quot;full&quot;,
+    &quot;kan_width&quot;: 32,
+    &quot;num_bands&quot;: 2,
+    &quot;primary_period&quot;: 12
+  }
+}
+</code></pre>
+<h3 id="times2d_block"><code>TIMES2D_BLOCK</code></h3>
+<ul>
+<li>Input mode: <code>univariate</code></li>
+<li>Maturity: <code>experimental</code></li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th style="text-align: right;">Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>primary_period</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Dominant period hint used by neural block heuristics.</td>
+</tr>
+<tr>
+<td><code>fit_scope</code></td>
+<td>str</td>
+<td style="text-align: right;">no</td>
+<td><code>"full"</code></td>
+<td>Whether to fit templates on the full series or a prefix window.</td>
+</tr>
+<tr>
+<td><code>train_fraction</code></td>
+<td>float</td>
+<td style="text-align: right;">no</td>
+<td><code>0.6</code></td>
+<td>Prefix fraction used when fit_scope='prefix'.</td>
+</tr>
+<tr>
+<td><code>top_k_periods</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>2</code></td>
+<td>Number of dominant FFT periods to retain.</td>
+</tr>
+<tr>
+<td><code>num_harmonics</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>1</code></td>
+<td>Number of harmonics per selected period.</td>
+</tr>
+<tr>
+<td><code>trend_window</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Moving-average trend window.</td>
+</tr>
+</tbody>
+</table>
+<p>Example config:</p>
+<pre><code class="language-json">{
+  &quot;method&quot;: &quot;TIMES2D_BLOCK&quot;,
+  &quot;params&quot;: {
+    &quot;fit_scope&quot;: &quot;full&quot;,
+    &quot;num_harmonics&quot;: 1,
+    &quot;primary_period&quot;: 12,
+    &quot;top_k_periods&quot;: 2
+  }
+}
+</code></pre>
 <h3 id="vmd"><code>VMD</code></h3>
 <ul>
 <li>Input mode: <code>univariate</code></li>
@@ -1339,6 +2279,59 @@ docs examples, and machine-facing schema exports.</p>
   }
 }
 </code></pre>
+<h3 id="waveform_block"><code>WAVEFORM_BLOCK</code></h3>
+<ul>
+<li>Input mode: <code>univariate</code></li>
+<li>Maturity: <code>experimental</code></li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th style="text-align: right;">Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wavelet</code></td>
+<td>str</td>
+<td style="text-align: right;">no</td>
+<td><code>"db4"</code></td>
+<td>PyWavelets wavelet family name.</td>
+</tr>
+<tr>
+<td><code>level</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>3</code></td>
+<td>Wavelet decomposition depth.</td>
+</tr>
+<tr>
+<td><code>season_levels</code></td>
+<td>list[int]</td>
+<td style="text-align: right;">no</td>
+<td><code>[1, 2]</code></td>
+<td>Detail coefficient levels assigned to the seasonal component.</td>
+</tr>
+</tbody>
+</table>
+<p>Example config:</p>
+<pre><code class="language-json">{
+  &quot;method&quot;: &quot;WAVEFORM_BLOCK&quot;,
+  &quot;params&quot;: {
+    &quot;level&quot;: 3,
+    &quot;season_levels&quot;: [
+      1,
+      2
+    ],
+    &quot;wavelet&quot;: &quot;sym4&quot;
+  }
+}
+</code></pre>
 <h3 id="wavelet"><code>WAVELET</code></h3>
 <ul>
 <li>Input mode: <code>univariate</code></li>
@@ -1392,6 +2385,123 @@ docs examples, and machine-facing schema exports.</p>
   &quot;params&quot;: {
     &quot;level&quot;: 3,
     &quot;wavelet&quot;: &quot;db4&quot;
+  }
+}
+</code></pre>
+<h3 id="waveletmixer_block"><code>WAVELETMIXER_BLOCK</code></h3>
+<ul>
+<li>Input mode: <code>univariate</code></li>
+<li>Maturity: <code>experimental</code></li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th style="text-align: right;">Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wavelet</code></td>
+<td>str</td>
+<td style="text-align: right;">no</td>
+<td><code>"sym4"</code></td>
+<td>PyWavelets wavelet family name.</td>
+</tr>
+<tr>
+<td><code>level</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>4</code></td>
+<td>Wavelet decomposition depth.</td>
+</tr>
+<tr>
+<td><code>season_levels</code></td>
+<td>list[int]</td>
+<td style="text-align: right;">no</td>
+<td><code>[1, 2, 3]</code></td>
+<td>Detail coefficient levels assigned to the seasonal component.</td>
+</tr>
+</tbody>
+</table>
+<p>Example config:</p>
+<pre><code class="language-json">{
+  &quot;method&quot;: &quot;WAVELETMIXER_BLOCK&quot;,
+  &quot;params&quot;: {
+    &quot;level&quot;: 3,
+    &quot;season_levels&quot;: [
+      1,
+      2,
+      3
+    ],
+    &quot;wavelet&quot;: &quot;coif1&quot;
+  }
+}
+</code></pre>
+<h3 id="xpatch_block"><code>XPATCH_BLOCK</code></h3>
+<ul>
+<li>Input mode: <code>univariate</code></li>
+<li>Maturity: <code>experimental</code></li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th style="text-align: right;">Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ma_type</code></td>
+<td>str</td>
+<td style="text-align: right;">no</td>
+<td><code>"ema"</code></td>
+<td>Smoothing type, either 'ema' or 'dema'.</td>
+</tr>
+<tr>
+<td><code>trend_window</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Window used to derive the EMA alpha.</td>
+</tr>
+<tr>
+<td><code>season_smooth</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Optional moving-average smoother for the seasonal residual.</td>
+</tr>
+<tr>
+<td><code>alpha</code></td>
+<td>float | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>EMA or DEMA level smoothing coefficient.</td>
+</tr>
+<tr>
+<td><code>beta</code></td>
+<td>float | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>DEMA slope smoothing coefficient.</td>
+</tr>
+</tbody>
+</table>
+<p>Example config:</p>
+<pre><code class="language-json">{
+  &quot;method&quot;: &quot;XPATCH_BLOCK&quot;,
+  &quot;params&quot;: {
+    &quot;season_smooth&quot;: 7,
+    &quot;trend_window&quot;: 25
   }
 }
 </code></pre></div>

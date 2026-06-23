@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Zipeng Wu">
-        <link rel="canonical" href="https://systems-mechanobiology.github.io/De-Time/tutorials/hot-trend-lab/notebooks/04_github_ai_agent_star_velocity/">
+        <link rel="canonical" href="https://systems-mechanobiology.github.io/DeTime/tutorials/hot-trend-lab/notebooks/04_github_ai_agent_star_velocity/">
         <link rel="shortcut icon" href="../../../../img/favicon.ico">
-        <title>04 GitHub Star Velocity - De-Time</title>
+        <title>04 GitHub Star Velocity - DeTime</title>
         <link href="../../../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../../../css/brands.min.css" rel="stylesheet">
@@ -22,6 +22,49 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
         <script>hljs.highlightAll();</script>
    
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="keywords" content="DeTime, detime, de-time, time series decomposition, Python time series, SSA, MSSA, VMD, STL, decomposition software">
+  <meta property="og:site_name" content="DeTime">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DeTime - Python and CLI time-series decomposition">
+  <meta property="og:description" content="DeTime is a Python and CLI toolkit for reproducible time-series decomposition across SSA, MSSA, VMD, STL, EMD, wavelet, and native C++ backed methods.">
+  <meta property="og:url" content="https://systems-mechanobiology.github.io/DeTime/">
+  <meta property="og:image" content="https://systems-mechanobiology.github.io/DeTime/assets/brand/detime-title-card.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DeTime - time-series decomposition for Python">
+  <meta name="twitter:description" content="Python and CLI software for reusable trend, oscillation, residual, metadata, schema, and artifact outputs.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://systems-mechanobiology.github.io/DeTime/#website",
+        "name": "DeTime",
+        "alternateName": ["detime", "de-time", "De-Time"],
+        "url": "https://systems-mechanobiology.github.io/DeTime/",
+        "description": "DeTime documentation for Python and CLI time-series decomposition software.",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://systems-mechanobiology.github.io/DeTime/#software",
+        "name": "DeTime",
+        "alternateName": ["detime", "de-time", "De-Time"],
+        "description": "Python and CLI toolkit for reproducible time-series decomposition with native C++ backed SSA, MSSA, VMD, STD, STDR, MA baseline, and Gabor clustering paths.",
+        "codeRepository": "https://github.com/systems-mechanobiology/DeTime",
+        "url": "https://systems-mechanobiology.github.io/DeTime/",
+        "programmingLanguage": ["Python", "C++"],
+        "applicationCategory": "Scientific software",
+        "keywords": "DeTime, time-series decomposition, Python, SSA, MSSA, VMD, STL, EMD, wavelet, native C++",
+        "author": {
+          "@type": "Person",
+          "name": "Zipeng Wu"
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="stylesheet" href="../../../../stylesheets/extra.css?v=7">
 
     </head>
@@ -29,7 +72,7 @@
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="../../../..">De-Time</a>
+                <a class="navbar-brand" href="../../../..">DeTime</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -93,7 +136,7 @@
 </li>
                                     
   <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">Quant Trading Column</a>
+    <a href="#" class="dropdown-item">Quant Trading Tutorial</a>
     <ul class="dropdown-menu">
             
 <li>
@@ -101,48 +144,88 @@
 </li>
             
 <li>
-    <a href="../../../quant-trading/notebooks/" class="dropdown-item">Rendered Notebooks</a>
+    <a href="../../../quant-trading/notebooks/" class="dropdown-item">Tutorial Notebooks</a>
 </li>
             
 <li>
-    <a href="../../../quant-trading/notebooks/00_quant_trading_column_overview/" class="dropdown-item">00 Column Overview</a>
+    <a href="../../../quant-trading/notebooks/00_decomposition_first_quant_trading_roadmap/" class="dropdown-item">Tutorial 00 Roadmap</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Lab</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../../quant-trading/two-strategy-families/" class="dropdown-item">Two Strategy Families</a>
 </li>
             
 <li>
-    <a href="../../../quant-trading/notebooks/01_real_market_data_and_detime_features/" class="dropdown-item">01 Real Market Data and Features</a>
+    <a href="../../../quant-trading/notebooks/01_detime_trend_following_strategy_lab/" class="dropdown-item">01 Trend-Following Lab</a>
 </li>
             
 <li>
-    <a href="../../../quant-trading/notebooks/02_single_asset_timing_vectorbt/" class="dropdown-item">02 Single-Asset Timing</a>
+    <a href="../../../quant-trading/notebooks/02_detime_oscillation_reversion_strategy_lab/" class="dropdown-item">02 Oscillation-Reversion Lab</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Strategy Expansion</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../../quant-trading/method-specific-strategy-expansion/" class="dropdown-item">Method-Specific Strategy Expansion</a>
 </li>
             
 <li>
-    <a href="../../../quant-trading/notebooks/03_turtle_donchian_trend_filter/" class="dropdown-item">03 Turtle Donchian Trend Filter</a>
+    <a href="../../../quant-trading/notebooks/03_detime_method_specific_strategy_variants/" class="dropdown-item">03 Method-Specific Variants</a>
 </li>
             
 <li>
-    <a href="../../../quant-trading/notebooks/04_pairs_trading_residual_cycle/" class="dropdown-item">04 Pairs Trading Residual Cycle</a>
+    <a href="../../../quant-trading/notebooks/04_detime_component_pair_trading_cointegration/" class="dropdown-item">04 Component Pair Trading</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Tutorial Sequence</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../../quant-trading/notebooks/01_market_data_and_decomposition_feature_factory/" class="dropdown-item">01 Real Market Data and Feature Factory</a>
 </li>
             
 <li>
-    <a href="../../../quant-trading/notebooks/05_cross_sectional_factor_selection/" class="dropdown-item">05 Cross-Sectional Factor Selection</a>
+    <a href="../../../quant-trading/notebooks/02_decomposition_aware_moving_average_macd/" class="dropdown-item">02 Decomposition-aware MA and MACD</a>
 </li>
             
 <li>
-    <a href="../../../quant-trading/notebooks/06_style_sector_asset_rotation_bt/" class="dropdown-item">06 Style and Sector Rotation</a>
+    <a href="../../../quant-trading/notebooks/03_residual_mean_reversion_rsi_bollinger/" class="dropdown-item">03 Residual Mean Reversion</a>
 </li>
             
 <li>
-    <a href="../../../quant-trading/notebooks/07_korea_us_crypto_multimarket/" class="dropdown-item">07 Korea, US, and Crypto</a>
+    <a href="../../../quant-trading/notebooks/04_turtle_donchian_breakout_volume_confirmation/" class="dropdown-item">04 Donchian Breakout</a>
 </li>
             
 <li>
-    <a href="../../../quant-trading/notebooks/08_backtesting_framework_adapters/" class="dropdown-item">08 Framework Adapters</a>
+    <a href="../../../quant-trading/notebooks/05_pairs_spread_decomposition_stat_arb/" class="dropdown-item">05 Pair-Spread Stat-Arb</a>
 </li>
             
 <li>
-    <a href="../../../quant-trading/notebooks/09_walkforward_validation_and_audit/" class="dropdown-item">09 Walk-Forward Validation</a>
+    <a href="../../../quant-trading/notebooks/06_cross_sectional_rotation_portfolio/" class="dropdown-item">06 Cross-Sectional Rotation</a>
 </li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Native SSA Replay</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../../quant-trading/notebooks/07_native_ssa_high_return_low_drawdown_tutorial/" class="dropdown-item">07 Native SSA High-Return / Low-Drawdown</a>
+</li>
+    </ul>
+  </li>
             
 <li>
     <a href="../../../quant-trading/data/" class="dropdown-item">Real Data and Universes</a>
@@ -324,6 +407,10 @@
 </li>
                                     
 <li>
+    <a href="../../../../release-artifacts/" class="dropdown-item">Release Artifacts</a>
+</li>
+                                    
+<li>
     <a href="../../../../architecture/" class="dropdown-item">Architecture</a>
 </li>
                                     
@@ -359,7 +446,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="https://github.com/systems-mechanobiology/De-Time" class="nav-link">systems-mechanobiology/De-Time</a>
+                                <a href="https://github.com/systems-mechanobiology/DeTime" class="nav-link">systems-mechanobiology/DeTime</a>
                             </li>
                     </ul>
                 </div>
@@ -381,6 +468,10 @@
             
             <li class="nav-item" data-bs-level="1"><a href="#github-ai-agent-star-velocity" class="nav-link">GitHub AI-Agent Star Velocity</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#executed-notebook" class="nav-link">Executed Notebook</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#1-select-repositories" class="nav-link">1. Select repositories</a>
               <ul class="nav flex-column">
               </ul>
@@ -389,7 +480,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#3-fetch-stargazer-timestamps" class="nav-link">3. Fetch stargazer timestamps</a>
+            <li class="nav-item" data-bs-level="2"><a href="#3-fetch-sampled-stargazer-timestamps" class="nav-link">3. Fetch sampled stargazer timestamps</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -409,7 +500,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#6-article-safe-interpretation" class="nav-link">6. Article-safe interpretation</a>
+            <li class="nav-item" data-bs-level="2"><a href="#6-publication-language" class="nav-link">6. Publication language</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -423,11 +514,12 @@
 <!-- Generated by scripts/generate_column_notebook_pages.py; do not edit manually. -->
 <h1 id="github-ai-agent-star-velocity">GitHub AI-Agent Star Velocity</h1>
 <div class="gallery-note notebook-transcript-note">
-  <strong>Rendered notebook transcript.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/De-Time/blob/main/examples/notebooks/hot_trends/04_github_ai_agent_star_velocity.ipynb"><code>examples/notebooks/hot_trends/04_github_ai_agent_star_velocity.ipynb</code></a> and includes code cells plus captured outputs from the committed notebook.
+  <strong>Executed tutorial notebook.</strong> This page is generated from <a href="https://github.com/systems-mechanobiology/DeTime/blob/main/examples/notebooks/hot_trends/04_github_ai_agent_star_velocity.ipynb"><code>examples/notebooks/hot_trends/04_github_ai_agent_star_velocity.ipynb</code></a> and includes markdown cells, code cells, stdout, tables, and captured figures from the committed notebook.
 </div>
 
-<p>This notebook uses real GitHub API data to track developer attention for AI-agent and developer-tool repositories.</p>
-<p>Stars are a public repository-interest signal for the selected period.</p>
+<h2 id="executed-notebook">Executed Notebook</h2>
+<p>This notebook asks how much developer attention is visible in a sampled set of GitHub stargazer timestamps. Star velocity is useful for launch and attention analysis, but it is sensitive to repository choice, token limits, pagination depth, bots, and the covered window.</p>
+<p>The main output is a repo basket, a source card, a coverage table, and a residual-event view over the fetched stargazer window.</p>
 <div class="notebook-cell">
 <div class="notebook-input-label">In [1]</div>
 
@@ -477,7 +569,7 @@ def save_table(df, name):
 </div>
 
 <h2 id="1-select-repositories">1. Select repositories</h2>
-<p>Use a small list for unauthenticated runs. Set <code>GITHUB_TOKEN</code> for higher rate limits.</p>
+<p>Use a small basket for unauthenticated runs. Set <code>GITHUB_TOKEN</code> for higher rate limits and record the repository list because basket selection changes the result.</p>
 <div class="notebook-cell">
 <div class="notebook-input-label">In [2]</div>
 
@@ -561,6 +653,7 @@ for repo in repos:
         &quot;open_issues&quot;: meta.get(&quot;open_issues_count&quot;),
         &quot;pushed_at&quot;: meta.get(&quot;pushed_at&quot;),
         &quot;source&quot;: &quot;GitHub REST API&quot;,
+        &quot;endpoint&quot;: f&quot;https://api.github.com/repos/{repo}&quot;,
     })
 metadata = pd.DataFrame(metadata_rows).sort_values(&quot;stars&quot;, ascending=False)
 metadata
@@ -594,53 +687,59 @@ metadata
       <th>open_issues</th>
       <th>pushed_at</th>
       <th>source</th>
+      <th>endpoint</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
       <td>langchain-ai/langchain</td>
-      <td>137407</td>
-      <td>22730</td>
-      <td>582</td>
-      <td>2026-05-22T18:30:27Z</td>
+      <td>137416</td>
+      <td>22731</td>
+      <td>581</td>
+      <td>2026-05-22T21:27:05Z</td>
       <td>GitHub REST API</td>
+      <td>https://api.github.com/repos/langchain-ai/lang...</td>
     </tr>
     <tr>
       <th>3</th>
       <td>browser-use/browser-use</td>
-      <td>95116</td>
-      <td>10714</td>
+      <td>95129</td>
+      <td>10715</td>
       <td>227</td>
-      <td>2026-05-22T18:54:53Z</td>
+      <td>2026-05-22T20:58:44Z</td>
       <td>GitHub REST API</td>
+      <td>https://api.github.com/repos/browser-use/brows...</td>
     </tr>
     <tr>
       <th>4</th>
       <td>modelcontextprotocol/servers</td>
-      <td>86091</td>
+      <td>86094</td>
       <td>10787</td>
-      <td>509</td>
+      <td>510</td>
       <td>2026-05-21T18:10:38Z</td>
       <td>GitHub REST API</td>
+      <td>https://api.github.com/repos/modelcontextproto...</td>
     </tr>
     <tr>
       <th>1</th>
       <td>microsoft/autogen</td>
-      <td>58296</td>
-      <td>8802</td>
-      <td>845</td>
+      <td>58298</td>
+      <td>8804</td>
+      <td>846</td>
       <td>2026-04-15T11:59:09Z</td>
       <td>GitHub REST API</td>
+      <td>https://api.github.com/repos/microsoft/autogen</td>
     </tr>
     <tr>
       <th>2</th>
       <td>crewAIInc/crewAI</td>
-      <td>51975</td>
-      <td>7205</td>
-      <td>354</td>
-      <td>2026-05-22T18:36:45Z</td>
+      <td>51979</td>
+      <td>7204</td>
+      <td>353</td>
+      <td>2026-05-22T19:50:26Z</td>
       <td>GitHub REST API</td>
+      <td>https://api.github.com/repos/crewAIInc/crewAI</td>
     </tr>
   </tbody>
 </table>
@@ -649,22 +748,78 @@ metadata
 </div>
 </div>
 
-<h2 id="3-fetch-stargazer-timestamps">3. Fetch stargazer timestamps</h2>
-<p>The endpoint returns the latest pages by default. For full histories, paginate further or use a scheduled snapshot system.</p>
+<h2 id="3-fetch-sampled-stargazer-timestamps">3. Fetch sampled stargazer timestamps</h2>
+<p>This notebook fetches a bounded number of stargazer pages for each repository. The result is a sampled history window, not complete production adoption. Increase pages or run a scheduled collection for deeper coverage.</p>
 <div class="notebook-cell">
 <div class="notebook-input-label">In [4]</div>
 
 
-<pre><code class="language-python">star_rows = []
+<pre><code class="language-python">STARGAZER_PAGES = 3
+PER_PAGE = 100
+source_card = pd.DataFrame([{
+    &quot;source&quot;: &quot;GitHub REST API&quot;,
+    &quot;endpoint&quot;: &quot;https://api.github.com/repos/{repo}/stargazers&quot;,
+    &quot;access_date&quot;: pd.Timestamp.today().date().isoformat(),
+    &quot;query_params&quot;: f&quot;repos={len(repos)}; pages={STARGAZER_PAGES}; per_page={PER_PAGE}; token_used={bool(token)}&quot;,
+    &quot;time_range&quot;: &quot;derived from fetched starred_at timestamps below&quot;,
+    &quot;cache_path&quot;: &quot;not cached; outputs saved to examples/hot_trends/outputs&quot;,
+    &quot;interpretation_scope&quot;: &quot;star velocity measures developer attention in the fetched window; stars are not production usage&quot;,
+}])
+star_rows = []
 for repo in repos:
-    sg = fetch_github_stargazers(repo, pages=3, token=token)
+    sg = fetch_github_stargazers(repo, pages=STARGAZER_PAGES, per_page=PER_PAGE, token=token)
     star_rows.append(sg)
 stars = pd.concat(star_rows, ignore_index=True)
+display(source_card)
 stars.head(20)
 </code></pre>
 
 
 <div class="gallery-out notebook-output">
+<div class="notebook-output-label">text/html</div>
+<div class="notebook-html-output">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>source</th>
+      <th>endpoint</th>
+      <th>access_date</th>
+      <th>query_params</th>
+      <th>time_range</th>
+      <th>cache_path</th>
+      <th>interpretation_scope</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>GitHub REST API</td>
+      <td>https://api.github.com/repos/{repo}/stargazers</td>
+      <td>2026-05-22</td>
+      <td>repos=5; pages=3; per_page=100; token_used=False</td>
+      <td>derived from fetched starred_at timestamps below</td>
+      <td>not cached; outputs saved to examples/hot_tren...</td>
+      <td>star velocity measures developer attention in ...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
 <div class="notebook-output-label">text/html</div>
 <div class="notebook-html-output">
 <div>
@@ -865,8 +1020,17 @@ stars.head(20)
 <div class="notebook-input-label">In [5]</div>
 
 
-<pre><code class="language-python">stars[&quot;date&quot;] = pd.to_datetime(stars[&quot;starred_at&quot;]).dt.date.astype(str)
-daily = stars.groupby([&quot;repo&quot;, &quot;date&quot;]).size().reset_index(name=&quot;count&quot;)
+<pre><code class="language-python">stars[&quot;date&quot;] = pd.to_datetime(stars[&quot;starred_at&quot;]).dt.normalize()
+raw_daily = stars.groupby([&quot;repo&quot;, &quot;date&quot;]).size().reset_index(name=&quot;count&quot;)
+calendar_rows = []
+for repo, sub in raw_daily.groupby(&quot;repo&quot;):
+    calendar = pd.date_range(sub[&quot;date&quot;].min(), sub[&quot;date&quot;].max(), freq=&quot;D&quot;)
+    filled = sub.set_index(&quot;date&quot;).reindex(calendar, fill_value=0).rename_axis(&quot;date&quot;).reset_index()
+    filled[&quot;repo&quot;] = repo
+    calendar_rows.append(filled[[&quot;repo&quot;, &quot;date&quot;, &quot;count&quot;]])
+daily = pd.concat(calendar_rows, ignore_index=True)
+daily[&quot;date&quot;] = daily[&quot;date&quot;].dt.date.astype(str)
+raw_daily[&quot;date&quot;] = raw_daily[&quot;date&quot;].dt.date.astype(str)
 daily.head(20)
 </code></pre>
 
@@ -925,98 +1089,98 @@ daily.head(20)
     <tr>
       <th>4</th>
       <td>crewAIInc/crewAI</td>
+      <td>2023-11-16</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>crewAIInc/crewAI</td>
+      <td>2023-11-17</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>crewAIInc/crewAI</td>
+      <td>2023-11-18</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>crewAIInc/crewAI</td>
+      <td>2023-11-19</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>crewAIInc/crewAI</td>
+      <td>2023-11-20</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>crewAIInc/crewAI</td>
+      <td>2023-11-21</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>crewAIInc/crewAI</td>
+      <td>2023-11-22</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>crewAIInc/crewAI</td>
+      <td>2023-11-23</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>crewAIInc/crewAI</td>
       <td>2023-11-24</td>
       <td>13</td>
     </tr>
     <tr>
-      <th>5</th>
+      <th>13</th>
       <td>crewAIInc/crewAI</td>
       <td>2023-11-25</td>
       <td>25</td>
     </tr>
     <tr>
-      <th>6</th>
+      <th>14</th>
       <td>crewAIInc/crewAI</td>
       <td>2023-11-26</td>
       <td>21</td>
     </tr>
     <tr>
-      <th>7</th>
+      <th>15</th>
       <td>crewAIInc/crewAI</td>
       <td>2023-11-27</td>
       <td>10</td>
     </tr>
     <tr>
-      <th>8</th>
+      <th>16</th>
       <td>crewAIInc/crewAI</td>
       <td>2023-11-28</td>
       <td>7</td>
     </tr>
     <tr>
-      <th>9</th>
+      <th>17</th>
       <td>crewAIInc/crewAI</td>
       <td>2023-11-29</td>
       <td>1</td>
     </tr>
     <tr>
-      <th>10</th>
+      <th>18</th>
       <td>crewAIInc/crewAI</td>
       <td>2023-11-30</td>
       <td>3</td>
     </tr>
     <tr>
-      <th>11</th>
+      <th>19</th>
       <td>crewAIInc/crewAI</td>
       <td>2023-12-01</td>
       <td>2</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>crewAIInc/crewAI</td>
-      <td>2023-12-02</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>crewAIInc/crewAI</td>
-      <td>2023-12-03</td>
-      <td>37</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>crewAIInc/crewAI</td>
-      <td>2023-12-04</td>
-      <td>14</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>crewAIInc/crewAI</td>
-      <td>2023-12-05</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>crewAIInc/crewAI</td>
-      <td>2023-12-06</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>crewAIInc/crewAI</td>
-      <td>2023-12-07</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>crewAIInc/crewAI</td>
-      <td>2023-12-08</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>crewAIInc/crewAI</td>
-      <td>2023-12-09</td>
-      <td>1</td>
     </tr>
   </tbody>
 </table>
@@ -1026,7 +1190,7 @@ daily.head(20)
 </div>
 
 <h2 id="visualization-github-star-velocity">Visualization: GitHub star velocity</h2>
-<p>The rolling star-velocity chart turns raw stargazer timestamps into a comparable attention signal.</p>
+<p>The x-axis is the fetched stargazer window and the y-axis is stars per day after missing calendar days are filled with zero. Treat the line as attention in the sampled window; do not compare repositories without checking coverage.</p>
 <div class="notebook-cell">
 <div class="notebook-input-label">In [6]</div>
 
@@ -1053,15 +1217,19 @@ plt.show()
 <div class="notebook-input-label">In [7]</div>
 
 
-<pre><code class="language-python">coverage = source_audit_table(daily, value_col=&quot;count&quot;, entity_col=&quot;repo&quot;, time_col=&quot;date&quot;)
-ready = coverage.loc[coverage[&quot;observations&quot;] &gt;= 14, &quot;series&quot;].tolist()
+<pre><code class="language-python">coverage = source_audit_table(raw_daily, value_col=&quot;count&quot;, entity_col=&quot;repo&quot;, time_col=&quot;date&quot;)
+calendar_coverage = daily.groupby(&quot;repo&quot;).agg(calendar_days=(&quot;date&quot;, &quot;nunique&quot;), total_fetched_stars=(&quot;count&quot;, &quot;sum&quot;)).reset_index().rename(columns={&quot;repo&quot;: &quot;series&quot;})
+coverage = coverage.merge(calendar_coverage, on=&quot;series&quot;, how=&quot;left&quot;)
+coverage[&quot;pages_per_repo&quot;] = STARGAZER_PAGES
+coverage[&quot;per_page&quot;] = PER_PAGE
+ready = coverage.loc[coverage[&quot;calendar_days&quot;] &gt;= 14, &quot;series&quot;].tolist()
 if ready:
     components = decompose_table(daily[daily[&quot;repo&quot;].isin(ready)], entity_col=&quot;repo&quot;, time_col=&quot;date&quot;, value_col=&quot;count&quot;, method=&quot;MA_BASELINE&quot;, period=7, trend_window=5, transform=&quot;log1p&quot;)
     summary = editorial_priority(component_summary(components, entity_col=&quot;repo&quot;, time_col=&quot;date&quot;), entity_col=&quot;repo&quot;)
-    events = residual_event_table(components, entity_col=&quot;repo&quot;, time_col=&quot;date&quot;, top_n=20)
+    events = residual_event_table(components, entity_col=&quot;repo&quot;, time_col=&quot;date&quot;, top_n=20, trim_edges=7)
 else:
     components = pd.DataFrame()
-    summary = pd.DataFrame([{&quot;status&quot;: &quot;not_enough_real_stargazer_days&quot;, &quot;required&quot;: &quot;increase pages or run repeated snapshots&quot;}])
+    summary = pd.DataFrame([{&quot;status&quot;: &quot;not_enough_stargazer_calendar_days&quot;, &quot;required&quot;: &quot;increase pages or run repeated snapshots&quot;}])
     events = pd.DataFrame()
 coverage
 </code></pre>
@@ -1095,6 +1263,10 @@ coverage
       <th>missing_ratio</th>
       <th>min_value</th>
       <th>max_value</th>
+      <th>calendar_days</th>
+      <th>total_fetched_stars</th>
+      <th>pages_per_repo</th>
+      <th>per_page</th>
     </tr>
   </thead>
   <tbody>
@@ -1107,6 +1279,10 @@ coverage
       <td>0.0</td>
       <td>134.0</td>
       <td>166.0</td>
+      <td>2</td>
+      <td>300</td>
+      <td>3</td>
+      <td>100</td>
     </tr>
     <tr>
       <th>1</th>
@@ -1117,6 +1293,10 @@ coverage
       <td>0.0</td>
       <td>1.0</td>
       <td>38.0</td>
+      <td>39</td>
+      <td>300</td>
+      <td>3</td>
+      <td>100</td>
     </tr>
     <tr>
       <th>2</th>
@@ -1127,6 +1307,10 @@ coverage
       <td>0.0</td>
       <td>3.0</td>
       <td>45.0</td>
+      <td>23</td>
+      <td>300</td>
+      <td>3</td>
+      <td>100</td>
     </tr>
     <tr>
       <th>3</th>
@@ -1137,6 +1321,10 @@ coverage
       <td>0.0</td>
       <td>1.0</td>
       <td>138.0</td>
+      <td>30</td>
+      <td>300</td>
+      <td>3</td>
+      <td>100</td>
     </tr>
     <tr>
       <th>4</th>
@@ -1147,6 +1335,10 @@ coverage
       <td>0.0</td>
       <td>300.0</td>
       <td>300.0</td>
+      <td>1</td>
+      <td>300</td>
+      <td>3</td>
+      <td>100</td>
     </tr>
   </tbody>
 </table>
@@ -1156,7 +1348,7 @@ coverage
 </div>
 
 <h2 id="visualization-github-coverage-and-residual-events">Visualization: GitHub coverage and residual events</h2>
-<p>Coverage bars show whether there is enough stargazer history for decomposition; the event plot highlights unusually large residual days when available.</p>
+<p>Coverage bars show fetched stargazer days by repository. The residual panel highlights unusually large deviations after calendar zero-fill and edge trimming; inspect the event date before treating it as launch evidence.</p>
 <div class="notebook-cell">
 <div class="notebook-input-label">In [8]</div>
 
@@ -1239,19 +1431,36 @@ plt.show()
     <tr>
       <th>2</th>
       <td>microsoft/autogen</td>
-      <td>14</td>
+      <td>30</td>
       <td>2023-08-29 00:00:00</td>
       <td>2023-09-27 00:00:00</td>
       <td>2.523944</td>
-      <td>0.189074</td>
-      <td>0.822358</td>
-      <td>0.608372</td>
-      <td>4.844275</td>
+      <td>0.070044</td>
+      <td>0.822280</td>
+      <td>0.540199</td>
+      <td>4.627360</td>
       <td>MA_BASELINE</td>
       <td>1.000000</td>
       <td>1.000000</td>
       <td>1.000000</td>
-      <td>1.00</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>crewAIInc/crewAI</td>
+      <td>39</td>
+      <td>2023-11-14 00:00:00</td>
+      <td>2023-12-22 00:00:00</td>
+      <td>1.499108</td>
+      <td>0.043173</td>
+      <td>0.629650</td>
+      <td>0.701591</td>
+      <td>2.245717</td>
+      <td>MA_BASELINE</td>
+      <td>0.666667</td>
+      <td>0.666667</td>
+      <td>0.333333</td>
+      <td>0.516667</td>
     </tr>
     <tr>
       <th>1</th>
@@ -1266,26 +1475,9 @@ plt.show()
       <td>3.217347</td>
       <td>MA_BASELINE</td>
       <td>0.333333</td>
-      <td>0.666667</td>
-      <td>0.666667</td>
-      <td>0.55</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>crewAIInc/crewAI</td>
-      <td>31</td>
-      <td>2023-11-14 00:00:00</td>
-      <td>2023-12-22 00:00:00</td>
-      <td>1.499108</td>
-      <td>0.002265</td>
-      <td>0.556729</td>
-      <td>0.634456</td>
-      <td>2.080745</td>
-      <td>MA_BASELINE</td>
-      <td>0.666667</td>
       <td>0.333333</td>
-      <td>0.333333</td>
-      <td>0.45</td>
+      <td>0.666667</td>
+      <td>0.483333</td>
     </tr>
   </tbody>
 </table>
@@ -1294,7 +1486,7 @@ plt.show()
 </div>
 </div>
 
-<h2 id="6-article-safe-interpretation">6. Article-safe interpretation</h2>
+<h2 id="6-publication-language">6. Publication language</h2>
 <div class="notebook-cell">
 <div class="notebook-input-label">In [10]</div>
 
@@ -1338,16 +1530,16 @@ phrasing
     <tr>
       <th>1</th>
       <td>This model is better because it has more downl...</td>
-      <td>Downloads are a public adoption proxy and shou...</td>
+      <td>Downloads are a public adoption proxy interpre...</td>
     </tr>
     <tr>
       <th>2</th>
       <td>This repo is winning because stars are rising.</td>
-      <td>Star velocity measures developer attention, no...</td>
+      <td>Star velocity measures developer attention for...</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>This pageview spike proves importance.</td>
+      <td>This pageview spike shows the topic matters most.</td>
       <td>Pageviews measure public attention during the ...</td>
     </tr>
     <tr>
@@ -1366,7 +1558,8 @@ phrasing
 <div class="notebook-input-label">In [11]</div>
 
 
-<pre><code class="language-python">save_table(metadata, &quot;04_github_repo_metadata&quot;)
+<pre><code class="language-python">save_table(source_card, &quot;04_github_source_card&quot;)
+save_table(metadata, &quot;04_github_repo_metadata&quot;)
 save_table(coverage, &quot;04_github_stargazer_coverage&quot;)
 save_table(daily, &quot;04_github_star_velocity_daily&quot;)
 save_table(summary, &quot;04_github_decomposition_or_collection_status&quot;)
@@ -1379,7 +1572,8 @@ save_table(phrasing, &quot;04_github_publication_phrasing&quot;)
 <div class="gallery-out notebook-output">
 <div class="notebook-output-label">stdout</div>
 
-<pre><code class="language-text">saved: examples/hot_trends/outputs/04_github_repo_metadata.csv
+<pre><code class="language-text">saved: examples/hot_trends/outputs/04_github_source_card.csv
+saved: examples/hot_trends/outputs/04_github_repo_metadata.csv
 saved: examples/hot_trends/outputs/04_github_stargazer_coverage.csv
 saved: examples/hot_trends/outputs/04_github_star_velocity_daily.csv
 saved: examples/hot_trends/outputs/04_github_decomposition_or_collection_status.csv
