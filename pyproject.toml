@@ -61,6 +61,9 @@ emd = [
 vmd = [
   "vmdpy>=0.2",
 ]
+gabor = [
+  "faiss-cpu>=1.8",
+]
 multivar = [
   "PySDKit>=0.4.23",
 ]
