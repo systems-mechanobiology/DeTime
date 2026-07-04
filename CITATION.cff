@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use DeTime in research software or publications, please cite the software record below."
 title: "DeTime"
 version: "0.1.2"
-date-released: 2026-06-19
+date-released: 2026-07-04
 type: software
 abstract: >-
   DeTime is Python and CLI research software for reproducible time-series
@@ -31,9 +31,9 @@ preferred-citation:
       given-names: "Zipeng"
       affiliation: "The University of Birmingham"
   version: "0.1.2"
-  date-released: 2026-06-19
+  date-released: 2026-07-04
   url: "https://github.com/systems-mechanobiology/DeTime"
   repository-code: "https://github.com/systems-mechanobiology/DeTime"
   notes: >-
-    Install from PyPI as de-time, import in Python as detime, and treat the
+    Install from PyPI as detime-toolkit, import in Python as detime, and treat the
     top-level tsdecomp import and CLI as deprecated compatibility aliases.

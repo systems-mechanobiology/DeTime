@@ -1,5 +1,5 @@
 {
-  "package": "de-time",
+  "package": "detime-toolkit",
   "release_target": "0.1.2",
   "audit_date": "2026-06-22",
   "python": "3.11.9",

@@ -66,7 +66,7 @@ metadata, schemas, and release evidence files.
 | Quant Trading tutorial column | 11 applied notebooks plus one roadmap notebook, with captured code cells, stdout, tables, figures, strategy statistics, and audit outputs |
 | Hot Trend Lab | 7 case notebooks plus one overview notebook, with source-audit tables, component summaries, residual-event outputs, and publication-context notes |
 | Core workflow tutorials | univariate decomposition, multivariate decomposition, CLI export/profiling, visual method comparison, and method-gallery workflows |
-| Review artifacts | comparison matrices, release-smoke checks, reproducibility notes, JSON schemas, generated method cards, and evidence snapshots |
+| Release evidence | comparison matrices, release-smoke checks, reproducibility notes, JSON schemas, generated method cards, and evidence snapshots |
 
 ## Release Checks
 
@@ -93,7 +93,6 @@ The current release and docs were checked with:
 - `python scripts/generate_method_cards.py`
 - `python benchmarks/software_comparison/generate_comparison_evidence.py`
 - `python examples/workflow_comparisons/compare_specialist_glue_vs_detime.py`
-- `python scripts/generate_reviewer_bundle.py`
 - `python -m twine check dist/*`
 
 </details>

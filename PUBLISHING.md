@@ -1,19 +1,19 @@
 # Publishing DeTime
 
-This file describes the standalone release flow for the `de-time`
+This file describes the standalone release flow for the `detime-toolkit`
 distribution, the `detime` import path, and the legacy `tsdecomp`
 compatibility aliases.
 
 ## Current release target
 
-The current reviewed release target is `0.1.1`. Freeze the GitHub tag and PyPI
-publication only after the full evidence bundle below is regenerated on the
-exact candidate commit. The intended public tag is `de-time-v0.1.1`.
+The current reviewed release is `0.1.2`. The public PyPI distribution is
+`detime-toolkit==0.1.2`, while the import namespace remains `detime`. The
+reviewed GitHub source tag uses the existing `de-time-v*` convention.
 
 Release contract:
 
 - product brand: `DeTime`
-- PyPI distribution: `de-time`
+- PyPI distribution: `detime-toolkit`
 - preferred import path: `detime`
 - legacy import path: `tsdecomp`
 - preferred CLI: `detime`
@@ -28,13 +28,13 @@ submodules such as `tsdecomp.methods.*`, `tsdecomp.leaderboard`, and
 
 1. Update the version in `pyproject.toml`, `CHANGELOG.md`, and `CITATION.cff`.
 2. Regenerate and check schema assets.
-3. Regenerate tutorial assets and reviewer-facing evidence files.
+3. Regenerate tutorial assets and release evidence files.
 4. Run the documentation consistency check and strict docs build.
 5. Run local tests, including the dedicated `.[multivar]` smoke path.
 6. Build a source distribution and wheel.
 7. Run the release smoke matrix and distribution-content checks.
 8. Commit the release changes.
-9. Tag the release.
+9. Tag the release using the `de-time-v*` source-tag convention.
 10. Push the branch and tag.
 11. Publish the GitHub release.
 12. Let the release workflow publish to PyPI.
@@ -56,7 +56,6 @@ python examples/workflow_comparisons/compare_specialist_glue_vs_detime.py
 python benchmarks/token_benchmarks/generate_token_benchmarks.py
 python evals/agent/run_agent_evals.py
 python scripts/generate_method_cards.py
-python scripts/generate_reviewer_bundle.py
 python scripts/check_doc_consistency.py
 python -m mkdocs build --strict
 python -m build
@@ -70,8 +69,8 @@ python -m twine check dist/*
 Use release tags that match the standalone product:
 
 ```bash
-git tag de-time-v0.1.1
-git push origin de-time-v0.1.1
+git tag de-time-v0.1.2
+git push origin de-time-v0.1.2
 ```
 
 The wheel workflow is configured around `de-time-v*` tags.

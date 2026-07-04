@@ -15,7 +15,7 @@ Added directories and files:
 
 Paper-writing materials:
 
-- The original `submission/` directory has been moved out of the main repo package and placed in a separate paper-writing archive, per request.
+- Manuscript and journal-facing materials are kept outside this public code tree.
 
 Data sources:
 
@@ -40,4 +40,4 @@ Network notebooks were not executed in this packaging environment because extern
 
 Additional compatibility change:
 
-- `scripts/check_doc_consistency.py`: skips paper-only `submission/` checks when the submission bundle is intentionally distributed separately.
+- `scripts/check_doc_consistency.py`: keeps public documentation checks focused on code, docs, and release evidence.

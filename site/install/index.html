@@ -510,19 +510,19 @@
 <h1 id="install">Install</h1>
 <h2 id="current-install-path">Current install path</h2>
 <p>Install the latest released package from PyPI:</p>
-<pre><code class="language-bash">python -m pip install de-time
+<pre><code class="language-bash">python -m pip install detime-toolkit
 </code></pre>
 <p>Optional multivariate backends for <code>MVMD</code> and <code>MEMD</code> install with:</p>
-<pre><code class="language-bash">python -m pip install &quot;de-time[multivar]&quot;
+<pre><code class="language-bash">python -m pip install &quot;detime-toolkit[multivar]&quot;
 </code></pre>
 <p>Optional EMD-family wrappers for <code>EMD</code> and <code>CEEMDAN</code> install with:</p>
-<pre><code class="language-bash">python -m pip install &quot;de-time[emd]&quot;
+<pre><code class="language-bash">python -m pip install &quot;detime-toolkit[emd]&quot;
 </code></pre>
 <p>Optional torch-backed neural block support for <code>NBEATS_INTERPRETABLE</code> installs with:</p>
-<pre><code class="language-bash">python -m pip install &quot;de-time[neural]&quot;
+<pre><code class="language-bash">python -m pip install &quot;detime-toolkit[neural]&quot;
 </code></pre>
 <p>Notebook tooling for the method gallery installs with:</p>
-<pre><code class="language-bash">python -m pip install &quot;de-time[notebook]&quot;
+<pre><code class="language-bash">python -m pip install &quot;detime-toolkit[notebook]&quot;
 </code></pre>
 <p>Names used by this project:</p>
 <table>
@@ -539,7 +539,7 @@
 </tr>
 <tr>
 <td>Python distribution</td>
-<td><code>de-time</code></td>
+<td><code>detime-toolkit</code></td>
 </tr>
 <tr>
 <td>Python import</td>
@@ -552,7 +552,7 @@
 </tbody>
 </table>
 <p>Do not install the unrelated <a href="https://pypi.org/project/detime/"><code>detime</code></a>
-package from PyPI when you want this project; that package is not DeTime.</p>
+package from PyPI when you want this project; install <code>detime-toolkit</code> instead.</p>
 <p>To install the unreleased <code>main</code> branch directly from GitHub:</p>
 <pre><code class="language-bash">python -m pip install &quot;git+https://github.com/systems-mechanobiology/DeTime.git&quot;
 </code></pre>
@@ -648,11 +648,11 @@ from install artifacts.</p>
 
 Symptom: `import detime` imports an unrelated package.
 
-Fix: uninstall the unrelated `detime` package, then install `de-time`.
+Fix: uninstall the unrelated `detime` package, then install `detime-toolkit`.
 
 
 <pre><code class="language-bash">python -m pip uninstall -y detime
-python -m pip install de-time
+python -m pip install detime-toolkit
 </code></pre>
 
 
@@ -668,7 +668,7 @@ install.
 
 
 <pre><code class="language-bash">python -m pip install --upgrade pip
-python -m pip install --no-cache-dir de-time
+python -m pip install --no-cache-dir detime-toolkit
 </code></pre>
 
 
@@ -695,9 +695,9 @@ Symptom: `MVMD`, `MEMD`, `EMD`, `CEEMDAN`, or `NBEATS_INTERPRETABLE` raises an
 Fix: install the matching extra.
 
 
-<pre><code class="language-bash">python -m pip install &quot;de-time[multivar]&quot;
-python -m pip install &quot;de-time[emd]&quot;
-python -m pip install &quot;de-time[neural]&quot;
+<pre><code class="language-bash">python -m pip install &quot;detime-toolkit[multivar]&quot;
+python -m pip install &quot;detime-toolkit[emd]&quot;
+python -m pip install &quot;detime-toolkit[neural]&quot;
 </code></pre>
 
 

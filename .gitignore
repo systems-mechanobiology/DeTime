@@ -20,3 +20,7 @@ PYPI_TOKEN_LOCAL.md
 examples/hot_trends/cache/
 examples/hot_trends/outputs/
 examples/quant_trading/data/cache/
+
+# Private manuscript and submission materials live outside the public code repo.
+submission/
+scripts/generate_reviewer_bundle.py

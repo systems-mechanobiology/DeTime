@@ -8,7 +8,7 @@ One Python and CLI interface for trend, oscillation, residual, components, and m
 [![Docs: GitHub Pages](https://img.shields.io/badge/docs-GitHub_Pages-0b5fff.svg)](https://systems-mechanobiology.github.io/DeTime/)
 [![HF Space: DeTime](https://img.shields.io/badge/HF%20Space-DeTime-ffb000.svg)](https://huggingface.co/spaces/Zipeng365/DeTime)
 ![Python: 3.10+](https://img.shields.io/badge/python-3.10%2B-0f766e.svg)
-[![PyPI](https://img.shields.io/pypi/v/de-time.svg)](https://pypi.org/project/de-time/)
+[![PyPI](https://img.shields.io/pypi/v/detime-toolkit.svg)](https://pypi.org/project/detime-toolkit/)
 [![Unit tests: 112 passed](https://img.shields.io/badge/unit%20tests-112%20passed-brightgreen.svg)](tests/)
 [![Core coverage: 92.58%](https://img.shields.io/badge/core%20coverage-92.58%25-brightgreen.svg)](README.md#quality-and-evidence)
 [![Package coverage: 88.41%](https://img.shields.io/badge/package%20coverage-88.41%25-84cc16.svg)](README.md#quality-and-evidence)
@@ -23,13 +23,13 @@ One Python and CLI interface for trend, oscillation, residual, components, and m
 
 DeTime provides one stable software surface for decomposition workflows that
 would otherwise be split across notebooks, method-specific wrappers, and
-one-off scripts. The product name is **DeTime**, the distribution is
-`de-time`, the canonical import is `detime`, and the legacy top-level
+one-off scripts. The product name is **DeTime**, the PyPI distribution is
+`detime-toolkit`, the canonical import is `detime`, and the legacy top-level
 `tsdecomp` import and CLI remain compatibility-only through `0.1.x`, with
 earliest removal planned for `0.2.0`.
 
 The current reviewed release version is `0.1.2`. Install the latest published
-package from PyPI with `python -m pip install de-time`, or use the editable
+package from PyPI with `python -m pip install detime-toolkit`, or use the editable
 contributor path below for local development against the repository head.
 
 Fast entry points:
@@ -131,15 +131,15 @@ generated evidence files are kept in
 Install the latest released package from PyPI:
 
 ```bash
-python -m pip install de-time
+python -m pip install detime-toolkit
 ```
 
 Install optional extras as needed:
 
 ```bash
-python -m pip install "de-time[multivar]"
-python -m pip install "de-time[emd,neural]"
-python -m pip install "de-time[notebook]"
+python -m pip install "detime-toolkit[multivar]"
+python -m pip install "detime-toolkit[emd,neural]"
+python -m pip install "detime-toolkit[notebook]"
 ```
 
 Install directly from GitHub when you need the unreleased `main` branch:
@@ -149,7 +149,7 @@ python -m pip install "git+https://github.com/systems-mechanobiology/DeTime.git"
 ```
 
 Do not install the unrelated [`detime`](https://pypi.org/project/detime/)
-package from PyPI when you want this project; that package is not DeTime.
+package from PyPI when you want this project; install `detime-toolkit` instead.
 
 ## Quickstart
 

@@ -27,7 +27,7 @@ reproducible trend, oscillation, residual, component, and metadata extraction.
 - Canonical documentation: https://systems-mechanobiology.github.io/DeTime/
 - Source code: https://github.com/systems-mechanobiology/DeTime
 - Python import: `detime`
-- Distribution name: `de-time`
+- Distribution name: `detime-toolkit`
 
 This Hugging Face Space is a static mirror of the DeTime documentation site.
 The GitHub Pages URL remains the canonical documentation URL for search engines.

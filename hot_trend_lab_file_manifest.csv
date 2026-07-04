@@ -234,7 +234,6 @@ scripts/check_doc_consistency.py,6110
 scripts/generate_method_cards.py,14207
 scripts/generate_notebook_gallery.py,19500
 scripts/generate_performance_snapshot.py,3880
-scripts/generate_reviewer_bundle.py,4872
 scripts/generate_schema_assets.py,1620
 scripts/generate_tutorial_assets.py,11685
 scripts/release_smoke_matrix.py,3091

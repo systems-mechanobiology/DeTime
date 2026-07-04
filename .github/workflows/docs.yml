@@ -20,7 +20,6 @@ on:
       - "scripts/generate_method_cards.py"
       - "scripts/generate_notebook_gallery.py"
       - "scripts/generate_tutorial_assets.py"
-      - "scripts/generate_reviewer_bundle.py"
       - "src/detime/schema_assets/**"
       - "src/detime/registry.py"
       - "src/detime/schemas.py"
@@ -67,7 +66,6 @@ jobs:
           python examples/workflow_comparisons/compare_specialist_glue_vs_detime.py
           python benchmarks/token_benchmarks/generate_token_benchmarks.py
           python evals/agent/run_agent_evals.py
-          python scripts/generate_reviewer_bundle.py
           python scripts/check_doc_consistency.py
           mkdocs build --strict
 
