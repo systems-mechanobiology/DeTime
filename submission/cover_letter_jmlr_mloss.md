@@ -5,27 +5,33 @@ Dear Editors,
 We submit **DeTime** for consideration in the *Journal of Machine Learning
 Research* Machine Learning Open Source Software track.
 
+Project URL: <https://github.com/systems-mechanobiology/DeTime>
+
+License: BSD 3-Clause
+
+Software version for review: DeTime `0.1.2`
+
 DeTime is Python and CLI research software for reproducible time-series
-decomposition. It provides a clean software surface for configuring, running,
-profiling, saving, and validating decomposition runs that would otherwise
-be spread across notebook code, method-specific wrappers, and one-off scripts.
+decomposition. Its novelty is practical: it makes decomposition a consistent
+workflow across method families that are usually used through separate
+packages, notebook conventions, and output formats. Researchers can use the
+same Python API, command-line interface, result object, metadata fields,
+serialization format, and JSON schemas across retained decomposition methods.
+This makes decomposition outputs easier to reproduce, compare, inspect, and
+reuse in downstream machine-learning workflows.
 
-The canonical package namespace is `detime`. The older `tsdecomp` namespace is
-retained only as a deprecated top-level import and CLI alias. The public
-software surface is intentionally narrow and centers on four core maintained
-workflows: `SSA`, `STD`, `STDR`, and `MSSA`.
+The current implementation is centered on four maintained workflows: `SSA`,
+`STD`, `STDR`, and `MSSA`. Additional methods are available as wrappers,
+optional backends, or experimental paths with explicit maturity labels. The
+canonical package namespace is `detime`; the older `tsdecomp` namespace is kept
+only as a deprecated top-level import and CLI alias.
 
-This revision also makes a package-boundary change that we consider essential
-for software review. Benchmark-oriented artifact code, synthetic benchmark
-generators, leaderboard tooling, and benchmark-derived methods were separated
-into a companion repository, `systems-mechanobiology/de-time-bench`, so that
-the main submission is a clean software package rather than a mixed benchmark
-artifact.
-
-This submission is aligned to the `0.1.2` release candidate. Repository
-metadata, citation metadata, docs, and submission materials are aligned to that
-candidate; the existing `de-time-v0.1.1` tag is not moved, and the next public
-release should be cut as `de-time-v0.1.2`. The repository includes:
+The reviewed repository contains the reusable decomposition package, rather
+than a combined package-and-benchmark artifact. Benchmark-oriented artifact
+code, synthetic benchmark generators, leaderboard tooling, and
+benchmark-derived methods are kept outside the main package in the companion
+repository `systems-mechanobiology/de-time-bench`. The DeTime repository itself
+includes:
 
 - tests for the retained public interface,
 - strict documentation builds,
@@ -42,28 +48,28 @@ release should be cut as `de-time-v0.1.2`. The repository includes:
 - a dedicated `.[multivar]` smoke path for optional `MVMD` / `MEMD` backends,
 - migration guidance from the deprecated `tsdecomp` namespace.
 
-In the 2026-06-22 local release review run, the gated `detime` core-contract
-coverage report reached `92.58%`, while the separate package-wide report
-reached `88.41%`. We also include a reproducible runtime snapshot showing
-native speedups of `7.31x` for `SSA`, `6.44x` for `STD`, and `9.81x` for
-`STDR` relative to the Python fallback on one Windows / Python 3.11
-installation. Those release details are summarized in
-`submission/software_evidence.md`.
+The release evidence reports `92.58%` coverage for the reviewed `detime`
+core-contract scope and `88.41%` coverage package-wide. It also includes a
+reproducible runtime snapshot showing native speedups of `7.31x` for `SSA`,
+`6.44x` for `STD`, and `9.81x` for `STDR` relative to the Python fallback on
+one Windows / Python 3.11 installation. These release details are summarized
+in `submission/software_evidence.md`.
 
 We do not position DeTime as a replacement for specialist libraries such as
 `statsmodels`, `PyEMD`, `PyWavelets`, `PySDKit`, `SSALib`, or the maintained
-`sktime` VMD path. Instead, we position it as a reproducible software-contract layer
+`sktime` VMD path. Instead, DeTime contributes a reproducible software layer
 that standardizes configuration, result objects, package-level ergonomics, and
 selected native acceleration across a fragmented decomposition ecosystem.
 Primary method citations and official upstream package links are enumerated in
 `submission/software_evidence.md` and the generated docs reference page
 `docs/method-references.md`.
 
-Adoption is still early, and we do not claim a large external user community at
-this stage. We instead present the public repository, contributor
-documentation, issue templates, GitHub Discussions, the documentation site, and
-the release/publishing pipeline as auditable openness evidence while broader
-usage evidence accumulates.
+Current community and openness evidence includes the public GitHub repository,
+public documentation site, contributor guide, issue templates, GitHub
+Discussions, and release/publishing documentation. The repository currently has
+52 GitHub stars and 37 forks, and its commit history includes five commit
+authors. We present these as early evidence of visibility and maintainability,
+not as a claim of broad external adoption.
 
 Sincerely,
 
