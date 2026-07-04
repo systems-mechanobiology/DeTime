@@ -58,6 +58,9 @@ dependencies = [
 emd = [
   "EMD-signal>=1.6",
 ]
+vmd = [
+  "vmdpy>=0.2",
+]
 multivar = [
   "PySDKit>=0.4.23",
 ]
@@ -80,6 +83,7 @@ dev = [
   "mkdocs>=1.6",
   "tiktoken>=0.7",
   "twine>=5.1",
+  "vmdpy>=0.2",
 ]
 
 [project.urls]
