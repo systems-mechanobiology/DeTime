@@ -5,11 +5,9 @@ Dear Editors,
 We submit **DeTime** for consideration in the *Journal of Machine Learning
 Research* Machine Learning Open Source Software track.
 
-Project URL: <https://github.com/systems-mechanobiology/DeTime>
-
-License: BSD 3-Clause
-
-Software version for review: DeTime `0.1.2`
+The software is released under the BSD 3-Clause License and is available at
+<https://github.com/systems-mechanobiology/DeTime>. The version under review is
+DeTime `0.1.2`.
 
 DeTime is Python and CLI research software for reproducible time-series
 decomposition. Its novelty is practical: it makes decomposition a consistent
@@ -20,11 +18,11 @@ serialization format, and JSON schemas across retained decomposition methods.
 This makes decomposition outputs easier to reproduce, compare, inspect, and
 reuse in downstream machine-learning workflows.
 
-The current implementation is centered on four maintained workflows: `SSA`,
-`STD`, `STDR`, and `MSSA`. Additional methods are available as wrappers,
-optional backends, or experimental paths with explicit maturity labels. The
-canonical package namespace is `detime`; the older `tsdecomp` namespace is kept
-only as a deprecated top-level import and CLI alias.
+The current implementation is centered on four maintained decomposition
+methods: singular spectrum analysis (`SSA`), seasonal-trend-dispersion
+decomposition (`STD`), its robust variant (`STDR`), and multivariate singular
+spectrum analysis (`MSSA`). Additional methods are available as wrappers,
+optional backends, or experimental paths with explicit maturity labels.
 
 The reviewed repository contains the reusable decomposition package, rather
 than a combined package-and-benchmark artifact. Benchmark-oriented artifact
@@ -45,15 +43,14 @@ includes:
 - deterministic exact native `SSA` behavior in `speed_mode='exact'`,
 - packaged JSON schemas, compact result modes, metadata-based method
   shortlists, and an optional local MCP server for tool-based access,
-- a dedicated `.[multivar]` smoke path for optional `MVMD` / `MEMD` backends,
-- migration guidance from the deprecated `tsdecomp` namespace.
+- a dedicated `.[multivar]` smoke path for optional `MVMD` / `MEMD` backends.
 
-The release evidence reports `92.58%` coverage for the reviewed `detime`
-core-contract scope and `88.41%` coverage package-wide. It also includes a
-reproducible runtime snapshot showing native speedups of `7.31x` for `SSA`,
-`6.44x` for `STD`, and `9.81x` for `STDR` relative to the Python fallback on
-one Windows / Python 3.11 installation. These release details are summarized
-in `submission/software_evidence.md`.
+The release evidence includes pytest coverage reports: `92.58%` for the core
+`detime` modules used in the release gate and `88.41%` for the package-wide
+run. It also includes a small reproducible runtime snapshot showing native
+speedups of `7.31x` for `SSA`, `6.44x` for `STD`, and `9.81x` for `STDR`
+relative to the Python fallback on one Windows / Python 3.11 installation.
+These release details are summarized in `submission/software_evidence.md`.
 
 We do not position DeTime as a replacement for specialist libraries such as
 `statsmodels`, `PyEMD`, `PyWavelets`, `PySDKit`, `SSALib`, or the maintained
