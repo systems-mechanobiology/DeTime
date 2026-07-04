@@ -63,10 +63,11 @@ Primary method citations and official upstream package links are enumerated in
 
 Current community and openness evidence includes the public GitHub repository,
 public documentation site, contributor guide, issue templates, GitHub
-Discussions, and release/publishing documentation. The repository currently has
-52 GitHub stars and 37 forks, and its commit history includes five commit
-authors. We present these as early evidence of visibility and maintainability,
-not as a claim of broad external adoption.
+Discussions, and release/publishing documentation. Since the public repository
+was created on March 31, 2026, it has received 53 GitHub stars and 37 forks;
+its commit history includes five commit authors. We present these as early
+evidence of visibility and maintainability, not as a claim of broad external
+adoption.
 
 Sincerely,
 
