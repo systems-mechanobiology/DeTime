@@ -15,12 +15,12 @@ review.
 | Package-wide coverage JSON | `docs/assets/generated/evidence/coverage_package.json` |
 | Coverage summary JSON | `docs/assets/generated/evidence/coverage_summary.json` |
 
-The existing `de-time-v0.1.1` tag is not moved. The reviewed source tag follows
-the existing `de-time-v*` convention, and the public Python package is published
-as `detime-toolkit==0.1.2`. Install with:
+The reviewed source tag follows the existing `de-time-v*` convention. The
+public Python package is published as `detime-toolkit==0.1.2`, and the runtime
+import namespace remains `detime`. Install with:
 
 ```bash
 python -m pip install detime-toolkit==0.1.2
 ```
 
-The runtime import namespace remains `detime`.
+GitHub release assets should use the `detime_toolkit-0.1.2` artifact names.

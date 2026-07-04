@@ -69,7 +69,7 @@ python -m twine check dist/*
 Use release tags that match the standalone product:
 
 ```bash
-git tag de-time-v0.1.2
+git tag -a de-time-v0.1.2 -m "Release DeTime 0.1.2"
 git push origin de-time-v0.1.2
 ```
 

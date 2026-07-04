@@ -1,8 +1,8 @@
 # DeTime 0.1.2 Release Manifest
 
-This file records the release identity used for the JMLR-MLOSS software-paper
-candidate after the 2026-06-19 evidence audit and the 2026-07-04 public PyPI
-publication.
+This file records the public release identity used for the JMLR-MLOSS
+software-paper candidate after the 2026-06-19 evidence audit and the
+2026-07-04 PyPI publication.
 
 ## Identity
 
@@ -15,9 +15,8 @@ publication.
 | Source tag | `de-time-v0.1.2` |
 | Evidence audit date | 2026-06-19 |
 | PyPI publication date | 2026-07-04 |
-| Base commit before this evidence-lock patch | `a3716aba40162fe1be03dcbdb43962c8cbd4fe8c` |
 | License | BSD-3-Clause |
-| Python versions checked | 3.11.9 locally; CI matrix is documented for 3.10/3.12 |
+| Python versions checked | 3.11.9 locally; CI tests 3.10/3.12 on Ubuntu Linux, macOS, and Windows |
 | Reviewed surface | library, CLI, schemas, method metadata, docs, tests, release evidence |
 
 ## Evidence Files
@@ -49,6 +48,7 @@ import detime
 
 The release smoke matrix has been validated from the public PyPI package.
 
-The existing `de-time-v0.1.1` tag is not moved. The 0.1.2 target avoids
-rewriting a published tag and provides a clean reviewed snapshot for the
-resubmission.
+The `de-time-v0.1.2` source tag and the `detime-toolkit==0.1.2` PyPI
+distribution describe the same reviewed 0.1.2 release identity. The public
+package is installed as `detime-toolkit` and imported as `detime`; GitHub
+release assets should use the `detime_toolkit-0.1.2` artifact names.
