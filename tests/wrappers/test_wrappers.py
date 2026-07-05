@@ -169,7 +169,7 @@ def test_mvmd_and_memd_success_paths(monkeypatch) -> None:
     assert memd_result.components["imfs"].ndim == 3
 
 
-def test_std_multi_falls_back_to_ssa(monkeypatch) -> None:
+def test_std_multi_raises_without_backend(monkeypatch) -> None:
     import detime.methods.std_multi as std_multi_mod
 
     y = np.arange(24, dtype=float)
@@ -181,18 +181,8 @@ def test_std_multi_falls_back_to_ssa(monkeypatch) -> None:
         return real_import(name, globals, locals, fromlist, level)
 
     monkeypatch.setattr(builtins, "__import__", fake_import)
-    monkeypatch.setattr(
-        std_multi_mod,
-        "ssa_decompose",
-        lambda arr, params: DecompResult(
-            trend=np.asarray(arr, dtype=float),
-            season=np.zeros_like(arr),
-            residual=np.zeros_like(arr),
-            meta={"method": "SSA_FALLBACK"},
-        ),
-    )
-    result = std_multi_mod.std_multi_decompose(y, {"window": 12})
-    assert result.meta["method"] == "SSA_FALLBACK"
+    with pytest.raises(NotImplementedError, match="archived experimental prototype"):
+        std_multi_mod.std_multi_decompose(y, {"window": 12})
 
 
 def test_gabor_cluster_python_backend(monkeypatch: pytest.MonkeyPatch) -> None:

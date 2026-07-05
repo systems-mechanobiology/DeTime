@@ -4,7 +4,7 @@ from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 
 PRODUCT_NAME = "DeTime"
-DISTRIBUTION_NAME = "de-time"
+DISTRIBUTION_NAME = "detime-toolkit"
 CANONICAL_IMPORT = "detime"
 LEGACY_IMPORT = "tsdecomp"
 FALLBACK_VERSION = "0.1.2"

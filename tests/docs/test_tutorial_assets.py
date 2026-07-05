@@ -35,5 +35,5 @@ def test_generate_tutorial_assets_smoke(tmp_path) -> None:
     assert (output_root / "cli-and-profiling" / "multivariate" / "example_multivariate_summary.json").exists()
     assert (output_root / "cli-and-profiling" / "batch" / "series_a_meta.json").exists()
     assert (output_root / "cli-and-profiling" / "profile" / "ssa_profile_text.txt").exists()
-    assert (output_root / "cli-and-profiling" / "profile" / "std_native.txt").exists()
+    assert (output_root / "cli-and-profiling" / "profile" / "std_auto.txt").exists()
     assert (output_root / "cli-and-profiling" / "machine" / "method_registry_schema.json").exists()

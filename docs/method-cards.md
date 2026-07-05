@@ -22,7 +22,7 @@ not the canonical surface for any method listed below.
 - Summary: Multivariate SSA for shared-structure decomposition across channels.
 - Use when: multivariate component recovery; shared seasonal structure across channels
 - Avoid when: single-series workflows where a univariate core method is sufficient; very short series that cannot support a sensible window length
-- Key params: `window` (required), `rank` (null), `primary_period` (null)
+- Key params: `window` (null), `rank` (null), `primary_period` (null)
 - Input/backend: `multivariate` input, `native-backed` implementation, maturity `core maintained`
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.elementary`
@@ -35,7 +35,7 @@ See [Config Reference](config-reference.md#mssa) for the full parameter table.
 - Summary: Singular spectrum analysis for structured univariate decomposition.
 - Use when: accuracy-first univariate decomposition; component recovery
 - Avoid when: shared-model multivariate decomposition problems; very short series that cannot support a sensible window length
-- Key params: `window` (required), `rank` (null), `primary_period` (null)
+- Key params: `window` (null), `rank` (null), `primary_period` (null)
 - Input/backend: `univariate` input, `native-backed` implementation, maturity `core maintained`
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.elementary`
@@ -48,7 +48,7 @@ See [Config Reference](config-reference.md#ssa) for the full parameter table.
 - Summary: Fast seasonal-trend decomposition with dispersion-aware diagnostics.
 - Use when: fast seasonal-trend baselines; channelwise multivariate workflows
 - Avoid when: problems that require one shared latent model across channels; series where the dominant period is unknown and cannot be inferred reliably
-- Key params: `period` (required)
+- Key params: `period` (null)
 - Input/backend: `channelwise` input, `native-backed` implementation, maturity `core maintained`
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.dispersion`, `components.seasonal_shape`
@@ -61,7 +61,7 @@ See [Config Reference](config-reference.md#std) for the full parameter table.
 - Summary: Robust seasonal-trend decomposition for noisier periodic signals.
 - Use when: robust seasonal-trend decomposition; channelwise multivariate workflows
 - Avoid when: problems that require one shared latent model across channels; series where the dominant period is unknown and cannot be inferred reliably
-- Key params: `period` (required)
+- Key params: `period` (null)
 - Input/backend: `channelwise` input, `native-backed` implementation, maturity `core maintained`
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.dispersion`, `components.seasonal_shape`
@@ -272,11 +272,11 @@ See [Config Reference](config-reference.md#freqmoe_block) for the full parameter
 
 ### `GABOR_CLUSTER`
 
-- Summary: Experimental clustering-based decomposition path.
+- Summary: Experimental optional clustering path that requires a trained Gabor model.
 - Use when: research prototypes; exploratory clustering-style decomposition
 - Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows
 - Key params: `model` (null), `model_path` (null)
-- Input/backend: `univariate` input, `native-backed` implementation, maturity `experimental`
+- Input/backend: `univariate` input, `optional-backend` implementation, maturity `experimental`
 - Optional dependencies: faiss
 - Output components: `trend`, `season`, `residual`, `components.clusters`
 - References: [Method References](method-references.md#gabor_cluster)

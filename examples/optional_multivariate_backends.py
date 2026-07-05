@@ -36,7 +36,7 @@ def main() -> None:
             )
         except ImportError as exc:
             raise SystemExit(
-                f"{method} requires the optional multivariate backend. Install `de-time[multivar]` first."
+                f"{method} requires the optional multivariate backend. Install `detime-toolkit[multivar]` first."
             ) from exc
 
         print(f"{method} backend: {result.meta.get('backend_used')}")

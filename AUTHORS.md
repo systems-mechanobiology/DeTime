@@ -3,7 +3,7 @@
 ## Software Metadata
 
 The Python package metadata currently names Zipeng Wu as the package author and
-maintainer of the `de-time` distribution.
+maintainer of the `detime-toolkit` distribution.
 
 ## Paper Authors
 

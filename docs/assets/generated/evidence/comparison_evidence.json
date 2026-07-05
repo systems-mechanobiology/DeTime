@@ -9,7 +9,7 @@
       "mcp_tool_surface": "yes",
       "multivariate_support": "yes",
       "package": "DeTime",
-      "primary_scope": "Python/CLI decomposition package with a shared software contract",
+      "primary_scope": "workflow-oriented decomposition layer",
       "profiling_path": "yes",
       "unified_config_object": "yes",
       "unified_result_object": "yes"
@@ -82,7 +82,7 @@
     {
       "batch_cli": "no",
       "compact_output": "no",
-      "machine_readable_catalog": "no",
+      "machine_readable_catalog": "runtime registry; no DeTime schemas",
       "maturity_labeling": "ecosystem-level",
       "mcp_tool_surface": "no",
       "multivariate_support": "partial",
@@ -101,6 +101,7 @@
     "sktime": "0.33.2",
     "statsmodels": "0.14.5"
   },
+  "evidence_type": "curated feature audit",
   "family_fairness": [
     {
       "de_time_position": "wraps STL and MSTL under one config/result/CLI layer",
@@ -133,7 +134,7 @@
       "specialist_deeper_strength": "broader signal-decomposition toolkit with optional multivariate backends"
     }
   ],
-  "generated_at": "2026-06-19T18:21:25.250889+00:00",
+  "generated_at": "2026-07-05T10:13:31.410007+00:00",
   "install_matrix": [
     {
       "api_docs": "yes",
@@ -142,8 +143,8 @@
       "docs_website": "GitHub Pages",
       "github_release": "de-time-v0.1.2",
       "package": "DeTime",
-      "public_release_story": "0.1.2 release target from main",
-      "pypi_path": "tag-driven publish workflow",
+      "public_release_story": "0.1.2 public PyPI/GitHub release",
+      "pypi_path": "detime-toolkit",
       "reproducibility_script": "yes",
       "tutorials": "yes",
       "wheels": "yes"
@@ -293,7 +294,7 @@
       "cli_schema_command": "no",
       "compact_result_modes": "no",
       "json_schema_assets": "no",
-      "machine_readable_catalog": "no",
+      "machine_readable_catalog": "yes-runtime-registry",
       "mcp_surface": "no",
       "metadata_shortlist_interface": "no",
       "package": "sktime"

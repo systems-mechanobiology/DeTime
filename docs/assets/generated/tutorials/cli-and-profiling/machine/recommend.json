@@ -9,7 +9,7 @@
         ],
         "dependency_tier": "core",
         "example_config": {
-          "backend": "python",
+          "backend": "auto",
           "channel_names": [
             "channel_a",
             "channel_b",
@@ -24,15 +24,15 @@
           "speed_mode": "exact"
         },
         "family": "SSA",
-        "implementation": "python",
+        "implementation": "native-backed",
         "input_mode": "multivariate",
         "maturity": "flagship",
         "min_length": 24,
         "multivariate_support": "shared-model",
         "name": "MSSA",
-        "native_backed": false,
+        "native_backed": true,
         "not_recommended_for": [
-          "single-series workflows where a univariate flagship method is sufficient",
+          "single-series workflows where a univariate core method is sufficient",
           "very short series that cannot support a sensible window length"
         ],
         "optional_dependencies": [],
@@ -55,8 +55,8 @@
             "default": null,
             "description": "Shared embedding window length for aligned channels.",
             "name": "window",
-            "required": true,
-            "type": "int"
+            "required": false,
+            "type": "int | None"
           },
           {
             "common": true,
@@ -97,6 +97,30 @@
             "name": "season_components",
             "required": false,
             "type": "list[int] | None"
+          },
+          {
+            "common": false,
+            "default": 0.25,
+            "description": "Relative frequency tolerance for automatic seasonal grouping.",
+            "name": "season_freq_tol_ratio",
+            "required": false,
+            "type": "float"
+          },
+          {
+            "common": false,
+            "default": null,
+            "description": "Low-frequency threshold for automatic trend grouping.",
+            "name": "trend_freq_threshold",
+            "required": false,
+            "type": "float | None"
+          },
+          {
+            "common": false,
+            "default": 12,
+            "description": "Fast native mode iteration count when speed_mode='fast'.",
+            "name": "power_iterations",
+            "required": false,
+            "type": "int"
           }
         ],
         "recommended_for": [
@@ -121,11 +145,13 @@
       "rank": 1,
       "reason_codes": [
         "maturity:flagship",
+        "native_backed",
         "shared_multivariate",
         "accuracy_shortlist",
-        "multivariate_accuracy_bonus"
+        "multivariate_accuracy_bonus",
+        "long_series_native"
       ],
-      "score": 13.5,
+      "score": 15.75,
       "summary": "Multivariate SSA for shared-structure decomposition across channels."
     },
     {
@@ -169,10 +195,10 @@
           {
             "common": true,
             "default": null,
-            "description": "Seasonal period in samples.",
+            "description": "Seasonal period in samples. If omitted, DeTime estimates it.",
             "name": "period",
-            "required": true,
-            "type": "int"
+            "required": false,
+            "type": "int | None"
           },
           {
             "common": false,
@@ -262,10 +288,10 @@
           {
             "common": true,
             "default": null,
-            "description": "Seasonal period in samples.",
+            "description": "Seasonal period in samples. If omitted, DeTime estimates it.",
             "name": "period",
-            "required": true,
-            "type": "int"
+            "required": false,
+            "type": "int | None"
           },
           {
             "common": false,
@@ -315,18 +341,34 @@
     }
   ],
   "rejected_methods": {
+    "AMD_BLOCK": "univariate_only",
+    "AUTOFORMER_BLOCK": "univariate_only",
     "CEEMDAN": "univariate_only",
+    "DELELSTM_BLOCK": "univariate_only",
+    "DLINEAR_BLOCK": "univariate_only",
     "EMD": "univariate_only",
+    "FREQMOE_BLOCK": "univariate_only",
     "GABOR_CLUSTER": "univariate_only",
+    "INPARFORMER_BLOCK": "univariate_only",
+    "LEDDAM_BLOCK": "univariate_only",
     "MA_BASELINE": "univariate_only",
     "MEMD": "optional_backend_disabled",
+    "MOVING_AVERAGE_DECOMPOSITION_BLOCK": "univariate_only",
     "MSTL": "univariate_only",
     "MVMD": "optional_backend_disabled",
+    "NBEATS_INTERPRETABLE": "univariate_only",
+    "PARSIMONY_BLOCK": "univariate_only",
     "ROBUST_STL": "univariate_only",
     "SSA": "univariate_only",
     "STL": "univariate_only",
+    "ST_MTM_BLOCK": "univariate_only",
+    "TIMEKAN_BLOCK": "univariate_only",
+    "TIMES2D_BLOCK": "univariate_only",
     "VMD": "univariate_only",
-    "WAVELET": "univariate_only"
+    "WAVEFORM_BLOCK": "univariate_only",
+    "WAVELET": "univariate_only",
+    "WAVELETMIXER_BLOCK": "univariate_only",
+    "XPATCH_BLOCK": "univariate_only"
   },
   "request": {
     "allow_optional_backends": false,

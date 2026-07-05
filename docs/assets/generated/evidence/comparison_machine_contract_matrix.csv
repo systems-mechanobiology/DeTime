@@ -5,4 +5,4 @@ PyEMD,no,no,no,no,no,no,no
 PyWavelets,no,no,no,no,no,no,no
 PySDKit,no,no,no,no,no,no,no
 SSALib,no,no,no,no,no,no,no
-sktime,no,no,no,no,no,no,no
+sktime,no,no,no,yes-runtime-registry,no,no,no

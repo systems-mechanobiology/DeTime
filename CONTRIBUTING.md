@@ -1,6 +1,6 @@
 # Contributing to DeTime
 
-Thanks for contributing to `DeTime` (`de-time` / `detime`).
+Thanks for contributing to `DeTime` (`detime-toolkit` / `detime`).
 
 ## Scope
 
@@ -22,7 +22,7 @@ Contributions are welcome in these areas:
 ## Development setup
 
 ```bash
-cd /path/to/de-time
+cd /path/to/DeTime
 python3 -m pip install -U pip
 python3 -m pip install -e .[multivar]
 python3 -m pytest tests -q

@@ -106,7 +106,7 @@ CAPABILITY_MATRIX = [
         "primary_scope": "broad time-series ecosystem",
         "unified_config_object": "no",
         "unified_result_object": "no",
-        "machine_readable_catalog": "no",
+        "machine_readable_catalog": "runtime registry; no DeTime schemas",
         "batch_cli": "no",
         "profiling_path": "no",
         "multivariate_support": "partial",
@@ -119,8 +119,8 @@ CAPABILITY_MATRIX = [
 INSTALL_MATRIX = [
     {
         "package": "DeTime",
-        "public_release_story": f"{__version__} release target from main",
-        "pypi_path": "tag-driven publish workflow",
+        "public_release_story": f"{__version__} public PyPI/GitHub release",
+        "pypi_path": "detime-toolkit",
         "github_release": f"de-time-v{__version__}",
         "wheels": "yes",
         "ci_platforms": "ubuntu, macOS, windows",
@@ -309,7 +309,7 @@ MACHINE_CONTRACT_MATRIX = [
         "json_schema_assets": "no",
         "compact_result_modes": "no",
         "metadata_shortlist_interface": "no",
-        "machine_readable_catalog": "no",
+        "machine_readable_catalog": "yes-runtime-registry",
         "cli_schema_command": "no",
         "artifact_contract": "no",
         "mcp_surface": "no",
@@ -344,6 +344,7 @@ def main() -> int:
     payload = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "release_target_version": __version__,
+        "evidence_type": "curated feature audit",
         "audit_date": AUDIT_DATE,
         "comparator_versions": COMPARATOR_VERSIONS,
         "runtime_memory_boundary": "Feature audit only; no cross-package runtime or peak-memory ranking is claimed.",
@@ -362,9 +363,9 @@ def main() -> int:
     _write_csv(OUTPUT_DIR / "comparison_machine_contract_matrix.csv", MACHINE_CONTRACT_MATRIX)
 
     markdown_lines = [
-        "# Comparison Evidence",
+        "# Curated Comparison Evidence",
         "",
-        f"Generated for DeTime `{__version__}` on {payload['generated_at']}.",
+        f"Curated for DeTime `{__version__}` on {payload['generated_at']}.",
         "",
         f"Audit date: {AUDIT_DATE}.",
         "",

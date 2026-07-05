@@ -24,7 +24,7 @@ Published stdout from the current docs build:
 ```text
 method=SSA
 backend_requested=auto
-backend_used=native
+backend_used=python
 speed_mode=exact
 repeat=5
 warmup=1
@@ -43,30 +43,30 @@ python -m detime profile \
   --series examples/data/example_series.csv \
   --col value \
   --param period=12 \
-  --backend native \
+  --backend auto \
   --repeat 10 \
   --warmup 2 \
   --format text \
-  --output out/profile/std_native.txt
+  --output out/profile/std_auto.txt
 ```
 
 Published command stdout:
 
 ```text
-Profile report written to out/profile/std_native.txt
+Profile report written to out/profile/std_auto.txt
 ```
 
 Published saved report:
 
-- [std_native.txt](../assets/generated/tutorials/cli-and-profiling/profile/std_native.txt)
-- [std_native_stdout.txt](../assets/generated/tutorials/cli-and-profiling/profile/std_native_stdout.txt)
+- [std_auto.txt](../assets/generated/tutorials/cli-and-profiling/profile/std_auto.txt)
+- [std_auto_stdout.txt](../assets/generated/tutorials/cli-and-profiling/profile/std_auto_stdout.txt)
 
 Representative saved report excerpt:
 
 ```text
 method=STD
-backend_requested=native
-backend_used=native
+backend_requested=auto
+backend_used=python
 speed_mode=exact
 repeat=10
 warmup=2

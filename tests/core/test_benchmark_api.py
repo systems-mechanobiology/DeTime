@@ -45,6 +45,16 @@ def test_benchmark_helpers_cover_env_headers_tree_and_cache(monkeypatch, tmp_pat
     headers = benchmark._request_headers()
     assert headers["User-Agent"] == "de-time-benchmark-runner"
     assert headers["Authorization"] == "Bearer secret"
+    scrubbed = benchmark._scrub_external_runner_env(
+        {
+            "HF_TOKEN": "secret",
+            "HUGGINGFACE_HUB_TOKEN": "secret",
+            "GITHUB_TOKEN": "secret",
+            "AWS_ACCESS_KEY_ID": "secret",
+            "SAFE_ENV": "ok",
+        }
+    )
+    assert scrubbed == {"SAFE_ENV": "ok"}
 
     siblings = benchmark._tree_entries({"siblings": [{"type": "file", "path": "a.py"}, "bad"]})
     value = benchmark._tree_entries({"value": [{"type": "file", "path": "b.py"}]})
@@ -128,6 +138,7 @@ def test_run_tsdecompose_benchmark_builds_smoke_command(monkeypatch, tmp_path) -
         methods="stl",
         n_samples=1,
         no_aggregate=True,
+        allow_external_code=True,
     )
 
     command = captured["command"]
@@ -163,6 +174,7 @@ def test_run_tsdecompose_benchmark_covers_full_command_without_check(monkeypatch
         plots=True,
         env={"DETIME_TEST_ENV": "1"},
         check=False,
+        allow_external_code=True,
     )
 
     assert result.ok is False
@@ -184,7 +196,17 @@ def test_run_tsdecompose_benchmark_raises_on_failure(monkeypatch, tmp_path) -> N
     )
 
     with pytest.raises(benchmark.BenchmarkRunError) as excinfo:
-        benchmark.run_tsdecompose_benchmark(benchmark_dir=source_dir)
+        benchmark.run_tsdecompose_benchmark(benchmark_dir=source_dir, allow_external_code=True)
 
     assert excinfo.value.result.returncode == 2
     assert excinfo.value.result.stderr == "failed"
+
+
+def test_run_tsdecompose_benchmark_requires_external_code_opt_in(tmp_path) -> None:
+    source_dir = tmp_path / "code" / "TSDecompose"
+    runner = source_dir / "scripts" / "run_paper_benchmark.py"
+    runner.parent.mkdir(parents=True)
+    runner.write_text("# runner\n", encoding="utf-8")
+
+    with pytest.raises(benchmark.BenchmarkSourceError, match="executes external benchmark code"):
+        benchmark.run_tsdecompose_benchmark(benchmark_dir=source_dir)

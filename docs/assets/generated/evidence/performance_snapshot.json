@@ -1,9 +1,9 @@
 {
+  "experimental_excluded_from_release_evidence": [
+    "GABOR_CLUSTER"
+  ],
   "generated_at": "2026-06-19T18:16:19.679621+00:00",
   "native_capabilities": {
-    "gabor_cluster_decompose": true,
-    "gabor_istft_rfft": true,
-    "gabor_stft_rfft": true,
     "ma_baseline_decompose": true,
     "mssa_decompose": true,
     "ssa_decompose": true,
@@ -284,58 +284,6 @@
       "series_shape": [
         240
       ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "max_ms": 8.7843,
-      "mean_ms": 3.303675,
-      "method": "GABOR_CLUSTER",
-      "min_ms": 1.4044,
-      "params": {
-        "hop": 16,
-        "model": "synthetic_gabor_centroids",
-        "n_clusters": 6,
-        "n_fft": 64,
-        "trend_freq_thr": 0.15,
-        "win_len": 32
-      },
-      "samples_ms": [
-        8.7843,
-        1.5195,
-        1.5065,
-        1.4044
-      ],
-      "series_length": 240,
-      "series_shape": [
-        240
-      ]
-    },
-    {
-      "backend_requested": "native",
-      "backend_used": "native",
-      "max_ms": 0.2131,
-      "mean_ms": 0.181275,
-      "method": "GABOR_CLUSTER",
-      "min_ms": 0.1677,
-      "params": {
-        "hop": 16,
-        "model": "synthetic_gabor_centroids",
-        "n_clusters": 6,
-        "n_fft": 64,
-        "trend_freq_thr": 0.15,
-        "win_len": 32
-      },
-      "samples_ms": [
-        0.2131,
-        0.1753,
-        0.169,
-        0.1677
-      ],
-      "series_length": 240,
-      "series_shape": [
-        240
-      ]
     }
   ],
   "summary": [
@@ -374,12 +322,6 @@
       "native_mean_ms": 13.8121,
       "python_mean_ms": 47.85585,
       "speedup": 3.464777
-    },
-    {
-      "method": "GABOR_CLUSTER",
-      "native_mean_ms": 0.181275,
-      "python_mean_ms": 3.303675,
-      "speedup": 18.224659
     }
   ]
 }

@@ -216,29 +216,18 @@ def call_tool(name: str, arguments: Dict[str, Any] | None = None) -> dict[str, A
 
 
 def _read_message(stdin: Any) -> dict[str, Any] | None:
-    content_length: int | None = None
-    while True:
-        line = stdin.readline()
-        if not line:
-            return None
-        if line in (b"\r\n", b"\n"):
-            break
-        header = line.decode("utf-8").strip()
-        if header.lower().startswith("content-length:"):
-            content_length = int(header.split(":", 1)[1].strip())
-
-    if content_length is None:
-        raise RuntimeError("Missing Content-Length header.")
-    body = stdin.read(content_length)
-    if not body:
+    line = stdin.readline()
+    if not line:
         return None
-    return json.loads(body.decode("utf-8"))
+    text = line.decode("utf-8").strip()
+    if not text:
+        raise RuntimeError("Empty MCP stdio message.")
+    return json.loads(text)
 
 
 def _write_message(stdout: Any, payload: dict[str, Any]) -> None:
-    body = json.dumps(payload, default=_json_default).encode("utf-8")
-    stdout.write(f"Content-Length: {len(body)}\r\n\r\n".encode("utf-8"))
-    stdout.write(body)
+    body = json.dumps(payload, default=_json_default, separators=(",", ":")).encode("utf-8")
+    stdout.write(body + b"\n")
     stdout.flush()
 
 
@@ -270,7 +259,7 @@ def serve_stdio() -> int:
         try:
             if method == "initialize":
                 result = {
-                    "protocolVersion": "2024-11-05",
+                    "protocolVersion": "2025-06-18",
                     "serverInfo": {"name": "detime-mcp", "version": installed_version()},
                     "capabilities": {"tools": {}},
                     "instructions": (

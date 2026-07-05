@@ -1,6 +1,6 @@
-# Comparison Evidence
+# Curated Comparison Evidence
 
-Generated for DeTime `0.1.2` on 2026-06-19T18:21:25.250889+00:00.
+Curated for DeTime `0.1.2` on 2026-07-05T10:13:31.410007+00:00.
 
 Audit date: 2026-06-19.
 
@@ -19,19 +19,19 @@ Runtime and memory boundary: feature audit only; no cross-package runtime or pea
 
 | package | primary_scope | unified_config_object | unified_result_object | machine_readable_catalog | batch_cli | profiling_path | multivariate_support | maturity_labeling | compact_output | mcp_tool_surface |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| DeTime | Python/CLI decomposition package with a shared software contract | yes | yes | yes | yes | yes | yes | explicit | yes | yes |
+| DeTime | workflow-oriented decomposition layer | yes | yes | yes | yes | yes | yes | explicit | yes | yes |
 | statsmodels | classical decomposition and modeling | no | partial | no | no | no | limited | implicit | no | no |
 | PyEMD | EMD-family toolkit | no | no | no | no | no | family-specific | family-specific | no | no |
 | PyWavelets | wavelet toolkit | no | no | no | no | no | transform-specific | family-specific | no | no |
 | PySDKit | signal decomposition toolkit | partial | partial | no | limited | no | yes | less explicit | no | no |
 | SSALib | SSA specialist toolkit | SSA-specific | SSA-specific | no | no | no | no | focused | no | no |
-| sktime | broad time-series ecosystem | no | no | no | no | no | partial | ecosystem-level | no | no |
+| sktime | broad time-series ecosystem | no | no | runtime registry; no DeTime schemas | no | no | partial | ecosystem-level | no | no |
 
 ## Install and reproducibility matrix
 
 | package | public_release_story | pypi_path | github_release | wheels | ci_platforms | docs_website | tutorials | api_docs | coverage_disclosure | reproducibility_script |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| DeTime | 0.1.2 release target from main | tag-driven publish workflow | de-time-v0.1.2 | yes | ubuntu, macOS, windows | GitHub Pages | yes | yes | dual report | yes |
+| DeTime | 0.1.2 public PyPI/GitHub release | detime-toolkit | de-time-v0.1.2 | yes | ubuntu, macOS, windows | GitHub Pages | yes | yes | dual report | yes |
 | statsmodels | yes | yes | yes | yes | yes | yes | yes | yes | project-dependent | project-dependent |
 | PyEMD | yes | yes | yes | partial | project-dependent | partial | partial | partial | project-dependent | no |
 | PyWavelets | yes | yes | yes | yes | yes | yes | yes | yes | project-dependent | no |
@@ -59,7 +59,7 @@ Runtime and memory boundary: feature audit only; no cross-package runtime or pea
 | PyWavelets | no | no | no | no | no | no | no |
 | PySDKit | no | no | no | no | no | no | no |
 | SSALib | no | no | no | no | no | no | no |
-| sktime | no | no | no | no | no | no | no |
+| sktime | no | no | no | yes-runtime-registry | no | no | no |
 
 ## Runtime snapshot source
 

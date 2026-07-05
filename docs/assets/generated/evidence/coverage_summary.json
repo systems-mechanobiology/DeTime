@@ -7,7 +7,7 @@
   "source_import_policy": "The editable import hook named _de_time_editable was removed before pytest startup and the checkout src directory was inserted first on sys.path.",
   "tests": {
     "command": "pytest tests --cov=detime",
-    "result": "123 passed",
+    "result": "113 passed, 11 skipped",
     "warnings": 3
   },
   "coverage": {
@@ -18,7 +18,7 @@
       "missing_lines": 152,
       "percent": 92.58,
       "json": "coverage_core.json",
-      "denominator": "Canonical core-plus-maintained detime surface; excludes CLI wrappers, I/O helpers, visualization helpers, deprecated tsdecomp compatibility, and optional/non-core integrations."
+      "denominator": "Selected canonical detime core algorithm contract files; excludes CLI wrappers, I/O helpers, visualization helpers, deprecated tsdecomp compatibility, and optional/non-core integrations."
     },
     "package_wide": {
       "config": ".coveragerc.package",

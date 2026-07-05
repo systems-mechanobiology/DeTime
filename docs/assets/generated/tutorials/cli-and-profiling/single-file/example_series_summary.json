@@ -14,7 +14,7 @@
     "shape": [
       120
     ],
-    "mean": -0.0008501617228019137,
+    "mean": -0.0008501617228019134,
     "std": 0.7036104657683112,
     "min": -1.0061953849851841,
     "max": 1.002573622522299,
@@ -24,24 +24,17 @@
     "shape": [
       120
     ],
-    "mean": -6.015442773528908e-16,
-    "std": 1.5016687293382367e-15,
-    "min": -6.439293542825908e-15,
+    "mean": -6.165225303657781e-16,
+    "std": 1.5069238550385283e-15,
+    "min": -6.8833827526759706e-15,
     "max": 2.55351295663786e-15,
-    "l2_norm": 1.7720714963979276e-14
+    "l2_norm": 1.783564813063815e-14
   },
   "components": {},
   "meta": {
     "method": "SSA",
     "window": 24,
     "rank": 6,
-    "components": 4,
-    "singular_values": [
-      63.75833261361802,
-      24.256849743658037,
-      23.94408981161967,
-      2.5944250905181305
-    ],
     "trend_components": [
       0,
       3
@@ -50,11 +43,9 @@
       1,
       2
     ],
-    "native_solver": "jacobi-eigen",
-    "speed_mode": "exact",
-    "native_method": "SSA_NATIVE",
     "backend_requested": "auto",
-    "backend_used": "native",
+    "backend_used": "python",
+    "speed_mode": "exact",
     "input_shape": [
       120
     ],
@@ -71,8 +62,8 @@
     "quality_metrics": {
       "trend_l2_norm": 15.086231514824286,
       "season_l2_norm": 7.707672102369079,
-      "residual_l2_norm": 1.7720714963979276e-14,
-      "residual_ratio": 1.0617278944623802e-15
+      "residual_l2_norm": 1.783564813063815e-14,
+      "residual_ratio": 1.068614058439887e-15
     },
     "warnings": [
       "no_named_components"

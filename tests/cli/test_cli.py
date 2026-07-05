@@ -78,9 +78,11 @@ def test_backend_selection_passes_flags(monkeypatch, tmp_path):
 
 
 def test_parse_params_and_module_entrypoint(monkeypatch):
-    params = cli.parse_params(["window=12", "robust=true", "name=SSA", "bad"])
+    params = cli.parse_params(["window=12", "robust=true", "name=SSA"])
     assert params == {"window": 12, "robust": True, "name": "SSA"}
     assert cli.parse_params([]) == {}
+    with pytest.raises(ValueError, match="Malformed --param"):
+        cli.parse_params(["bad"])
 
     called = {}
     monkeypatch.delenv("DETIME_CLI_BRAND", raising=False)
@@ -412,7 +414,9 @@ def test_batch_command_covers_empty_success_and_error_paths(monkeypatch, tmp_pat
         plot=True,
     )
 
-    cli.cmd_batch(args)
+    with pytest.raises(SystemExit) as excinfo:
+        cli.cmd_batch(args)
+    assert excinfo.value.code == 1
     assert "No files found" in capsys.readouterr().out
 
     first = tmp_path / "first.csv"
@@ -571,6 +575,7 @@ def test_benchmark_command_outputs_json(monkeypatch, tmp_path, capsys):
         assert kwargs["smoke"] is True
         assert kwargs["methods"] == "stl"
         assert kwargs["out_dir"] == str(tmp_path / "bench")
+        assert kwargs["allow_external_code"] is True
         return BenchmarkRunResult(
             benchmark_dir=tmp_path / "source",
             output_dir=tmp_path / "bench",
@@ -596,6 +601,7 @@ def test_benchmark_command_outputs_json(monkeypatch, tmp_path, capsys):
         str(tmp_path / "bench"),
         "--format",
         "json",
+        "--allow-external-benchmark-code",
     ]
     try:
         cli.main()

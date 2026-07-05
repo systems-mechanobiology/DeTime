@@ -77,8 +77,11 @@ def parse_params(param_list: List[str]) -> Dict[str, Any]:
 
     for item in param_list:
         if "=" not in item:
-            continue
+            raise ValueError(f"Malformed --param value '{item}'. Expected key=value.")
         key, val = item.split("=", 1)
+        key = key.strip()
+        if not key:
+            raise ValueError(f"Malformed --param value '{item}'. Expected non-empty key=value.")
 
         try:
             params[key] = json.loads(val)
@@ -223,7 +226,7 @@ def cmd_batch(args):
     files = sorted(glob.glob(args.glob))
     if not files:
         print(f"No files found for glob: {args.glob}")
-        return
+        raise SystemExit(1)
 
     params = parse_params(args.param)
     cols = _parse_cols_arg(getattr(args, "cols", None))
@@ -232,6 +235,8 @@ def cmd_batch(args):
 
     print(f"Found {len(files)} files. Processing...")
 
+    failures: list[tuple[str, Exception]] = []
+    successes = 0
     for fpath in files:
         try:
             try:
@@ -278,8 +283,15 @@ def cmd_batch(args):
             if args.plot:
                 _ensure_plot_supported(series)
                 plot_components(res, series, save_path=out_dir / f"{name}_plot.png")
+            successes += 1
         except Exception as exc:
+            failures.append((fpath, exc))
             print(f"Error processing {fpath}: {exc}")
+
+    if successes == 0:
+        raise SystemExit(1)
+    if failures:
+        print(f"Completed {successes} file(s) with {len(failures)} failure(s).")
 
 
 def cmd_profile(args):
@@ -392,6 +404,7 @@ def cmd_benchmark(args):
         plots=args.plots,
         no_aggregate=args.no_aggregate,
         timeout=args.timeout,
+        allow_external_code=args.allow_external_code,
     )
     if args.format == "json":
         print(_json_dump(result.as_dict()))
@@ -471,7 +484,7 @@ def main():
     p_run.add_argument("--series", required=True, help="Path to input series (csv/parquet)")
     _add_series_column_args(p_run)
     p_run.add_argument("--param", action="append", help="Method params as key=value")
-    p_run.add_argument("--backend", default="auto", help="Backend preference (auto/native/python/gpu)")
+    p_run.add_argument("--backend", default="auto", help="Backend preference (auto/native/python)")
     p_run.add_argument("--speed-mode", default="exact", help="Speed mode (exact/fast)")
     p_run.add_argument("--n-jobs", type=int, default=1, help="Parallel job count")
     p_run.add_argument("--profile", action="store_true", help="Record runtime metadata")
@@ -495,7 +508,7 @@ def main():
     p_batch.add_argument("--glob", required=True, help="Glob pattern for input files")
     _add_series_column_args(p_batch)
     p_batch.add_argument("--param", action="append")
-    p_batch.add_argument("--backend", default="auto", help="Backend preference (auto/native/python/gpu)")
+    p_batch.add_argument("--backend", default="auto", help="Backend preference (auto/native/python)")
     p_batch.add_argument("--speed-mode", default="exact", help="Speed mode (exact/fast)")
     p_batch.add_argument("--n-jobs", type=int, default=1, help="Parallel job count")
     p_batch.add_argument("--profile", action="store_true", help="Record runtime metadata")
@@ -518,7 +531,7 @@ def main():
     p_profile.add_argument("--series", required=True, help="Path to input series (csv/parquet)")
     _add_series_column_args(p_profile)
     p_profile.add_argument("--param", action="append", help="Method params as key=value")
-    p_profile.add_argument("--backend", default="auto", help="Backend preference (auto/native/python/gpu)")
+    p_profile.add_argument("--backend", default="auto", help="Backend preference (auto/native/python)")
     p_profile.add_argument("--speed-mode", default="exact", help="Speed mode (exact/fast)")
     p_profile.add_argument("--n-jobs", type=int, default=1, help="Parallel job count")
     p_profile.add_argument("--device", default="cpu", help="Execution device")
@@ -567,7 +580,10 @@ def main():
     )
     p_benchmark.add_argument(
         "--benchmark-dir",
-        help="Existing local code/TSDecompose benchmark directory. If omitted, DeTime downloads the HF source snapshot.",
+        help=(
+            "Existing local code/TSDecompose benchmark directory. If omitted, DeTime downloads "
+            "the pinned HF source snapshot after --allow-external-benchmark-code is set."
+        ),
     )
     p_benchmark.add_argument(
         "--cache-dir",
@@ -578,7 +594,17 @@ def main():
         default="Zipeng365/TSDecompose-Benchmark",
         help="Hugging Face dataset repo containing the benchmark source bundle.",
     )
-    p_benchmark.add_argument("--revision", default="main", help="Dataset revision to download.")
+    p_benchmark.add_argument(
+        "--revision",
+        default="ff178deae0d4ad21962a38f7588fd2971845469d",
+        help="Pinned dataset revision to download.",
+    )
+    p_benchmark.add_argument(
+        "--allow-external-benchmark-code",
+        dest="allow_external_code",
+        action="store_true",
+        help="Allow downloading and executing the external benchmark bundle.",
+    )
     p_benchmark.add_argument(
         "--force-download",
         action="store_true",

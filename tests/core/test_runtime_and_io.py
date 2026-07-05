@@ -117,8 +117,8 @@ def test_backend_runtime_helpers_cover_legacy_keys_and_profile_metadata(monkeypa
     with pytest.raises(ValueError, match="Unsupported speed_mode"):
         backends._normalize_speed_mode("warp")
 
-    with pytest.raises(ValueError, match="GPU backend"):
-        backends.resolve_backend("SSA", backends.RuntimeOptions(backend="gpu"))
+    with pytest.raises(ValueError, match="Unsupported backend"):
+        backends.split_runtime_params({backends.RUNTIME_KEY: {"backend": "gpu"}})
 
     monkeypatch.setattr(backends, "native_extension_available", lambda: True)
     monkeypatch.setattr(backends, "has_native_method", lambda name: True)

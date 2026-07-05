@@ -25,12 +25,11 @@ comparison, see [Method Matrix](method-matrix.md).
   Method-specific parameters. Examples include `period` for `STD`, `window`
   and `rank` for `SSA`, and `primary_period` for automatic grouping.
 - `return_components: list[str] | None = None`
-  Compatibility field reserved for older callers. Current stable entrypoints
-  return the full `DecompResult`; methods may ignore this field.
-- `backend: "auto" | "native" | "python" | "gpu" = "auto"`
+  Optional list of extra component names to retain in `result.components`.
+  `trend`, `season`, and `residual` are always returned.
+- `backend: "auto" | "native" | "python" = "auto"`
   Backend preference. `auto` uses a native kernel when one exists, `python`
-  forces the Python implementation, `native` requires the native path, and
-  `gpu` is reserved and raises unless a method explicitly documents support.
+  forces the Python implementation, and `native` requires the native path.
 - `speed_mode: "exact" | "fast" = "exact"`
   Runtime accuracy policy. For native `SSA`, `exact` follows the deterministic
   SVD-backed path and `fast` uses the approximate iterative kernel.
@@ -49,7 +48,7 @@ comparison, see [Method Matrix](method-matrix.md).
   Optional channel labels for multivariate inputs. These are copied into result
   metadata and saved artifacts.
 
-Validation errors come from Pydantic. Invalid backend names, negative
+Validation errors come from Pydantic. Invalid backend names, non-positive
 `n_jobs`, or malformed parameter payloads fail before decomposition starts.
 
 ## `DecompResult`
@@ -97,7 +96,9 @@ which should match the original input up to the documented method tolerance.
 
 Backend resolution is method-specific:
 
-- `SSA`, `STD`, `STDR`, `MA_BASELINE`, `MSSA`, `VMD`, and `GABOR_CLUSTER` can use native kernels.
+- `SSA`, `STD`, `STDR`, `MA_BASELINE`, `MSSA`, and `VMD` can use native kernels.
+- `GABOR_CLUSTER` remains an experimental optional clustering path that requires
+  a trained model object or model path.
 - `MVMD` and `MEMD` are optional-backend wrappers and require the `multivar`
   extra.
 

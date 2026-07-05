@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from difflib import get_close_matches
 from typing import Any, Callable, Dict, Literal
 
 import numpy as np
@@ -250,12 +251,12 @@ METHOD_METADATA: Dict[str, Dict[str, Any]] = {
     "GABOR_CLUSTER": {
         "family": "Experimental",
         "maturity": "experimental",
-        "implementation": "native-backed",
-        "dependency_tier": "core",
+        "implementation": "optional-backend",
+        "dependency_tier": "optional-backend",
         "multivariate_support": "univariate",
-        "native_backed": True,
+        "native_backed": False,
         "min_length": 16,
-        "summary": "Experimental clustering-based decomposition path.",
+        "summary": "Experimental optional clustering path that requires a trained Gabor model.",
         "recommended_for": [
             "research prototypes",
             "exploratory clustering-style decomposition",
@@ -949,31 +950,36 @@ def _param_doc(
 
 METHOD_PARAMETER_GUIDE: Dict[str, list[Dict[str, Any]]] = {
     "SSA": [
-        _param_doc("window", "int", "Embedding window length for trajectory-matrix construction.", required=True),
+        _param_doc("window", "int | None", "Embedding window length for trajectory-matrix construction.", default=None),
         _param_doc("rank", "int | None", "Number of elementary components to retain before grouping.", default=None),
         _param_doc("primary_period", "int | None", "Dominant seasonal period used by automatic grouping.", default=None),
         _param_doc("fs", "float", "Sampling frequency used by frequency-based grouping.", default=1.0, common=False),
         _param_doc("trend_components", "list[int] | None", "Explicit component indexes assigned to trend.", default=None, common=False),
         _param_doc("season_components", "list[int] | None", "Explicit component indexes assigned to season.", default=None, common=False),
+        _param_doc("season_freq_tol_ratio", "float", "Relative frequency tolerance for automatic seasonal grouping.", default=0.25, common=False),
+        _param_doc("trend_freq_threshold", "float | None", "Low-frequency threshold for automatic trend grouping.", default=None, common=False),
         _param_doc("power_iterations", "int", "Fast native mode iteration count when speed_mode='fast'.", default=4, common=False),
     ],
     "STD": [
-        _param_doc("period", "int", "Seasonal period in samples.", required=True),
+        _param_doc("period", "int | None", "Seasonal period in samples. If omitted, DeTime estimates it.", default=None),
         _param_doc("max_period_search", "int | None", "Optional search horizon when period inference is enabled.", default=None, common=False),
         _param_doc("eps", "float", "Small numerical guard for dispersion calculations.", default=1e-8, common=False),
     ],
     "STDR": [
-        _param_doc("period", "int", "Seasonal period in samples.", required=True),
+        _param_doc("period", "int | None", "Seasonal period in samples. If omitted, DeTime estimates it.", default=None),
         _param_doc("max_period_search", "int | None", "Optional search horizon when period inference is enabled.", default=None, common=False),
         _param_doc("eps", "float", "Small numerical guard for robust dispersion calculations.", default=1e-8, common=False),
     ],
     "MSSA": [
-        _param_doc("window", "int", "Shared embedding window length for aligned channels.", required=True),
+        _param_doc("window", "int | None", "Shared embedding window length for aligned channels.", default=None),
         _param_doc("rank", "int | None", "Number of shared elementary components to retain.", default=None),
         _param_doc("primary_period", "int | None", "Dominant shared period used by automatic grouping.", default=None),
         _param_doc("fs", "float", "Sampling frequency used by frequency-based grouping.", default=1.0, common=False),
         _param_doc("trend_components", "list[int] | None", "Explicit component indexes assigned to trend.", default=None, common=False),
         _param_doc("season_components", "list[int] | None", "Explicit component indexes assigned to season.", default=None, common=False),
+        _param_doc("season_freq_tol_ratio", "float", "Relative frequency tolerance for automatic seasonal grouping.", default=0.25, common=False),
+        _param_doc("trend_freq_threshold", "float | None", "Low-frequency threshold for automatic trend grouping.", default=None, common=False),
+        _param_doc("power_iterations", "int", "Fast native mode iteration count when speed_mode='fast'.", default=12, common=False),
     ],
     "STL": [
         _param_doc("period", "int", "Seasonal period passed to statsmodels STL.", required=True),
@@ -990,6 +996,7 @@ METHOD_PARAMETER_GUIDE: Dict[str, list[Dict[str, Any]]] = {
         _param_doc("period", "int", "Seasonal period passed to robust statsmodels STL.", required=True),
         _param_doc("seasonal", "int | None", "Odd LOESS seasonal smoother length.", default=None, common=False),
         _param_doc("trend", "int | None", "Odd LOESS trend smoother length.", default=None, common=False),
+        _param_doc("robust", "bool", "Whether to use robust LOESS fitting.", default=True, common=False),
     ],
     "EMD": [
         _param_doc("n_imfs", "int | None", "Maximum number of intrinsic mode functions to retain.", default=None),
@@ -997,21 +1004,30 @@ METHOD_PARAMETER_GUIDE: Dict[str, list[Dict[str, Any]]] = {
         _param_doc("trend_imfs", "list[int] | None", "Explicit IMF indexes assigned to trend.", default=None, common=False),
         _param_doc("season_imfs", "list[int] | None", "Explicit IMF indexes assigned to season.", default=None, common=False),
         _param_doc("fs", "float", "Sampling frequency used by grouping heuristics.", default=1.0, common=False),
+        _param_doc("season_freq_tol_ratio", "float", "Relative frequency tolerance for automatic seasonal grouping.", default=0.25, common=False),
+        _param_doc("trend_freq_threshold", "float | None", "Low-frequency threshold for automatic trend grouping.", default=None, common=False),
     ],
     "CEEMDAN": [
         _param_doc("trials", "int", "Number of noise-assisted ensemble trials.", default=50),
         _param_doc("noise_width", "float", "Relative width of the injected noise.", default=0.05),
         _param_doc("primary_period", "int | None", "Period hint for grouping IMFs into season and trend.", default=None),
         _param_doc("fs", "float", "Sampling frequency used by grouping heuristics.", default=1.0, common=False),
+        _param_doc("trend_freq_max", "float | None", "Maximum dominant frequency assigned to the trend.", default=None, common=False),
+        _param_doc("season_band_factor", "float", "Multiplier around the primary seasonal frequency.", default=2.0, common=False),
     ],
     "VMD": [
         _param_doc("K", "int", "Number of variational modes.", default=4),
         _param_doc("alpha", "float", "Bandwidth penalty parameter.", default=2000.0),
+        _param_doc("periods", "list[int] | None", "Optional seasonal periods used to derive the mode count.", default=None, common=False),
         _param_doc("tau", "float", "Dual ascent time step.", default=0.0, common=False),
         _param_doc("DC", "bool", "Keep the first mode at zero frequency.", default=False, common=False),
         _param_doc("init", "int", "Initialization policy used by the VMD backend.", default=1, common=False),
         _param_doc("tol", "float", "Convergence tolerance.", default=1e-7, common=False),
+        _param_doc("max_iter", "int", "Native VMD maximum iteration count.", default=500, common=False),
+        _param_doc("fs", "float", "Sampling frequency used by grouping heuristics.", default=1.0, common=False),
         _param_doc("primary_period", "int | None", "Period hint for grouping modes into season and trend.", default=None),
+        _param_doc("trend_freq_max", "float | None", "Maximum dominant frequency assigned to the trend.", default=None, common=False),
+        _param_doc("seasonal_num_modes", "int", "Number of modes assigned to season when grouping automatically.", default=1, common=False),
     ],
     "WAVELET": [
         _param_doc("wavelet", "str", "PyWavelets wavelet family name.", default="db4"),
@@ -1028,12 +1044,24 @@ METHOD_PARAMETER_GUIDE: Dict[str, list[Dict[str, Any]]] = {
         _param_doc("alpha", "float", "Bandwidth penalty parameter for the MVMD backend.", default=2000.0),
         _param_doc("primary_period", "int | None", "Shared period hint for grouping modes.", default=None),
         _param_doc("fs", "float", "Sampling frequency used by grouping heuristics.", default=1.0, common=False),
+        _param_doc("trend_modes", "list[int] | None", "Explicit mode indexes assigned to trend.", default=None, common=False),
+        _param_doc("season_modes", "list[int] | None", "Explicit mode indexes assigned to season.", default=None, common=False),
+        _param_doc("trend_imfs", "list[int] | None", "Compatibility alias for trend mode indexes.", default=None, common=False),
+        _param_doc("season_imfs", "list[int] | None", "Compatibility alias for seasonal mode indexes.", default=None, common=False),
+        _param_doc("season_freq_tol_ratio", "float", "Relative frequency tolerance for automatic seasonal grouping.", default=0.25, common=False),
+        _param_doc("trend_freq_threshold", "float | None", "Low-frequency threshold for automatic trend grouping.", default=None, common=False),
+        _param_doc("seasonal_num_modes", "int", "Number of modes assigned to season when grouping automatically.", default=1, common=False),
     ],
     "MEMD": [
         _param_doc("primary_period", "int | None", "Shared period hint for grouping multivariate IMFs.", default=None),
         _param_doc("trend_modes", "list[int] | None", "Explicit mode indexes assigned to trend.", default=None, common=False),
         _param_doc("season_modes", "list[int] | None", "Explicit mode indexes assigned to season.", default=None, common=False),
+        _param_doc("trend_imfs", "list[int] | None", "Compatibility alias for trend mode indexes.", default=None, common=False),
+        _param_doc("season_imfs", "list[int] | None", "Compatibility alias for seasonal mode indexes.", default=None, common=False),
         _param_doc("fs", "float", "Sampling frequency used by grouping heuristics.", default=1.0, common=False),
+        _param_doc("season_freq_tol_ratio", "float", "Relative frequency tolerance for automatic seasonal grouping.", default=0.25, common=False),
+        _param_doc("trend_freq_threshold", "float | None", "Low-frequency threshold for automatic trend grouping.", default=None, common=False),
+        _param_doc("seasonal_num_modes", "int", "Number of modes assigned to season when grouping automatically.", default=1, common=False),
     ],
     "GABOR_CLUSTER": [
         _param_doc("model", "GaborClusterModel | None", "In-memory trained clustering model.", default=None),
@@ -1111,6 +1139,8 @@ _NEURAL_MOVING_AVG_PARAMS = [
     _param_doc("moving_avg", "int | None", "Moving-average window used by the extracted forecasting block.", default=None),
     _param_doc("window", "int | None", "Alias for moving_avg.", default=None, common=False),
     _param_doc("primary_period", "int | None", "Period hint used to derive the moving-average window.", default=None),
+    _param_doc("period", "int | None", "Alias period hint used to derive the moving-average window.", default=None, common=False),
+    _param_doc("season_period", "int | None", "Alias seasonal period hint used to derive the moving-average window.", default=None, common=False),
 ]
 
 METHOD_PARAMETER_GUIDE.update(
@@ -1333,6 +1363,8 @@ def _default_not_recommended(name: str, maturity: str, input_mode: InputMode) ->
 
 
 def _default_optional_dependencies(name: str, dependency_tier: str) -> list[str]:
+    if name == "GABOR_CLUSTER":
+        return ["faiss"]
     if dependency_tier == "optional-backend":
         return ["PySDKit"]
     if name in {"STL", "MSTL", "ROBUST_STL"}:
@@ -1343,8 +1375,6 @@ def _default_optional_dependencies(name: str, dependency_tier: str) -> list[str]
         return ["vmdpy", "sktime"]
     if name == "WAVELET":
         return ["PyWavelets"]
-    if name == "GABOR_CLUSTER":
-        return ["faiss"]
     return []
 
 
@@ -1484,6 +1514,35 @@ class MethodRegistry:
         return catalog
 
 
+def validate_method_params(method: str, params: Dict[str, Any] | None) -> None:
+    """Validate runtime params against the registry-owned parameter guide."""
+
+    normalized = method.upper()
+    MethodRegistry.get_spec(normalized)
+    docs = METHOD_PARAMETER_GUIDE.get(normalized, [])
+    if not docs:
+        return
+
+    provided = set(dict(params or {}).keys())
+    allowed = {str(item["name"]) for item in docs}
+    unknown = sorted(provided - allowed)
+    if unknown:
+        bad = unknown[0]
+        suggestion = get_close_matches(bad, sorted(allowed), n=1)
+        hint = f" Did you mean '{suggestion[0]}'?" if suggestion else ""
+        raise ValueError(f"Unknown parameter '{bad}' for method {normalized}.{hint}")
+
+    missing = [
+        str(item["name"])
+        for item in docs
+        if item.get("required") and str(item["name"]) not in provided
+    ]
+    if missing:
+        raise ValueError(
+            f"Missing required parameter(s) for method {normalized}: {', '.join(missing)}."
+        )
+
+
 def _normalize_input(series: np.ndarray) -> np.ndarray:
     arr = np.asarray(series, dtype=float)
     if arr.ndim == 0:
@@ -1529,13 +1588,64 @@ def _annotate_result_layout(
     return result
 
 
+def _normalize_result_meta(result: DecompResult, *, method: str, runtime: Any) -> DecompResult:
+    meta = dict(result.meta or {})
+    meta.setdefault("method", method)
+    meta.setdefault("backend_requested", runtime.backend)
+    meta.setdefault("backend_used", "python" if runtime.backend == "auto" else runtime.backend)
+    meta.setdefault("speed_mode", runtime.speed_mode)
+    result.meta = meta
+    return result
+
+
+def _filter_return_components(result: DecompResult, requested: list[str] | None) -> DecompResult:
+    if not requested:
+        return result
+    keep = {str(item) for item in requested}
+    result.components = {
+        key: value
+        for key, value in result.components.items()
+        if key in keep or f"components.{key}" in keep
+    }
+    return result
+
+
+def _validate_result_contract(
+    result: DecompResult,
+    x: np.ndarray,
+    *,
+    method: str,
+    atol: float = 1e-6,
+) -> DecompResult:
+    expected_shape = x.shape
+    if result.trend.shape != expected_shape:
+        raise ValueError(
+            f"{method} returned result shape {result.trend.shape}, expected input shape {expected_shape}."
+        )
+    reconstructed = result.trend + result.season + result.residual
+    if not np.allclose(reconstructed, x, atol=atol, rtol=1e-5):
+        max_error = float(np.max(np.abs(reconstructed - x))) if x.size else 0.0
+        raise ValueError(
+            f"{method} result failed reconstruction contract; maximum absolute error {max_error:.3g}."
+        )
+    required_meta = {"method", "backend_requested", "backend_used", "speed_mode"}
+    missing = sorted(required_meta - set(result.meta))
+    if missing:
+        raise ValueError(f"{method} result metadata is missing required keys: {missing}.")
+    return result
+
+
 def decompose(series: np.ndarray, config: DecompositionConfig) -> DecompResult:
     """Main entry point for decomposition."""
     spec = MethodRegistry.get_spec(config.method)
     x = _normalize_input(series)
     _validate_input_mode(config.method, x, spec.input_mode)
+    validate_method_params(config.method, config.params)
     runtime = runtime_options_from_config(config)
     params = inject_runtime_params(config.params, runtime)
     result = spec.func(x, params)
     channel_names = list(config.channel_names or [])
-    return _annotate_result_layout(result, x, channel_names or None)
+    result = _annotate_result_layout(result, x, channel_names or None)
+    result = _normalize_result_meta(result, method=config.method.upper(), runtime=runtime)
+    result = _filter_return_components(result, config.return_components)
+    return _validate_result_contract(result, x, method=config.method.upper())

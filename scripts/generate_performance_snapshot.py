@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import csv
 import json
 import platform
@@ -78,19 +79,35 @@ def _profile_method(
     *,
     signal: np.ndarray,
     public_params: dict[str, object] | None = None,
-    repeat: int = 4,
+    repeat: int = 50,
+    warmup: int = 10,
 ) -> dict[str, object]:
+    if repeat < 1:
+        raise ValueError("repeat must be at least 1")
+    for _ in range(max(0, warmup)):
+        decompose(signal, DecompositionConfig(method=method, params=params, backend=backend))
     samples: list[float] = []
     for _ in range(repeat):
         started = time.perf_counter()
         result = decompose(signal, DecompositionConfig(method=method, params=params, backend=backend))
         samples.append((time.perf_counter() - started) * 1000.0)
+    if len(samples) >= 4:
+        q1, _, q3 = statistics.quantiles(samples, n=4, method="inclusive")
+    else:
+        q1 = min(samples)
+        q3 = max(samples)
     return {
         "method": method,
         "backend_requested": backend,
         "backend_used": result.meta.get("backend_used", backend),
         "samples_ms": [round(sample, 6) for sample in samples],
+        "warmup": max(0, warmup),
+        "repeat": repeat,
         "mean_ms": round(statistics.fmean(samples), 6),
+        "median_ms": round(statistics.median(samples), 6),
+        "q1_ms": round(q1, 6),
+        "q3_ms": round(q3, 6),
+        "iqr_ms": round(q3 - q1, 6),
         "min_ms": round(min(samples), 6),
         "max_ms": round(max(samples), 6),
         "series_length": signal.shape[0],
@@ -100,7 +117,15 @@ def _profile_method(
 
 
 def main() -> int:
-    gabor_params, gabor_public_params = _make_gabor_params()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--repeat", type=int, default=50)
+    parser.add_argument("--warmup", type=int, default=10)
+    parser.add_argument(
+        "--include-experimental",
+        action="store_true",
+        help="Include experimental paths such as GABOR_CLUSTER in the raw snapshot.",
+    )
+    args = parser.parse_args()
     benchmarks = [
         {
             "method": "SSA",
@@ -138,14 +163,20 @@ def main() -> int:
             "signal": _make_signal(),
             "native_key": "vmd_decompose",
         },
-        {
-            "method": "GABOR_CLUSTER",
-            "params": gabor_params,
-            "public_params": gabor_public_params,
-            "signal": _make_signal(),
-            "native_key": "gabor_cluster_decompose",
-        },
     ]
+    experimental_excluded = ["GABOR_CLUSTER"]
+    if args.include_experimental:
+        gabor_params, gabor_public_params = _make_gabor_params()
+        benchmarks.append(
+            {
+                "method": "GABOR_CLUSTER",
+                "params": gabor_params,
+                "public_params": gabor_public_params,
+                "signal": _make_signal(),
+                "native_key": "gabor_cluster_decompose",
+            }
+        )
+        experimental_excluded = []
     native_ready = native_capabilities()
 
     runs: list[dict[str, object]] = []
@@ -161,6 +192,8 @@ def main() -> int:
             backend="python",
             signal=signal,
             public_params=public_params,
+            repeat=args.repeat,
+            warmup=args.warmup,
         )
         runs.append(python_run)
 
@@ -173,19 +206,23 @@ def main() -> int:
                 backend="native",
                 signal=signal,
                 public_params=public_params,
+                repeat=args.repeat,
+                warmup=args.warmup,
             )
             runs.append(native_run)
 
         row = {
             "method": method,
-            "python_mean_ms": python_run["mean_ms"],
-            "native_mean_ms": native_run["mean_ms"] if native_run else None,
+            "python_median_ms": python_run["median_ms"],
+            "native_median_ms": native_run["median_ms"] if native_run else None,
             "speedup": round(
-                float(python_run["mean_ms"]) / max(float(native_run["mean_ms"]), 1e-12),
+                float(python_run["median_ms"]) / max(float(native_run["median_ms"]), 1e-12),
                 6,
             )
             if native_run
             else None,
+            "repeat": args.repeat,
+            "warmup": args.warmup,
         }
         summary_rows.append(row)
 
@@ -198,6 +235,8 @@ def main() -> int:
             "machine": platform.machine(),
         },
         "native_capabilities": native_ready,
+        "summary_statistic": "median_ms",
+        "experimental_excluded_by_default": experimental_excluded,
         "runs": runs,
         "summary": summary_rows,
     }
@@ -206,7 +245,10 @@ def main() -> int:
     DEFAULT_JSON.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
     with DEFAULT_CSV.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=["method", "python_mean_ms", "native_mean_ms", "speedup"])
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=["method", "python_median_ms", "native_median_ms", "speedup", "repeat", "warmup"],
+        )
         writer.writeheader()
         writer.writerows(summary_rows)
 

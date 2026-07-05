@@ -9,10 +9,10 @@ One Python and CLI interface for trend, oscillation, residual, components, and m
 [![HF Space: DeTime](https://img.shields.io/badge/HF%20Space-DeTime-ffb000.svg)](https://huggingface.co/spaces/Zipeng365/DeTime)
 ![Python: 3.10+](https://img.shields.io/badge/python-3.10%2B-0f766e.svg)
 [![PyPI](https://img.shields.io/pypi/v/detime-toolkit.svg)](https://pypi.org/project/detime-toolkit/)
-[![Unit tests: 112 passed](https://img.shields.io/badge/unit%20tests-112%20passed-brightgreen.svg)](tests/)
+[![Unit tests: 113 passed, 11 skipped](https://img.shields.io/badge/unit%20tests-113%20passed%2C%2011%20skipped-brightgreen.svg)](tests/)
 [![Core coverage: 92.58%](https://img.shields.io/badge/core%20coverage-92.58%25-brightgreen.svg)](README.md#quality-and-evidence)
 [![Package coverage: 88.41%](https://img.shields.io/badge/package%20coverage-88.41%25-84cc16.svg)](README.md#quality-and-evidence)
-[![Native-backed methods: 7](https://img.shields.io/badge/native--backed%20methods-7-475569.svg)](docs/method-matrix.md)
+[![Native-backed methods: 6](https://img.shields.io/badge/native--backed%20methods-6-475569.svg)](docs/method-matrix.md)
 [![CLI: detime](https://img.shields.io/badge/CLI-detime-2563eb.svg)](docs/quickstart.md)
 [![Schemas: JSON](https://img.shields.io/badge/schemas-JSON-0891b2.svg)](docs/machine-api.md)
 [![Native kernels: C++](https://img.shields.io/badge/native%20kernels-C%2B%2B-475569.svg)](native/)
@@ -70,8 +70,9 @@ The main package is centered on four core maintained methods:
 The current native-backed accelerated set is broader:
 
 - core native paths: `SSA`, `STD`, `STDR`, `MSSA`
-- additional native-backed methods: `VMD`, `GABOR_CLUSTER`
+- additional native-backed method: `VMD`
 - lightweight native-backed baseline: `MA_BASELINE`
+- experimental optional clustering path: `GABOR_CLUSTER`
 
 Other retained methods are wrappers, Python implementations, or
 optional-backend integrations such as `STL`, `MSTL`, `ROBUST_STL`, `EMD`,
@@ -118,12 +119,12 @@ specialist packages, not as a replacement for all of them.
 | Primary role | unified decomposition workflow | classical decomposition/statistics | EMD family | wavelet transforms | broad decomposition toolkit | SSA specialist | broad time-series ecosystem |
 | Common config/result contract | yes | partial | no | no | partial | SSA-specific | no |
 | CLI, batch, profiling | yes | no | no | no | limited | no | partial |
-| Machine-readable catalog/schemas | yes | no | no | no | no | no | no |
+| Machine-readable catalog or schemas | yes | no | no | no | no | no | catalog yes; schemas no |
 | Multivariate under one surface | yes | limited | family-specific | transform-specific | yes | no | partial |
 | Where it is deeper | workflow reproducibility | statistical modeling | EMD variants | wavelet tooling | decomposition breadth | SSA workflows | ecosystem breadth |
 
 Full comparison details are in [docs/comparisons.md](docs/comparisons.md);
-generated evidence files are kept in
+curated evidence files are kept in
 [docs/comparison-evidence.md](docs/comparison-evidence.md).
 
 ## Install
@@ -209,13 +210,13 @@ paper-core runner.
 Fast smoke run:
 
 ```bash
-detime benchmark --out-dir out/tsdecompose-smoke
+detime benchmark --allow-external-benchmark-code --out-dir out/tsdecompose-smoke
 ```
 
 Full paper-core run:
 
 ```bash
-detime benchmark --full --out-dir out/tsdecompose-paper-core
+detime benchmark --allow-external-benchmark-code --full --out-dir out/tsdecompose-paper-core
 ```
 
 Python API:
@@ -223,7 +224,11 @@ Python API:
 ```python
 from detime import run_tsdecompose_benchmark
 
-result = run_tsdecompose_benchmark(smoke=True, out_dir="out/tsdecompose-smoke")
+result = run_tsdecompose_benchmark(
+    smoke=True,
+    out_dir="out/tsdecompose-smoke",
+    allow_external_code=True,
+)
 print(result.leaderboard_path)
 ```
 
@@ -272,7 +277,7 @@ Coverage from the 2026-06-22 checkout-source audit:
 
 | View | Config | Scope | Result |
 |---|---|---|---:|
-| Core contract | `.coveragerc` | core-plus-maintained library surface | 92.58% |
+| Core contract | `.coveragerc` | selected core algorithm contract files | 92.58% |
 | Package-wide | `.coveragerc.package` | installable package including CLI/I/O/wrappers/viz | 88.41% |
 
 The JSON reports are stored in
@@ -293,7 +298,11 @@ cross-package benchmark.
 | `MA_BASELINE` | 0.070 | 0.016 | 4.42x |
 | `MSSA` | 60.856 | 22.900 | 2.66x |
 | `VMD` | 47.856 | 13.812 | 3.46x |
-| `GABOR_CLUSTER` (experimental) | 3.304 | 0.181 | 18.22x |
+
+Experimental `GABOR_CLUSTER` timing is excluded from release-validation
+performance evidence. It can be generated separately with
+`scripts/generate_performance_snapshot.py --include-experimental` after a
+trained model object and optional clustering backend are reviewed.
 
 Documentation and tutorial evidence:
 

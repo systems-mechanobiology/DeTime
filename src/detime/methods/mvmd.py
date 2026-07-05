@@ -73,6 +73,7 @@ def _group_multivariate_modes(
     cfg: Dict[str, Any],
     *,
     method: str,
+    original: np.ndarray | None = None,
 ) -> DecompResult:
     fs = float(cfg.get("fs", 1.0))
     dom_freqs = _dominant_mode_frequencies(modes, fs=fs)
@@ -107,7 +108,10 @@ def _group_multivariate_modes(
     trend = _aggregate_mode_stack(modes, trend_modes)
     season = _aggregate_mode_stack(modes, season_modes)
     residual_indices = [idx for idx in range(modes.shape[0]) if idx not in trend_set and idx not in set(season_modes)]
-    residual = _aggregate_mode_stack(modes, residual_indices)
+    if original is None:
+        residual = _aggregate_mode_stack(modes, residual_indices)
+    else:
+        residual = np.asarray(original, dtype=float) - trend - season
     return DecompResult(
         trend=trend,
         season=season,
@@ -260,7 +264,7 @@ def mvmd_decompose(
 
     y_arr = _ensure_multivariate_input(y, "MVMD")
     modes = _run_backend("MVMD", y_arr, cfg)
-    result = _group_multivariate_modes(modes, cfg, method="MVMD")
+    result = _group_multivariate_modes(modes, cfg, method="MVMD", original=y_arr)
     return finalize_result(
         result,
         method="MVMD",

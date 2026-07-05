@@ -33,13 +33,13 @@ local cache and invokes its published paper benchmark runner.
 Smoke run:
 
 ```bash
-detime benchmark --out-dir out/tsdecompose-smoke
+detime benchmark --allow-external-benchmark-code --out-dir out/tsdecompose-smoke
 ```
 
 Full paper-core run:
 
 ```bash
-detime benchmark --full --out-dir out/tsdecompose-paper-core
+detime benchmark --allow-external-benchmark-code --full --out-dir out/tsdecompose-paper-core
 ```
 
 Python API:
@@ -47,7 +47,11 @@ Python API:
 ```python
 from detime import run_tsdecompose_benchmark
 
-result = run_tsdecompose_benchmark(smoke=True, out_dir="out/tsdecompose-smoke")
+result = run_tsdecompose_benchmark(
+    smoke=True,
+    out_dir="out/tsdecompose-smoke",
+    allow_external_code=True,
+)
 print(result.leaderboard_path)
 ```
 
@@ -104,12 +108,13 @@ The current release and docs were checked with:
 The repository now publishes two coverage views so the denominator is explicit:
 
 - **core-surface coverage**
-  - the gated `detime` core-plus-maintained contract
+  - the gated selected `detime` core algorithm contract files
 - **package-wide coverage**
   - the broader installable `detime` package, including CLI, I/O,
     visualization, wrappers, and machine-facing helpers
 
-The core gate is applied to the canonical `detime` core-plus-maintained surface.
+The core gate is applied to selected canonical `detime` core algorithm contract
+files.
 
 The core-surface denominator intentionally omits:
 
@@ -157,7 +162,7 @@ Native correctness status:
 | `MA_BASELINE` | Python fallback | callable/schema smoke | n/a | smoke-tested |
 | `MSSA` | Python fallback | callable/schema smoke | n/a | smoke-tested |
 | `VMD` | Python fallback | callable/schema smoke | n/a | smoke-tested |
-| `GABOR_CLUSTER` | experimental native path | callable/schema smoke | n/a | experimental smoke-tested |
+| `GABOR_CLUSTER` | experimental optional clustering path | callable/schema smoke | n/a | experimental smoke-tested |
 
 Only the agreement-tested rows should be cited as numerical-equivalence
 evidence. The remaining rows verify routing, result-shape/schema behavior, and
@@ -178,7 +183,11 @@ result contract. It is not a portable runtime ranking against other packages.
 | `MA_BASELINE` | 0.070 | 0.016 | 4.42x |
 | `MSSA` | 60.856 | 22.900 | 2.66x |
 | `VMD` | 47.856 | 13.812 | 3.46x |
-| `GABOR_CLUSTER` (experimental) | 3.304 | 0.181 | 18.22x |
+
+Experimental `GABOR_CLUSTER` timing is excluded from release-validation
+performance evidence because it depends on a trained model object and optional
+clustering backend availability. It can be generated separately with
+`scripts/generate_performance_snapshot.py --include-experimental`.
 
 ## Experimental neural block table
 

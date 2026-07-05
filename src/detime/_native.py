@@ -15,7 +15,7 @@ _IMPORT_ERROR: Exception | None = None
 def _load_installed_extension() -> ModuleType | None:
     """Load the packaged native extension when running from an unbuilt source tree."""
     try:
-        dist = distribution("de-time")
+        dist = distribution("detime-toolkit")
     except PackageNotFoundError:
         return None
 

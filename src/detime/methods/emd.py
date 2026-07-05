@@ -29,7 +29,7 @@ def emd_decompose(
     """
     if not _HAS_PYEMD:
         raise ImportError(
-            "PyEMD is required for EMD decomposition. Install 'de-time[emd]' or 'EMD-signal'."
+            "PyEMD is required for EMD decomposition. Install 'detime-toolkit[emd]' or 'EMD-signal'."
         ) from _PYEMD_IMPORT_ERROR
 
     y_arr = np.asarray(y, dtype=float)

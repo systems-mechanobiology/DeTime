@@ -259,7 +259,7 @@ claim.
   <a class="info-card" href="reproducibility/">
     <span class="card-icon icon-repro"></span>
     <h3>Reproducibility</h3>
-    <p>Coverage boundaries, release checks, generated evidence, and validation commands.</p>
+      <p>Coverage boundaries, release checks, curated evidence, and validation commands.</p>
   </a>
   <a class="info-card" href="method-references/">
     <span class="card-icon icon-refs"></span>

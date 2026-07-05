@@ -324,7 +324,7 @@ def generate_tutorial_assets(output_root: Path = DEFAULT_OUTPUT_ROOT) -> Path:
             "--param",
             "period=12",
             "--backend",
-            "native",
+            "auto",
             "--repeat",
             "10",
             "--warmup",
@@ -332,9 +332,9 @@ def generate_tutorial_assets(output_root: Path = DEFAULT_OUTPUT_ROOT) -> Path:
             "--format",
             "text",
             "--output",
-            str(profile_run / "std_native.txt"),
+            str(profile_run / "std_auto.txt"),
         ),
-        stdout_path=profile_run / "std_native_stdout.txt",
+        stdout_path=profile_run / "std_auto_stdout.txt",
     )
 
     _run_command(

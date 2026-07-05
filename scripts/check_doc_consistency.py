@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import re
 import sys
 from pathlib import Path
@@ -57,7 +58,11 @@ REQUIRED_PATTERNS: dict[str, list[str]] = {
     "docs/notebook-gallery.md": ["de_time_method_gallery.ipynb", "generate_notebook_gallery.py"],
     "docs/method-matrix.md": ["Required/common params", "Optional deps", "Output components"],
     "docs/config-reference.md": ["Top-level fields", "Method-specific parameters", "Univariate SSA"],
-    "docs/reproducibility.md": ["core-plus-maintained", "release_smoke_matrix.py", "generate_performance_snapshot.py"],
+    "docs/reproducibility.md": [
+        "selected `detime` core algorithm contract",
+        "release_smoke_matrix.py",
+        "generate_performance_snapshot.py",
+    ],
     "docs/comparisons.md": ["PySDKit", "SSALib", "sktime"],
     "docs/tutorials/visual-univariate.md": ["$env:PYTHONPATH='src'", "python examples/visual_univariate_walkthrough.py"],
     "docs/tutorials/visual-multivariate.md": ["$env:PYTHONPATH='src'", "python examples/visual_multivariate_walkthrough.py"],
@@ -151,6 +156,26 @@ DOC_INDEX_PATH_CHECKS = [
     "DOCS_INDEX.md",
 ]
 
+DISTRIBUTION_BANS = {
+    "README.md": [
+        "pip install de-time",
+        "de-time[",
+    ],
+    "docs/install.md": [
+        "pip install de-time",
+        "de-time[",
+    ],
+    "docs/quickstart.md": [
+        "pip install de-time",
+        "de-time[",
+    ],
+    "scripts/generate_reviewer_bundle.py": [
+        "pip install de-time",
+        "de-time[",
+        'ROOT / "submission"',
+    ],
+}
+
 
 def _check_patterns(path: Path, patterns: list[str], *, expect_present: bool) -> list[str]:
     text = path.read_text(encoding="utf-8")
@@ -175,6 +200,37 @@ def _check_backticked_repo_paths(path: Path) -> list[str]:
         repo_path = ROOT / candidate
         if not repo_path.exists():
             failures.append(f"{path}: referenced path does not exist: {candidate}")
+    return failures
+
+
+def _check_release_evidence_alignment() -> list[str]:
+    failures: list[str] = []
+    coverage_summary = json.loads(
+        (ROOT / "docs" / "assets" / "generated" / "evidence" / "coverage_summary.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    test_result = str(coverage_summary["tests"]["result"])
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    if test_result not in readme:
+        failures.append(f"README.md: unit-test badge/text does not include coverage_summary result: {test_result}")
+
+    core_denominator = str(coverage_summary["coverage"]["core_surface"]["denominator"])
+    if "core-plus-maintained" in core_denominator:
+        failures.append("coverage_summary.json: stale core-plus-maintained denominator wording")
+
+    comparison = json.loads(
+        (ROOT / "docs" / "assets" / "generated" / "evidence" / "comparison_evidence.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    sktime_rows = [
+        row
+        for row in comparison.get("machine_contract_matrix", [])
+        if row.get("package") == "sktime"
+    ]
+    if sktime_rows and sktime_rows[0].get("machine_readable_catalog") == "no":
+        failures.append("comparison_evidence.json: sktime has a runtime estimator registry; do not mark catalog as plain no")
     return failures
 
 
@@ -205,9 +261,15 @@ def main() -> int:
         path = ROOT / relative_path
         failures.extend(_check_patterns(path, patterns, expect_present=False))
 
+    for relative_path, patterns in DISTRIBUTION_BANS.items():
+        path = ROOT / relative_path
+        failures.extend(_check_patterns(path, patterns, expect_present=False))
+
     for relative_path in DOC_INDEX_PATH_CHECKS:
         path = ROOT / relative_path
         failures.extend(_check_backticked_repo_paths(path))
+
+    failures.extend(_check_release_evidence_alignment())
 
     if failures:
         for failure in failures:

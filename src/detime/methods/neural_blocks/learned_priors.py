@@ -147,7 +147,7 @@ def _require_torch() -> None:
     if torch is None:
         raise ImportError(
             "NBEATS_INTERPRETABLE requires the optional dependency 'torch'. "
-            "Install 'de-time[neural]' or torch before running this method in DeTime. "
+            "Install 'detime-toolkit[neural]' or torch before running this method in DeTime. "
             f"Original import error: {_TORCH_IMPORT_ERROR!r}"
         )
 

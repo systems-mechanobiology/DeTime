@@ -14,31 +14,30 @@ from detime.mcp import server
 
 def _subprocess_env() -> dict[str, str]:
     env = dict(os.environ)
-    root = Path(__file__).resolve().parents[2]
-    src_root = str(root / "src")
-    env["PYTHONPATH"] = src_root
     return env
 
 
+def _subprocess_command() -> list[str]:
+    root = Path(__file__).resolve().parents[2]
+    site_paths = [path for path in sys.path if "site-packages" in path]
+    bootstrap = (
+        "import sys; "
+        f"sys.path.insert(0, {str(root / 'src')!r}); "
+        + "".join(f"sys.path.append({path!r}); " for path in site_paths)
+        + "from detime.mcp.server import main; raise SystemExit(main())"
+    )
+    return [sys.executable, "-S", "-c", bootstrap]
+
+
 def _write_message_bytes(payload: dict) -> bytes:
-    body = json.dumps(payload).encode("utf-8")
-    return f"Content-Length: {len(body)}\r\n\r\n".encode("utf-8") + body
+    return (json.dumps(payload, separators=(",", ":")) + "\n").encode("utf-8")
 
 
 def _read_message_bytes(stream) -> dict:
-    content_length = None
-    while True:
-        line = stream.readline()
-        if not line:
-            raise RuntimeError("unexpected EOF")
-        if line in (b"\r\n", b"\n"):
-            break
-        header = line.decode("utf-8").strip()
-        if header.lower().startswith("content-length:"):
-            content_length = int(header.split(":", 1)[1].strip())
-    assert content_length is not None
-    body = stream.read(content_length)
-    return json.loads(body.decode("utf-8"))
+    line = stream.readline()
+    if not line:
+        raise RuntimeError("unexpected EOF")
+    return json.loads(line.decode("utf-8"))
 
 
 def test_mcp_tool_calls_cover_core_surface() -> None:
@@ -63,7 +62,7 @@ def test_mcp_tool_calls_cover_core_surface() -> None:
         "run_decomposition",
         {
             "series": [0.0, 1.0, 0.0, 1.0, 0.0, 1.0],
-            "config": {"method": "MA_BASELINE", "params": {"window": 2}},
+            "config": {"method": "MA_BASELINE", "params": {"trend_window": 2}},
             "output_mode": "summary",
         },
     )
@@ -108,7 +107,8 @@ def test_mcp_helpers_cover_errors_and_json_coercion(tmp_path) -> None:
     assert server._read_message(BytesIO(b"")) is None
     with pytest.raises(RuntimeError):
         server._read_message(BytesIO(b"\r\n"))
-    assert server._read_message(BytesIO(b"Content-Length: 0\r\n\r\n")) is None
+    with pytest.raises(json.JSONDecodeError):
+        server._read_message(BytesIO(b"Content-Length: 0\r\n\r\n"))
 
     success = server._success("1", {"ok": True})
     error = server._error("2", -1, "boom")
@@ -122,7 +122,7 @@ def test_mcp_helpers_cover_errors_and_json_coercion(tmp_path) -> None:
         {
             "series_path": str(csv_path),
             "col": "value",
-            "config": {"method": "MA_BASELINE", "params": {"window": 2}},
+            "config": {"method": "MA_BASELINE", "params": {"trend_window": 2}},
             "output_mode": "meta",
         },
     )
@@ -187,37 +187,29 @@ def test_mcp_stdio_server_loop_paths(monkeypatch) -> None:
 
 def test_mcp_server_subprocess_smoke() -> None:
     proc = subprocess.Popen(
-        [sys.executable, "-m", "detime.mcp.server"],
+        _subprocess_command(),
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         env=_subprocess_env(),
     )
-    try:
-        assert proc.stdin is not None
-        assert proc.stdout is not None
-
-        proc.stdin.write(
+    request = b"".join(
+        [
             _write_message_bytes(
-                {
-                    "jsonrpc": "2.0",
-                    "id": 1,
-                    "method": "initialize",
-                    "params": {"protocolVersion": "2024-11-05"},
-                }
-            )
-        )
-        proc.stdin.flush()
-        initialize = _read_message_bytes(proc.stdout)
-        assert initialize["result"]["serverInfo"]["name"] == "detime-mcp"
+                {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2025-06-18"}}
+            ),
+            _write_message_bytes({"jsonrpc": "2.0", "id": 2, "method": "tools/list", "params": {}}),
+        ]
+    )
+    stdout, stderr = proc.communicate(input=request, timeout=30)
+    assert proc.returncode == 0, stderr.decode("utf-8", errors="replace")
+    lines = stdout.splitlines()
+    assert len(lines) == 2
 
-        proc.stdin.write(
-            _write_message_bytes({"jsonrpc": "2.0", "id": 2, "method": "tools/list", "params": {}})
-        )
-        proc.stdin.flush()
-        tools = _read_message_bytes(proc.stdout)
-        tool_names = {tool["name"] for tool in tools["result"]["tools"]}
-        assert "run_decomposition" in tool_names
-    finally:
-        proc.terminate()
-        proc.wait(timeout=10)
+    initialize = json.loads(lines[0].decode("utf-8"))
+    assert initialize["result"]["serverInfo"]["name"] == "detime-mcp"
+    assert initialize["result"]["protocolVersion"] == "2025-06-18"
+
+    tools = json.loads(lines[1].decode("utf-8"))
+    tool_names = {tool["name"] for tool in tools["result"]["tools"]}
+    assert "run_decomposition" in tool_names

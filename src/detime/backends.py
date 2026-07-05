@@ -11,7 +11,7 @@ from .core import DecompResult, DecompositionConfig
 
 RUNTIME_KEY = "__detime_runtime__"
 LEGACY_RUNTIME_KEY = "__tsdecomp_runtime__"
-VALID_BACKENDS = {"auto", "native", "python", "gpu"}
+VALID_BACKENDS = {"auto", "native", "python"}
 VALID_SPEED_MODES = {"exact", "fast"}
 
 

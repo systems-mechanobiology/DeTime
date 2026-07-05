@@ -231,7 +231,7 @@ Related packages:
 
 ### `GABOR_CLUSTER`
 
-- Summary: Experimental clustering-based decomposition path.
+- Summary: Experimental optional clustering path that requires a trained Gabor model.
 - Optional/runtime dependencies: faiss
 
 Primary references:

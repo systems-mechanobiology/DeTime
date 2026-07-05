@@ -1,6 +1,6 @@
 {
   "name": "DeTime",
-  "distribution_name": "de-time",
+  "distribution_name": "detime-toolkit",
   "preferred_runtime_package": "detime",
   "legacy_runtime_package": "tsdecomp",
   "legacy_alias_window": "0.1.x",

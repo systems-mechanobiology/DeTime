@@ -282,11 +282,8 @@ def test_mssa_runtime_and_shape_error_paths() -> None:
     single = np.ones((12, 1), dtype=float)
     panel = _shared_multichannel_signal(length=48)
 
-    with pytest.raises(ValueError, match="GPU backend"):
-        decompose(
-            panel,
-            DecompositionConfig(method="MSSA", params={"window": 12, "rank": 4}, backend="gpu"),
-        )
+    with pytest.raises(ValueError, match="Input should be 'auto', 'native' or 'python'"):
+        DecompositionConfig(method="MSSA", params={"window": 12, "rank": 4}, backend="gpu")
     with pytest.raises(ValueError, match="length >= 4"):
         decompose(
             short,

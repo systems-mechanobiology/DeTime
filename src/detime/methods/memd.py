@@ -23,7 +23,7 @@ def memd_decompose(
 
     y_arr = _ensure_multivariate_input(y, "MEMD")
     imfs = _run_backend("MEMD", y_arr, cfg)
-    result = _group_multivariate_modes(imfs, cfg, method="MEMD")
+    result = _group_multivariate_modes(imfs, cfg, method="MEMD", original=y_arr)
     result.components = {"imfs": result.components["modes"]}
     return finalize_result(
         result,

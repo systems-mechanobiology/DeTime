@@ -11,8 +11,8 @@ Current package version target: `0.1.2`.
 |---|---|---|---|
 | `method` | `str` | required | Registered method name such as `SSA`, `STD`, `STDR`, or `MSSA`. |
 | `params` | `dict[str, Any]` | `{}` | Method-specific parameters documented below. |
-| `return_components` | `list[str] \| None` | `None` | Compatibility field; retained methods return the normalized result object. |
-| `backend` | `auto \| native \| python \| gpu` | `auto` | Backend preference. `native` requires an available native kernel. |
+| `return_components` | `list[str] \| None` | `None` | Optional extra component names to retain in `result.components`; `trend`, `season`, and `residual` are always returned. |
+| `backend` | `auto \| native \| python` | `auto` | Backend preference. `native` requires an available native kernel. |
 | `speed_mode` | `exact \| fast` | `exact` | Accuracy policy. Native `SSA` uses exact SVD in `exact` and an iterative approximation in `fast`. |
 | `profile` | `bool` | `False` | Attach runtime metadata or produce profile reports when routed through the profiler. |
 | `device` | `str \| None` | `cpu` | Reserved device selector; retained methods are CPU workflows unless a wrapper says otherwise. |
@@ -114,6 +114,8 @@ Example config:
 | `moving_avg` | int \| None | no | `None` | Moving-average window used by the extracted forecasting block. |
 | `window` | int \| None | no | `None` | Alias for moving_avg. |
 | `primary_period` | int \| None | no | `None` | Period hint used to derive the moving-average window. |
+| `period` | int \| None | no | `None` | Alias period hint used to derive the moving-average window. |
+| `season_period` | int \| None | no | `None` | Alias seasonal period hint used to derive the moving-average window. |
 
 Example config:
 
@@ -139,6 +141,8 @@ Example config:
 | `noise_width` | float | no | `0.05` | Relative width of the injected noise. |
 | `primary_period` | int \| None | no | `None` | Period hint for grouping IMFs into season and trend. |
 | `fs` | float | no | `1.0` | Sampling frequency used by grouping heuristics. |
+| `trend_freq_max` | float \| None | no | `None` | Maximum dominant frequency assigned to the trend. |
+| `season_band_factor` | float | no | `2.0` | Multiplier around the primary seasonal frequency. |
 
 Example config:
 
@@ -192,6 +196,8 @@ Example config:
 | `moving_avg` | int \| None | no | `None` | Moving-average window used by the extracted forecasting block. |
 | `window` | int \| None | no | `None` | Alias for moving_avg. |
 | `primary_period` | int \| None | no | `None` | Period hint used to derive the moving-average window. |
+| `period` | int \| None | no | `None` | Alias period hint used to derive the moving-average window. |
+| `season_period` | int \| None | no | `None` | Alias seasonal period hint used to derive the moving-average window. |
 
 Example config:
 
@@ -218,6 +224,8 @@ Example config:
 | `trend_imfs` | list[int] \| None | no | `None` | Explicit IMF indexes assigned to trend. |
 | `season_imfs` | list[int] \| None | no | `None` | Explicit IMF indexes assigned to season. |
 | `fs` | float | no | `1.0` | Sampling frequency used by grouping heuristics. |
+| `season_freq_tol_ratio` | float | no | `0.25` | Relative frequency tolerance for automatic seasonal grouping. |
+| `trend_freq_threshold` | float \| None | no | `None` | Low-frequency threshold for automatic trend grouping. |
 
 Example config:
 
@@ -367,7 +375,12 @@ Example config:
 | `primary_period` | int \| None | no | `None` | Shared period hint for grouping multivariate IMFs. |
 | `trend_modes` | list[int] \| None | no | `None` | Explicit mode indexes assigned to trend. |
 | `season_modes` | list[int] \| None | no | `None` | Explicit mode indexes assigned to season. |
+| `trend_imfs` | list[int] \| None | no | `None` | Compatibility alias for trend mode indexes. |
+| `season_imfs` | list[int] \| None | no | `None` | Compatibility alias for seasonal mode indexes. |
 | `fs` | float | no | `1.0` | Sampling frequency used by grouping heuristics. |
+| `season_freq_tol_ratio` | float | no | `0.25` | Relative frequency tolerance for automatic seasonal grouping. |
+| `trend_freq_threshold` | float \| None | no | `None` | Low-frequency threshold for automatic trend grouping. |
+| `seasonal_num_modes` | int | no | `1` | Number of modes assigned to season when grouping automatically. |
 
 Example config:
 
@@ -391,6 +404,8 @@ Example config:
 | `moving_avg` | int \| None | no | `None` | Moving-average window used by the extracted forecasting block. |
 | `window` | int \| None | no | `None` | Alias for moving_avg. |
 | `primary_period` | int \| None | no | `None` | Period hint used to derive the moving-average window. |
+| `period` | int \| None | no | `None` | Alias period hint used to derive the moving-average window. |
+| `season_period` | int \| None | no | `None` | Alias seasonal period hint used to derive the moving-average window. |
 
 Example config:
 
@@ -412,12 +427,15 @@ Example config:
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
-| `window` | int | yes | required | Shared embedding window length for aligned channels. |
+| `window` | int \| None | no | `None` | Shared embedding window length for aligned channels. |
 | `rank` | int \| None | no | `None` | Number of shared elementary components to retain. |
 | `primary_period` | int \| None | no | `None` | Dominant shared period used by automatic grouping. |
 | `fs` | float | no | `1.0` | Sampling frequency used by frequency-based grouping. |
 | `trend_components` | list[int] \| None | no | `None` | Explicit component indexes assigned to trend. |
 | `season_components` | list[int] \| None | no | `None` | Explicit component indexes assigned to season. |
+| `season_freq_tol_ratio` | float | no | `0.25` | Relative frequency tolerance for automatic seasonal grouping. |
+| `trend_freq_threshold` | float \| None | no | `None` | Low-frequency threshold for automatic trend grouping. |
+| `power_iterations` | int | no | `12` | Fast native mode iteration count when speed_mode='fast'. |
 
 Example config:
 
@@ -477,6 +495,13 @@ Example config:
 | `alpha` | float | no | `2000.0` | Bandwidth penalty parameter for the MVMD backend. |
 | `primary_period` | int \| None | no | `None` | Shared period hint for grouping modes. |
 | `fs` | float | no | `1.0` | Sampling frequency used by grouping heuristics. |
+| `trend_modes` | list[int] \| None | no | `None` | Explicit mode indexes assigned to trend. |
+| `season_modes` | list[int] \| None | no | `None` | Explicit mode indexes assigned to season. |
+| `trend_imfs` | list[int] \| None | no | `None` | Compatibility alias for trend mode indexes. |
+| `season_imfs` | list[int] \| None | no | `None` | Compatibility alias for seasonal mode indexes. |
+| `season_freq_tol_ratio` | float | no | `0.25` | Relative frequency tolerance for automatic seasonal grouping. |
+| `trend_freq_threshold` | float \| None | no | `None` | Low-frequency threshold for automatic trend grouping. |
+| `seasonal_num_modes` | int | no | `1` | Number of modes assigned to season when grouping automatically. |
 
 Example config:
 
@@ -568,6 +593,7 @@ Example config:
 | `period` | int | yes | required | Seasonal period passed to robust statsmodels STL. |
 | `seasonal` | int \| None | no | `None` | Odd LOESS seasonal smoother length. |
 | `trend` | int \| None | no | `None` | Odd LOESS trend smoother length. |
+| `robust` | bool | no | `true` | Whether to use robust LOESS fitting. |
 
 Example config:
 
@@ -588,12 +614,14 @@ Example config:
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
-| `window` | int | yes | required | Embedding window length for trajectory-matrix construction. |
+| `window` | int \| None | no | `None` | Embedding window length for trajectory-matrix construction. |
 | `rank` | int \| None | no | `None` | Number of elementary components to retain before grouping. |
 | `primary_period` | int \| None | no | `None` | Dominant seasonal period used by automatic grouping. |
 | `fs` | float | no | `1.0` | Sampling frequency used by frequency-based grouping. |
 | `trend_components` | list[int] \| None | no | `None` | Explicit component indexes assigned to trend. |
 | `season_components` | list[int] \| None | no | `None` | Explicit component indexes assigned to season. |
+| `season_freq_tol_ratio` | float | no | `0.25` | Relative frequency tolerance for automatic seasonal grouping. |
+| `trend_freq_threshold` | float \| None | no | `None` | Low-frequency threshold for automatic trend grouping. |
 | `power_iterations` | int | no | `4` | Fast native mode iteration count when speed_mode='fast'. |
 
 Example config:
@@ -620,7 +648,7 @@ Example config:
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
-| `period` | int | yes | required | Seasonal period in samples. |
+| `period` | int \| None | no | `None` | Seasonal period in samples. If omitted, DeTime estimates it. |
 | `max_period_search` | int \| None | no | `None` | Optional search horizon when period inference is enabled. |
 | `eps` | float | no | `1e-08` | Small numerical guard for dispersion calculations. |
 
@@ -645,7 +673,7 @@ Example config:
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
-| `period` | int | yes | required | Seasonal period in samples. |
+| `period` | int \| None | no | `None` | Seasonal period in samples. If omitted, DeTime estimates it. |
 | `max_period_search` | int \| None | no | `None` | Optional search horizon when period inference is enabled. |
 | `eps` | float | no | `1e-08` | Small numerical guard for robust dispersion calculations. |
 
@@ -782,11 +810,16 @@ Example config:
 |---|---|---:|---|---|
 | `K` | int | no | `4` | Number of variational modes. |
 | `alpha` | float | no | `2000.0` | Bandwidth penalty parameter. |
+| `periods` | list[int] \| None | no | `None` | Optional seasonal periods used to derive the mode count. |
 | `tau` | float | no | `0.0` | Dual ascent time step. |
 | `DC` | bool | no | `false` | Keep the first mode at zero frequency. |
 | `init` | int | no | `1` | Initialization policy used by the VMD backend. |
 | `tol` | float | no | `1e-07` | Convergence tolerance. |
+| `max_iter` | int | no | `500` | Native VMD maximum iteration count. |
+| `fs` | float | no | `1.0` | Sampling frequency used by grouping heuristics. |
 | `primary_period` | int \| None | no | `None` | Period hint for grouping modes into season and trend. |
+| `trend_freq_max` | float \| None | no | `None` | Maximum dominant frequency assigned to the trend. |
+| `seasonal_num_modes` | int | no | `1` | Number of modes assigned to season when grouping automatically. |
 
 Example config:
 

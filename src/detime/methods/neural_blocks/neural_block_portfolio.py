@@ -305,7 +305,7 @@ def inparformer_block_decompose(y: np.ndarray, params: Dict[str, Any]) -> Decomp
         {
             "method": "INPARFORMER_BLOCK",
             "paper_family": "seasonal_trend_transformer_backbone",
-            "candidate_status": "first_pass_paper_inspired_scaffold",
+            "candidate_status": "experimental_nonlearned_operator",
             "primary_period": int(period),
             "trend_window": int(_odd_window(cfg.get("trend_window", 2 * period + 1), 2 * period + 1, arr.size)),
             "fit_scope_requested": fit_scope,
@@ -338,7 +338,7 @@ def delelstm_block_decompose(y: np.ndarray, params: Dict[str, Any]) -> DecompRes
         {
             "method": "DELELSTM_BLOCK",
             "paper_family": "explainable_decomposition_lstm_module",
-            "candidate_status": "first_pass_paper_inspired_scaffold",
+            "candidate_status": "experimental_nonlearned_operator",
             "primary_period": int(period),
             "alpha": float(_clip_unit(cfg.get("alpha", 0.4), 0.4)),
             "beta": float(_clip_unit(cfg.get("beta", 0.2), 0.2)),
@@ -376,7 +376,7 @@ def amd_block_decompose(y: np.ndarray, params: Dict[str, Any]) -> DecompResult:
         {
             "method": "AMD_BLOCK",
             "paper_family": "adaptive_multiscale_decomposition_backbone",
-            "candidate_status": "first_pass_paper_inspired_scaffold",
+            "candidate_status": "experimental_nonlearned_operator",
             "primary_period": int(period),
             "windows": [int(w) for w in windows],
             "fit_scope_requested": fit_scope,
@@ -414,7 +414,7 @@ def parsimony_block_decompose(y: np.ndarray, params: Dict[str, Any]) -> DecompRe
         {
             "method": "PARSIMONY_BLOCK",
             "paper_family": "modern_forecasting_decomposition_branch",
-            "candidate_status": "first_pass_paper_inspired_scaffold",
+            "candidate_status": "experimental_nonlearned_operator",
             "primary_period": int(period),
             "num_harmonics": int(cfg.get("num_harmonics", 2)),
             "fit_scope_requested": fit_scope,
@@ -447,7 +447,7 @@ def stmtm_block_decompose(y: np.ndarray, params: Dict[str, Any]) -> DecompResult
         {
             "method": "ST_MTM_BLOCK",
             "paper_family": "seasonal_trend_pretraining_module",
-            "candidate_status": "first_pass_paper_inspired_scaffold",
+            "candidate_status": "experimental_nonlearned_operator",
             "primary_period": int(period),
             "fit_scope_requested": fit_scope,
             "fit_scope_applied": fit_scope,
@@ -474,7 +474,7 @@ def waveform_block_decompose(y: np.ndarray, params: Dict[str, Any]) -> DecompRes
         {
             "method": "WAVEFORM_BLOCK",
             "paper_family": "wavelet_graph_backbone",
-            "candidate_status": "first_pass_paper_inspired_scaffold",
+            "candidate_status": "experimental_nonlearned_operator",
             "wavelet": str(cfg.get("wavelet", "db4")),
             "level": int(cfg.get("level", 3)),
             "canonical_mapping": "wavelet_approximation_trend + detail_levels_season",
@@ -499,7 +499,7 @@ def waveletmixer_block_decompose(y: np.ndarray, params: Dict[str, Any]) -> Decom
         {
             "method": "WAVELETMIXER_BLOCK",
             "paper_family": "multiresolution_wavelet_mixer",
-            "candidate_status": "first_pass_paper_inspired_scaffold",
+            "candidate_status": "experimental_nonlearned_operator",
             "wavelet": str(cfg.get("wavelet", "sym4")),
             "level": int(cfg.get("level", 4)),
             "canonical_mapping": "wavelet_coarse_trend + mixed_detail_season",
@@ -539,7 +539,7 @@ def times2d_block_decompose(y: np.ndarray, params: Dict[str, Any]) -> DecompResu
         {
             "method": "TIMES2D_BLOCK",
             "paper_family": "multi_period_decomposition_block",
-            "candidate_status": "first_pass_paper_inspired_scaffold",
+            "candidate_status": "experimental_nonlearned_operator",
             "primary_period": int(primary_period),
             "periods_used": [int(p) for p in periods],
             "fit_scope_requested": fit_scope,
@@ -576,7 +576,7 @@ def freqmoe_block_decompose(y: np.ndarray, params: Dict[str, Any]) -> DecompResu
         {
             "method": "FREQMOE_BLOCK",
             "paper_family": "frequency_mixture_of_experts_backbone",
-            "candidate_status": "first_pass_paper_inspired_scaffold",
+            "candidate_status": "experimental_nonlearned_operator",
             "primary_period": int(primary_period),
             "trend_window": int(trend_window),
             "num_bands": int(num_bands),
@@ -622,7 +622,7 @@ def timekan_block_decompose(y: np.ndarray, params: Dict[str, Any]) -> DecompResu
         {
             "method": "TIMEKAN_BLOCK",
             "paper_family": "frequency_decomposition_learning_backbone",
-            "candidate_status": "first_pass_paper_inspired_scaffold",
+            "candidate_status": "experimental_nonlearned_operator",
             "primary_period": int(primary_period),
             "trend_window": int(trend_window),
             "num_bands": int(num_bands),

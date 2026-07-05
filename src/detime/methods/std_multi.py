@@ -1,8 +1,7 @@
 import numpy as np
-from typing import Dict, Any, List, Optional, Union
+from typing import Dict, Any
 from dataclasses import dataclass
 from ..core import DecompResult
-from .ssa import ssa_decompose
 
 """
 Archived experimental prototypes.
@@ -51,12 +50,12 @@ def std_multi_decompose(
     cfg = params.copy()
     mode = cfg.get("mode", "STD_MULTI") # or STD_FULL_ABLATION
     
-    # If fasttimes is not available, we might fallback to SSA or raise error.
-    # For this task, we will fallback to SSA if possible or just implement the structure.
     if not _HAS_FASTTIMES:
-        # Fallback to SSA for now as per prompt hint "Placeholder for user-provided STD implementation"
-        # But we should try to respect the structure.
-        return ssa_decompose(y, params)
+        raise NotImplementedError(
+            "STD_MULTI is an archived experimental prototype and is not part of "
+            "the supported public method surface. Install a compatible fasttimes "
+            "implementation and register a maintained backend before using it."
+        )
 
     # Real implementation would go here using fasttimes
     # ...
@@ -65,7 +64,7 @@ def std_multi_decompose(
         trend=np.zeros_like(y),
         season=np.zeros_like(y),
         residual=y,
-        meta={"method": "STD_MULTI", "params": cfg, "note": "Mock implementation"}
+        meta={"method": mode, "params": cfg, "note": "Archived experimental prototype"}
     )
 
 def std_full_ablation_decompose(

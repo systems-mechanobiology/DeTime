@@ -13,7 +13,16 @@ from urllib.request import Request, urlopen
 
 TSDECOMPOSE_BENCHMARK_DATASET = "Zipeng365/TSDecompose-Benchmark"
 TSDECOMPOSE_BENCHMARK_CODE_PREFIX = "code/TSDecompose"
-TSDECOMPOSE_BENCHMARK_REVISION = "main"
+TSDECOMPOSE_BENCHMARK_REVISION = "ff178deae0d4ad21962a38f7588fd2971845469d"
+SENSITIVE_ENV_PREFIXES = ("AWS_", "AZURE_", "GOOGLE_", "GCP_")
+SENSITIVE_ENV_NAMES = {
+    "HF_TOKEN",
+    "HUGGINGFACE_HUB_TOKEN",
+    "GITHUB_TOKEN",
+    "GH_TOKEN",
+    "PYPI_TOKEN",
+    "TWINE_PASSWORD",
+}
 
 
 class BenchmarkSourceError(RuntimeError):
@@ -101,6 +110,14 @@ def _download_file(url: str, target: Path) -> None:
         target.write_bytes(response.read())
 
 
+def _scrub_external_runner_env(env: Mapping[str, str]) -> dict[str, str]:
+    cleaned = dict(env)
+    for name in list(cleaned):
+        if name in SENSITIVE_ENV_NAMES or name.startswith(SENSITIVE_ENV_PREFIXES):
+            cleaned.pop(name, None)
+    return cleaned
+
+
 def _tree_entries(payload: Any) -> list[Mapping[str, Any]]:
     if isinstance(payload, list):
         return [item for item in payload if isinstance(item, Mapping)]
@@ -130,7 +147,8 @@ def download_tsdecompose_benchmark(
     """Download the TSDecompose benchmark source snapshot from Hugging Face.
 
     The DeTime package does not vendor the benchmark. This helper only caches
-    the benchmark source bundle so users can run the published runner locally.
+    a pinned benchmark source bundle so users can run the published runner
+    locally after explicitly opting in to external benchmark code execution.
     """
 
     root = (
@@ -220,12 +238,22 @@ def run_tsdecompose_benchmark(
     timeout: float | None = None,
     env: Mapping[str, str] | None = None,
     check: bool = True,
+    allow_external_code: bool = False,
 ) -> BenchmarkRunResult:
     """Run the TSDecompose paper benchmark through its published runner.
 
-    By default this executes the benchmark bundle's smoke run. Pass
+    This executes code outside the installed DeTime package. Callers must pass
+    ``allow_external_code=True`` after reviewing the pinned benchmark source.
+    By default this executes the benchmark bundle's smoke run; pass
     ``smoke=False`` for the full paper-core run.
     """
+
+    if not allow_external_code:
+        raise BenchmarkSourceError(
+            "The TSDecompose benchmark bridge executes external benchmark code. "
+            "Pass allow_external_code=True only after reviewing the pinned source "
+            f"revision {revision!r}."
+        )
 
     source_dir = ensure_tsdecompose_benchmark(
         benchmark_dir,
@@ -257,7 +285,7 @@ def run_tsdecompose_benchmark(
     if no_aggregate:
         command.append("--no-aggregate")
 
-    run_env = os.environ.copy()
+    run_env = _scrub_external_runner_env(os.environ)
     if env is not None:
         run_env.update(env)
 
