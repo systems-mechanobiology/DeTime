@@ -1,21 +1,22 @@
-# DeTime 0.1.2 Release Candidate Manifest
+# DeTime 0.1.2 Release Manifest
 
-This file records the release identity used for the JMLR-MLOSS software-paper
-candidate after the 2026-06-19 evidence audit.
+This file records the public release identity used for the JMLR-MLOSS
+software-paper candidate after the 2026-06-19 evidence audit and the
+2026-07-04 PyPI publication.
 
 ## Identity
 
 | Field | Value |
 |---|---|
 | Software name | DeTime |
-| Python distribution | `de-time` |
+| Python distribution | `detime-toolkit` |
 | Canonical import | `detime` |
-| Release target | `0.1.2` |
-| Planned tag | `de-time-v0.1.2` |
-| Audit date | 2026-06-19 |
-| Base commit before this evidence-lock patch | `a3716aba40162fe1be03dcbdb43962c8cbd4fe8c` |
+| Released version | `0.1.2` |
+| Source tag | `de-time-v0.1.2` |
+| Evidence audit date | 2026-06-19 |
+| PyPI publication date | 2026-07-04 |
 | License | BSD-3-Clause |
-| Python versions checked | 3.11.9 locally; CI matrix is documented for 3.10/3.12 |
+| Python versions checked | 3.11.9 locally; CI tests 3.10/3.12 on Ubuntu Linux, macOS, and Windows |
 | Reviewed surface | library, CLI, schemas, method metadata, docs, tests, release evidence |
 
 ## Evidence Files
@@ -31,16 +32,23 @@ candidate after the 2026-06-19 evidence audit.
 | Third-party license audit | `THIRD_PARTY_LICENSES.md` and `LICENSE_AUDIT.md` |
 | Software authorship and credit | `AUTHORS.md` and `CREDIT.md` |
 
-## External Release Actions Still Required
+## Public Release Record
 
-These actions cannot be completed by editing the repository alone:
+The public install command is:
 
-1. Build wheel and source distribution from the final release commit.
-2. Generate `wheel_contents.txt`, `sdist_contents.txt`, and checksums.
-3. Create the immutable GitHub Release `de-time-v0.1.2`.
-4. Attach wheel, sdist, source archive, checksums, coverage reports, and a docs snapshot.
-5. Optionally archive the release with Zenodo or Software Heritage.
+```bash
+python -m pip install detime-toolkit==0.1.2
+```
 
-The existing `de-time-v0.1.1` tag is not moved. The 0.1.2 target avoids
-rewriting a published tag and provides a clean reviewed snapshot for the
-resubmission.
+The runtime import remains:
+
+```python
+import detime
+```
+
+The release smoke matrix has been validated from the public PyPI package.
+
+The `de-time-v0.1.2` source tag and the `detime-toolkit==0.1.2` PyPI
+distribution describe the same reviewed 0.1.2 release identity. The public
+package is installed as `detime-toolkit` and imported as `detime`; GitHub
+release assets should use the `detime_toolkit-0.1.2` artifact names.

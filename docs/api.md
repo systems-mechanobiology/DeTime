@@ -93,7 +93,7 @@ which should match the original input up to the documented method tolerance.
   - `RuntimeError` when `backend="native"` is forced but no native kernel is
     available.
   - `ImportError` for optional-backend methods such as `MVMD` and `MEMD`
-    without `de-time[multivar]`.
+    without `detime-toolkit[multivar]`.
 
 Backend resolution is method-specific:
 

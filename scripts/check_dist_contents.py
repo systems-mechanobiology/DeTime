@@ -21,6 +21,24 @@ ALLOWED_TSDECOMP_WHEEL = {
     "tsdecomp/cli.py",
 }
 
+REQUIRED_NEURAL_BLOCK_SDIST = {
+    "src/detime/methods/neural_blocks/__init__.py",
+    "src/detime/methods/neural_blocks/forecasting_blocks.py",
+    "src/detime/methods/neural_blocks/learned_priors.py",
+    "src/detime/methods/neural_blocks/leddam_block.py",
+    "src/detime/methods/neural_blocks/neural_block_portfolio.py",
+    "src/detime/methods/neural_blocks/xpatch_block.py",
+}
+
+REQUIRED_NEURAL_BLOCK_WHEEL = {
+    "detime/methods/neural_blocks/__init__.py",
+    "detime/methods/neural_blocks/forecasting_blocks.py",
+    "detime/methods/neural_blocks/learned_priors.py",
+    "detime/methods/neural_blocks/leddam_block.py",
+    "detime/methods/neural_blocks/neural_block_portfolio.py",
+    "detime/methods/neural_blocks/xpatch_block.py",
+}
+
 BANNED_COMMON = {
     "detime/bench_config.py",
     "detime/leaderboard.py",
@@ -60,8 +78,10 @@ def _check_entries(
     banned: set[str],
     label: str,
     banned_prefixes: tuple[str, ...] = (),
+    required: set[str] | None = None,
 ) -> list[str]:
     failures: list[str] = []
+    required = required or set()
 
     for path in sorted(banned):
         if path in entries:
@@ -78,6 +98,8 @@ def _check_entries(
         failures.append(f"{label}: unexpected compatibility file present: {path}")
     for path in sorted(missing):
         failures.append(f"{label}: expected compatibility file missing: {path}")
+    for path in sorted(required - entries):
+        failures.append(f"{label}: expected package file missing: {path}")
 
     return failures
 
@@ -95,6 +117,7 @@ def _inspect_sdist(path: str) -> list[str]:
         BANNED_SDIST,
         path,
         banned_prefixes=BANNED_SDIST_PREFIXES,
+        required=REQUIRED_NEURAL_BLOCK_SDIST,
     )
 
 
@@ -106,6 +129,7 @@ def _inspect_wheel(path: str) -> list[str]:
         ALLOWED_TSDECOMP_WHEEL,
         BANNED_COMMON,
         path,
+        required=REQUIRED_NEURAL_BLOCK_WHEEL,
     )
 
 

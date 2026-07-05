@@ -152,9 +152,6 @@ jobs:
       - name: Regenerate agent eval summary
         run: python evals/agent/run_agent_evals.py
 
-      - name: Regenerate reviewer bundle
-        run: python scripts/generate_reviewer_bundle.py
-
       - name: Build documentation
         run: mkdocs build --strict
 

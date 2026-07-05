@@ -39,15 +39,6 @@ BANNED_PATTERNS: dict[str, list[str]] = {
         "not yet a tagged GitHub release",
         "Formal release steps remain pending",
     ],
-    "submission/cover_letter_jmlr_mloss.md": [
-        "still pending",
-        "have not yet created",
-    ],
-    "submission/software_evidence.md": [
-        "still pending",
-        "not created yet",
-        "reviewed snapshot",
-    ],
 }
 
 REQUIRED_PATTERNS: dict[str, list[str]] = {
@@ -59,7 +50,7 @@ REQUIRED_PATTERNS: dict[str, list[str]] = {
         "detime recommend",
     ],
     "docs/install.md": [
-        "python -m pip install de-time",
+        "python -m pip install detime-toolkit",
         'python -m pip install "git+https://github.com/systems-mechanobiology/DeTime.git"',
         "tsdecomp` executable",
     ],
@@ -192,17 +183,10 @@ def main() -> int:
 
     for relative_path, patterns in BANNED_PATTERNS.items():
         path = ROOT / relative_path
-        if relative_path.startswith("submission/") and not path.exists():
-            # Manuscript/submission materials may be distributed separately from
-            # the documentation repository. Skip these paper-only checks when
-            # the submission bundle is intentionally absent.
-            continue
         failures.extend(_check_patterns(path, patterns, expect_present=False))
 
     for relative_path, patterns in REQUIRED_PATTERNS.items():
         path = ROOT / relative_path
-        if relative_path.startswith("submission/") and not path.exists():
-            continue
         failures.extend(_check_patterns(path, patterns, expect_present=True))
 
     for relative_path in PUBLIC_DOCS:

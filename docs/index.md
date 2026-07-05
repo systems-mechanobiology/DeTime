@@ -86,7 +86,7 @@ univariate and aligned multichannel decomposition workflows.
 
 <div class="trust-strip">
   <span class="trust-pill">Canonical import: <code>detime</code></span>
-  <span class="trust-pill">Distribution: <code>de-time</code></span>
+  <span class="trust-pill">Distribution: <code>detime-toolkit</code></span>
   <span class="trust-pill">Hugging Face mirror: <a href="https://huggingface.co/spaces/Zipeng365/DeTime">Zipeng365/DeTime</a></span>
   <span class="trust-pill">Core methods: SSA / STD / STDR / MSSA</span>
   <span class="trust-pill">Schemas, metadata, and exportable artifacts</span>

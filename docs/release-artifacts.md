@@ -1,7 +1,7 @@
 # Release Artifacts
 
-This page summarizes the DeTime `0.1.2` release-candidate evidence lock for
-software-paper review.
+This page summarizes the DeTime `0.1.2` release evidence for software-paper
+review.
 
 | Artifact | Repository path |
 |---|---|
@@ -15,6 +15,12 @@ software-paper review.
 | Package-wide coverage JSON | `docs/assets/generated/evidence/coverage_package.json` |
 | Coverage summary JSON | `docs/assets/generated/evidence/coverage_summary.json` |
 
-The existing `de-time-v0.1.1` tag is not moved. The next immutable reviewed
-snapshot should be published as `de-time-v0.1.2` with wheel, sdist, source
-archive, checksums, coverage reports, and documentation snapshot attached.
+The reviewed source tag follows the existing `de-time-v*` convention. The
+public Python package is published as `detime-toolkit==0.1.2`, and the runtime
+import namespace remains `detime`. Install with:
+
+```bash
+python -m pip install detime-toolkit==0.1.2
+```
+
+GitHub release assets should use the `detime_toolkit-0.1.2` artifact names.

@@ -3,7 +3,7 @@
 Before you start, install the released package:
 
 ```bash
-python -m pip install de-time
+python -m pip install detime-toolkit
 ```
 
 Contributor checkout:

@@ -2,11 +2,11 @@
 
 All notable changes to DeTime are documented in this file.
 
-The project brand is **DeTime**, the PyPI distribution is `de-time`, the
+The project brand is **DeTime**, the PyPI distribution is `detime-toolkit`, the
 preferred Python import path is `detime`, and the legacy `tsdecomp` import/CLI
 aliases remain available for compatibility.
 
-## [0.1.2] - 2026-06-19
+## [0.1.2] - 2026-07-04
 
 ### Release identity and evidence lock
 
@@ -16,6 +16,8 @@ aliases remain available for compatibility.
   evidence for the reviewed software object
 - reports coverage from the current checkout source with a guarded import path:
   92.58% core-contract coverage and 88.41% package-wide coverage
+- publishes the public PyPI distribution as `detime-toolkit==0.1.2` while
+  preserving the `detime` import namespace
 
 ### Documentation and package boundary
 
@@ -59,7 +61,7 @@ aliases remain available for compatibility.
 
 ### Public surface
 
-- canonical `de-time` package metadata and `detime` import surface
+- canonical package metadata and `detime` import surface
 - deprecated top-level `tsdecomp` import and CLI aliases
 - unified decomposition API centered on `DecompositionConfig`, `DecompResult`,
   and `decompose(...)`

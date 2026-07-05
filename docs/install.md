@@ -5,31 +5,31 @@
 Install the latest released package from PyPI:
 
 ```bash
-python -m pip install de-time
+python -m pip install detime-toolkit
 ```
 
 Optional multivariate backends for `MVMD` and `MEMD` install with:
 
 ```bash
-python -m pip install "de-time[multivar]"
+python -m pip install "detime-toolkit[multivar]"
 ```
 
 Optional EMD-family wrappers for `EMD` and `CEEMDAN` install with:
 
 ```bash
-python -m pip install "de-time[emd]"
+python -m pip install "detime-toolkit[emd]"
 ```
 
 Optional torch-backed neural block support for `NBEATS_INTERPRETABLE` installs with:
 
 ```bash
-python -m pip install "de-time[neural]"
+python -m pip install "detime-toolkit[neural]"
 ```
 
 Notebook tooling for the method gallery installs with:
 
 ```bash
-python -m pip install "de-time[notebook]"
+python -m pip install "detime-toolkit[notebook]"
 ```
 
 Names used by this project:
@@ -37,12 +37,12 @@ Names used by this project:
 | Context | Name |
 |---|---|
 | Project/product | `DeTime` |
-| Python distribution | `de-time` |
+| Python distribution | `detime-toolkit` |
 | Python import | `detime` |
 | Deprecated compatibility alias | `tsdecomp` |
 
 Do not install the unrelated [`detime`](https://pypi.org/project/detime/)
-package from PyPI when you want this project; that package is not DeTime.
+package from PyPI when you want this project; install `detime-toolkit` instead.
 
 To install the unreleased `main` branch directly from GitHub:
 
@@ -168,11 +168,11 @@ from install artifacts.
 
 Symptom: `import detime` imports an unrelated package.
 
-Fix: uninstall the unrelated `detime` package, then install `de-time`.
+Fix: uninstall the unrelated `detime` package, then install `detime-toolkit`.
 
 ```bash
 python -m pip uninstall -y detime
-python -m pip install de-time
+python -m pip install detime-toolkit
 ```
 
 </details>
@@ -187,7 +187,7 @@ install.
 
 ```bash
 python -m pip install --upgrade pip
-python -m pip install --no-cache-dir de-time
+python -m pip install --no-cache-dir detime-toolkit
 ```
 
 </details>
@@ -213,9 +213,9 @@ Symptom: `MVMD`, `MEMD`, `EMD`, `CEEMDAN`, or `NBEATS_INTERPRETABLE` raises an
 Fix: install the matching extra.
 
 ```bash
-python -m pip install "de-time[multivar]"
-python -m pip install "de-time[emd]"
-python -m pip install "de-time[neural]"
+python -m pip install "detime-toolkit[multivar]"
+python -m pip install "detime-toolkit[emd]"
+python -m pip install "detime-toolkit[neural]"
 ```
 
 </details>
