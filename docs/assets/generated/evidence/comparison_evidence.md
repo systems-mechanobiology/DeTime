@@ -1,6 +1,6 @@
 # Curated Comparison Evidence
 
-Curated for DeTime `0.1.2` on 2026-07-05T10:13:31.410007+00:00.
+Curated for DeTime `0.1.2` on 2026-07-05T11:07:02.284341+00:00.
 
 Audit date: 2026-06-19.
 

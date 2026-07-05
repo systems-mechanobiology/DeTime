@@ -5,8 +5,9 @@
     "period": 12,
     "n_cycles": 2,
     "incomplete_cycle": false,
+    "native_method": "STD_NATIVE",
     "backend_requested": "auto",
-    "backend_used": "python",
+    "backend_used": "native",
     "speed_mode": "exact",
     "input_shape": [
       24

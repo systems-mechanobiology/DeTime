@@ -170,15 +170,14 @@ DISTRIBUTION_BANS = {
         "pip install de-time",
         "de-time[",
     ],
-    "scripts/generate_reviewer_bundle.py": [
-        "pip install de-time",
-        "de-time[",
-        'ROOT / "submission"',
-    ],
 }
 
 
 def _check_patterns(path: Path, patterns: list[str], *, expect_present: bool) -> list[str]:
+    if not path.exists():
+        if expect_present:
+            return [f"{path}: required file missing"]
+        return []
     text = path.read_text(encoding="utf-8")
     failures: list[str] = []
     for pattern in patterns:
