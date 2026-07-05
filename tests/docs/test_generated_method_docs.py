@@ -41,10 +41,11 @@ def test_notebook_gallery_assets_are_committed() -> None:
     asset_dir = ROOT / "docs" / "assets" / "generated" / "notebooks" / "method-gallery"
 
     assert "de_time_method_gallery.ipynb" in page
-    assert "method-card-grid" in page
     assert "gallery-note" in page
+    assert "download-card" in page
     assert "Download Python source code" in page
-    assert 'href="../gallery/ssa/"' in page
+    assert "## Univariate SSA" in page
+    assert "![SSA decomposition](assets/generated/notebooks/method-gallery/ssa.png)" in page
     assert "GABOR_CLUSTER" in page
     assert (asset_dir / "ssa.png").is_file()
     assert (asset_dir / "de_time_method_gallery.ipynb").is_file()
