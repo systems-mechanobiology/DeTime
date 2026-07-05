@@ -500,7 +500,7 @@ understand, not for selecting methods by scoreboard.</p>
 <p>Published stdout from the current docs build:</p>
 <pre><code class="language-text">method=SSA
 backend_requested=auto
-backend_used=native
+backend_used=python
 speed_mode=exact
 repeat=5
 warmup=1
@@ -516,24 +516,24 @@ warmup=1
   --series examples/data/example_series.csv \
   --col value \
   --param period=12 \
-  --backend native \
+  --backend auto \
   --repeat 10 \
   --warmup 2 \
   --format text \
-  --output out/profile/std_native.txt
+  --output out/profile/std_auto.txt
 </code></pre>
 <p>Published command stdout:</p>
-<pre><code class="language-text">Profile report written to out/profile/std_native.txt
+<pre><code class="language-text">Profile report written to out/profile/std_auto.txt
 </code></pre>
 <p>Published saved report:</p>
 <ul>
-<li><a href="../../assets/generated/tutorials/cli-and-profiling/profile/std_native.txt">std_native.txt</a></li>
-<li><a href="../../assets/generated/tutorials/cli-and-profiling/profile/std_native_stdout.txt">std_native_stdout.txt</a></li>
+<li><a href="../../assets/generated/tutorials/cli-and-profiling/profile/std_auto.txt">std_auto.txt</a></li>
+<li><a href="../../assets/generated/tutorials/cli-and-profiling/profile/std_auto_stdout.txt">std_auto_stdout.txt</a></li>
 </ul>
 <p>Representative saved report excerpt:</p>
 <pre><code class="language-text">method=STD
-backend_requested=native
-backend_used=native
+backend_requested=auto
+backend_used=python
 speed_mode=exact
 repeat=10
 warmup=2

@@ -498,7 +498,7 @@ not the canonical surface for any method listed below.</p>
 <li>Summary: Multivariate SSA for shared-structure decomposition across channels.</li>
 <li>Use when: multivariate component recovery; shared seasonal structure across channels</li>
 <li>Avoid when: single-series workflows where a univariate core method is sufficient; very short series that cannot support a sensible window length</li>
-<li>Key params: <code>window</code> (required), <code>rank</code> (null), <code>primary_period</code> (null)</li>
+<li>Key params: <code>window</code> (null), <code>rank</code> (null), <code>primary_period</code> (null)</li>
 <li>Input/backend: <code>multivariate</code> input, <code>native-backed</code> implementation, maturity <code>core maintained</code></li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.elementary</code></li>
@@ -510,7 +510,7 @@ not the canonical surface for any method listed below.</p>
 <li>Summary: Singular spectrum analysis for structured univariate decomposition.</li>
 <li>Use when: accuracy-first univariate decomposition; component recovery</li>
 <li>Avoid when: shared-model multivariate decomposition problems; very short series that cannot support a sensible window length</li>
-<li>Key params: <code>window</code> (required), <code>rank</code> (null), <code>primary_period</code> (null)</li>
+<li>Key params: <code>window</code> (null), <code>rank</code> (null), <code>primary_period</code> (null)</li>
 <li>Input/backend: <code>univariate</code> input, <code>native-backed</code> implementation, maturity <code>core maintained</code></li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.elementary</code></li>
@@ -522,7 +522,7 @@ not the canonical surface for any method listed below.</p>
 <li>Summary: Fast seasonal-trend decomposition with dispersion-aware diagnostics.</li>
 <li>Use when: fast seasonal-trend baselines; channelwise multivariate workflows</li>
 <li>Avoid when: problems that require one shared latent model across channels; series where the dominant period is unknown and cannot be inferred reliably</li>
-<li>Key params: <code>period</code> (required)</li>
+<li>Key params: <code>period</code> (null)</li>
 <li>Input/backend: <code>channelwise</code> input, <code>native-backed</code> implementation, maturity <code>core maintained</code></li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.dispersion</code>, <code>components.seasonal_shape</code></li>
@@ -534,7 +534,7 @@ not the canonical surface for any method listed below.</p>
 <li>Summary: Robust seasonal-trend decomposition for noisier periodic signals.</li>
 <li>Use when: robust seasonal-trend decomposition; channelwise multivariate workflows</li>
 <li>Avoid when: problems that require one shared latent model across channels; series where the dominant period is unknown and cannot be inferred reliably</li>
-<li>Key params: <code>period</code> (required)</li>
+<li>Key params: <code>period</code> (null)</li>
 <li>Input/backend: <code>channelwise</code> input, <code>native-backed</code> implementation, maturity <code>core maintained</code></li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.dispersion</code>, <code>components.seasonal_shape</code></li>
@@ -726,13 +726,13 @@ not the canonical surface for any method listed below.</p>
 <p>See <a href="../config-reference/#freqmoe_block">Config Reference</a> for the full parameter table.</p>
 <h3 id="gabor_cluster"><code>GABOR_CLUSTER</code></h3>
 <ul>
-<li>Summary: Experimental clustering-based decomposition path.</li>
+<li>Summary: Experimental optional clustering path that requires a trained Gabor model.</li>
 <li>Use when: research prototypes; exploratory clustering-style decomposition</li>
 <li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
 <li>Key params: <code>model</code> (null), <code>model_path</code> (null)</li>
-<li>Input/backend: <code>univariate</code> input, <code>native-backed</code> implementation, maturity <code>experimental</code></li>
+<li>Input/backend: <code>univariate</code> input, <code>optional-backend</code> implementation, maturity <code>experimental</code></li>
 <li>Optional dependencies: faiss</li>
-<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.clusters</code></li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.Cluster_*</code></li>
 <li>References: <a href="../method-references/#gabor_cluster">Method References</a></li>
 </ul>
 <p>See <a href="../config-reference/#gabor_cluster">Config Reference</a> for the full parameter table.</p>

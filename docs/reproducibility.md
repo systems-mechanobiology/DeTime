@@ -30,6 +30,12 @@ DeTime includes a bridge command for the public Hugging Face bundle
 The command downloads the bundle's `code/TSDecompose` source snapshot into a
 local cache and invokes its published paper benchmark runner.
 
+The bridge executes external source code and is therefore outside the core
+DeTime package boundary. It defaults to the reviewed 40-character Hugging Face
+dataset revision, requires `--allow-external-benchmark-code`, rejects unpinned
+branch/tag revisions unless `--allow-unpinned-benchmark-revision` is also set,
+and removes common credential variables from the external runner environment.
+
 Smoke run:
 
 ```bash
@@ -175,14 +181,14 @@ against internal Python fallback paths in one review environment. It verifies
 that the native paths are installed, callable, and routed through the same
 result contract. It is not a portable runtime ranking against other packages.
 
-| Method | Python mean (ms) | Native mean (ms) | Speedup |
-|---|---:|---:|---:|
-| `SSA` | 13.925 | 1.906 | 7.31x |
-| `STD` | 0.154 | 0.024 | 6.44x |
-| `STDR` | 0.175 | 0.018 | 9.81x |
-| `MA_BASELINE` | 0.070 | 0.016 | 4.42x |
-| `MSSA` | 60.856 | 22.900 | 2.66x |
-| `VMD` | 47.856 | 13.812 | 3.46x |
+| Method | Python median (ms) | Native median (ms) | Speedup | Repeats / warmup |
+|---|---:|---:|---:|---:|
+| `SSA` | 13.707 | 1.859 | 7.37x | 50 / 10 |
+| `STD` | 0.159 | 0.041 | 3.89x | 50 / 10 |
+| `STDR` | 0.198 | 0.040 | 4.93x | 50 / 10 |
+| `MA_BASELINE` | 0.087 | 0.037 | 2.36x | 50 / 10 |
+| `MSSA` | 64.251 | 25.930 | 2.48x | 50 / 10 |
+| `VMD` | 52.082 | 13.991 | 3.72x | 50 / 10 |
 
 Experimental `GABOR_CLUSTER` timing is excluded from release-validation
 performance evidence because it depends on a trained model object and optional

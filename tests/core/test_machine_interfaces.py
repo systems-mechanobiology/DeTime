@@ -153,3 +153,19 @@ def test_recommend_methods_surface_reason_codes_and_rejections() -> None:
     assert "speed_shortlist" in top_item.reason_codes
     assert "MA_BASELINE" not in native_speed.rejected_methods
     assert any(item.method == "MA_BASELINE" for item in native_speed.recommendations)
+
+
+def test_recommend_methods_keeps_experimental_gabor_out_of_default_ranking() -> None:
+    response = recommend_methods(
+        {
+            "length": 128,
+            "channels": 1,
+            "prefer": "accuracy",
+            "allow_optional_backends": True,
+            "require_native": False,
+            "top_k": 20,
+        }
+    )
+
+    assert all(item.method != "GABOR_CLUSTER" for item in response.recommendations)
+    assert response.rejected_methods["GABOR_CLUSTER"] == "experimental_trained_model_required"

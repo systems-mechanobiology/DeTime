@@ -523,12 +523,11 @@ comparison, see <a href="../method-matrix/">Method Matrix</a>.</p>
   Method-specific parameters. Examples include <code>period</code> for <code>STD</code>, <code>window</code>
   and <code>rank</code> for <code>SSA</code>, and <code>primary_period</code> for automatic grouping.</li>
 <li><code>return_components: list[str] | None = None</code>
-  Compatibility field reserved for older callers. Current stable entrypoints
-  return the full <code>DecompResult</code>; methods may ignore this field.</li>
-<li><code>backend: "auto" | "native" | "python" | "gpu" = "auto"</code>
+  Optional list of extra component names to retain in <code>result.components</code>.
+  <code>trend</code>, <code>season</code>, and <code>residual</code> are always returned.</li>
+<li><code>backend: "auto" | "native" | "python" = "auto"</code>
   Backend preference. <code>auto</code> uses a native kernel when one exists, <code>python</code>
-  forces the Python implementation, <code>native</code> requires the native path, and
-  <code>gpu</code> is reserved and raises unless a method explicitly documents support.</li>
+  forces the Python implementation, and <code>native</code> requires the native path.</li>
 <li><code>speed_mode: "exact" | "fast" = "exact"</code>
   Runtime accuracy policy. For native <code>SSA</code>, <code>exact</code> follows the deterministic
   SVD-backed path and <code>fast</code> uses the approximate iterative kernel.</li>
@@ -547,7 +546,7 @@ comparison, see <a href="../method-matrix/">Method Matrix</a>.</p>
   Optional channel labels for multivariate inputs. These are copied into result
   metadata and saved artifacts.</li>
 </ul>
-<p>Validation errors come from Pydantic. Invalid backend names, negative
+<p>Validation errors come from Pydantic. Invalid backend names, non-positive
 <code>n_jobs</code>, or malformed parameter payloads fail before decomposition starts.</p>
 <h2 id="decompresult"><code>DecompResult</code></h2>
 <p><code>DecompResult</code> is the normalized output object returned by <code>decompose(...)</code>.</p>
@@ -588,7 +587,9 @@ comparison, see <a href="../method-matrix/">Method Matrix</a>.</p>
 </ul>
 <p>Backend resolution is method-specific:</p>
 <ul>
-<li><code>SSA</code>, <code>STD</code>, <code>STDR</code>, <code>MA_BASELINE</code>, <code>MSSA</code>, <code>VMD</code>, and <code>GABOR_CLUSTER</code> can use native kernels.</li>
+<li><code>SSA</code>, <code>STD</code>, <code>STDR</code>, <code>MA_BASELINE</code>, <code>MSSA</code>, and <code>VMD</code> can use native kernels.</li>
+<li><code>GABOR_CLUSTER</code> remains an experimental optional clustering path that requires
+  a trained model object or model path.</li>
 <li><code>MVMD</code> and <code>MEMD</code> are optional-backend wrappers and require the <code>multivar</code>
   extra.</li>
 </ul>

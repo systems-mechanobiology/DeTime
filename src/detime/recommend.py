@@ -20,6 +20,8 @@ def _score_method(metadata: MethodMetadataModel, request: RecommendationRequestM
         return score, reasons, "univariate_only"
     if channels == 1 and metadata.input_mode == "multivariate":
         return score, reasons, "requires_multivariate_input"
+    if metadata.name == "GABOR_CLUSTER":
+        return score, reasons, "experimental_trained_model_required"
     if request.require_native and not metadata.native_backed:
         return score, reasons, "native_required"
     if metadata.dependency_tier == "optional-backend" and not request.allow_optional_backends:

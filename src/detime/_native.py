@@ -4,12 +4,23 @@ from importlib import import_module
 from importlib import util as importlib_util
 from importlib.machinery import EXTENSION_SUFFIXES
 from importlib.metadata import PackageNotFoundError, distribution
+from pathlib import Path
 import sys
 from types import ModuleType
 from typing import Any, Dict
 
 _MODULE: ModuleType | None = None
 _IMPORT_ERROR: Exception | None = None
+
+
+def _load_extension_path(extension_path: Path) -> ModuleType:
+    spec = importlib_util.spec_from_file_location("detime._detime_native", extension_path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Cannot load native extension from {extension_path}")
+    module = importlib_util.module_from_spec(spec)
+    sys.modules["detime._detime_native"] = module
+    spec.loader.exec_module(module)
+    return module
 
 
 def _load_installed_extension() -> ModuleType | None:
@@ -29,13 +40,21 @@ def _load_installed_extension() -> ModuleType | None:
             continue
 
         extension_path = dist.locate_file(file)
-        spec = importlib_util.spec_from_file_location("detime._detime_native", extension_path)
-        if spec is None or spec.loader is None:
+        return _load_extension_path(Path(extension_path))
+    return None
+
+
+def _load_extension_from_sys_path() -> ModuleType | None:
+    """Find an installed native extension when package metadata is unavailable."""
+    for entry in sys.path:
+        if not entry:
             continue
-        module = importlib_util.module_from_spec(spec)
-        sys.modules["detime._detime_native"] = module
-        spec.loader.exec_module(module)
-        return module
+        package_dir = Path(entry) / "detime"
+        if not package_dir.is_dir():
+            continue
+        for suffix in EXTENSION_SUFFIXES:
+            for extension_path in package_dir.glob(f"_detime_native*{suffix}"):
+                return _load_extension_path(extension_path)
     return None
 
 
@@ -54,6 +73,12 @@ for _module_name in (
 if _MODULE is None:
     try:
         _MODULE = _load_installed_extension()
+        _IMPORT_ERROR = None if _MODULE is not None else _IMPORT_ERROR
+    except Exception as exc:  # pragma: no cover - import error depends on env/build
+        _IMPORT_ERROR = exc
+if _MODULE is None:
+    try:
+        _MODULE = _load_extension_from_sys_path()
         _IMPORT_ERROR = None if _MODULE is not None else _IMPORT_ERROR
     except Exception as exc:  # pragma: no cover - import error depends on env/build
         _IMPORT_ERROR = exc

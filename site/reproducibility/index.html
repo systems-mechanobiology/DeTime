@@ -539,16 +539,25 @@ as <code>tsdecomp.methods.*</code>, <code>tsdecomp.leaderboard</code>, and <code
 <a href="https://huggingface.co/datasets/Zipeng365/TSDecompose-Benchmark"><code>Zipeng365/TSDecompose-Benchmark</code></a>.
 The command downloads the bundle's <code>code/TSDecompose</code> source snapshot into a
 local cache and invokes its published paper benchmark runner.</p>
+<p>The bridge executes external source code and is therefore outside the core
+DeTime package boundary. It defaults to the reviewed 40-character Hugging Face
+dataset revision, requires <code>--allow-external-benchmark-code</code>, rejects unpinned
+branch/tag revisions unless <code>--allow-unpinned-benchmark-revision</code> is also set,
+and removes common credential variables from the external runner environment.</p>
 <p>Smoke run:</p>
-<pre><code class="language-bash">detime benchmark --out-dir out/tsdecompose-smoke
+<pre><code class="language-bash">detime benchmark --allow-external-benchmark-code --out-dir out/tsdecompose-smoke
 </code></pre>
 <p>Full paper-core run:</p>
-<pre><code class="language-bash">detime benchmark --full --out-dir out/tsdecompose-paper-core
+<pre><code class="language-bash">detime benchmark --allow-external-benchmark-code --full --out-dir out/tsdecompose-paper-core
 </code></pre>
 <p>Python API:</p>
 <pre><code class="language-python">from detime import run_tsdecompose_benchmark
 
-result = run_tsdecompose_benchmark(smoke=True, out_dir=&quot;out/tsdecompose-smoke&quot;)
+result = run_tsdecompose_benchmark(
+    smoke=True,
+    out_dir=&quot;out/tsdecompose-smoke&quot;,
+    allow_external_code=True,
+)
 print(result.leaderboard_path)
 </code></pre>
 <p>This bridge keeps the benchmark source and benchmark-derived methods outside
@@ -618,12 +627,13 @@ The current release and docs were checked with:
 <p>The repository now publishes two coverage views so the denominator is explicit:</p>
 <ul>
 <li><strong>core-surface coverage</strong></li>
-<li>the gated <code>detime</code> core-plus-maintained contract</li>
+<li>the gated selected <code>detime</code> core algorithm contract files</li>
 <li><strong>package-wide coverage</strong></li>
 <li>the broader installable <code>detime</code> package, including CLI, I/O,
     visualization, wrappers, and machine-facing helpers</li>
 </ul>
-<p>The core gate is applied to the canonical <code>detime</code> core-plus-maintained surface.</p>
+<p>The core gate is applied to selected canonical <code>detime</code> core algorithm contract
+files.</p>
 <p>The core-surface denominator intentionally omits:</p>
 <ul>
 <li>the deprecated <code>tsdecomp</code> compatibility layer,</li>
@@ -712,7 +722,7 @@ includes numeric agreement checks between native and Python implementations for:
 </tr>
 <tr>
 <td><code>GABOR_CLUSTER</code></td>
-<td>experimental native path</td>
+<td>experimental optional clustering path</td>
 <td>callable/schema smoke</td>
 <td style="text-align: right;">n/a</td>
 <td>experimental smoke-tested</td>
@@ -731,56 +741,61 @@ result contract. It is not a portable runtime ranking against other packages.</p
 <thead>
 <tr>
 <th>Method</th>
-<th style="text-align: right;">Python mean (ms)</th>
-<th style="text-align: right;">Native mean (ms)</th>
+<th style="text-align: right;">Python median (ms)</th>
+<th style="text-align: right;">Native median (ms)</th>
 <th style="text-align: right;">Speedup</th>
+<th style="text-align: right;">Repeats / warmup</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>SSA</code></td>
-<td style="text-align: right;">13.925</td>
-<td style="text-align: right;">1.906</td>
-<td style="text-align: right;">7.31x</td>
+<td style="text-align: right;">13.707</td>
+<td style="text-align: right;">1.859</td>
+<td style="text-align: right;">7.37x</td>
+<td style="text-align: right;">50 / 10</td>
 </tr>
 <tr>
 <td><code>STD</code></td>
-<td style="text-align: right;">0.154</td>
-<td style="text-align: right;">0.024</td>
-<td style="text-align: right;">6.44x</td>
+<td style="text-align: right;">0.159</td>
+<td style="text-align: right;">0.041</td>
+<td style="text-align: right;">3.89x</td>
+<td style="text-align: right;">50 / 10</td>
 </tr>
 <tr>
 <td><code>STDR</code></td>
-<td style="text-align: right;">0.175</td>
-<td style="text-align: right;">0.018</td>
-<td style="text-align: right;">9.81x</td>
+<td style="text-align: right;">0.198</td>
+<td style="text-align: right;">0.040</td>
+<td style="text-align: right;">4.93x</td>
+<td style="text-align: right;">50 / 10</td>
 </tr>
 <tr>
 <td><code>MA_BASELINE</code></td>
-<td style="text-align: right;">0.070</td>
-<td style="text-align: right;">0.016</td>
-<td style="text-align: right;">4.42x</td>
+<td style="text-align: right;">0.087</td>
+<td style="text-align: right;">0.037</td>
+<td style="text-align: right;">2.36x</td>
+<td style="text-align: right;">50 / 10</td>
 </tr>
 <tr>
 <td><code>MSSA</code></td>
-<td style="text-align: right;">60.856</td>
-<td style="text-align: right;">22.900</td>
-<td style="text-align: right;">2.66x</td>
+<td style="text-align: right;">64.251</td>
+<td style="text-align: right;">25.930</td>
+<td style="text-align: right;">2.48x</td>
+<td style="text-align: right;">50 / 10</td>
 </tr>
 <tr>
 <td><code>VMD</code></td>
-<td style="text-align: right;">47.856</td>
-<td style="text-align: right;">13.812</td>
-<td style="text-align: right;">3.46x</td>
-</tr>
-<tr>
-<td><code>GABOR_CLUSTER</code> (experimental)</td>
-<td style="text-align: right;">3.304</td>
-<td style="text-align: right;">0.181</td>
-<td style="text-align: right;">18.22x</td>
+<td style="text-align: right;">52.082</td>
+<td style="text-align: right;">13.991</td>
+<td style="text-align: right;">3.72x</td>
+<td style="text-align: right;">50 / 10</td>
 </tr>
 </tbody>
 </table>
+<p>Experimental <code>GABOR_CLUSTER</code> timing is excluded from release-validation
+performance evidence because it depends on a trained model object and optional
+clustering backend availability. It can be generated separately with
+<code>scripts/generate_performance_snapshot.py --include-experimental</code>.</p>
 <h2 id="experimental-neural-block-table">Experimental neural block table</h2>
 <p>These operators are exposed through the same DeTime config/result surface for
 decomposition-head ablations, reusable result-contract tests, and interface

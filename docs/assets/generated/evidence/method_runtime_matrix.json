@@ -1,5 +1,8 @@
 {
-  "generated_at": "2026-06-19T18:16:36.763713+00:00",
+  "experimental_excluded_by_default": [
+    "GABOR_CLUSTER"
+  ],
+  "generated_at": "2026-07-05T10:53:47.348675+00:00",
   "native_capabilities": {
     "gabor_cluster_decompose": true,
     "gabor_istft_rfft": true,
@@ -22,21 +25,19 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.2551,
-      "mean_ms": 0.160333,
+      "max_ms": 0.4565,
+      "mean_ms": 0.256833,
       "method": "AMD_BLOCK",
-      "min_ms": 0.1086,
+      "min_ms": 0.1486,
       "params": {
         "fit_scope": "full",
-        "moving_avg": 13,
-        "primary_period": 12,
-        "trend_window": 13
+        "primary_period": 12
       },
       "repeat": 3,
       "samples_ms": [
-        0.2551,
-        0.1173,
-        0.1086
+        0.4565,
+        0.1654,
+        0.1486
       ],
       "series_shape": [
         128
@@ -47,21 +48,19 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.0314,
-      "mean_ms": 0.0262,
+      "max_ms": 0.0712,
+      "mean_ms": 0.0601,
       "method": "AUTOFORMER_BLOCK",
-      "min_ms": 0.0234,
+      "min_ms": 0.053,
       "params": {
-        "fit_scope": "full",
         "moving_avg": 13,
-        "primary_period": 12,
-        "trend_window": 13
+        "primary_period": 12
       },
       "repeat": 3,
       "samples_ms": [
-        0.0314,
-        0.0238,
-        0.0234
+        0.0712,
+        0.0561,
+        0.053
       ],
       "series_shape": [
         128
@@ -72,18 +71,18 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 25.6802,
-      "mean_ms": 24.0472,
+      "max_ms": 26.178,
+      "mean_ms": 25.7863,
       "method": "CEEMDAN",
-      "min_ms": 22.4142,
+      "min_ms": 25.3946,
       "params": {
         "primary_period": 12,
         "trials": 4
       },
       "repeat": 2,
       "samples_ms": [
-        22.4142,
-        25.6802
+        26.178,
+        25.3946
       ],
       "series_shape": [
         128
@@ -94,21 +93,19 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.121,
-      "mean_ms": 0.1036,
+      "max_ms": 0.1822,
+      "mean_ms": 0.1432,
       "method": "DELELSTM_BLOCK",
-      "min_ms": 0.0946,
+      "min_ms": 0.1197,
       "params": {
         "fit_scope": "full",
-        "moving_avg": 13,
-        "primary_period": 12,
-        "trend_window": 13
+        "primary_period": 12
       },
       "repeat": 3,
       "samples_ms": [
-        0.121,
-        0.0946,
-        0.0952
+        0.1822,
+        0.1277,
+        0.1197
       ],
       "series_shape": [
         128
@@ -119,21 +116,19 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.0411,
-      "mean_ms": 0.0305,
+      "max_ms": 0.0767,
+      "mean_ms": 0.062933,
       "method": "DLINEAR_BLOCK",
-      "min_ms": 0.0237,
+      "min_ms": 0.0552,
       "params": {
-        "fit_scope": "full",
         "moving_avg": 13,
-        "primary_period": 12,
-        "trend_window": 13
+        "primary_period": 12
       },
       "repeat": 3,
       "samples_ms": [
-        0.0411,
-        0.0267,
-        0.0237
+        0.0767,
+        0.0569,
+        0.0552
       ],
       "series_shape": [
         128
@@ -144,19 +139,19 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.7221,
-      "mean_ms": 0.6851,
+      "max_ms": 0.7877,
+      "mean_ms": 0.753067,
       "method": "EMD",
-      "min_ms": 0.6652,
+      "min_ms": 0.7285,
       "params": {
         "n_imfs": 4,
         "primary_period": 12
       },
       "repeat": 3,
       "samples_ms": [
-        0.7221,
-        0.6652,
-        0.668
+        0.7877,
+        0.7285,
+        0.743
       ],
       "series_shape": [
         128
@@ -167,21 +162,20 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.2816,
-      "mean_ms": 0.1995,
+      "max_ms": 0.3307,
+      "mean_ms": 0.242333,
       "method": "FREQMOE_BLOCK",
-      "min_ms": 0.1469,
+      "min_ms": 0.1864,
       "params": {
         "fit_scope": "full",
-        "moving_avg": 13,
         "primary_period": 12,
         "trend_window": 13
       },
       "repeat": 3,
       "samples_ms": [
-        0.2816,
-        0.17,
-        0.1469
+        0.3307,
+        0.2099,
+        0.1864
       ],
       "series_shape": [
         128
@@ -192,75 +186,20 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 5.2432,
-      "mean_ms": 2.267367,
-      "method": "GABOR_CLUSTER",
-      "min_ms": 0.5546,
-      "params": {
-        "hop": 16,
-        "model": "synthetic_gabor_centroids",
-        "n_clusters": 6,
-        "n_fft": 64,
-        "trend_freq_thr": 0.15,
-        "win_len": 32
-      },
-      "repeat": 3,
-      "samples_ms": [
-        5.2432,
-        0.5546,
-        1.0043
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "native",
-      "backend_used": "native",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 0.2081,
-      "mean_ms": 0.154533,
-      "method": "GABOR_CLUSTER",
-      "min_ms": 0.1233,
-      "params": {
-        "hop": 16,
-        "model": "synthetic_gabor_centroids",
-        "n_clusters": 6,
-        "n_fft": 64,
-        "trend_freq_thr": 0.15,
-        "win_len": 32
-      },
-      "repeat": 3,
-      "samples_ms": [
-        0.2081,
-        0.1322,
-        0.1233
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 0.1572,
-      "mean_ms": 0.143433,
+      "max_ms": 0.102,
+      "mean_ms": 0.098167,
       "method": "INPARFORMER_BLOCK",
-      "min_ms": 0.1358,
+      "min_ms": 0.0933,
       "params": {
         "fit_scope": "full",
-        "moving_avg": 13,
         "primary_period": 12,
         "trend_window": 13
       },
       "repeat": 3,
       "samples_ms": [
-        0.1572,
-        0.1373,
-        0.1358
+        0.102,
+        0.0992,
+        0.0933
       ],
       "series_shape": [
         128
@@ -271,21 +210,16 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.0908,
-      "mean_ms": 0.0794,
+      "max_ms": 0.0761,
+      "mean_ms": 0.063867,
       "method": "LEDDAM_BLOCK",
-      "min_ms": 0.072,
-      "params": {
-        "fit_scope": "full",
-        "moving_avg": 13,
-        "primary_period": 12,
-        "trend_window": 13
-      },
+      "min_ms": 0.0574,
+      "params": {},
       "repeat": 3,
       "samples_ms": [
-        0.0908,
-        0.0754,
-        0.072
+        0.0761,
+        0.0581,
+        0.0574
       ],
       "series_shape": [
         128
@@ -296,19 +230,19 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.2289,
-      "mean_ms": 0.213433,
+      "max_ms": 0.1136,
+      "mean_ms": 0.101933,
       "method": "MA_BASELINE",
-      "min_ms": 0.1988,
+      "min_ms": 0.0949,
       "params": {
         "season_period": 12,
         "trend_window": 7
       },
       "repeat": 3,
       "samples_ms": [
-        0.2289,
-        0.2126,
-        0.1988
+        0.1136,
+        0.0973,
+        0.0949
       ],
       "series_shape": [
         128
@@ -319,19 +253,19 @@
       "backend_used": "native",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.043,
-      "mean_ms": 0.035367,
+      "max_ms": 0.0886,
+      "mean_ms": 0.0577,
       "method": "MA_BASELINE",
-      "min_ms": 0.0304,
+      "min_ms": 0.0399,
       "params": {
         "season_period": 12,
         "trend_window": 7
       },
       "repeat": 3,
       "samples_ms": [
-        0.043,
-        0.0327,
-        0.0304
+        0.0886,
+        0.0446,
+        0.0399
       ],
       "series_shape": [
         128
@@ -342,17 +276,17 @@
       "backend_used": "python",
       "captured_stdout": "(2, 128)\n(2, 128)\n(2, 128)\n(2, 128)",
       "error": null,
-      "max_ms": 71.8545,
-      "mean_ms": 48.8977,
+      "max_ms": 32.5265,
+      "mean_ms": 24.8361,
       "method": "MEMD",
-      "min_ms": 25.9409,
+      "min_ms": 17.1457,
       "params": {
         "primary_period": 12
       },
       "repeat": 2,
       "samples_ms": [
-        71.8545,
-        25.9409
+        32.5265,
+        17.1457
       ],
       "series_shape": [
         128,
@@ -364,21 +298,19 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.0727,
-      "mean_ms": 0.043333,
+      "max_ms": 0.1096,
+      "mean_ms": 0.076433,
       "method": "MOVING_AVERAGE_DECOMPOSITION_BLOCK",
-      "min_ms": 0.0242,
+      "min_ms": 0.0534,
       "params": {
-        "fit_scope": "full",
         "moving_avg": 13,
-        "primary_period": 12,
-        "trend_window": 13
+        "primary_period": 12
       },
       "repeat": 3,
       "samples_ms": [
-        0.0727,
-        0.0331,
-        0.0242
+        0.1096,
+        0.0663,
+        0.0534
       ],
       "series_shape": [
         128
@@ -389,10 +321,10 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 7.9688,
-      "mean_ms": 7.8988,
+      "max_ms": 8.2871,
+      "mean_ms": 8.067567,
       "method": "MSSA",
-      "min_ms": 7.8454,
+      "min_ms": 7.812,
       "params": {
         "primary_period": 12,
         "rank": 6,
@@ -400,9 +332,9 @@
       },
       "repeat": 3,
       "samples_ms": [
-        7.9688,
-        7.8822,
-        7.8454
+        8.2871,
+        8.1036,
+        7.812
       ],
       "series_shape": [
         128,
@@ -414,10 +346,10 @@
       "backend_used": "native",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 1.3455,
-      "mean_ms": 1.293867,
+      "max_ms": 1.8122,
+      "mean_ms": 1.690633,
       "method": "MSSA",
-      "min_ms": 1.2615,
+      "min_ms": 1.5894,
       "params": {
         "primary_period": 12,
         "rank": 6,
@@ -425,9 +357,9 @@
       },
       "repeat": 3,
       "samples_ms": [
-        1.3455,
-        1.2746,
-        1.2615
+        1.5894,
+        1.6703,
+        1.8122
       ],
       "series_shape": [
         128,
@@ -439,10 +371,10 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 17.3427,
-      "mean_ms": 9.353467,
+      "max_ms": 16.9794,
+      "mean_ms": 9.1845,
       "method": "MSTL",
-      "min_ms": 5.3586,
+      "min_ms": 5.2559,
       "params": {
         "periods": [
           12,
@@ -451,9 +383,9 @@
       },
       "repeat": 3,
       "samples_ms": [
-        17.3427,
-        5.3586,
-        5.3591
+        16.9794,
+        5.3182,
+        5.2559
       ],
       "series_shape": [
         128
@@ -464,10 +396,10 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 16.8935,
-      "mean_ms": 16.75475,
+      "max_ms": 16.4147,
+      "mean_ms": 16.338,
       "method": "MVMD",
-      "min_ms": 16.616,
+      "min_ms": 16.2613,
       "params": {
         "K": 3,
         "alpha": 300.0,
@@ -475,8 +407,8 @@
       },
       "repeat": 2,
       "samples_ms": [
-        16.616,
-        16.8935
+        16.2613,
+        16.4147
       ],
       "series_shape": [
         128,
@@ -488,20 +420,22 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 7513.0693,
-      "mean_ms": 7100.99945,
+      "max_ms": 802.402,
+      "mean_ms": 405.0491,
       "method": "NBEATS_INTERPRETABLE",
-      "min_ms": 6688.9296,
+      "min_ms": 7.6962,
       "params": {
-        "fit_scope": "full",
-        "n_epochs": 200,
-        "num_harmonics": 8,
-        "restarts": 2
+        "layer_size": 16,
+        "layers": 1,
+        "n_epochs": 2,
+        "restarts": 1,
+        "seasonality_blocks": 1,
+        "trend_blocks": 1
       },
       "repeat": 2,
       "samples_ms": [
-        7513.0693,
-        6688.9296
+        802.402,
+        7.6962
       ],
       "series_shape": [
         128
@@ -512,21 +446,20 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.312,
-      "mean_ms": 0.220067,
+      "max_ms": 0.2266,
+      "mean_ms": 0.155767,
       "method": "PARSIMONY_BLOCK",
-      "min_ms": 0.17,
+      "min_ms": 0.1138,
       "params": {
         "fit_scope": "full",
-        "moving_avg": 13,
         "primary_period": 12,
         "trend_window": 13
       },
       "repeat": 3,
       "samples_ms": [
-        0.312,
-        0.1782,
-        0.17
+        0.2266,
+        0.1269,
+        0.1138
       ],
       "series_shape": [
         128
@@ -537,18 +470,18 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 12.1681,
-      "mean_ms": 12.033467,
+      "max_ms": 6.3728,
+      "mean_ms": 6.3259,
       "method": "ROBUST_STL",
-      "min_ms": 11.928,
+      "min_ms": 6.2527,
       "params": {
         "period": 12
       },
       "repeat": 3,
       "samples_ms": [
-        11.928,
-        12.0043,
-        12.1681
+        6.3728,
+        6.3522,
+        6.2527
       ],
       "series_shape": [
         128
@@ -559,10 +492,10 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 7.5773,
-      "mean_ms": 6.7428,
+      "max_ms": 3.7097,
+      "mean_ms": 3.677867,
       "method": "SSA",
-      "min_ms": 6.2574,
+      "min_ms": 3.6537,
       "params": {
         "primary_period": 12,
         "rank": 6,
@@ -570,9 +503,9 @@
       },
       "repeat": 3,
       "samples_ms": [
-        6.3937,
-        7.5773,
-        6.2574
+        3.6702,
+        3.7097,
+        3.6537
       ],
       "series_shape": [
         128
@@ -583,10 +516,10 @@
       "backend_used": "native",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 1.2156,
-      "mean_ms": 1.172067,
+      "max_ms": 0.7943,
+      "mean_ms": 0.679033,
       "method": "SSA",
-      "min_ms": 1.146,
+      "min_ms": 0.5917,
       "params": {
         "primary_period": 12,
         "rank": 6,
@@ -594,9 +527,9 @@
       },
       "repeat": 3,
       "samples_ms": [
-        1.2156,
-        1.1546,
-        1.146
+        0.6511,
+        0.5917,
+        0.7943
       ],
       "series_shape": [
         128
@@ -607,18 +540,18 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.2942,
-      "mean_ms": 0.2665,
+      "max_ms": 0.1841,
+      "mean_ms": 0.142233,
       "method": "STD",
-      "min_ms": 0.2462,
+      "min_ms": 0.1158,
       "params": {
         "period": 12
       },
       "repeat": 3,
       "samples_ms": [
-        0.2942,
-        0.2591,
-        0.2462
+        0.1841,
+        0.1268,
+        0.1158
       ],
       "series_shape": [
         128
@@ -629,18 +562,18 @@
       "backend_used": "native",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.0559,
-      "mean_ms": 0.0437,
+      "max_ms": 0.0676,
+      "mean_ms": 0.054,
       "method": "STD",
-      "min_ms": 0.0362,
+      "min_ms": 0.0453,
       "params": {
         "period": 12
       },
       "repeat": 3,
       "samples_ms": [
-        0.0559,
-        0.039,
-        0.0362
+        0.0676,
+        0.0491,
+        0.0453
       ],
       "series_shape": [
         128
@@ -651,18 +584,18 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.3329,
-      "mean_ms": 0.3222,
+      "max_ms": 0.1546,
+      "mean_ms": 0.146767,
       "method": "STDR",
-      "min_ms": 0.3149,
+      "min_ms": 0.1419,
       "params": {
         "period": 12
       },
       "repeat": 3,
       "samples_ms": [
-        0.3329,
-        0.3188,
-        0.3149
+        0.1546,
+        0.1438,
+        0.1419
       ],
       "series_shape": [
         128
@@ -673,18 +606,18 @@
       "backend_used": "native",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.0407,
-      "mean_ms": 0.037767,
+      "max_ms": 0.0493,
+      "mean_ms": 0.046367,
       "method": "STDR",
-      "min_ms": 0.0352,
+      "min_ms": 0.044,
       "params": {
         "period": 12
       },
       "repeat": 3,
       "samples_ms": [
-        0.0407,
-        0.0374,
-        0.0352
+        0.0493,
+        0.0458,
+        0.044
       ],
       "series_shape": [
         128
@@ -695,18 +628,18 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 2.1621,
-      "mean_ms": 1.959333,
+      "max_ms": 1.0816,
+      "mean_ms": 1.015167,
       "method": "STL",
-      "min_ms": 1.81,
+      "min_ms": 0.9706,
       "params": {
         "period": 12
       },
       "repeat": 3,
       "samples_ms": [
-        2.1621,
-        1.9059,
-        1.81
+        1.0816,
+        0.9933,
+        0.9706
       ],
       "series_shape": [
         128
@@ -717,21 +650,20 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.2098,
-      "mean_ms": 0.1772,
+      "max_ms": 0.1536,
+      "mean_ms": 0.123633,
       "method": "ST_MTM_BLOCK",
-      "min_ms": 0.1574,
+      "min_ms": 0.1043,
       "params": {
         "fit_scope": "full",
-        "moving_avg": 13,
         "primary_period": 12,
         "trend_window": 13
       },
       "repeat": 3,
       "samples_ms": [
-        0.2098,
-        0.1644,
-        0.1574
+        0.1536,
+        0.113,
+        0.1043
       ],
       "series_shape": [
         128
@@ -742,21 +674,20 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.4043,
-      "mean_ms": 0.359,
+      "max_ms": 0.2424,
+      "mean_ms": 0.212967,
       "method": "TIMEKAN_BLOCK",
-      "min_ms": 0.3339,
+      "min_ms": 0.1946,
       "params": {
         "fit_scope": "full",
-        "moving_avg": 13,
         "primary_period": 12,
         "trend_window": 13
       },
       "repeat": 3,
       "samples_ms": [
-        0.4043,
-        0.3388,
-        0.3339
+        0.2424,
+        0.2019,
+        0.1946
       ],
       "series_shape": [
         128
@@ -767,21 +698,20 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.2502,
-      "mean_ms": 0.239533,
+      "max_ms": 0.1483,
+      "mean_ms": 0.136533,
       "method": "TIMES2D_BLOCK",
-      "min_ms": 0.2338,
+      "min_ms": 0.1287,
       "params": {
         "fit_scope": "full",
-        "moving_avg": 13,
         "primary_period": 12,
         "trend_window": 13
       },
       "repeat": 3,
       "samples_ms": [
-        0.2502,
-        0.2346,
-        0.2338
+        0.1483,
+        0.1326,
+        0.1287
       ],
       "series_shape": [
         128
@@ -792,10 +722,10 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 95.6996,
-      "mean_ms": 94.6436,
+      "max_ms": 32.5428,
+      "mean_ms": 32.026167,
       "method": "VMD",
-      "min_ms": 94.0898,
+      "min_ms": 31.2759,
       "params": {
         "K": 4,
         "alpha": 300.0,
@@ -803,9 +733,9 @@
       },
       "repeat": 3,
       "samples_ms": [
-        95.6996,
-        94.0898,
-        94.1414
+        32.2598,
+        31.2759,
+        32.5428
       ],
       "series_shape": [
         128
@@ -816,10 +746,10 @@
       "backend_used": "native",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 13.5509,
-      "mean_ms": 13.126967,
+      "max_ms": 6.1881,
+      "mean_ms": 6.023333,
       "method": "VMD",
-      "min_ms": 12.8835,
+      "min_ms": 5.9056,
       "params": {
         "K": 4,
         "alpha": 300.0,
@@ -827,9 +757,9 @@
       },
       "repeat": 3,
       "samples_ms": [
-        12.9465,
-        13.5509,
-        12.8835
+        5.9763,
+        6.1881,
+        5.9056
       ],
       "series_shape": [
         128
@@ -840,21 +770,16 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.3104,
-      "mean_ms": 0.1998,
+      "max_ms": 0.2159,
+      "mean_ms": 0.139333,
       "method": "WAVEFORM_BLOCK",
-      "min_ms": 0.1376,
-      "params": {
-        "fit_scope": "full",
-        "moving_avg": 13,
-        "primary_period": 12,
-        "trend_window": 13
-      },
+      "min_ms": 0.0933,
+      "params": {},
       "repeat": 3,
       "samples_ms": [
-        0.3104,
-        0.1514,
-        0.1376
+        0.2159,
+        0.1088,
+        0.0933
       ],
       "series_shape": [
         128
@@ -865,19 +790,19 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.1337,
-      "mean_ms": 0.126833,
+      "max_ms": 0.0892,
+      "mean_ms": 0.083433,
       "method": "WAVELET",
-      "min_ms": 0.1221,
+      "min_ms": 0.0779,
       "params": {
         "level": 3,
         "wavelet": "db4"
       },
       "repeat": 3,
       "samples_ms": [
-        0.1337,
-        0.1247,
-        0.1221
+        0.0892,
+        0.0832,
+        0.0779
       ],
       "series_shape": [
         128
@@ -888,26 +813,22 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.1056,
-      "mean_ms": 0.101567,
+      "max_ms": 0.0739,
+      "mean_ms": 0.071733,
       "method": "WAVELETMIXER_BLOCK",
-      "min_ms": 0.0969,
+      "min_ms": 0.0692,
       "params": {
-        "fit_scope": "full",
         "level": 2,
-        "moving_avg": 13,
-        "primary_period": 12,
         "season_levels": [
           1
         ],
-        "trend_window": 13,
         "wavelet": "db1"
       },
       "repeat": 3,
       "samples_ms": [
-        0.1056,
-        0.1022,
-        0.0969
+        0.0739,
+        0.0721,
+        0.0692
       ],
       "series_shape": [
         128
@@ -918,21 +839,18 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.1155,
-      "mean_ms": 0.100433,
+      "max_ms": 0.0875,
+      "mean_ms": 0.078833,
       "method": "XPATCH_BLOCK",
-      "min_ms": 0.0911,
+      "min_ms": 0.074,
       "params": {
-        "fit_scope": "full",
-        "moving_avg": 13,
-        "primary_period": 12,
         "trend_window": 13
       },
       "repeat": 3,
       "samples_ms": [
-        0.1155,
-        0.0947,
-        0.0911
+        0.0875,
+        0.075,
+        0.074
       ],
       "series_shape": [
         128

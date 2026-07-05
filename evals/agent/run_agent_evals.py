@@ -59,7 +59,7 @@ def _case_summary_first_decompose() -> dict[str, object]:
         "run_decomposition",
         {
             "series": [0.0, 1.0, 0.0, 1.0, 0.0, 1.0],
-            "config": {"method": "MA_BASELINE", "params": {"window": 2}},
+            "config": {"method": "MA_BASELINE", "params": {"trend_window": 2}},
             "output_mode": "summary",
         },
     )["structuredContent"]

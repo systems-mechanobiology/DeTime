@@ -278,7 +278,7 @@ See [Config Reference](config-reference.md#freqmoe_block) for the full parameter
 - Key params: `model` (null), `model_path` (null)
 - Input/backend: `univariate` input, `optional-backend` implementation, maturity `experimental`
 - Optional dependencies: faiss
-- Output components: `trend`, `season`, `residual`, `components.clusters`
+- Output components: `trend`, `season`, `residual`, `components.Cluster_*`
 - References: [Method References](method-references.md#gabor_cluster)
 
 See [Config Reference](config-reference.md#gabor_cluster) for the full parameter table.

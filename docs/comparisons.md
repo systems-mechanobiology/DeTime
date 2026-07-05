@@ -63,14 +63,14 @@ generated on Windows 10, Python 3.11.9, AMD64, with native `SSA`, `STD`,
 because it depends on a trained model object and optional clustering backend
 availability.
 
-| Method | Python mean runtime (ms) | Native mean runtime (ms) | Speedup |
-|---|---:|---:|---:|
-| `SSA` | 13.925 | 1.906 | 7.307x |
-| `STD` | 0.154 | 0.024 | 6.445x |
-| `STDR` | 0.175 | 0.018 | 9.807x |
-| `MA_BASELINE` | 0.070 | 0.016 | 4.423x |
-| `MSSA` | 60.856 | 22.900 | 2.657x |
-| `VMD` | 47.856 | 13.812 | 3.465x |
+| Method | Python median runtime (ms) | Native median runtime (ms) | Speedup | Repeats / warmup |
+|---|---:|---:|---:|---:|
+| `SSA` | 13.707 | 1.859 | 7.373x | 50 / 10 |
+| `STD` | 0.159 | 0.041 | 3.892x | 50 / 10 |
+| `STDR` | 0.198 | 0.040 | 4.930x | 50 / 10 |
+| `MA_BASELINE` | 0.087 | 0.037 | 2.356x | 50 / 10 |
+| `MSSA` | 64.251 | 25.930 | 2.478x | 50 / 10 |
+| `VMD` | 52.082 | 13.991 | 3.723x | 50 / 10 |
 
 These numbers are a release smoke snapshot, not a universal benchmark.
 

@@ -85,9 +85,28 @@ third-party backends. Security hardening therefore includes:
 - failing clearly when optional dependencies are unavailable or unsupported,
 - avoiding undocumented network behavior in the library and CLI.
 
+### External benchmark bridge
+
+`detime benchmark` and `run_tsdecompose_benchmark()` can download and execute
+the external `Zipeng365/TSDecompose-Benchmark` source bundle after the caller
+opts in. This bridge is for benchmark reproduction, not for the maintained
+core decomposition API.
+
+The bridge is hardened as follows:
+
+- execution requires `--allow-external-benchmark-code` or
+  `allow_external_code=True`,
+- downloaded revisions must be immutable 40-character commit SHAs by default,
+- branch or tag revisions require the second explicit opt-in
+  `--allow-unpinned-benchmark-revision` or
+  `allow_unpinned_revision=True`,
+- common credential variables such as Hugging Face, GitHub, PyPI, AWS, Azure,
+  Google, and GCP tokens are removed before the external runner starts.
+
 Users running the package in sensitive environments should:
 
 - pin dependencies,
 - review optional extras before installation,
+- review external benchmark source before enabling the benchmark bridge,
 - prefer isolated virtual environments,
 - validate artifacts before distributing them to downstream systems.

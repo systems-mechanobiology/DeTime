@@ -20,6 +20,20 @@ def test_generated_method_matrix_and_config_reference_exist() -> None:
     assert '"method": "MSSA"' in config
 
 
+def test_release_evidence_uses_default_safe_runtime_scope() -> None:
+    evidence_root = ROOT / "docs" / "assets" / "generated" / "evidence"
+    runtime = json.loads((evidence_root / "method_runtime_matrix.json").read_text(encoding="utf-8"))
+    performance = json.loads((evidence_root / "performance_snapshot.json").read_text(encoding="utf-8"))
+
+    assert "GABOR_CLUSTER" in runtime["experimental_excluded_by_default"]
+    assert "GABOR_CLUSTER" in performance["experimental_excluded_by_default"]
+    assert all(row["method"] != "GABOR_CLUSTER" for row in runtime["rows"])
+    assert all(row["method"] != "GABOR_CLUSTER" for row in performance["summary"])
+    assert performance["summary_statistic"] == "median_ms"
+    assert all("python_median_ms" in row and "native_median_ms" in row for row in performance["summary"])
+    assert all(row["repeat"] >= 50 and row["warmup"] >= 10 for row in performance["summary"])
+
+
 def test_notebook_gallery_assets_are_committed() -> None:
     notebook_path = ROOT / "examples" / "notebooks" / "de_time_method_gallery.ipynb"
     page = (ROOT / "docs" / "notebook-gallery.md").read_text(encoding="utf-8")

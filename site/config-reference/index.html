@@ -518,11 +518,11 @@ docs examples, and machine-facing schema exports.</p>
 <td><code>return_components</code></td>
 <td><code>list[str] \| None</code></td>
 <td><code>None</code></td>
-<td>Compatibility field; retained methods return the normalized result object.</td>
+<td>Optional extra component names to retain in <code>result.components</code>; <code>trend</code>, <code>season</code>, and <code>residual</code> are always returned.</td>
 </tr>
 <tr>
 <td><code>backend</code></td>
-<td><code>auto \| native \| python \| gpu</code></td>
+<td><code>auto \| native \| python</code></td>
 <td><code>auto</code></td>
 <td>Backend preference. <code>native</code> requires an available native kernel.</td>
 </tr>
@@ -705,6 +705,20 @@ docs examples, and machine-facing schema exports.</p>
 <td><code>None</code></td>
 <td>Period hint used to derive the moving-average window.</td>
 </tr>
+<tr>
+<td><code>period</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Alias period hint used to derive the moving-average window.</td>
+</tr>
+<tr>
+<td><code>season_period</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Alias seasonal period hint used to derive the moving-average window.</td>
+</tr>
 </tbody>
 </table>
 <p>Example config:</p>
@@ -760,6 +774,20 @@ docs examples, and machine-facing schema exports.</p>
 <td style="text-align: right;">no</td>
 <td><code>1.0</code></td>
 <td>Sampling frequency used by grouping heuristics.</td>
+</tr>
+<tr>
+<td><code>trend_freq_max</code></td>
+<td>float | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Maximum dominant frequency assigned to the trend.</td>
+</tr>
+<tr>
+<td><code>season_band_factor</code></td>
+<td>float</td>
+<td style="text-align: right;">no</td>
+<td><code>2.0</code></td>
+<td>Multiplier around the primary seasonal frequency.</td>
 </tr>
 </tbody>
 </table>
@@ -876,6 +904,20 @@ docs examples, and machine-facing schema exports.</p>
 <td><code>None</code></td>
 <td>Period hint used to derive the moving-average window.</td>
 </tr>
+<tr>
+<td><code>period</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Alias period hint used to derive the moving-average window.</td>
+</tr>
+<tr>
+<td><code>season_period</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Alias seasonal period hint used to derive the moving-average window.</td>
+</tr>
 </tbody>
 </table>
 <p>Example config:</p>
@@ -938,6 +980,20 @@ docs examples, and machine-facing schema exports.</p>
 <td style="text-align: right;">no</td>
 <td><code>1.0</code></td>
 <td>Sampling frequency used by grouping heuristics.</td>
+</tr>
+<tr>
+<td><code>season_freq_tol_ratio</code></td>
+<td>float</td>
+<td style="text-align: right;">no</td>
+<td><code>0.25</code></td>
+<td>Relative frequency tolerance for automatic seasonal grouping.</td>
+</tr>
+<tr>
+<td><code>trend_freq_threshold</code></td>
+<td>float | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Low-frequency threshold for automatic trend grouping.</td>
 </tr>
 </tbody>
 </table>
@@ -1026,7 +1082,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>experimental</code></li>
-<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.clusters</code></li>
+<li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.Cluster_*</code></li>
 </ul>
 <table>
 <thead>
@@ -1257,11 +1313,46 @@ docs examples, and machine-facing schema exports.</p>
 <td>Explicit mode indexes assigned to season.</td>
 </tr>
 <tr>
+<td><code>trend_imfs</code></td>
+<td>list[int] | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Compatibility alias for trend mode indexes.</td>
+</tr>
+<tr>
+<td><code>season_imfs</code></td>
+<td>list[int] | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Compatibility alias for seasonal mode indexes.</td>
+</tr>
+<tr>
 <td><code>fs</code></td>
 <td>float</td>
 <td style="text-align: right;">no</td>
 <td><code>1.0</code></td>
 <td>Sampling frequency used by grouping heuristics.</td>
+</tr>
+<tr>
+<td><code>season_freq_tol_ratio</code></td>
+<td>float</td>
+<td style="text-align: right;">no</td>
+<td><code>0.25</code></td>
+<td>Relative frequency tolerance for automatic seasonal grouping.</td>
+</tr>
+<tr>
+<td><code>trend_freq_threshold</code></td>
+<td>float | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Low-frequency threshold for automatic trend grouping.</td>
+</tr>
+<tr>
+<td><code>seasonal_num_modes</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>1</code></td>
+<td>Number of modes assigned to season when grouping automatically.</td>
 </tr>
 </tbody>
 </table>
@@ -1311,6 +1402,20 @@ docs examples, and machine-facing schema exports.</p>
 <td><code>None</code></td>
 <td>Period hint used to derive the moving-average window.</td>
 </tr>
+<tr>
+<td><code>period</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Alias period hint used to derive the moving-average window.</td>
+</tr>
+<tr>
+<td><code>season_period</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Alias seasonal period hint used to derive the moving-average window.</td>
+</tr>
 </tbody>
 </table>
 <p>Example config:</p>
@@ -1341,9 +1446,9 @@ docs examples, and machine-facing schema exports.</p>
 <tbody>
 <tr>
 <td><code>window</code></td>
-<td>int</td>
-<td style="text-align: right;">yes</td>
-<td>required</td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
 <td>Shared embedding window length for aligned channels.</td>
 </tr>
 <tr>
@@ -1380,6 +1485,27 @@ docs examples, and machine-facing schema exports.</p>
 <td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Explicit component indexes assigned to season.</td>
+</tr>
+<tr>
+<td><code>season_freq_tol_ratio</code></td>
+<td>float</td>
+<td style="text-align: right;">no</td>
+<td><code>0.25</code></td>
+<td>Relative frequency tolerance for automatic seasonal grouping.</td>
+</tr>
+<tr>
+<td><code>trend_freq_threshold</code></td>
+<td>float | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Low-frequency threshold for automatic trend grouping.</td>
+</tr>
+<tr>
+<td><code>power_iterations</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>12</code></td>
+<td>Fast native mode iteration count when speed_mode='fast'.</td>
 </tr>
 </tbody>
 </table>
@@ -1495,6 +1621,55 @@ docs examples, and machine-facing schema exports.</p>
 <td style="text-align: right;">no</td>
 <td><code>1.0</code></td>
 <td>Sampling frequency used by grouping heuristics.</td>
+</tr>
+<tr>
+<td><code>trend_modes</code></td>
+<td>list[int] | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Explicit mode indexes assigned to trend.</td>
+</tr>
+<tr>
+<td><code>season_modes</code></td>
+<td>list[int] | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Explicit mode indexes assigned to season.</td>
+</tr>
+<tr>
+<td><code>trend_imfs</code></td>
+<td>list[int] | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Compatibility alias for trend mode indexes.</td>
+</tr>
+<tr>
+<td><code>season_imfs</code></td>
+<td>list[int] | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Compatibility alias for seasonal mode indexes.</td>
+</tr>
+<tr>
+<td><code>season_freq_tol_ratio</code></td>
+<td>float</td>
+<td style="text-align: right;">no</td>
+<td><code>0.25</code></td>
+<td>Relative frequency tolerance for automatic seasonal grouping.</td>
+</tr>
+<tr>
+<td><code>trend_freq_threshold</code></td>
+<td>float | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Low-frequency threshold for automatic trend grouping.</td>
+</tr>
+<tr>
+<td><code>seasonal_num_modes</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>1</code></td>
+<td>Number of modes assigned to season when grouping automatically.</td>
 </tr>
 </tbody>
 </table>
@@ -1746,6 +1921,13 @@ docs examples, and machine-facing schema exports.</p>
 <td><code>None</code></td>
 <td>Odd LOESS trend smoother length.</td>
 </tr>
+<tr>
+<td><code>robust</code></td>
+<td>bool</td>
+<td style="text-align: right;">no</td>
+<td><code>true</code></td>
+<td>Whether to use robust LOESS fitting.</td>
+</tr>
 </tbody>
 </table>
 <p>Example config:</p>
@@ -1775,9 +1957,9 @@ docs examples, and machine-facing schema exports.</p>
 <tbody>
 <tr>
 <td><code>window</code></td>
-<td>int</td>
-<td style="text-align: right;">yes</td>
-<td>required</td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
 <td>Embedding window length for trajectory-matrix construction.</td>
 </tr>
 <tr>
@@ -1814,6 +1996,20 @@ docs examples, and machine-facing schema exports.</p>
 <td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Explicit component indexes assigned to season.</td>
+</tr>
+<tr>
+<td><code>season_freq_tol_ratio</code></td>
+<td>float</td>
+<td style="text-align: right;">no</td>
+<td><code>0.25</code></td>
+<td>Relative frequency tolerance for automatic seasonal grouping.</td>
+</tr>
+<tr>
+<td><code>trend_freq_threshold</code></td>
+<td>float | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Low-frequency threshold for automatic trend grouping.</td>
 </tr>
 <tr>
 <td><code>power_iterations</code></td>
@@ -1856,10 +2052,10 @@ docs examples, and machine-facing schema exports.</p>
 <tbody>
 <tr>
 <td><code>period</code></td>
-<td>int</td>
-<td style="text-align: right;">yes</td>
-<td>required</td>
-<td>Seasonal period in samples.</td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Seasonal period in samples. If omitted, DeTime estimates it.</td>
 </tr>
 <tr>
 <td><code>max_period_search</code></td>
@@ -1906,10 +2102,10 @@ docs examples, and machine-facing schema exports.</p>
 <tbody>
 <tr>
 <td><code>period</code></td>
-<td>int</td>
-<td style="text-align: right;">yes</td>
-<td>required</td>
-<td>Seasonal period in samples.</td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Seasonal period in samples. If omitted, DeTime estimates it.</td>
 </tr>
 <tr>
 <td><code>max_period_search</code></td>
@@ -2233,6 +2429,13 @@ docs examples, and machine-facing schema exports.</p>
 <td>Bandwidth penalty parameter.</td>
 </tr>
 <tr>
+<td><code>periods</code></td>
+<td>list[int] | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Optional seasonal periods used to derive the mode count.</td>
+</tr>
+<tr>
 <td><code>tau</code></td>
 <td>float</td>
 <td style="text-align: right;">no</td>
@@ -2261,11 +2464,39 @@ docs examples, and machine-facing schema exports.</p>
 <td>Convergence tolerance.</td>
 </tr>
 <tr>
+<td><code>max_iter</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>500</code></td>
+<td>Native VMD maximum iteration count.</td>
+</tr>
+<tr>
+<td><code>fs</code></td>
+<td>float</td>
+<td style="text-align: right;">no</td>
+<td><code>1.0</code></td>
+<td>Sampling frequency used by grouping heuristics.</td>
+</tr>
+<tr>
 <td><code>primary_period</code></td>
 <td>int | None</td>
 <td style="text-align: right;">no</td>
 <td><code>None</code></td>
 <td>Period hint for grouping modes into season and trend.</td>
+</tr>
+<tr>
+<td><code>trend_freq_max</code></td>
+<td>float | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Maximum dominant frequency assigned to the trend.</td>
+</tr>
+<tr>
+<td><code>seasonal_num_modes</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>1</code></td>
+<td>Number of modes assigned to season when grouping automatically.</td>
 </tr>
 </tbody>
 </table>

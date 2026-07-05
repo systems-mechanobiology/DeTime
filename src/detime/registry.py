@@ -363,7 +363,7 @@ _NEURAL_BLOCK_METHOD_METADATA: Dict[str, Dict[str, Any]] = {
         "family": "NeuralBlock",
         "maturity": "experimental",
         "implementation": "python",
-        "dependency_tier": "core",
+        "dependency_tier": "optional-backend",
         "multivariate_support": "univariate",
         "native_backed": False,
         "min_length": 16,
@@ -1086,7 +1086,7 @@ METHOD_OUTPUT_COMPONENTS: Dict[str, list[str]] = {
     "MA_BASELINE": ["trend", "season", "residual"],
     "MVMD": ["trend", "season", "residual", "components.modes"],
     "MEMD": ["trend", "season", "residual", "components.imfs"],
-    "GABOR_CLUSTER": ["trend", "season", "residual", "components.clusters"],
+    "GABOR_CLUSTER": ["trend", "season", "residual", "components.Cluster_*"],
 }
 
 METHOD_EXAMPLE_CONFIGS: Dict[str, Dict[str, Any]] = {

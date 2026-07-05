@@ -272,7 +272,7 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `experimental`
-- Output components: `trend`, `season`, `residual`, `components.clusters`
+- Output components: `trend`, `season`, `residual`, `components.Cluster_*`
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|

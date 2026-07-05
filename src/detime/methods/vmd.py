@@ -86,9 +86,11 @@ def _assemble_vmd_result(
     modes: np.ndarray,
     omega: np.ndarray,
     *,
+    original: np.ndarray,
     cfg: Dict[str, Any],
     backend_meta: Dict[str, Any],
 ) -> DecompResult:
+    original = np.asarray(original, dtype=float).ravel()
     modes = np.asarray(modes, dtype=float)
     if modes.ndim == 1:
         modes = modes[np.newaxis, :]
@@ -132,9 +134,9 @@ def _assemble_vmd_result(
     
     season = modes[season_mask].sum(axis=0) if seasonal_indices else np.zeros_like(modes[0])
     noise_mask = ~(trend_mask | season_mask)
-    residual = modes[noise_mask].sum(axis=0) if noise_mask.any() else np.zeros_like(season)
     # v1.1.0: Direct trend extraction from low-freq modes (not subtraction)
     trend = modes[trend_mask].sum(axis=0) if trend_mask.any() else np.zeros_like(season)
+    residual = original - trend - season
     
     return DecompResult(
         trend=trend,
@@ -144,6 +146,7 @@ def _assemble_vmd_result(
         meta={
             "center_frequencies": freqs.tolist(),
             "dominant_frequencies": dom_freqs.tolist(),
+            "residual_policy": "input_minus_trend_season",
             "trend_index": trend_indices,
             "season_indices": seasonal_indices,
             **backend_meta,
@@ -167,7 +170,7 @@ def vmd_decompose(
         backend=backend,
         seed=runtime.seed,
     )
-    result = _assemble_vmd_result(modes, omega, cfg=cfg, backend_meta=backend_meta)
+    result = _assemble_vmd_result(modes, omega, original=y_arr, cfg=cfg, backend_meta=backend_meta)
     return finalize_result(
         result,
         method="VMD",

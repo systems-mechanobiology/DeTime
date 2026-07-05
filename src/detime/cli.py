@@ -405,6 +405,7 @@ def cmd_benchmark(args):
         no_aggregate=args.no_aggregate,
         timeout=args.timeout,
         allow_external_code=args.allow_external_code,
+        allow_unpinned_revision=args.allow_unpinned_revision,
     )
     if args.format == "json":
         print(_json_dump(result.as_dict()))
@@ -604,6 +605,12 @@ def main():
         dest="allow_external_code",
         action="store_true",
         help="Allow downloading and executing the external benchmark bundle.",
+    )
+    p_benchmark.add_argument(
+        "--allow-unpinned-benchmark-revision",
+        dest="allow_unpinned_revision",
+        action="store_true",
+        help="Allow a non-SHA benchmark revision such as a branch or tag.",
     )
     p_benchmark.add_argument(
         "--force-download",

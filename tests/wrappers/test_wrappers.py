@@ -185,6 +185,17 @@ def test_std_multi_raises_without_backend(monkeypatch) -> None:
         std_multi_mod.std_multi_decompose(y, {"window": 12})
 
 
+def test_std_multi_stays_archived_even_if_fasttimes_is_present(monkeypatch: pytest.MonkeyPatch) -> None:
+    import sys
+    import detime.methods.std_multi as std_multi_mod
+
+    y = np.arange(24, dtype=float)
+
+    monkeypatch.setitem(sys.modules, "fasttimes", ModuleType("fasttimes"))
+    with pytest.raises(NotImplementedError, match="archived experimental prototype"):
+        std_multi_mod.std_multi_decompose(y, {"window": 12})
+
+
 def test_gabor_cluster_python_backend(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(gabor_mod, "_HAS_FAISS", True)
     monkeypatch.setattr(

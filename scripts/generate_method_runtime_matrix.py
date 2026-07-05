@@ -32,11 +32,11 @@ NATIVE_METHOD_EXPORTS = {
     "MA_BASELINE": "ma_baseline_decompose",
     "MSSA": "mssa_decompose",
     "VMD": "vmd_decompose",
-    "GABOR_CLUSTER": "gabor_cluster_decompose",
 }
 
 
 SLOW_METHODS = {"CEEMDAN", "MEMD", "MVMD", "NBEATS_INTERPRETABLE"}
+EXPERIMENTAL_RUNTIME_EXCLUDED = {"GABOR_CLUSTER"}
 
 
 def _make_signal(length: int) -> np.ndarray:
@@ -89,10 +89,13 @@ def _make_gabor_params() -> tuple[dict[str, Any], dict[str, Any]]:
     )
 
 
-def _case_overrides(length: int) -> dict[str, tuple[dict[str, Any], dict[str, Any], np.ndarray]]:
+def _case_overrides(
+    length: int,
+    *,
+    include_experimental: bool = False,
+) -> dict[str, tuple[dict[str, Any], dict[str, Any], np.ndarray]]:
     signal = _make_signal(length)
     panel = _make_panel(length)
-    gabor_params, gabor_public = _make_gabor_params()
     cases: dict[str, tuple[dict[str, Any], dict[str, Any], np.ndarray]] = {
         "SSA": ({"window": 24, "rank": 6, "primary_period": 12}, {"window": 24, "rank": 6, "primary_period": 12}, signal),
         "MSSA": ({"window": 24, "rank": 6, "primary_period": 12}, {"window": 24, "rank": 6, "primary_period": 12}, panel),
@@ -108,8 +111,29 @@ def _case_overrides(length: int) -> dict[str, tuple[dict[str, Any], dict[str, An
         "CEEMDAN": ({"primary_period": 12, "trials": 4}, {"primary_period": 12, "trials": 4}, signal),
         "MVMD": ({"K": 3, "alpha": 300.0, "primary_period": 12}, {"K": 3, "alpha": 300.0, "primary_period": 12}, panel),
         "MEMD": ({"primary_period": 12}, {"primary_period": 12}, panel),
-        "GABOR_CLUSTER": (gabor_params, gabor_public, signal),
+        "NBEATS_INTERPRETABLE": (
+            {
+                "n_epochs": 2,
+                "restarts": 1,
+                "trend_blocks": 1,
+                "seasonality_blocks": 1,
+                "layers": 1,
+                "layer_size": 16,
+            },
+            {
+                "n_epochs": 2,
+                "restarts": 1,
+                "trend_blocks": 1,
+                "seasonality_blocks": 1,
+                "layers": 1,
+                "layer_size": 16,
+            },
+            signal,
+        ),
     }
+    if include_experimental:
+        gabor_params, gabor_public = _make_gabor_params()
+        cases["GABOR_CLUSTER"] = (gabor_params, gabor_public, signal)
 
     for name in MethodRegistry.list_methods():
         if name.endswith("_BLOCK") and name not in cases:
@@ -141,6 +165,14 @@ def _fallback_case(name: str, length: int) -> tuple[dict[str, Any], dict[str, An
     params = dict(cfg.get("params", {}) or {})
     data = _make_panel(length) if name in {"MSSA", "MVMD", "MEMD"} else _make_signal(length)
     return params, dict(params), data
+
+
+def _filter_supported_params(method: str, params: dict[str, Any]) -> dict[str, Any]:
+    docs = MethodRegistry.get_metadata(method).get("parameter_docs", [])
+    allowed = {str(item.get("name")) for item in docs if item.get("name")}
+    if not allowed:
+        return dict(params)
+    return {key: value for key, value in params.items() if key in allowed}
 
 
 def _profile(method: str, params: dict[str, Any], data: np.ndarray, backend: str, repeat: int) -> dict[str, Any]:
@@ -179,15 +211,24 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--length", type=int, default=128)
     parser.add_argument("--repeat", type=int, default=3)
     parser.add_argument("--slow-repeat", type=int, default=2)
+    parser.add_argument(
+        "--include-experimental",
+        action="store_true",
+        help="Include experimental paths such as GABOR_CLUSTER in the raw runtime matrix.",
+    )
     parser.add_argument("--json", type=Path, default=DEFAULT_JSON)
     parser.add_argument("--csv", type=Path, default=DEFAULT_CSV)
     args = parser.parse_args(argv)
 
     native_ready = native_capabilities()
-    cases = _case_overrides(args.length)
+    cases = _case_overrides(args.length, include_experimental=args.include_experimental)
     rows: list[dict[str, Any]] = []
     for method in MethodRegistry.list_methods():
+        if method in EXPERIMENTAL_RUNTIME_EXCLUDED and not args.include_experimental:
+            continue
         params, public_params, data = cases.get(method, _fallback_case(method, args.length))
+        params = _filter_supported_params(method, params)
+        public_params = _filter_supported_params(method, public_params)
         backends = ["python"]
         native_export = NATIVE_METHOD_EXPORTS.get(method)
         if native_export and native_ready.get(native_export):
@@ -208,6 +249,9 @@ def main(argv: list[str] | None = None) -> int:
             "machine": platform.machine(),
         },
         "native_capabilities": native_ready,
+        "experimental_excluded_by_default": sorted(EXPERIMENTAL_RUNTIME_EXCLUDED)
+        if not args.include_experimental
+        else [],
         "rows": rows,
     }
 

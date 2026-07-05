@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import csv
 import json
 import re
 import sys
@@ -231,6 +232,40 @@ def _check_release_evidence_alignment() -> list[str]:
     ]
     if sktime_rows and sktime_rows[0].get("machine_readable_catalog") == "no":
         failures.append("comparison_evidence.json: sktime has a runtime estimator registry; do not mark catalog as plain no")
+
+    performance_json_path = ROOT / "docs" / "assets" / "generated" / "evidence" / "performance_snapshot.json"
+    performance_csv_path = ROOT / "docs" / "assets" / "generated" / "evidence" / "performance_snapshot.csv"
+    performance = json.loads(performance_json_path.read_text(encoding="utf-8"))
+    if performance.get("summary_statistic") != "median_ms":
+        failures.append("performance_snapshot.json: summary_statistic must be median_ms")
+    if "GABOR_CLUSTER" not in performance.get("experimental_excluded_by_default", []):
+        failures.append("performance_snapshot.json: GABOR_CLUSTER must be excluded from default release evidence")
+    for row in performance.get("summary", []):
+        if row.get("method") == "GABOR_CLUSTER":
+            failures.append("performance_snapshot.json: GABOR_CLUSTER appears in default summary")
+        if "python_median_ms" not in row or "native_median_ms" not in row:
+            failures.append(f"performance_snapshot.json: median runtime fields missing for {row.get('method')}")
+        if int(row.get("repeat", 0)) < 50 or int(row.get("warmup", 0)) < 10:
+            failures.append(f"performance_snapshot.json: insufficient repeat/warmup for {row.get('method')}")
+
+    with performance_csv_path.open(encoding="utf-8", newline="") as handle:
+        reader = csv.DictReader(handle)
+        expected_fields = ["method", "python_median_ms", "native_median_ms", "speedup", "repeat", "warmup"]
+        if reader.fieldnames != expected_fields:
+            failures.append(f"performance_snapshot.csv: expected header {expected_fields}, got {reader.fieldnames}")
+        for row in reader:
+            if row.get("method") == "GABOR_CLUSTER":
+                failures.append("performance_snapshot.csv: GABOR_CLUSTER appears in default summary")
+
+    method_runtime = json.loads(
+        (ROOT / "docs" / "assets" / "generated" / "evidence" / "method_runtime_matrix.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    if "GABOR_CLUSTER" not in method_runtime.get("experimental_excluded_by_default", []):
+        failures.append("method_runtime_matrix.json: GABOR_CLUSTER must be excluded by default")
+    if any(row.get("method") == "GABOR_CLUSTER" for row in method_runtime.get("rows", [])):
+        failures.append("method_runtime_matrix.json: GABOR_CLUSTER appears in default runtime rows")
     return failures
 
 

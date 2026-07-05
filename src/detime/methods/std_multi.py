@@ -40,31 +40,9 @@ def std_multi_decompose(
     """
     Multi-scale STD decomposition with caching.
     """
-    # Check for faststd/fasttimes
-    try:
-        import fasttimes
-        _HAS_FASTTIMES = True
-    except ImportError:
-        _HAS_FASTTIMES = False
-
-    cfg = params.copy()
-    mode = cfg.get("mode", "STD_MULTI") # or STD_FULL_ABLATION
-    
-    if not _HAS_FASTTIMES:
-        raise NotImplementedError(
-            "STD_MULTI is an archived experimental prototype and is not part of "
-            "the supported public method surface. Install a compatible fasttimes "
-            "implementation and register a maintained backend before using it."
-        )
-
-    # Real implementation would go here using fasttimes
-    # ...
-    
-    return DecompResult(
-        trend=np.zeros_like(y),
-        season=np.zeros_like(y),
-        residual=y,
-        meta={"method": mode, "params": cfg, "note": "Archived experimental prototype"}
+    raise NotImplementedError(
+        "STD_MULTI is an archived experimental prototype and is not part of "
+        "the supported public method surface."
     )
 
 def std_full_ablation_decompose(

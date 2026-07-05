@@ -53,7 +53,7 @@ def main() -> int:
     series = np.sin(np.linspace(0.0, 2.0 * np.pi, 48)) + np.linspace(0.0, 1.0, 48)
     result = decompose(
         series,
-        DecompositionConfig(method="MA_BASELINE", params={"window": 4}, backend="python"),
+        DecompositionConfig(method="MA_BASELINE", params={"trend_window": 4}, backend="python"),
     )
     report["python_api"] = {
         "trend_shape": list(np.asarray(result.trend).shape),

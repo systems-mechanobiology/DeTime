@@ -207,6 +207,12 @@ DeTime provides a bridge API and CLI that downloads the bundle's
 `code/TSDecompose` source snapshot into a local cache and runs its published
 paper-core runner.
 
+This bridge executes code outside the installed DeTime package. It defaults to
+the reviewed 40-character Hugging Face dataset revision and scrubs common
+credential variables before starting the external runner. Running a branch or
+tag such as `main` requires both `--allow-external-benchmark-code` and
+`--allow-unpinned-benchmark-revision`.
+
 Fast smoke run:
 
 ```bash
@@ -255,7 +261,9 @@ split into the companion repository
 [`systems-mechanobiology/de-time-bench`](https://github.com/systems-mechanobiology/de-time-bench).
 The `detime benchmark` command is a bridge to the external TSDecompose
 benchmark bundle; it does not vendor benchmark-derived methods into the main
-package.
+package. The bridge is pinned and opt-in by default; unpinned external
+revisions require a second explicit flag and should be used only for local
+experiments.
 
 Only the top-level `tsdecomp` import and CLI alias remain packaged for
 compatibility.
@@ -290,14 +298,14 @@ reviewed environment. These values compare DeTime native-backed paths against
 internal Python fallback paths in one environment; they are not a portable
 cross-package benchmark.
 
-| Method | Python mean (ms) | Native mean (ms) | Speedup |
-|---|---:|---:|---:|
-| `SSA` | 13.925 | 1.906 | 7.31x |
-| `STD` | 0.154 | 0.024 | 6.44x |
-| `STDR` | 0.175 | 0.018 | 9.81x |
-| `MA_BASELINE` | 0.070 | 0.016 | 4.42x |
-| `MSSA` | 60.856 | 22.900 | 2.66x |
-| `VMD` | 47.856 | 13.812 | 3.46x |
+| Method | Python median (ms) | Native median (ms) | Speedup | Repeats / warmup |
+|---|---:|---:|---:|---:|
+| `SSA` | 13.707 | 1.859 | 7.37x | 50 / 10 |
+| `STD` | 0.159 | 0.041 | 3.89x | 50 / 10 |
+| `STDR` | 0.198 | 0.040 | 4.93x | 50 / 10 |
+| `MA_BASELINE` | 0.087 | 0.037 | 2.36x | 50 / 10 |
+| `MSSA` | 64.251 | 25.930 | 2.48x | 50 / 10 |
+| `VMD` | 52.082 | 13.991 | 3.72x | 50 / 10 |
 
 Experimental `GABOR_CLUSTER` timing is excluded from release-validation
 performance evidence. It can be generated separately with

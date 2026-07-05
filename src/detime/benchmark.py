@@ -4,6 +4,7 @@ from dataclasses import dataclass
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 import sys
 from typing import Any, Mapping
@@ -14,6 +15,7 @@ from urllib.request import Request, urlopen
 TSDECOMPOSE_BENCHMARK_DATASET = "Zipeng365/TSDecompose-Benchmark"
 TSDECOMPOSE_BENCHMARK_CODE_PREFIX = "code/TSDecompose"
 TSDECOMPOSE_BENCHMARK_REVISION = "ff178deae0d4ad21962a38f7588fd2971845469d"
+PINNED_REVISION_RE = re.compile(r"^[0-9a-fA-F]{40}$")
 SENSITIVE_ENV_PREFIXES = ("AWS_", "AZURE_", "GOOGLE_", "GCP_")
 SENSITIVE_ENV_NAMES = {
     "HF_TOKEN",
@@ -118,6 +120,20 @@ def _scrub_external_runner_env(env: Mapping[str, str]) -> dict[str, str]:
     return cleaned
 
 
+def _is_pinned_revision(revision: str) -> bool:
+    return bool(PINNED_REVISION_RE.fullmatch(revision))
+
+
+def _validate_benchmark_revision(revision: str, *, allow_unpinned_revision: bool) -> None:
+    if _is_pinned_revision(revision) or allow_unpinned_revision:
+        return
+    raise BenchmarkSourceError(
+        "External benchmark revisions must be immutable 40-character commit SHAs. "
+        f"Got {revision!r}. Pass allow_unpinned_revision=True only for a reviewed "
+        "local experiment that intentionally uses a branch or tag."
+    )
+
+
 def _tree_entries(payload: Any) -> list[Mapping[str, Any]]:
     if isinstance(payload, list):
         return [item for item in payload if isinstance(item, Mapping)]
@@ -143,6 +159,7 @@ def download_tsdecompose_benchmark(
     revision: str = TSDECOMPOSE_BENCHMARK_REVISION,
     code_prefix: str = TSDECOMPOSE_BENCHMARK_CODE_PREFIX,
     force: bool = False,
+    allow_unpinned_revision: bool = False,
 ) -> Path:
     """Download the TSDecompose benchmark source snapshot from Hugging Face.
 
@@ -150,6 +167,11 @@ def download_tsdecompose_benchmark(
     a pinned benchmark source bundle so users can run the published runner
     locally after explicitly opting in to external benchmark code execution.
     """
+
+    _validate_benchmark_revision(
+        revision,
+        allow_unpinned_revision=allow_unpinned_revision,
+    )
 
     root = (
         Path(cache_dir).expanduser()
@@ -201,6 +223,7 @@ def ensure_tsdecompose_benchmark(
     dataset: str = TSDECOMPOSE_BENCHMARK_DATASET,
     revision: str = TSDECOMPOSE_BENCHMARK_REVISION,
     force_download: bool = False,
+    allow_unpinned_revision: bool = False,
 ) -> Path:
     """Resolve a local benchmark directory or download the HF source snapshot."""
 
@@ -215,6 +238,7 @@ def ensure_tsdecompose_benchmark(
         dataset=dataset,
         revision=revision,
         force=force_download,
+        allow_unpinned_revision=allow_unpinned_revision,
     )
 
 
@@ -239,6 +263,7 @@ def run_tsdecompose_benchmark(
     env: Mapping[str, str] | None = None,
     check: bool = True,
     allow_external_code: bool = False,
+    allow_unpinned_revision: bool = False,
 ) -> BenchmarkRunResult:
     """Run the TSDecompose paper benchmark through its published runner.
 
@@ -255,12 +280,19 @@ def run_tsdecompose_benchmark(
             f"revision {revision!r}."
         )
 
+    if benchmark_dir is None:
+        _validate_benchmark_revision(
+            revision,
+            allow_unpinned_revision=allow_unpinned_revision,
+        )
+
     source_dir = ensure_tsdecompose_benchmark(
         benchmark_dir,
         cache_dir=cache_dir,
         dataset=dataset,
         revision=revision,
         force_download=force_download,
+        allow_unpinned_revision=allow_unpinned_revision,
     )
     runner = source_dir / "scripts" / "run_paper_benchmark.py"
     output_dir = (
@@ -285,9 +317,10 @@ def run_tsdecompose_benchmark(
     if no_aggregate:
         command.append("--no-aggregate")
 
-    run_env = _scrub_external_runner_env(os.environ)
+    run_env: dict[str, str] = dict(os.environ)
     if env is not None:
         run_env.update(env)
+    run_env = _scrub_external_runner_env(run_env)
 
     completed = subprocess.run(
         command,

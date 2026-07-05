@@ -55,6 +55,8 @@ def test_benchmark_helpers_cover_env_headers_tree_and_cache(monkeypatch, tmp_pat
         }
     )
     assert scrubbed == {"SAFE_ENV": "ok"}
+    assert benchmark._is_pinned_revision(benchmark.TSDECOMPOSE_BENCHMARK_REVISION)
+    assert not benchmark._is_pinned_revision("main")
 
     siblings = benchmark._tree_entries({"siblings": [{"type": "file", "path": "a.py"}, "bad"]})
     value = benchmark._tree_entries({"value": [{"type": "file", "path": "b.py"}]})
@@ -172,7 +174,11 @@ def test_run_tsdecompose_benchmark_covers_full_command_without_check(monkeypatch
         methods=None,
         seeds="",
         plots=True,
-        env={"DETIME_TEST_ENV": "1"},
+        env={
+            "DETIME_TEST_ENV": "1",
+            "HF_TOKEN": "override-secret",
+            "AWS_SECRET_ACCESS_KEY": "override-secret",
+        },
         check=False,
         allow_external_code=True,
     )
@@ -181,6 +187,8 @@ def test_run_tsdecompose_benchmark_covers_full_command_without_check(monkeypatch
     assert "--smoke" not in captured["command"]
     assert "--plots" in captured["command"]
     assert captured["env"]["DETIME_TEST_ENV"] == "1"
+    assert "HF_TOKEN" not in captured["env"]
+    assert "AWS_SECRET_ACCESS_KEY" not in captured["env"]
 
 
 def test_run_tsdecompose_benchmark_raises_on_failure(monkeypatch, tmp_path) -> None:
@@ -210,3 +218,12 @@ def test_run_tsdecompose_benchmark_requires_external_code_opt_in(tmp_path) -> No
 
     with pytest.raises(benchmark.BenchmarkSourceError, match="executes external benchmark code"):
         benchmark.run_tsdecompose_benchmark(benchmark_dir=source_dir)
+
+
+def test_run_tsdecompose_benchmark_rejects_unpinned_download_revision(tmp_path) -> None:
+    with pytest.raises(benchmark.BenchmarkSourceError, match="immutable 40-character commit SHAs"):
+        benchmark.run_tsdecompose_benchmark(
+            cache_dir=tmp_path,
+            revision="main",
+            allow_external_code=True,
+        )

@@ -576,6 +576,7 @@ def test_benchmark_command_outputs_json(monkeypatch, tmp_path, capsys):
         assert kwargs["methods"] == "stl"
         assert kwargs["out_dir"] == str(tmp_path / "bench")
         assert kwargs["allow_external_code"] is True
+        assert kwargs["allow_unpinned_revision"] is False
         return BenchmarkRunResult(
             benchmark_dir=tmp_path / "source",
             output_dir=tmp_path / "bench",

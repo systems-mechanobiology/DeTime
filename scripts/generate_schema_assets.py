@@ -8,8 +8,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
 ASSET_DIR = SRC / "detime" / "schema_assets"
-if str(SRC) not in sys.path:
-    sys.path.insert(0, str(SRC))
+SRC_TEXT = str(SRC)
+sys.path = [entry for entry in sys.path if entry != SRC_TEXT]
+sys.path.insert(0, SRC_TEXT)
+for module_name in list(sys.modules):
+    if module_name == "detime" or module_name.startswith("detime."):
+        del sys.modules[module_name]
 
 from detime.schemas import SCHEMA_FILENAMES, build_schema_bundle, write_schema_assets
 
