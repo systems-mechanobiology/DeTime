@@ -1,6 +1,6 @@
 # Release Artifacts
 
-This page summarizes the DeTime `0.1.2` release evidence for software-paper
+This page summarizes the DeTime `0.1.3` release evidence for software-paper
 review.
 
 | Artifact | Repository path |
@@ -15,12 +15,13 @@ review.
 | Package-wide coverage JSON | `docs/assets/generated/evidence/coverage_package.json` |
 | Coverage summary JSON | `docs/assets/generated/evidence/coverage_summary.json` |
 
-The reviewed source tag follows the existing `de-time-v*` convention. The
-public Python package is published as `detime-toolkit==0.1.2`, and the runtime
-import namespace remains `detime`. Install with:
+The reviewed source release uses the existing `de-time-v*` convention. The
+release is complete only when the `de-time-v0.1.3` tag and the
+`detime-toolkit==0.1.3` PyPI record both resolve; the runtime import namespace
+remains `detime`. The exact-version install command is:
 
 ```bash
-python -m pip install detime-toolkit==0.1.2
+python -m pip install detime-toolkit==0.1.3
 ```
 
-GitHub release assets should use the `detime_toolkit-0.1.2` artifact names.
+GitHub release assets should use the `detime_toolkit-0.1.3` artifact names.

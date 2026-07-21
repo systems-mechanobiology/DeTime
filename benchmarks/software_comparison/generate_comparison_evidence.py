@@ -1,31 +1,38 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
+import argparse
 import csv
 import json
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "scripts"))
+from _repo_source import prefer_repo_source
+
+prefer_repo_source(ROOT)
 
 from detime import __version__
 
-
-ROOT = Path(__file__).resolve().parents[2]
 OUTPUT_DIR = ROOT / "docs" / "assets" / "generated" / "evidence"
-
-AUDIT_DATE = "2026-06-19"
+DEFAULT_RELEASE_STATE = "local-unverified"
+RELEASE_STATES = (DEFAULT_RELEASE_STATE, "verified-public")
 COMPARATOR_VERSIONS = {
-    "statsmodels": "0.14.5",
-    "PyEMD/EMD-signal": "1.6.4",
+    "statsmodels": "0.14.6",
+    "PyEMD/EMD-signal": "not installed in local audit environment",
     "PyWavelets": "1.9.0",
-    "PySDKit": "0.4.23",
+    "PySDKit": "0.4.25",
     "SSALib": "not installed in local audit environment",
-    "sktime": "0.33.2",
+    "sktime": "not installed in local audit environment",
 }
 
 
 CAPABILITY_MATRIX = [
     {
         "package": "DeTime",
-        "primary_scope": "workflow-oriented decomposition layer",
+        "primary_scope": "standalone cross-family time-series decomposition",
         "unified_config_object": "yes",
         "unified_result_object": "yes",
         "machine_readable_catalog": "yes",
@@ -34,94 +41,87 @@ CAPABILITY_MATRIX = [
         "multivariate_support": "yes",
         "maturity_labeling": "explicit",
         "compact_output": "yes",
-        "mcp_tool_surface": "yes",
     },
     {
         "package": "statsmodels",
         "primary_scope": "classical decomposition and modeling",
-        "unified_config_object": "no",
-        "unified_result_object": "partial",
-        "machine_readable_catalog": "no",
-        "batch_cli": "no",
-        "profiling_path": "no",
+        "unified_config_object": "per-method constructors",
+        "unified_result_object": "shared for STL/MSTL",
+        "machine_readable_catalog": "library metadata",
+        "batch_cli": "library API",
+        "profiling_path": "external tooling",
         "multivariate_support": "limited",
         "maturity_labeling": "implicit",
-        "compact_output": "no",
-        "mcp_tool_surface": "no",
+        "compact_output": "method result",
     },
     {
         "package": "PyEMD",
         "primary_scope": "EMD-family toolkit",
-        "unified_config_object": "no",
-        "unified_result_object": "no",
-        "machine_readable_catalog": "no",
-        "batch_cli": "no",
-        "profiling_path": "no",
+        "unified_config_object": "family classes",
+        "unified_result_object": "IMF arrays",
+        "machine_readable_catalog": "method state",
+        "batch_cli": "library API",
+        "profiling_path": "external tooling",
         "multivariate_support": "family-specific",
         "maturity_labeling": "family-specific",
-        "compact_output": "no",
-        "mcp_tool_surface": "no",
+        "compact_output": "IMF arrays",
     },
     {
         "package": "PyWavelets",
         "primary_scope": "wavelet toolkit",
-        "unified_config_object": "no",
-        "unified_result_object": "no",
-        "machine_readable_catalog": "no",
-        "batch_cli": "no",
-        "profiling_path": "no",
+        "unified_config_object": "function arguments",
+        "unified_result_object": "coefficient trees",
+        "machine_readable_catalog": "transform metadata",
+        "batch_cli": "library API",
+        "profiling_path": "external tooling",
         "multivariate_support": "transform-specific",
         "maturity_labeling": "family-specific",
-        "compact_output": "no",
-        "mcp_tool_surface": "no",
+        "compact_output": "coefficients",
     },
     {
         "package": "PySDKit",
         "primary_scope": "signal decomposition toolkit",
-        "unified_config_object": "partial",
-        "unified_result_object": "partial",
-        "machine_readable_catalog": "no",
-        "batch_cli": "limited",
-        "profiling_path": "no",
+        "unified_config_object": "method-family classes",
+        "unified_result_object": "method-specific",
+        "machine_readable_catalog": "method documentation",
+        "batch_cli": "library API",
+        "profiling_path": "external tooling",
         "multivariate_support": "yes",
         "maturity_labeling": "less explicit",
-        "compact_output": "no",
-        "mcp_tool_surface": "no",
+        "compact_output": "method-specific",
     },
     {
         "package": "SSALib",
         "primary_scope": "SSA specialist toolkit",
         "unified_config_object": "SSA-specific",
         "unified_result_object": "SSA-specific",
-        "machine_readable_catalog": "no",
-        "batch_cli": "no",
-        "profiling_path": "no",
+        "machine_readable_catalog": "SSA metadata",
+        "batch_cli": "library API",
+        "profiling_path": "external tooling",
         "multivariate_support": "no",
         "maturity_labeling": "focused",
-        "compact_output": "no",
-        "mcp_tool_surface": "no",
+        "compact_output": "SSA results",
     },
     {
         "package": "sktime",
         "primary_scope": "broad time-series ecosystem",
-        "unified_config_object": "no",
-        "unified_result_object": "no",
-        "machine_readable_catalog": "runtime registry; no DeTime schemas",
-        "batch_cli": "no",
-        "profiling_path": "no",
+        "unified_config_object": "estimator parameters",
+        "unified_result_object": "task-specific",
+        "machine_readable_catalog": "runtime estimator registry",
+        "batch_cli": "library API",
+        "profiling_path": "external tooling",
         "multivariate_support": "partial",
         "maturity_labeling": "ecosystem-level",
-        "compact_output": "no",
-        "mcp_tool_surface": "no",
+        "compact_output": "task-specific",
     },
 ]
 
 INSTALL_MATRIX = [
     {
         "package": "DeTime",
-        "public_release_story": f"{__version__} public PyPI/GitHub release",
-        "pypi_path": "detime-toolkit",
-        "github_release": f"de-time-v{__version__}",
+        "public_release_story": "local source state; publication status unverified",
+        "pypi_path": "not verified",
+        "github_release": "not verified",
         "wheels": "yes",
         "ci_platforms": "ubuntu, macOS, windows",
         "docs_website": "GitHub Pages",
@@ -252,7 +252,6 @@ MACHINE_CONTRACT_MATRIX = [
         "machine_readable_catalog": "yes",
         "cli_schema_command": "yes",
         "artifact_contract": "yes",
-        "mcp_surface": "optional local-first",
     },
     {
         "package": "statsmodels",
@@ -262,7 +261,6 @@ MACHINE_CONTRACT_MATRIX = [
         "machine_readable_catalog": "no",
         "cli_schema_command": "no",
         "artifact_contract": "no",
-        "mcp_surface": "no",
     },
     {
         "package": "PyEMD",
@@ -272,7 +270,6 @@ MACHINE_CONTRACT_MATRIX = [
         "machine_readable_catalog": "no",
         "cli_schema_command": "no",
         "artifact_contract": "no",
-        "mcp_surface": "no",
     },
     {
         "package": "PyWavelets",
@@ -282,7 +279,6 @@ MACHINE_CONTRACT_MATRIX = [
         "machine_readable_catalog": "no",
         "cli_schema_command": "no",
         "artifact_contract": "no",
-        "mcp_surface": "no",
     },
     {
         "package": "PySDKit",
@@ -292,7 +288,6 @@ MACHINE_CONTRACT_MATRIX = [
         "machine_readable_catalog": "no",
         "cli_schema_command": "no",
         "artifact_contract": "no",
-        "mcp_surface": "no",
     },
     {
         "package": "SSALib",
@@ -302,7 +297,6 @@ MACHINE_CONTRACT_MATRIX = [
         "machine_readable_catalog": "no",
         "cli_schema_command": "no",
         "artifact_contract": "no",
-        "mcp_surface": "no",
     },
     {
         "package": "sktime",
@@ -312,7 +306,6 @@ MACHINE_CONTRACT_MATRIX = [
         "machine_readable_catalog": "yes-runtime-registry",
         "cli_schema_command": "no",
         "artifact_contract": "no",
-        "mcp_surface": "no",
     },
 ]
 
@@ -326,6 +319,94 @@ def _write_csv(path: Path, rows: list[dict[str, object]]) -> None:
         writer.writerows(rows)
 
 
+def _iso_date(value: str) -> str:
+    try:
+        parsed = date.fromisoformat(value)
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError(
+            f"invalid ISO date {value!r}; expected YYYY-MM-DD"
+        ) from exc
+    if parsed.isoformat() != value:
+        raise argparse.ArgumentTypeError(
+            f"invalid ISO date {value!r}; expected YYYY-MM-DD"
+        )
+    return value
+
+
+def _resolve_audit_date(
+    explicit_date: str | None,
+    *,
+    today: date | None = None,
+) -> tuple[str, str]:
+    if explicit_date is not None:
+        return explicit_date, "explicit"
+    current_date = today or datetime.now(timezone.utc).date()
+    return current_date.isoformat(), "utc-current"
+
+
+def _build_install_matrix(
+    release_state: str,
+    *,
+    version: str = __version__,
+) -> list[dict[str, object]]:
+    if release_state not in RELEASE_STATES:
+        choices = ", ".join(RELEASE_STATES)
+        raise ValueError(f"unknown release state {release_state!r}; choose from {choices}")
+
+    rows = [row.copy() for row in INSTALL_MATRIX]
+    detime_release = rows[0]
+    if release_state == "verified-public":
+        detime_release.update(
+            {
+                "public_release_story": f"{version} verified public PyPI/GitHub release",
+                "pypi_path": "detime-toolkit",
+                "github_release": f"de-time-v{version}",
+            }
+        )
+    else:
+        detime_release.update(
+            {
+                "public_release_story": (
+                    f"{version} local source state; publication status unverified"
+                ),
+                "pypi_path": "not verified",
+                "github_release": "not verified",
+            }
+        )
+    return rows
+
+
+def _parse_args(argv: list[str] | None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Generate the curated software-comparison evidence bundle."
+    )
+    parser.add_argument(
+        "--release-state",
+        choices=RELEASE_STATES,
+        default=DEFAULT_RELEASE_STATE,
+        help=(
+            "DeTime release state. The safe default is local-unverified; select "
+            "verified-public only after the matching PyPI and GitHub releases have "
+            "been checked."
+        ),
+    )
+    parser.add_argument(
+        "--audit-date",
+        type=_iso_date,
+        help=(
+            "Audit date in YYYY-MM-DD form. If omitted, the current UTC date is "
+            "recorded explicitly in the output."
+        ),
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=OUTPUT_DIR,
+        help="Output directory (defaults to the committed evidence directory).",
+    )
+    return parser.parse_args(argv)
+
+
 def _markdown_table(rows: list[dict[str, object]]) -> list[str]:
     headers = list(rows[0].keys())
     lines = [
@@ -337,37 +418,45 @@ def _markdown_table(rows: list[dict[str, object]]) -> list[str]:
     return lines
 
 
-def main() -> int:
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+def main(argv: list[str] | None = None) -> int:
+    args = _parse_args(argv)
+    output_dir = args.output_dir.resolve()
+    output_dir.mkdir(parents=True, exist_ok=True)
+    audit_date, audit_date_source = _resolve_audit_date(args.audit_date)
+    install_matrix = _build_install_matrix(args.release_state)
     runtime_snapshot_csv = OUTPUT_DIR / "performance_snapshot.csv"
 
     payload = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "release_target_version": __version__,
+        "release_state": args.release_state,
         "evidence_type": "curated feature audit",
-        "audit_date": AUDIT_DATE,
+        "audit_date": audit_date,
+        "audit_date_source": audit_date_source,
         "comparator_versions": COMPARATOR_VERSIONS,
         "runtime_memory_boundary": "Feature audit only; no cross-package runtime or peak-memory ranking is claimed.",
         "capability_matrix": CAPABILITY_MATRIX,
-        "install_matrix": INSTALL_MATRIX,
+        "install_matrix": install_matrix,
         "family_fairness": FAMILY_FAIRNESS,
         "machine_contract_matrix": MACHINE_CONTRACT_MATRIX,
         "runtime_snapshot_csv": str(runtime_snapshot_csv.relative_to(ROOT)),
     }
 
-    json_path = OUTPUT_DIR / "comparison_evidence.json"
+    json_path = output_dir / "comparison_evidence.json"
     json_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    _write_csv(OUTPUT_DIR / "comparison_capability_matrix.csv", CAPABILITY_MATRIX)
-    _write_csv(OUTPUT_DIR / "comparison_install_matrix.csv", INSTALL_MATRIX)
-    _write_csv(OUTPUT_DIR / "comparison_family_fairness.csv", FAMILY_FAIRNESS)
-    _write_csv(OUTPUT_DIR / "comparison_machine_contract_matrix.csv", MACHINE_CONTRACT_MATRIX)
+    _write_csv(output_dir / "comparison_capability_matrix.csv", CAPABILITY_MATRIX)
+    _write_csv(output_dir / "comparison_install_matrix.csv", install_matrix)
+    _write_csv(output_dir / "comparison_family_fairness.csv", FAMILY_FAIRNESS)
+    _write_csv(output_dir / "comparison_machine_contract_matrix.csv", MACHINE_CONTRACT_MATRIX)
 
     markdown_lines = [
         "# Curated Comparison Evidence",
         "",
         f"Curated for DeTime `{__version__}` on {payload['generated_at']}.",
         "",
-        f"Audit date: {AUDIT_DATE}.",
+        f"Release state: `{args.release_state}`.",
+        "",
+        f"Audit date: {audit_date} ({audit_date_source}).",
         "",
         "Comparator versions:",
         "",
@@ -381,7 +470,7 @@ def main() -> int:
         "",
         "## Install and reproducibility matrix",
         "",
-        *_markdown_table(INSTALL_MATRIX),
+        *_markdown_table(install_matrix),
         "",
         "## Family-fairness notes",
         "",
@@ -396,7 +485,7 @@ def main() -> int:
         f"- `{runtime_snapshot_csv.relative_to(ROOT)}`",
         "",
     ]
-    (OUTPUT_DIR / "comparison_evidence.md").write_text(
+    (output_dir / "comparison_evidence.md").write_text(
         "\n".join(markdown_lines).strip() + "\n",
         encoding="utf-8",
     )

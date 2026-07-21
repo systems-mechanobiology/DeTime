@@ -1,12 +1,12 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
-import builtins
 from types import ModuleType, SimpleNamespace
 
 import numpy as np
 import pytest
 
-from detime import DecompResult
+from detime import DecompResult, DecompositionConfig, decompose
 from detime.methods import ceemdan, emd, ma_baseline, memd, mvmd, stl, vmd, wavelet
 import detime.methods.gabor_cluster as gabor_mod
 
@@ -21,10 +21,13 @@ def test_ma_baseline_decompose() -> None:
 
 def test_stl_family_with_fake_statsmodels(monkeypatch: pytest.MonkeyPatch) -> None:
     class FakeSTL:
+        calls = []
+
         def __init__(self, y, period, **kwargs):
             self.y = np.asarray(y, dtype=float)
             self.period = period
             self.kwargs = kwargs
+            self.calls.append((period, kwargs))
 
         def fit(self):
             return SimpleNamespace(
@@ -34,10 +37,13 @@ def test_stl_family_with_fake_statsmodels(monkeypatch: pytest.MonkeyPatch) -> No
             )
 
     class FakeMSTL:
+        calls = []
+
         def __init__(self, y, periods, **kwargs):
             self.y = np.asarray(y, dtype=float)
             self.periods = periods
             self.kwargs = kwargs
+            self.calls.append((periods, kwargs))
 
         def fit(self):
             seasonals = np.column_stack(
@@ -60,14 +66,75 @@ def test_stl_family_with_fake_statsmodels(monkeypatch: pytest.MonkeyPatch) -> No
     monkeypatch.setitem(__import__("sys").modules, "statsmodels.tsa.seasonal", seasonal)
 
     y = np.arange(12, dtype=float)
-    stl_result = stl.stl_decompose(y, {"period": 4})
+    stl_result = stl.stl_decompose(
+        y,
+        {
+            "period": 4,
+            "seasonal": 7,
+            "trend": 9,
+            "low_pass": 5,
+            "seasonal_deg": 1,
+            "trend_deg": 0,
+            "low_pass_deg": 1,
+            "robust": False,
+            "seasonal_jump": 2,
+            "trend_jump": 2,
+            "low_pass_jump": 2,
+        },
+    )
     robust_result = stl.robuststl_decompose(y, {"period": 4})
-    mstl_result = stl.mstl_decompose(y, {"periods": [4, 6]})
+    mstl_result = stl.mstl_decompose(
+        y,
+        {
+            "periods": 4,
+            "windows": 7,
+            "lmbda": "auto",
+            "iterate": 3,
+            "stl_kwargs": {"robust": True},
+        },
+    )
 
     assert stl_result.meta["method"] == "STL"
     assert robust_result.meta["method"] == "ROBUST_STL"
     assert mstl_result.meta["method"] == "MSTL"
+    assert FakeSTL.calls[0][1]["low_pass"] == 5
+    assert FakeSTL.calls[0][1]["trend_deg"] == 0
+    assert FakeSTL.calls[1][1]["robust"] is True
+    assert FakeMSTL.calls == [
+        (
+            [4],
+            {
+                "windows": 7,
+                "lmbda": "auto",
+                "iterate": 3,
+                "stl_kwargs": {"robust": True},
+            },
+        )
+    ]
     np.testing.assert_allclose(mstl_result.trend + mstl_result.season + mstl_result.residual, y)
+
+
+def test_mstl_boxcox_output_preserves_original_scale_contract() -> None:
+    t = np.arange(240, dtype=float)
+    y = 10.0 + 0.01 * t
+    y += np.sin(2 * np.pi * t / 12) + 0.5 * np.sin(2 * np.pi * t / 24)
+
+    result = decompose(
+        y,
+        DecompositionConfig(
+            method="MSTL",
+            params={
+                "periods": (12, 24),
+                "windows": (7, 11),
+                "lmbda": 0.5,
+                "iterate": 2,
+            },
+        ),
+    )
+
+    np.testing.assert_allclose(result.trend + result.season + result.residual, y)
+    assert result.meta["output_scale"] == "original"
+    assert result.meta["boxcox_lambda"] == pytest.approx(0.5)
 
 
 def test_wavelet_decompose_with_fake_pywt(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -169,33 +236,6 @@ def test_mvmd_and_memd_success_paths(monkeypatch) -> None:
     assert memd_result.components["imfs"].ndim == 3
 
 
-def test_std_multi_raises_without_backend(monkeypatch) -> None:
-    import detime.methods.std_multi as std_multi_mod
-
-    y = np.arange(24, dtype=float)
-    real_import = builtins.__import__
-
-    def fake_import(name, globals=None, locals=None, fromlist=(), level=0):
-        if name == "fasttimes":
-            raise ImportError("fasttimes unavailable in tests")
-        return real_import(name, globals, locals, fromlist, level)
-
-    monkeypatch.setattr(builtins, "__import__", fake_import)
-    with pytest.raises(NotImplementedError, match="archived experimental prototype"):
-        std_multi_mod.std_multi_decompose(y, {"window": 12})
-
-
-def test_std_multi_stays_archived_even_if_fasttimes_is_present(monkeypatch: pytest.MonkeyPatch) -> None:
-    import sys
-    import detime.methods.std_multi as std_multi_mod
-
-    y = np.arange(24, dtype=float)
-
-    monkeypatch.setitem(sys.modules, "fasttimes", ModuleType("fasttimes"))
-    with pytest.raises(NotImplementedError, match="archived experimental prototype"):
-        std_multi_mod.std_multi_decompose(y, {"window": 12})
-
-
 def test_gabor_cluster_python_backend(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(gabor_mod, "_HAS_FAISS", True)
     monkeypatch.setattr(
@@ -228,3 +268,55 @@ def test_gabor_cluster_python_backend(monkeypatch: pytest.MonkeyPatch) -> None:
     assert result.meta["method"] == "GABOR_CLUSTER"
     assert result.meta["backend_used"] == "python"
     assert result.trend.shape == y.shape
+
+
+def test_wavelet_decompose_with_required_backend() -> None:
+    y = np.sin(np.linspace(0.0, 4.0 * np.pi, 64)) + np.linspace(0.0, 1.0, 64)
+    result = wavelet.wavelet_decompose(y, {"wavelet": "db4", "level": 2})
+
+    assert result.meta["method"] == "WAVELET"
+    np.testing.assert_allclose(result.trend + result.season + result.residual, y)
+
+
+def test_gabor_centroid_frequency_is_unstandardized() -> None:
+    cfg = gabor_mod.GaborClusterConfig()
+    model = gabor_mod.GaborClusterModel(
+        centroids=np.array([[0.0, 0.5, 0.0]], dtype=np.float32),
+        mu=np.array([0.0, 0.1, 0.0], dtype=np.float32),
+        sigma=np.array([1.0, 0.2, 1.0], dtype=np.float32),
+        cfg=cfg,
+    )
+
+    assert gabor_mod._centroid_frequency(model, 0) == pytest.approx(0.2)
+
+
+def test_gabor_model_roundtrip_uses_safe_npz_json(tmp_path) -> None:
+    cfg = gabor_mod.GaborClusterConfig(win_len=8, hop=4, n_fft=8, n_clusters=2)
+    model = gabor_mod.GaborClusterModel(
+        centroids=np.array([[0.0, 0.1, 0.2], [0.0, 0.8, 0.4]], dtype=np.float32),
+        mu=np.array([0.0, 0.2, 0.1], dtype=np.float32),
+        sigma=np.array([1.0, 0.5, 0.25], dtype=np.float32),
+        cfg=cfg,
+    )
+    path = tmp_path / "gabor-model.npz"
+
+    model.save(str(path))
+    loaded = gabor_mod.GaborClusterModel.load(str(path))
+
+    np.testing.assert_allclose(loaded.centroids, model.centroids)
+    np.testing.assert_allclose(loaded.mu, model.mu)
+    np.testing.assert_allclose(loaded.sigma, model.sigma)
+    assert loaded.cfg == cfg
+    with np.load(path, allow_pickle=False) as archive:
+        assert "cfg_json" in archive.files
+
+    legacy_path = tmp_path / "legacy-pickle-model.npz"
+    np.savez_compressed(
+        legacy_path,
+        centroids=model.centroids,
+        mu=model.mu,
+        sigma=model.sigma,
+        cfg=np.array([cfg], dtype=object),
+    )
+    with pytest.raises(ValueError, match=r"safe NPZ\+JSON format"):
+        gabor_mod.GaborClusterModel.load(str(legacy_path))

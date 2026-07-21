@@ -4,15 +4,14 @@ One Python and CLI interface for trend, oscillation, residual, components, and m
 
 [![License: BSD-3-Clause](https://img.shields.io/badge/license-BSD--3--Clause-0f172a.svg)](LICENSE)
 ![Status: Beta](https://img.shields.io/badge/status-beta-1d4ed8.svg)
-[![Release target: 0.1.2](https://img.shields.io/badge/release%20target-0.1.2-0f766e.svg)](CHANGELOG.md)
+[![Release target: 0.1.3](https://img.shields.io/badge/release%20target-0.1.3-0f766e.svg)](CHANGELOG.md)
 [![Docs: GitHub Pages](https://img.shields.io/badge/docs-GitHub_Pages-0b5fff.svg)](https://systems-mechanobiology.github.io/DeTime/)
-[![HF Space: DeTime](https://img.shields.io/badge/HF%20Space-DeTime-ffb000.svg)](https://huggingface.co/spaces/Zipeng365/DeTime)
 ![Python: 3.10+](https://img.shields.io/badge/python-3.10%2B-0f766e.svg)
 [![PyPI](https://img.shields.io/pypi/v/detime-toolkit.svg)](https://pypi.org/project/detime-toolkit/)
-[![Unit tests: 113 passed, 11 skipped](https://img.shields.io/badge/unit%20tests-113%20passed%2C%2011%20skipped-brightgreen.svg)](tests/)
-[![Core coverage: 92.58%](https://img.shields.io/badge/core%20coverage-92.58%25-brightgreen.svg)](README.md#quality-and-evidence)
-[![Package coverage: 88.41%](https://img.shields.io/badge/package%20coverage-88.41%25-84cc16.svg)](README.md#quality-and-evidence)
-[![Native-backed methods: 6](https://img.shields.io/badge/native--backed%20methods-6-475569.svg)](docs/method-matrix.md)
+[![Unit tests: 145 passed, 1 skipped](https://img.shields.io/badge/unit%20tests-145%20passed%2C%201%20skipped-brightgreen.svg)](tests/)
+[![Core coverage: 92.33%](https://img.shields.io/badge/core%20coverage-92.33%25-brightgreen.svg)](README.md#quality-and-evidence)
+[![Package coverage: 87.78%](https://img.shields.io/badge/package%20coverage-87.78%25-84cc16.svg)](README.md#quality-and-evidence)
+[![Release-timed native paths: 6](https://img.shields.io/badge/release--timed%20native%20paths-6-475569.svg)](docs/comparisons.md#native-path-timing)
 [![CLI: detime](https://img.shields.io/badge/CLI-detime-2563eb.svg)](docs/quickstart.md)
 [![Schemas: JSON](https://img.shields.io/badge/schemas-JSON-0891b2.svg)](docs/machine-api.md)
 [![Native kernels: C++](https://img.shields.io/badge/native%20kernels-C%2B%2B-475569.svg)](native/)
@@ -28,9 +27,10 @@ one-off scripts. The product name is **DeTime**, the PyPI distribution is
 `tsdecomp` import and CLI remain compatibility-only through `0.1.x`, with
 earliest removal planned for `0.2.0`.
 
-The current reviewed release version is `0.1.2`. Install the latest published
-package from PyPI with `python -m pip install detime-toolkit`, or use the editable
-contributor path below for local development against the repository head.
+The reviewed release version is `0.1.3`. Its release identity is the
+`de-time-v0.1.3` source tag and matching `detime-toolkit==0.1.3` PyPI
+distribution. Use the editable contributor path below for development against
+the repository head.
 
 Fast entry points:
 
@@ -81,7 +81,10 @@ optional-backend integrations such as `STL`, `MSTL`, `ROBUST_STL`, `EMD`,
 Experimental neural decomposition blocks extracted as standalone DeTime
 methods are also available. They are package-level experimental operators for
 decomposition-head ablations, reusable result-contract tests, and interface
-coverage.
+coverage. Their architecture-derived identifiers record the cited source of
+inspiration; they are not complete implementations of the corresponding
+forecasting architectures and are excluded from recommendations unless
+`allow_experimental` is set explicitly.
 
 | Block | Source architecture family | Standalone operator exposed in DeTime | Status |
 |---|---|---|---|
@@ -117,15 +120,22 @@ specialist packages, not as a replacement for all of them.
 | Axis | DeTime | [statsmodels](https://www.statsmodels.org/) | [PyEMD](https://github.com/laszukdawid/PyEMD) | [PyWavelets](https://pywavelets.readthedocs.io/en/latest/) | [PySDKit](https://pysdkit.readthedocs.io/en/latest/) | [SSALib](https://github.com/ADSCIAN/ssalib) | [sktime](https://www.sktime.net/en/stable/) |
 |---|---|---|---|---|---|---|---|
 | Primary role | unified decomposition workflow | classical decomposition/statistics | EMD family | wavelet transforms | broad decomposition toolkit | SSA specialist | broad time-series ecosystem |
-| Common config/result contract | yes | partial | no | no | partial | SSA-specific | no |
-| CLI, batch, profiling | yes | no | no | no | limited | no | partial |
-| Machine-readable catalog or schemas | yes | no | no | no | no | no | catalog yes; schemas no |
+| Config/result surface | shared config and normalized result | per-method constructors; shared `DecomposeResult` for STL/MSTL | classes and IMF arrays | functions and coefficient trees | method-family classes/results | SSA-specific configuration/results | estimator/transformer API |
+| CLI and profiling | package API, CLI, batch, and profiles | library API | library API | library API | library API | library API | library API |
+| Schemas and metadata | JSON schemas plus method/runtime metadata | result fields and documentation | IMF arrays and method state | coefficient metadata | method-specific outputs | SSA diagnostics/results | estimator parameters, tags, and registry |
 | Multivariate under one surface | yes | limited | family-specific | transform-specific | yes | no | partial |
 | Where it is deeper | workflow reproducibility | statistical modeling | EMD variants | wavelet tooling | decomposition breadth | SSA workflows | ecosystem breadth |
 
+Broader time-series libraries such as [Darts](https://unit8co.github.io/darts/),
+[aeon](https://www.aeon-toolkit.org/), and
+[StatsForecast](https://nixtlaverse.nixtla.io/statsforecast/) provide
+forecasting or time-series machine-learning abstractions. DeTime has a narrower
+boundary: standalone cross-family decomposition with shared configuration,
+results, metadata, schemas, CLI execution, profiling, and saved artifacts.
+
 Full comparison details are in [docs/comparisons.md](docs/comparisons.md);
 curated evidence files are kept in
-[docs/comparison-evidence.md](docs/comparison-evidence.md).
+[`comparison_evidence.md`](docs/assets/generated/evidence/comparison_evidence.md).
 
 ## Install
 
@@ -180,7 +190,7 @@ detime run \
   --series examples/data/example_series.csv \
   --col value \
   --param period=12 \
-  --out_dir out/std_run \
+  --out-dir out/std_run \
   --output-mode summary
 ```
 
@@ -245,8 +255,7 @@ DeTime now includes:
 - packaged JSON schemas for `config`, `result`, `meta`, and `method-registry`,
 - low-token result export modes: `full`, `summary`, and `meta`,
 - machine-readable method metadata for registry, docs, and metadata-based shortlists,
-- `detime schema` and `detime recommend`,
-- a local-first MCP server at `python -m detime.mcp.server`.
+- `detime schema` and `detime recommend`.
 
 These interfaces support non-interactive automation. The maintained software
 claim remains the decomposition API, CLI, schemas, result object, metadata, and
@@ -281,12 +290,12 @@ compatibility.
 - The coverage story is intentionally split into core-surface coverage and
   package-wide coverage so the denominator stays explicit.
 
-Coverage from the 2026-06-22 checkout-source audit:
+Coverage from the 2026-07-14 checkout audit:
 
 | View | Config | Scope | Result |
 |---|---|---|---:|
-| Core contract | `.coveragerc` | selected core algorithm contract files | 92.58% |
-| Package-wide | `.coveragerc.package` | installable package including CLI/I/O/wrappers/viz | 88.41% |
+| Core contract | `.coveragerc` | core and maintained-method files; presentation, optional, and experimental paths excluded | 92.33% |
+| Package-wide | `.coveragerc.package` | maintained package including CLI/I/O/wrappers/viz; optional Torch experimental module excluded | 87.78% |
 
 The JSON reports are stored in
 `docs/assets/generated/evidence/coverage_core.json`,
@@ -298,14 +307,18 @@ reviewed environment. These values compare DeTime native-backed paths against
 internal Python fallback paths in one environment; they are not a portable
 cross-package benchmark.
 
-| Method | Python median (ms) | Native median (ms) | Speedup | Repeats / warmup |
+| Method | Python median (ms) | Native median (ms) | Python/native ratio | Repeats / warmup |
 |---|---:|---:|---:|---:|
-| `SSA` | 13.707 | 1.859 | 7.37x | 50 / 10 |
-| `STD` | 0.159 | 0.041 | 3.89x | 50 / 10 |
-| `STDR` | 0.198 | 0.040 | 4.93x | 50 / 10 |
-| `MA_BASELINE` | 0.087 | 0.037 | 2.36x | 50 / 10 |
-| `MSSA` | 64.251 | 25.930 | 2.48x | 50 / 10 |
-| `VMD` | 52.082 | 13.991 | 3.72x | 50 / 10 |
+| `SSA` | 0.526 | 3.523 | 0.15x | 50 / 10 |
+| `STD` | 0.138 | 0.111 | 1.24x | 50 / 10 |
+| `STDR` | 0.176 | 0.118 | 1.50x | 50 / 10 |
+| `MA_BASELINE` | 0.071 | 0.064 | 1.10x | 50 / 10 |
+| `MSSA` | 42.933 | 16.053 | 2.67x | 50 / 10 |
+| `VMD` | 125.270 | 464.513 | 0.27x | 50 / 10 |
+
+A ratio above 1 means the native path was faster in this snapshot. The native
+path was faster for STD, STDR, MA baseline, and MSSA; the vectorized Python
+path was faster for SSA and VMD on this input and environment.
 
 Experimental `GABOR_CLUSTER` timing is excluded from release-validation
 performance evidence. It can be generated separately with
@@ -325,7 +338,6 @@ Documentation and tutorial evidence:
 
 Core docs:
 - Homepage: <https://systems-mechanobiology.github.io/DeTime/>
-- Hugging Face Space mirror: <https://huggingface.co/spaces/Zipeng365/DeTime>
 - Install: <https://systems-mechanobiology.github.io/DeTime/install/>
 - Quickstart: <https://systems-mechanobiology.github.io/DeTime/quickstart/>
 - Methods overview: <https://systems-mechanobiology.github.io/DeTime/methods/>

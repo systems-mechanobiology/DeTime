@@ -9,7 +9,7 @@ Use this file when you want the shortest path into the product.
 - `docs/quickstart.md`
   - shortest path to a first Python or CLI run
 - `docs/machine-api.md`
-  - schemas, catalog, compact result modes, and MCP guidance
+  - schemas, catalog, recommendation, and compact result modes
 - `docs/method-cards.md`
   - assumptions, failure modes, maturity, and not-recommended cases
 - `docs/method-matrix.md`
@@ -30,8 +30,6 @@ Use this file when you want the shortest path into the product.
   - method shortlisting from workflow constraints
 - `detime benchmark`
   - bridge runner for the external TSDecompose benchmark bundle
-- `python -m detime.mcp.server`
-  - minimal MCP server for tool-based access
 - `docs/token-benchmarks.md`
   - token-budget evidence for `full`, `summary`, and `meta`
 - `python -c "from detime import decompose, DecompositionConfig"`

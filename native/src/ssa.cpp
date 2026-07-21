@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: BSD-3-Clause
 #include "common.hpp"
 
 namespace tsdecomp_native {
@@ -423,7 +424,7 @@ py::dict ssa_decompose(
     meta["singular_values"] = singular_values;
     meta["trend_components"] = trend_idx;
     meta["season_components"] = season_idx;
-    meta["native_solver"] = speed_mode == "fast" ? "power-iteration" : "jacobi-eigen";
+    meta["native_solver"] = speed_mode == "fast" ? "power-iteration" : "numpy-svd";
     meta["speed_mode"] = speed_mode;
     return to_python_result({trend, season, residual}, std::move(meta));
 }

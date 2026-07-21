@@ -8,7 +8,7 @@ edit_uri: ""
 docs_dir: docs
 theme:
   name: mkdocs
-  custom_dir: docs/overrides
+  custom_dir: overrides
   favicon: assets/brand/detime-mark.svg
 extra_css:
   - stylesheets/brand.css

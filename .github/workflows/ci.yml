@@ -149,9 +149,6 @@ jobs:
       - name: Regenerate token benchmarks
         run: python benchmarks/token_benchmarks/generate_token_benchmarks.py
 
-      - name: Regenerate agent eval summary
-        run: python evals/agent/run_agent_evals.py
-
       - name: Build documentation
         run: mkdocs build --strict
 
@@ -171,13 +168,16 @@ jobs:
       - name: Install optional backend dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -e .[dev,multivar]
+          python -m pip install -e .[dev,emd,multivar]
 
       - name: Check schema asset freshness
         run: python scripts/generate_schema_assets.py --check
 
       - name: Run optional backend smoke tests
-        run: python -m pytest tests/optional/test_multivar_optional_backends.py -q
+        run: |
+          python -c "from PyEMD import CEEMDAN, EMD; print(CEEMDAN, EMD)"
+          python scripts/smoke_optional_univariate_backends.py
+          python -m pytest tests/optional/test_multivar_optional_backends.py -q
 
       - name: Run optional backend example smoke
         run: python examples/optional_multivariate_backends.py

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
 import numpy as np
@@ -18,7 +19,7 @@ def _shared_multichannel_signal(length: int = 72) -> np.ndarray:
     return np.column_stack([x0, x1])
 
 
-def test_flagship_methods_are_registered() -> None:
+def test_core_maintained_methods_are_registered() -> None:
     methods = set(MethodRegistry.list_methods())
     assert {"SSA", "STD", "STDR", "MSSA"}.issubset(methods)
     assert "DR_TS_REG" not in methods
@@ -43,6 +44,25 @@ def test_ssa_python_backend_smoke() -> None:
         atol=1e-6,
     )
     assert result.meta["backend_used"] == "python"
+
+
+def test_ssa_python_fast_request_reports_exact_effective_mode() -> None:
+    x = np.arange(60, dtype=float)
+    series = 0.02 * x + np.sin(2.0 * np.pi * x / 12.0)
+
+    result = decompose(
+        series,
+        DecompositionConfig(
+            method="SSA",
+            params={"window": 18, "rank": 6, "primary_period": 12},
+            backend="python",
+            speed_mode="fast",
+        ),
+    )
+
+    assert result.meta["solver"] == "numpy-svd"
+    assert result.meta["speed_mode_requested"] == "fast"
+    assert result.meta["speed_mode"] == "exact"
 
 
 def test_ssa_default_grouping_without_primary_period() -> None:

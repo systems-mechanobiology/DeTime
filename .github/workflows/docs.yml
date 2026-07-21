@@ -2,6 +2,8 @@ name: de-time docs
 
 on:
   workflow_dispatch:
+  release:
+    types: [published]
   push:
     branches:
       - main
@@ -9,7 +11,6 @@ on:
     paths:
       - "docs/**"
       - "benchmarks/**"
-      - "evals/**"
       - "examples/**"
       - "mkdocs.yml"
       - "README.md"
@@ -56,16 +57,78 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -e .[dev,docs,notebook,gabor]
 
+      - name: Resolve release evidence state
+        id: release_evidence
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          if [ "$EVENT_NAME" != "release" ]; then
+            echo "release_state=local-unverified" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          python - <<'PY'
+          import json
+          import os
+          import time
+          import urllib.request
+
+          import detime
+
+          tag = os.environ["RELEASE_TAG"]
+          prefix = "de-time-v"
+          if not tag.startswith(prefix):
+              raise SystemExit(f"unexpected release tag: {tag}")
+          version = tag[len(prefix):]
+          if detime.__version__ != version:
+              raise SystemExit(
+                  f"tag/package version mismatch: {tag} vs {detime.__version__}"
+              )
+
+          headers = {
+              "Accept": "application/vnd.github+json",
+              "User-Agent": "DeTime-release-verifier",
+          }
+          urls = {
+              "pypi": f"https://pypi.org/pypi/detime-toolkit/{version}/json",
+              "github": (
+                  "https://api.github.com/repos/systems-mechanobiology/DeTime/"
+                  f"releases/tags/{tag}"
+              ),
+          }
+
+          for attempt in range(1, 41):
+              try:
+                  payloads = {}
+                  for name, url in urls.items():
+                      request = urllib.request.Request(url, headers=headers)
+                      with urllib.request.urlopen(request, timeout=20) as response:
+                          payloads[name] = json.load(response)
+                  if payloads["pypi"]["info"]["version"] != version:
+                      raise RuntimeError("PyPI version mismatch")
+                  if payloads["github"]["tag_name"] != tag:
+                      raise RuntimeError("GitHub tag mismatch")
+                  break
+              except Exception as exc:
+                  if attempt == 40:
+                      raise SystemExit(
+                          f"public release was not verifiable after 40 attempts: {exc}"
+                      ) from exc
+                  time.sleep(30)
+          PY
+          echo "release_state=verified-public" >> "$GITHUB_OUTPUT"
+
       - name: Build documentation
         run: |
           python scripts/generate_schema_assets.py
           python scripts/generate_method_cards.py
           python scripts/generate_notebook_gallery.py
           python scripts/generate_tutorial_assets.py
-          python benchmarks/software_comparison/generate_comparison_evidence.py
+          python benchmarks/software_comparison/generate_comparison_evidence.py --release-state "${{ steps.release_evidence.outputs.release_state }}"
           python examples/workflow_comparisons/compare_specialist_glue_vs_detime.py
           python benchmarks/token_benchmarks/generate_token_benchmarks.py
-          python evals/agent/run_agent_evals.py
           python scripts/check_doc_consistency.py
           mkdocs build --strict
 

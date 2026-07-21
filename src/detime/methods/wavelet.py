@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 import numpy as np
 from typing import Dict, Any, List, Optional
 from ..core import DecompResult

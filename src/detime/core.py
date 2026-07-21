@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -57,9 +58,7 @@ class DecompositionConfig(BaseModel):
 
     @model_validator(mode="after")
     def _validate_method_params(self) -> "DecompositionConfig":
-        try:
-            from .registry import validate_method_params
-        except Exception:
-            return self
+        from .registry import validate_method_params
+
         validate_method_params(self.method, self.params)
         return self

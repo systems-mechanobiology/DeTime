@@ -65,7 +65,6 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="../stylesheets/extra.css?v=7">
 
     </head>
 
@@ -524,7 +523,7 @@
 <li>tests for the retained public surface,</li>
 <li>examples and tutorials for package workflows,</li>
 <li>documentation for installation, APIs, methods, and migration,</li>
-<li>packaged JSON schemas and a minimal MCP server for machine-facing workflows.</li>
+<li>packaged JSON schemas and metadata-based recommendation for machine-facing use.</li>
 </ul>
 <h2 id="moved-out">Moved out</h2>
 <p>Benchmark orchestration, synthetic benchmark generators, leaderboard helpers,
@@ -643,16 +642,21 @@ files.</p>
 <li>optional wrappers and non-core integrations that remain tested but are
   not part of the gated coverage surface.</li>
 </ul>
-<p>The 2026-06-22 <code>0.1.2</code> release-candidate audit was run against the checkout
-source by removing the stale <code>_de_time_editable</code> import hook before pytest
-startup and putting <code>src/</code> first on <code>sys.path</code>. It reached <code>92.58%</code>
-core-contract coverage and <code>88.41%</code> package-wide coverage.</p>
+<p>The 2026-07-14 audit installed the checkout with
+<code>python -m pip install -e .</code> before pytest and normalized installed paths to
+<code>src/detime</code> through the coverage configuration. It reached <code>92.33%</code>
+selected-core coverage and <code>87.78%</code> package-wide coverage. The core gate
+excludes CLI/I/O/visualization presentation layers, optional integrations, and
+experimental operators. The broader maintained-package report includes the
+CLI and wrappers but excludes the deprecated compatibility namespace and the
+optional experimental Torch learned-priors module.</p>
 <p>Package-wide coverage is emitted separately in CI and uploaded as a second
 artifact so release reports can show both the narrow safety gate and the
 broader installable surface.</p>
-<p>Optional <code>.[multivar]</code> integrations are validated separately in a dedicated
-smoke path so <code>MVMD</code> / <code>MEMD</code> execution evidence is published without
-broadening the core-method coverage gate.</p>
+<p>Optional <code>.[emd,multivar]</code> integrations are validated separately in a dedicated
+smoke path. It executes EMD and CEEMDAN against PyEMD and MVMD and MEMD against
+PySDKit without broadening the core-method coverage gate. The required
+PyWavelets backend is exercised in the main test suite.</p>
 <h2 id="native-agreement-checks">Native agreement checks</h2>
 <p>Native-backed methods are not treated as correctness shortcuts. The test suite
 includes numeric agreement checks between native and Python implementations for:</p>
@@ -743,55 +747,58 @@ result contract. It is not a portable runtime ranking against other packages.</p
 <th>Method</th>
 <th style="text-align: right;">Python median (ms)</th>
 <th style="text-align: right;">Native median (ms)</th>
-<th style="text-align: right;">Speedup</th>
+<th style="text-align: right;">Python/native ratio</th>
 <th style="text-align: right;">Repeats / warmup</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>SSA</code></td>
-<td style="text-align: right;">13.707</td>
-<td style="text-align: right;">1.859</td>
-<td style="text-align: right;">7.37x</td>
+<td style="text-align: right;">0.526</td>
+<td style="text-align: right;">3.523</td>
+<td style="text-align: right;">0.15x</td>
 <td style="text-align: right;">50 / 10</td>
 </tr>
 <tr>
 <td><code>STD</code></td>
-<td style="text-align: right;">0.159</td>
-<td style="text-align: right;">0.041</td>
-<td style="text-align: right;">3.89x</td>
+<td style="text-align: right;">0.138</td>
+<td style="text-align: right;">0.111</td>
+<td style="text-align: right;">1.24x</td>
 <td style="text-align: right;">50 / 10</td>
 </tr>
 <tr>
 <td><code>STDR</code></td>
-<td style="text-align: right;">0.198</td>
-<td style="text-align: right;">0.040</td>
-<td style="text-align: right;">4.93x</td>
+<td style="text-align: right;">0.176</td>
+<td style="text-align: right;">0.118</td>
+<td style="text-align: right;">1.50x</td>
 <td style="text-align: right;">50 / 10</td>
 </tr>
 <tr>
 <td><code>MA_BASELINE</code></td>
-<td style="text-align: right;">0.087</td>
-<td style="text-align: right;">0.037</td>
-<td style="text-align: right;">2.36x</td>
+<td style="text-align: right;">0.071</td>
+<td style="text-align: right;">0.064</td>
+<td style="text-align: right;">1.10x</td>
 <td style="text-align: right;">50 / 10</td>
 </tr>
 <tr>
 <td><code>MSSA</code></td>
-<td style="text-align: right;">64.251</td>
-<td style="text-align: right;">25.930</td>
-<td style="text-align: right;">2.48x</td>
+<td style="text-align: right;">42.933</td>
+<td style="text-align: right;">16.053</td>
+<td style="text-align: right;">2.67x</td>
 <td style="text-align: right;">50 / 10</td>
 </tr>
 <tr>
 <td><code>VMD</code></td>
-<td style="text-align: right;">52.082</td>
-<td style="text-align: right;">13.991</td>
-<td style="text-align: right;">3.72x</td>
+<td style="text-align: right;">125.270</td>
+<td style="text-align: right;">464.513</td>
+<td style="text-align: right;">0.27x</td>
 <td style="text-align: right;">50 / 10</td>
 </tr>
 </tbody>
 </table>
+<p>A ratio above 1 means the native path was faster. Native execution was faster
+for STD, STDR, MA baseline, and MSSA; Python execution was faster for SSA and
+VMD on this input and environment.</p>
 <p>Experimental <code>GABOR_CLUSTER</code> timing is excluded from release-validation
 performance evidence because it depends on a trained model object and optional
 clustering backend availability. It can be generated separately with

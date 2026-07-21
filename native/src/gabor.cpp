@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: BSD-3-Clause
 #include <complex>
 
 #include "common.hpp"
@@ -304,7 +305,10 @@ py::dict gabor_cluster_decompose(
 
         py::array_t<double> component = gabor_istft_rfft(Zj, win_len, hop, n_fft, window_arr, static_cast<int>(N));
         auto comp_view = component.unchecked<1>();
-        const bool is_trend = centroids(static_cast<py::ssize_t>(cluster), 1) <= trend_freq_thr;
+        const float frequency_scale = std::abs(sigma(1)) > 1e-12f ? sigma(1) : 1.0f;
+        const double original_frequency =
+            static_cast<double>(centroids(static_cast<py::ssize_t>(cluster), 1) * frequency_scale + mu(1));
+        const bool is_trend = original_frequency <= trend_freq_thr;
         for (std::size_t i = 0; i < N; ++i) {
             const double value = comp_view(static_cast<py::ssize_t>(i));
             sum_comp[i] += value;

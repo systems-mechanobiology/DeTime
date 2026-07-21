@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
 import argparse
@@ -47,6 +48,7 @@ BANNED_COMMON = {
 BANNED_SDIST = {
     "src/detime/bench_config.py",
     "src/detime/leaderboard.py",
+    "native/src/dr_ts_reg.cpp",
     "docs/tutorials/visual-benchmark.md",
 }
 
@@ -106,19 +108,29 @@ def _check_entries(
 
 def _inspect_sdist(path: str) -> list[str]:
     with tarfile.open(path, "r:gz") as archive:
-        names = {
-            normalized
-            for normalized in (_normalize_sdist_member(member.name) for member in archive.getmembers())
-            if normalized
+        members = {
+            _normalize_sdist_member(member.name): member
+            for member in archive.getmembers()
+            if _normalize_sdist_member(member.name)
         }
-    return _check_entries(
-        names,
-        ALLOWED_TSDECOMP_SDIST,
-        BANNED_SDIST,
-        path,
-        banned_prefixes=BANNED_SDIST_PREFIXES,
-        required=REQUIRED_NEURAL_BLOCK_SDIST,
-    )
+        names = set(members)
+        failures = _check_entries(
+            names,
+            ALLOWED_TSDECOMP_SDIST,
+            BANNED_SDIST,
+            path,
+            banned_prefixes=BANNED_SDIST_PREFIXES,
+            required=REQUIRED_NEURAL_BLOCK_SDIST,
+        )
+        source_prefixes = ("examples/", "native/", "scripts/", "src/", "tests/")
+        source_suffixes = (".cc", ".cpp", ".cxx", ".h", ".hpp", ".py")
+        for name, member in sorted(members.items()):
+            if not name.startswith(source_prefixes) or not name.endswith(source_suffixes):
+                continue
+            stream = archive.extractfile(member)
+            if stream is None or b"SPDX-License-Identifier:" not in stream.read(4096):
+                failures.append(f"{path}: shipped source lacks SPDX header: {name}")
+    return failures
 
 
 def _inspect_wheel(path: str) -> list[str]:

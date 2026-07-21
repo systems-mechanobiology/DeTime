@@ -29,7 +29,7 @@ repo_src = Path.cwd() / "src"
 if (repo_src / "detime").exists():
     sys.meta_path[:] = [
         finder for finder in sys.meta_path
-        if finder.__class__.__module__ != "_de_time_editable"
+        if not any(token in finder.__class__.__module__.lower() for token in ("detime", "de_time"))
     ]
     sys.path.insert(0, str(repo_src))
 
@@ -508,7 +508,7 @@ requires a trained GaborClusterModel or model_path plus the experimental cluster
 | `MEMD` | ran | `multivariate` | `(96, 3)` | 0.00000000 |
 | `GABOR_CLUSTER` | skipped | `univariate` | `` | n/a |
 
-Total running time of the gallery script: 2.228 seconds.
+Total running time of the gallery script: 7.257 seconds.
 
 Methods run: 14; skipped with explicit reason: 1.
 

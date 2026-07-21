@@ -8,7 +8,7 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "detime-toolkit"
-version = "0.1.2"
+version = "0.1.3"
 description = "DeTime is Python and CLI research software for reproducible time-series decomposition."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -48,11 +48,8 @@ dependencies = [
   "statsmodels>=0.14",
   "scikit-learn>=1.2",
   "matplotlib>=3.7",
-  "numba>=0.58",
   "pywavelets>=1.5",
-  "tqdm>=4.66",
   "pydantic>=2.0",
-  "sympy>=1.10",
 ]
 
 [project.optional-dependencies]
@@ -148,16 +145,21 @@ include = [
   "docs/assets/generated/evidence/performance_snapshot.*",
   "docs/assets/generated/evidence/workflow_comparison.json",
   "docs/stylesheets/*.css",
-  "docs/overrides/*.html",
+  "overrides/*.html",
   "docs/robots.txt",
   "docs/googlec8d99a452cb93b2a.html",
   "examples/*.py",
   "examples/data/**/*.csv",
   "examples/workflow_comparisons/*.py",
   "examples/workflow_comparisons/*.md",
-  "native/**/*.cpp",
-  "native/**/*.hpp",
-  "native/**/*.h",
+  "native/src/common.hpp",
+  "native/src/gabor.cpp",
+  "native/src/ma_baseline.cpp",
+  "native/src/module.cpp",
+  "native/src/mssa.cpp",
+  "native/src/ssa.cpp",
+  "native/src/std.cpp",
+  "native/src/vmd.cpp",
   "src/detime/**/*.py",
   "src/detime/methods/neural_blocks/*.py",
   "src/detime/**/*.json",
@@ -168,8 +170,11 @@ include = [
   "tests/**/*.py",
   "scripts/check_dist_contents.py",
   "scripts/check_doc_consistency.py",
+  "scripts/_repo_source.py",
   "scripts/release_smoke_matrix.py",
+  "scripts/smoke_optional_univariate_backends.py",
   "scripts/generate_performance_snapshot.py",
+  "scripts/generate_method_runtime_matrix.py",
   "scripts/generate_schema_assets.py",
   "scripts/generate_method_cards.py",
   "scripts/generate_notebook_gallery.py",
@@ -216,8 +221,8 @@ exclude = [
   "examples/quant_trading/data/README.md",
   "docs/tutorials/hot-trend-lab/notebooks/**",
   "docs/tutorials/quant-trading/notebooks/**",
-  "docs/assets/generated/evidence/agent_eval_summary*",
   "docs/assets/generated/evidence/token_benchmarks*",
+  "/native/src/dr_ts_reg.cpp",
   "DeTime_*.md",
   "JMLR_*",
   "docs/tutorials/visual-benchmark.md",

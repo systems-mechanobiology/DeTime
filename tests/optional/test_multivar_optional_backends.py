@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
 import json
@@ -84,7 +85,7 @@ def test_optional_multivariate_cli_smoke(tmp_path: Path, method_name: str) -> No
             "x0,x1,x2",
             "--param",
             "primary_period=12",
-            "--out_dir",
+            "--out-dir",
             str(out_dir),
             "--output-mode",
             "summary",

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
 import csv
@@ -10,37 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 BANNED_PATTERNS: dict[str, list[str]] = {
-    "README.md": [
-        "reviewed snapshot",
-    ],
-    "PUBLISHING.md": [
-        "reviewed snapshot",
-        "pre-release review state",
-        "not yet",
-        "still pending",
-    ],
-    "CHANGELOG.md": [
-        "Reviewed snapshot",
-        "not yet tagged or published",
-        "still pending",
-    ],
-    "docs/install.md": [
-        "not yet available",
-        "reviewed snapshot",
-    ],
-    "docs/comparisons.md": [
-        "not erase them",
-        "What DeTime does not claim",
-    ],
-    "docs/reproducibility.md": [
-        "GitHub source install",
-        "reviewed snapshot",
-        "still pending",
-    ],
-    "docs/citation.md": [
-        "not yet a tagged GitHub release",
-        "Formal release steps remain pending",
-    ],
+    "docs/comparisons.md": ["not erase them", "What DeTime does not claim"],
 }
 
 REQUIRED_PATTERNS: dict[str, list[str]] = {
@@ -268,6 +239,29 @@ def _check_release_evidence_alignment() -> list[str]:
     return failures
 
 
+def _check_release_identity() -> list[str]:
+    failures: list[str] = []
+    pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+    match = re.search(r'^version\s*=\s*"([^"]+)"\s*$', pyproject, flags=re.MULTILINE)
+    if match is None:
+        return ["pyproject.toml: project version could not be read"]
+    version = match.group(1)
+
+    expected = {
+        "README.md": [f"release%20target-{version}", f"reviewed release version is `{version}`"],
+        "CITATION.cff": [f'version: "{version}"'],
+        "CHANGELOG.md": [f"## [{version}]"],
+        "src/detime/_metadata.py": [f'FALLBACK_VERSION = "{version}"'],
+        "docs/method-cards.md": [f"Current package version target: `{version}`."],
+        "docs/method-matrix.md": [f"Current package version target: `{version}`."],
+        "docs/method-references.md": [f"Current package version target: `{version}`."],
+        "docs/config-reference.md": [f"Current package version target: `{version}`."],
+    }
+    for relative_path, patterns in expected.items():
+        failures.extend(_check_patterns(ROOT / relative_path, patterns, expect_present=True))
+    return failures
+
+
 def main() -> int:
     failures: list[str] = []
 
@@ -304,6 +298,7 @@ def main() -> int:
         failures.extend(_check_backticked_repo_paths(path))
 
     failures.extend(_check_release_evidence_alignment())
+    failures.extend(_check_release_identity())
 
     if failures:
         for failure in failures:

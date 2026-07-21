@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 # Import all methods to trigger @MethodRegistry.register decorators.
 from . import ceemdan
 from . import emd
@@ -9,7 +10,6 @@ from . import mvmd
 from . import neural_blocks
 from . import ssa
 from . import std
-from . import std_multi
 from . import stl
 from . import vmd
 from . import wavelet

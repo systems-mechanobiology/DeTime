@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from ._compat import warn_deprecated_import
 
 warn_deprecated_import()

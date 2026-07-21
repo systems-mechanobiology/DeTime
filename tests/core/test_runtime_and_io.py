@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
 from importlib.machinery import PathFinder
@@ -24,6 +25,93 @@ def test_detime_public_import_surface() -> None:
     assert detime.DecompositionConfig.__name__ == "DecompositionConfig"
     assert callable(detime.decompose)
     assert isinstance(detime.native_capabilities(), dict)
+
+
+def test_config_rejects_unknown_method_parameter_with_suggestion() -> None:
+    with pytest.raises(ValueError, match="Unknown parameter 'windw'.*window"):
+        DecompositionConfig(method="SSA", params={"windw": 24})
+
+
+def test_stl_family_config_accepts_public_statsmodels_parameters() -> None:
+    stl_config = DecompositionConfig(
+        method="STL",
+        params={
+            "period": 12,
+            "seasonal": 7,
+            "trend": 15,
+            "low_pass": 13,
+            "seasonal_deg": 1,
+            "trend_deg": 0,
+            "low_pass_deg": 1,
+            "robust": True,
+            "seasonal_jump": 2,
+            "trend_jump": 2,
+            "low_pass_jump": 2,
+        },
+    )
+    mstl_config = DecompositionConfig(
+        method="MSTL",
+        params={
+            "periods": (12, 24),
+            "windows": (7, 11),
+            "lmbda": "auto",
+            "iterate": 3,
+            "stl_kwargs": {"robust": True, "low_pass": 13},
+        },
+    )
+
+    assert stl_config.params["low_pass"] == 13
+    assert mstl_config.params["lmbda"] == "auto"
+
+
+@pytest.mark.parametrize(
+    ("method", "params", "message"),
+    [
+        ("STL", {"period": 1}, "period.*integer >= 2"),
+        ("STL", {"period": 12, "low_pass": 4}, "low_pass.*odd integer"),
+        ("STL", {"period": 12, "low_pass": 11}, "low_pass.*greater than period"),
+        ("STL", {"period": 12, "trend": 11}, "trend.*greater than period"),
+        ("STL", {"period": 12, "robust": 1}, "robust.*boolean"),
+        ("MSTL", {"periods": [1, 12]}, "periods.*integer values >= 2"),
+        ("MSTL", {"periods": [12], "windows": [8]}, "windows.*odd integer"),
+        ("MSTL", {"periods": [12], "lmbda": "estimate"}, "lmbda.*'auto'"),
+        ("MSTL", {"periods": [12], "iterate": 0}, "iterate.*integer >= 1"),
+    ],
+)
+def test_stl_family_config_rejects_invalid_parameter_values(
+    method: str,
+    params: dict[str, object],
+    message: str,
+) -> None:
+    with pytest.raises(ValueError, match=message):
+        DecompositionConfig(method=method, params=params)
+
+
+def test_config_does_not_hide_registry_validation_failures(monkeypatch) -> None:
+    import detime.registry as registry_mod
+
+    def fail_validation(method, params):
+        raise RuntimeError("registry validation failed")
+
+    monkeypatch.setattr(registry_mod, "validate_method_params", fail_validation)
+    with pytest.raises(RuntimeError, match="registry validation failed"):
+        DecompositionConfig(method="SSA", params={})
+
+
+def test_result_contract_rejects_shape_and_finiteness_errors() -> None:
+    with pytest.raises(ValueError, match="identical shapes"):
+        DecompResult(
+            trend=np.zeros(3),
+            season=np.zeros(2),
+            residual=np.zeros(3),
+        )
+
+    with pytest.raises(ValueError, match="trend contains non-finite"):
+        DecompResult(
+            trend=np.asarray([0.0, np.nan]),
+            season=np.zeros(2),
+            residual=np.zeros(2),
+        )
 
 
 def test_public_registry_excludes_migrated_benchmark_methods() -> None:
@@ -78,6 +166,14 @@ def test_native_invoke_errors_when_module_missing(monkeypatch) -> None:
         native_mod.invoke_native("ssa_decompose", np.arange(3.0))
 
 
+def test_native_extension_discovery_handles_missing_distribution(monkeypatch) -> None:
+    def missing_distribution(_name: str):
+        raise native_mod.PackageNotFoundError
+
+    monkeypatch.setattr(native_mod, "distribution", missing_distribution)
+    assert native_mod._load_installed_extension() is None
+
+
 def test_native_helpers_cover_fallback_capabilities_and_missing_exports(monkeypatch) -> None:
     fake_module = SimpleNamespace(ssa_decompose=lambda y: y)
     monkeypatch.setattr(native_mod, "_MODULE", fake_module)
@@ -130,6 +226,27 @@ def test_backend_runtime_helpers_cover_legacy_keys_and_profile_metadata(monkeypa
             native_methods=("ssa_decompose",),
         )
         == "native"
+    )
+
+    with pytest.raises(ValueError, match="does not provide a GPU backend"):
+        backends.resolve_backend("SSA", backends.RuntimeOptions(backend="gpu"))
+
+    monkeypatch.setattr(backends, "native_extension_available", lambda: False)
+    monkeypatch.setattr(backends, "has_native_method", lambda name: False)
+    monkeypatch.setattr(backends, "native_import_error", lambda: RuntimeError("missing native"))
+    with pytest.raises(RuntimeError, match="Missing exports.*missing native"):
+        backends.resolve_backend(
+            "SSA",
+            backends.RuntimeOptions(backend="native"),
+            native_methods=("ssa_decompose",),
+        )
+    assert (
+        backends.resolve_backend(
+            "SSA",
+            backends.RuntimeOptions(backend="auto"),
+            native_methods=("ssa_decompose",),
+        )
+        == "python"
     )
 
     native_payload = {

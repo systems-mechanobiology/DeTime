@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
 from typing import Any, Dict, Tuple
@@ -20,6 +21,8 @@ def _score_method(metadata: MethodMetadataModel, request: RecommendationRequestM
         return score, reasons, "univariate_only"
     if channels == 1 and metadata.input_mode == "multivariate":
         return score, reasons, "requires_multivariate_input"
+    if metadata.maturity == "experimental" and not request.allow_experimental:
+        return score, reasons, "experimental_disabled"
     if metadata.name == "GABOR_CLUSTER":
         return score, reasons, "experimental_trained_model_required"
     if request.require_native and not metadata.native_backed:
@@ -30,7 +33,7 @@ def _score_method(metadata: MethodMetadataModel, request: RecommendationRequestM
         return score, reasons, f"series_too_short(min={metadata.min_length})"
 
     maturity_bonus = {
-        "flagship": 4.0,
+        "maintained": 4.0,
         "stable": 2.5,
         "optional-backend": 1.5,
         "experimental": 0.5,
@@ -68,12 +71,12 @@ def _score_method(metadata: MethodMetadataModel, request: RecommendationRequestM
         if channels > 1 and metadata.multivariate_support == "shared-model":
             score += 1.5
             reasons.append("multivariate_accuracy_bonus")
-        if metadata.maturity == "flagship":
+        if metadata.maturity == "maintained":
             score += 1.0
     else:
         if metadata.name in {"SSA", "STD", "STDR", "MSSA"}:
             score += 1.5
-            reasons.append("balanced_flagship")
+            reasons.append("balanced_core")
 
     if request.length >= 128 and metadata.native_backed:
         score += 0.75

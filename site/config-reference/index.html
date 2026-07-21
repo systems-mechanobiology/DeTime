@@ -65,7 +65,6 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="../stylesheets/extra.css?v=7">
 
     </head>
 
@@ -490,7 +489,7 @@
 <h1 id="config-reference">Config Reference</h1>
 <p><code>DecompositionConfig</code> is the single runtime contract shared by Python, CLI,
 docs examples, and machine-facing schema exports.</p>
-<p>Current package version target: <code>0.1.2</code>.</p>
+<p>Current package version target: <code>0.1.3</code>.</p>
 <h2 id="top-level-fields">Top-level fields</h2>
 <table>
 <thead>
@@ -610,6 +609,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 </ul>
 <table>
@@ -671,6 +671,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.moving_mean</code></li>
 </ul>
 <table>
@@ -734,6 +735,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>stable</code></li>
+<li>Claim scope: <code>integration</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.imfs</code></li>
 </ul>
 <table>
@@ -805,6 +807,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 </ul>
 <table>
@@ -870,6 +873,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.moving_mean</code></li>
 </ul>
 <table>
@@ -933,6 +937,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>stable</code></li>
+<li>Claim scope: <code>integration</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.imfs</code></li>
 </ul>
 <table>
@@ -1010,6 +1015,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 </ul>
 <table>
@@ -1082,6 +1088,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.Cluster_*</code></li>
 </ul>
 <table>
@@ -1107,7 +1114,7 @@ docs examples, and machine-facing schema exports.</p>
 <td>str | None</td>
 <td style="text-align: right;">no</td>
 <td><code>None</code></td>
-<td>Path to a serialized trained clustering model.</td>
+<td>Path to a DeTime NPZ+JSON trained-model archive.</td>
 </tr>
 <tr>
 <td><code>max_clusters</code></td>
@@ -1129,7 +1136,7 @@ docs examples, and machine-facing schema exports.</p>
 <pre><code class="language-json">{
   &quot;method&quot;: &quot;GABOR_CLUSTER&quot;,
   &quot;params&quot;: {
-    &quot;model_path&quot;: &quot;path/to/trained-gabor-model.pkl&quot;
+    &quot;model_path&quot;: &quot;path/to/trained-gabor-model.npz&quot;
   }
 }
 </code></pre>
@@ -1137,6 +1144,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 </ul>
 <table>
@@ -1194,6 +1202,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.ld_trend</code>, <code>components.kernel</code></li>
 </ul>
 <table>
@@ -1236,6 +1245,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>stable</code></li>
+<li>Claim scope: <code>maintained</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code></li>
 </ul>
 <table>
@@ -1278,6 +1288,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>multivariate</code></li>
 <li>Maturity: <code>optional-backend</code></li>
+<li>Claim scope: <code>integration</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.imfs</code></li>
 </ul>
 <table>
@@ -1368,6 +1379,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.moving_mean</code></li>
 </ul>
 <table>
@@ -1430,7 +1442,8 @@ docs examples, and machine-facing schema exports.</p>
 <h3 id="mssa"><code>MSSA</code></h3>
 <ul>
 <li>Input mode: <code>multivariate</code></li>
-<li>Maturity: <code>core maintained</code></li>
+<li>Maturity: <code>maintained</code></li>
+<li>Claim scope: <code>maintained</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.elementary</code></li>
 </ul>
 <table>
@@ -1530,6 +1543,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>stable</code></li>
+<li>Claim scope: <code>integration</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.seasonal_terms</code></li>
 </ul>
 <table>
@@ -1545,17 +1559,31 @@ docs examples, and machine-facing schema exports.</p>
 <tbody>
 <tr>
 <td><code>periods</code></td>
-<td>list[int]</td>
+<td>int | sequence[int]</td>
 <td style="text-align: right;">yes</td>
 <td>required</td>
 <td>One or more seasonal periods passed to statsmodels MSTL.</td>
 </tr>
 <tr>
 <td><code>windows</code></td>
-<td>list[int] | None</td>
+<td>int | sequence[int] | None</td>
 <td style="text-align: right;">no</td>
 <td><code>None</code></td>
-<td>Optional smoother windows aligned with periods.</td>
+<td>Optional odd smoother windows aligned with periods.</td>
+</tr>
+<tr>
+<td><code>lmbda</code></td>
+<td>float | 'auto' | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Optional Box--Cox transform parameter.</td>
+</tr>
+<tr>
+<td><code>iterate</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>2</code></td>
+<td>Positive number of seasonal-refinement iterations.</td>
 </tr>
 <tr>
 <td><code>stl_kwargs</code></td>
@@ -1581,6 +1609,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>multivariate</code></li>
 <li>Maturity: <code>optional-backend</code></li>
+<li>Claim scope: <code>integration</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.modes</code></li>
 </ul>
 <table>
@@ -1687,6 +1716,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 </ul>
 <table>
@@ -1822,6 +1852,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 </ul>
 <table>
@@ -1887,6 +1918,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>stable</code></li>
+<li>Claim scope: <code>integration</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code></li>
 </ul>
 <table>
@@ -1909,9 +1941,9 @@ docs examples, and machine-facing schema exports.</p>
 </tr>
 <tr>
 <td><code>seasonal</code></td>
-<td>int | None</td>
+<td>int</td>
 <td style="text-align: right;">no</td>
-<td><code>None</code></td>
+<td><code>7</code></td>
 <td>Odd LOESS seasonal smoother length.</td>
 </tr>
 <tr>
@@ -1922,11 +1954,60 @@ docs examples, and machine-facing schema exports.</p>
 <td>Odd LOESS trend smoother length.</td>
 </tr>
 <tr>
+<td><code>low_pass</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Odd LOESS low-pass filter length.</td>
+</tr>
+<tr>
+<td><code>seasonal_deg</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>1</code></td>
+<td>Seasonal LOESS degree, either 0 or 1.</td>
+</tr>
+<tr>
+<td><code>trend_deg</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>1</code></td>
+<td>Trend LOESS degree, either 0 or 1.</td>
+</tr>
+<tr>
+<td><code>low_pass_deg</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>1</code></td>
+<td>Low-pass LOESS degree, either 0 or 1.</td>
+</tr>
+<tr>
 <td><code>robust</code></td>
 <td>bool</td>
 <td style="text-align: right;">no</td>
 <td><code>true</code></td>
 <td>Whether to use robust LOESS fitting.</td>
+</tr>
+<tr>
+<td><code>seasonal_jump</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>1</code></td>
+<td>Positive interpolation step for the seasonal smoother.</td>
+</tr>
+<tr>
+<td><code>trend_jump</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>1</code></td>
+<td>Positive interpolation step for the trend smoother.</td>
+</tr>
+<tr>
+<td><code>low_pass_jump</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>1</code></td>
+<td>Positive interpolation step for the low-pass smoother.</td>
 </tr>
 </tbody>
 </table>
@@ -1941,7 +2022,8 @@ docs examples, and machine-facing schema exports.</p>
 <h3 id="ssa"><code>SSA</code></h3>
 <ul>
 <li>Input mode: <code>univariate</code></li>
-<li>Maturity: <code>core maintained</code></li>
+<li>Maturity: <code>maintained</code></li>
+<li>Claim scope: <code>maintained</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.elementary</code></li>
 </ul>
 <table>
@@ -2036,7 +2118,8 @@ docs examples, and machine-facing schema exports.</p>
 <h3 id="std"><code>STD</code></h3>
 <ul>
 <li>Input mode: <code>channelwise</code></li>
-<li>Maturity: <code>core maintained</code></li>
+<li>Maturity: <code>maintained</code></li>
+<li>Claim scope: <code>maintained</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.dispersion</code>, <code>components.seasonal_shape</code></li>
 </ul>
 <table>
@@ -2086,7 +2169,8 @@ docs examples, and machine-facing schema exports.</p>
 <h3 id="stdr"><code>STDR</code></h3>
 <ul>
 <li>Input mode: <code>channelwise</code></li>
-<li>Maturity: <code>core maintained</code></li>
+<li>Maturity: <code>maintained</code></li>
+<li>Claim scope: <code>maintained</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.dispersion</code>, <code>components.seasonal_shape</code></li>
 </ul>
 <table>
@@ -2137,6 +2221,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>stable</code></li>
+<li>Claim scope: <code>integration</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code></li>
 </ul>
 <table>
@@ -2159,9 +2244,9 @@ docs examples, and machine-facing schema exports.</p>
 </tr>
 <tr>
 <td><code>seasonal</code></td>
-<td>int | None</td>
+<td>int</td>
 <td style="text-align: right;">no</td>
-<td><code>None</code></td>
+<td><code>7</code></td>
 <td>Odd LOESS seasonal smoother length.</td>
 </tr>
 <tr>
@@ -2172,11 +2257,60 @@ docs examples, and machine-facing schema exports.</p>
 <td>Odd LOESS trend smoother length.</td>
 </tr>
 <tr>
+<td><code>low_pass</code></td>
+<td>int | None</td>
+<td style="text-align: right;">no</td>
+<td><code>None</code></td>
+<td>Odd LOESS low-pass filter length.</td>
+</tr>
+<tr>
+<td><code>seasonal_deg</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>1</code></td>
+<td>Seasonal LOESS degree, either 0 or 1.</td>
+</tr>
+<tr>
+<td><code>trend_deg</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>1</code></td>
+<td>Trend LOESS degree, either 0 or 1.</td>
+</tr>
+<tr>
+<td><code>low_pass_deg</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>1</code></td>
+<td>Low-pass LOESS degree, either 0 or 1.</td>
+</tr>
+<tr>
 <td><code>robust</code></td>
 <td>bool</td>
 <td style="text-align: right;">no</td>
 <td><code>false</code></td>
 <td>Whether to use robust LOESS fitting.</td>
+</tr>
+<tr>
+<td><code>seasonal_jump</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>1</code></td>
+<td>Positive interpolation step for the seasonal smoother.</td>
+</tr>
+<tr>
+<td><code>trend_jump</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>1</code></td>
+<td>Positive interpolation step for the trend smoother.</td>
+</tr>
+<tr>
+<td><code>low_pass_jump</code></td>
+<td>int</td>
+<td style="text-align: right;">no</td>
+<td><code>1</code></td>
+<td>Positive interpolation step for the low-pass smoother.</td>
 </tr>
 </tbody>
 </table>
@@ -2192,6 +2326,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 </ul>
 <table>
@@ -2257,6 +2392,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 </ul>
 <table>
@@ -2329,6 +2465,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 </ul>
 <table>
@@ -2401,6 +2538,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>stable</code></li>
+<li>Claim scope: <code>maintained</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.modes</code></li>
 </ul>
 <table>
@@ -2514,6 +2652,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 </ul>
 <table>
@@ -2567,6 +2706,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>stable</code></li>
+<li>Claim scope: <code>integration</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.coefficients</code></li>
 </ul>
 <table>
@@ -2623,6 +2763,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 </ul>
 <table>
@@ -2677,6 +2818,7 @@ docs examples, and machine-facing schema exports.</p>
 <ul>
 <li>Input mode: <code>univariate</code></li>
 <li>Maturity: <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 </ul>
 <table>

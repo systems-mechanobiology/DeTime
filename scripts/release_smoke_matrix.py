@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
 import json
@@ -8,15 +9,14 @@ import sys
 import tempfile
 from pathlib import Path
 
+ROOT = Path(__file__).resolve().parents[1]
+
 import numpy as np
 
 import detime
 import tsdecomp
 from detime import DecompositionConfig, decompose
 from detime._metadata import installed_version
-
-
-ROOT = Path(__file__).resolve().parents[1]
 
 
 def _run_command(command: list[str]) -> dict[str, object]:
@@ -40,10 +40,19 @@ def _run_command(command: list[str]) -> dict[str, object]:
 
 
 def main() -> int:
+    module_path = Path(detime.__file__).resolve()
+    repo_source = (ROOT / "src").resolve()
+    if module_path.is_relative_to(repo_source):
+        raise RuntimeError(
+            "release smoke imported detime from the repository source tree; "
+            "install the built wheel or sdist before running this script"
+        )
+
     report: dict[str, object] = {
         "platform": platform.platform(),
         "python": sys.version.split()[0],
         "package_version": installed_version(),
+        "module_path": str(module_path),
         "imports": {
             "detime": detime.__name__,
             "tsdecomp": tsdecomp.__name__,
@@ -84,7 +93,7 @@ def main() -> int:
                     "value",
                     "--param",
                     "period=12",
-                    "--out_dir",
+                    "--out-dir",
                     str(out_dir),
                     "--output-mode",
                     "summary",

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 """DeTime public import surface."""
 
 from ._native import native_capabilities, native_extension_available

@@ -32,24 +32,6 @@ The preferred Python and CLI entrypoints are exposed through `detime`. Legacy
 - `MethodRegistry.list_catalog()` for method metadata
 - `summary` and `meta` result modes for low-token handoff
 - packaged JSON schemas under `src/detime/schema_assets/`
-- `python -m detime.mcp.server` for local-first tool-based access
-
-## MCP guidance
-
-Stable tool names in the current machine-contract series:
-
-- `list_methods`
-- `get_schema`
-- `recommend_method`
-- `run_decomposition`
-- `summarize_result`
-
-Recommended subsets:
-
-- routing only
-  - `list_methods`, `get_schema`, `recommend_method`
-- bounded-context execution
-  - add `run_decomposition` and `summarize_result`
 
 ## Best first methods
 

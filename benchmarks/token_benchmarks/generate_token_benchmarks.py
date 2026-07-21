@@ -4,6 +4,13 @@ import csv
 import json
 from datetime import datetime, timezone
 from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "scripts"))
+from _repo_source import prefer_repo_source
+
+prefer_repo_source(ROOT)
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -13,7 +20,6 @@ from detime import DecompResult, __version__
 from detime.serialization import serialize_result
 
 
-ROOT = Path(__file__).resolve().parents[2]
 OUTPUT_DIR = ROOT / "docs" / "assets" / "generated" / "evidence"
 ENCODING_NAME = "cl100k_base"
 

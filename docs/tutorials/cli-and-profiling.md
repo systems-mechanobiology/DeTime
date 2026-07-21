@@ -20,7 +20,7 @@ python -m detime run \
   --param window=24 \
   --param rank=6 \
   --param primary_period=12 \
-  --out_dir out/ssa \
+  --out-dir out/ssa \
   --output-mode summary \
   --plot
 ```
@@ -72,7 +72,7 @@ python -m detime run \
   --param window=24 \
   --param rank=8 \
   --param primary_period=12 \
-  --out_dir out/mssa \
+  --out-dir out/mssa \
   --output-mode summary
 ```
 
@@ -113,7 +113,7 @@ python -m detime batch \
   --glob "examples/data/batch/*.csv" \
   --col value \
   --param period=12 \
-  --out_dir out/std_batch \
+  --out-dir out/std_batch \
   --output-mode meta
 ```
 

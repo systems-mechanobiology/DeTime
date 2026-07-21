@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
 import argparse
@@ -58,7 +59,7 @@ repo_src = Path.cwd() / "src"
 if (repo_src / "detime").exists():
     sys.meta_path[:] = [
         finder for finder in sys.meta_path
-        if finder.__class__.__module__ != "_de_time_editable"
+        if not any(token in finder.__class__.__module__.lower() for token in ("detime", "de_time"))
     ]
     sys.path.insert(0, str(repo_src))
 
@@ -206,7 +207,7 @@ def _prefer_repo_source() -> None:
 
     sys.meta_path[:] = [
         finder for finder in sys.meta_path
-        if finder.__class__.__module__ != "_de_time_editable"
+        if not any(token in finder.__class__.__module__.lower() for token in ("detime", "de_time"))
     ]
     src = str(SRC_DIR)
     if src not in sys.path:

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
 from pathlib import Path
@@ -31,7 +32,7 @@ def main() -> None:
     print("Example CLI commands:")
     print(
         "detime run --method STD --series examples/data/example_series.csv "
-        "--col value --param period=12 --out_dir out/std_run"
+        "--col value --param period=12 --out-dir out/std_run"
     )
     print(
         "detime profile --method MSSA --series examples/data/example_multivariate.csv "

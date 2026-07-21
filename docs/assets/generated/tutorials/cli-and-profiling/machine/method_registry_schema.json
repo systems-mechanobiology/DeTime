@@ -25,12 +25,33 @@
     },
     "MethodMetadataModel": {
       "properties": {
+        "alias_of": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Alias Of"
+        },
         "assumptions": {
           "items": {
             "type": "string"
           },
           "title": "Assumptions",
           "type": "array"
+        },
+        "claim_scope": {
+          "enum": [
+            "maintained",
+            "integration",
+            "experimental-operator"
+          ],
+          "title": "Claim Scope",
+          "type": "string"
         },
         "dependency_tier": {
           "enum": [
@@ -71,7 +92,7 @@
         },
         "maturity": {
           "enum": [
-            "flagship",
+            "maintained",
             "stable",
             "optional-backend",
             "experimental"
@@ -168,6 +189,7 @@
         "family",
         "input_mode",
         "maturity",
+        "claim_scope",
         "implementation",
         "dependency_tier",
         "multivariate_support",

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
 import argparse
@@ -22,7 +23,7 @@ def _prefer_repo_source() -> None:
     """Prefer the checkout over stale local editable wheels during docs generation."""
     sys.meta_path[:] = [
         finder for finder in sys.meta_path
-        if finder.__class__.__module__ != "_de_time_editable"
+        if not any(token in finder.__class__.__module__.lower() for token in ("detime", "de_time"))
     ]
     src = str(SRC_DIR)
     if src not in sys.path:
@@ -88,7 +89,8 @@ def _python_script(script: str, *args: str) -> list[str]:
     bootstrap = (
         "import runpy, sys; "
         "sys.meta_path[:] = [finder for finder in sys.meta_path "
-        "if finder.__class__.__module__ != '_de_time_editable']; "
+        "if not any(token in finder.__class__.__module__.lower() "
+        "for token in ('detime', 'de_time'))]; "
         f"sys.path.insert(0, {str(SRC_DIR)!r}); "
         "script = sys.argv[1]; "
         "script_args = sys.argv[2:]; "
@@ -102,7 +104,8 @@ def _detime_cli(*args: str) -> list[str]:
     bootstrap = (
         "import sys; "
         "sys.meta_path[:] = [finder for finder in sys.meta_path "
-        "if finder.__class__.__module__ != '_de_time_editable']; "
+        "if not any(token in finder.__class__.__module__.lower() "
+        "for token in ('detime', 'de_time'))]; "
         f"sys.path.insert(0, {str(SRC_DIR)!r}); "
         "from detime.cli import main; "
         "sys.argv = ['detime', *sys.argv[1:]]; "
@@ -219,7 +222,7 @@ def generate_tutorial_assets(output_root: Path = DEFAULT_OUTPUT_ROOT) -> Path:
             "rank=6",
             "--param",
             "primary_period=12",
-            "--out_dir",
+            "--out-dir",
             str(single_run),
             "--output-mode",
             "summary",
@@ -242,7 +245,7 @@ def generate_tutorial_assets(output_root: Path = DEFAULT_OUTPUT_ROOT) -> Path:
             "rank=8",
             "--param",
             "primary_period=12",
-            "--out_dir",
+            "--out-dir",
             str(multi_run),
             "--output-mode",
             "summary",
@@ -260,7 +263,7 @@ def generate_tutorial_assets(output_root: Path = DEFAULT_OUTPUT_ROOT) -> Path:
             "value",
             "--param",
             "period=12",
-            "--out_dir",
+            "--out-dir",
             str(batch_run),
             "--output-mode",
             "meta",

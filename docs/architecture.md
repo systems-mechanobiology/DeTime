@@ -13,7 +13,6 @@ The canonical implementation lives under `src/detime`.
 - `profile.py`: runtime profiling helpers.
 - `viz.py`: plotting helpers.
 - `methods/`: core methods and retained wrappers.
-- `mcp/server.py`: minimal MCP server for tool-based access.
 - `_native.py`: native extension discovery and capability checks.
 
 ## Compatibility layer
@@ -31,11 +30,13 @@ Machine-oriented workflows use:
 - packaged JSON schemas under `src/detime/schema_assets`,
 - machine-readable method metadata from `MethodRegistry.list_catalog()`,
 - `detime schema` and the metadata-based `detime recommend` shortlist command,
-- the local-first MCP server at `python -m detime.mcp.server`,
 - low-token result exports via `summary` and `meta` modes.
 
 ## Native boundary
 
 Native kernels are built and loaded under the DeTime naming path first. The
-main package exposes native support only for the retained core methods.
-Benchmark-derived native code is no longer part of the main package boundary.
+release-timed paths are SSA, STD, STDR, MA baseline, MSSA, and VMD. The
+experimental Gabor-cluster operator also has a native-backed path but is
+excluded from release timing because it requires a trained model and optional
+clustering backend. Benchmark-derived `DR_TS_REG` code is excluded from both
+the compiled extension and the source distribution.

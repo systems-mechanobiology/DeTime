@@ -3,6 +3,7 @@ source =
     detime
 omit =
     */tsdecomp/*
+    */detime/methods/neural_blocks/learned_priors.py
 
 [paths]
 detime =

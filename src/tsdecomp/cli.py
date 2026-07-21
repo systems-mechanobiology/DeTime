@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 import os
 
 from detime.cli import main as _detime_main

@@ -63,7 +63,7 @@ detime run \
   --series examples/data/example_series.csv \
   --col value \
   --param period=12 \
-  --out_dir out/std_run \
+  --out-dir out/std_run \
   --output-mode summary
 ```
 

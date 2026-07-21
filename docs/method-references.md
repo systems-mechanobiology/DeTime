@@ -3,7 +3,7 @@
 This page is generated from `MethodRegistry.list_catalog()` so citations,
 upstream package links, and method metadata stay aligned.
 
-Current package version target: `0.1.2`.
+Current package version target: `0.1.3`.
 
 These links cover the method families and upstream packages used or compared
 in the public DeTime workflow surface. `MA_BASELINE` is an in-package smoke
@@ -127,7 +127,7 @@ Related packages:
 ### `VMD`
 
 - Summary: Variational mode decomposition integrated into the common workflow layer.
-- Optional/runtime dependencies: vmdpy, sktime
+- Optional/runtime dependencies: vmdpy
 
 Primary references:
 - [Dragomiretskiy and Zosso (2014), Variational Mode Decomposition](https://doi.org/10.1109/TSP.2013.2288675) - Primary variational mode decomposition reference.
@@ -187,7 +187,7 @@ Related packages:
 
 ### `AUTOFORMER_BLOCK`
 
-- Summary: Standalone moving-average decomposition head extracted from the Autoformer architecture.
+- Summary: Compatibility alias for the generic experimental moving-average operator, inspired by Autoformer.
 - Optional/runtime dependencies: none
 
 Primary references:
@@ -209,7 +209,7 @@ Related packages:
 
 ### `DLINEAR_BLOCK`
 
-- Summary: Standalone moving-average decomposition head extracted from DLinear-style forecasting blocks.
+- Summary: Compatibility alias for the generic experimental moving-average operator, inspired by DLinear.
 - Optional/runtime dependencies: none
 
 Primary references:
@@ -231,7 +231,7 @@ Related packages:
 
 ### `GABOR_CLUSTER`
 
-- Summary: Experimental optional clustering path that requires a trained Gabor model.
+- Summary: Experimental trained-model clustering operator with optional native acceleration.
 - Optional/runtime dependencies: faiss
 
 Primary references:
@@ -265,7 +265,7 @@ Related packages:
 
 ### `MOVING_AVERAGE_DECOMPOSITION_BLOCK`
 
-- Summary: Generic neural forecasting moving-average decomposition block exposed as a DeTime method.
+- Summary: Generic experimental moving-average operator; not a forecasting-architecture implementation.
 - Optional/runtime dependencies: none
 
 Primary references:

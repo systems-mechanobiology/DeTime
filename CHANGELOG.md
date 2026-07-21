@@ -6,6 +6,39 @@ The project brand is **DeTime**, the PyPI distribution is `detime-toolkit`, the
 preferred Python import path is `detime`, and the legacy `tsdecomp` import/CLI
 aliases remain available for compatibility.
 
+## [0.1.3] - 2026-07-14
+
+### Contract and provenance corrections
+
+- validates method parameters against the registry-owned parameter contract,
+  including clear errors and typo suggestions for unknown keys
+- corrects exact native SSA solver metadata and records requested versus
+  effective Python SSA speed modes
+- vectorizes Python SSA diagonal averaging and regenerates runtime evidence
+  with warmups, repeated measurements, dispersion, and environment metadata
+- pins the optional external benchmark bridge to an immutable revision and
+  verifies the package-owned SHA-256 digest before execution
+
+### Experimental and release boundaries
+
+- adds machine-readable claim scopes and excludes all experimental operators
+  from recommendations unless users opt in explicitly
+- identifies architecture-named blocks as experimental standalone operators,
+  not complete implementations of the cited forecasting architectures
+- removes the archived `std_multi.py` placeholder and marks the trained-model
+  Gabor path as experimental native-backed software
+- replaces pickle-backed Gabor model files with an NPZ+JSON format loaded with
+  `allow_pickle=False`
+- identifies EMD and CEEMDAN as optional PyEMD wrappers and validates their real
+  backend in the optional-integration smoke path
+- excludes benchmark-only `DR_TS_REG` native source from the source distribution
+- removes the unsupported MCP-like transport from the reviewed distribution
+  and public contract
+- standardizes `--out-dir` while retaining `--out_dir` as a compatibility alias
+- removes unused `numba`, `sympy`, and `tqdm` hard dependencies
+- verifies release tag/package equality before publication and checks the public
+  GitHub and PyPI records before labeling documentation evidence as verified
+
 ## [0.1.2] - 2026-07-04
 
 ### Release identity and evidence lock
