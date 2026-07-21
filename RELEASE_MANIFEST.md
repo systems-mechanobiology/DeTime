@@ -1,8 +1,7 @@
-# DeTime 0.1.2 Release Manifest
+# DeTime 0.1.3 Release Manifest
 
-This file records the public release identity used for the JMLR-MLOSS
-software-paper candidate after the 2026-06-19 evidence audit and the
-2026-07-04 PyPI publication.
+This file records the reviewed release identity prepared for the JMLR-MLOSS
+software-paper submission after the 2026-07-14 evidence audit.
 
 ## Identity
 
@@ -11,10 +10,9 @@ software-paper candidate after the 2026-06-19 evidence audit and the
 | Software name | DeTime |
 | Python distribution | `detime-toolkit` |
 | Canonical import | `detime` |
-| Released version | `0.1.2` |
-| Source tag | `de-time-v0.1.2` |
-| Evidence audit date | 2026-06-19 |
-| PyPI publication date | 2026-07-04 |
+| Reviewed version | `0.1.3` |
+| Source tag | `de-time-v0.1.3` |
+| Evidence audit date | 2026-07-14 |
 | License | BSD-3-Clause |
 | Python versions checked | 3.11.9 locally; CI tests 3.10/3.12 on Ubuntu Linux, macOS, and Windows |
 | Reviewed surface | library, CLI, schemas, method metadata, docs, tests, release evidence |
@@ -32,12 +30,12 @@ software-paper candidate after the 2026-06-19 evidence audit and the
 | Third-party license audit | `THIRD_PARTY_LICENSES.md` and `LICENSE_AUDIT.md` |
 | Software authorship and credit | `AUTHORS.md` and `CREDIT.md` |
 
-## Public Release Record
+## Release Record and Verification
 
-The public install command is:
+The exact-version install command is:
 
 ```bash
-python -m pip install detime-toolkit==0.1.2
+python -m pip install detime-toolkit==0.1.3
 ```
 
 The runtime import remains:
@@ -46,9 +44,12 @@ The runtime import remains:
 import detime
 ```
 
-The release smoke matrix has been validated from the public PyPI package.
+Before tagging, the release smoke matrix is run from isolated installs of the
+built wheel and source distribution. Public-release evidence is marked
+`verified-public` only after the GitHub release tag and exact PyPI version both
+resolve.
 
-The `de-time-v0.1.2` source tag and the `detime-toolkit==0.1.2` PyPI
-distribution describe the same reviewed 0.1.2 release identity. The public
-package is installed as `detime-toolkit` and imported as `detime`; GitHub
-release assets should use the `detime_toolkit-0.1.2` artifact names.
+The `de-time-v0.1.3` source tag and the `detime-toolkit==0.1.3` PyPI
+distribution are required to describe the same reviewed 0.1.3 release
+identity. The package is installed as `detime-toolkit` and imported as
+`detime`; GitHub release assets use the `detime_toolkit-0.1.3` artifact names.

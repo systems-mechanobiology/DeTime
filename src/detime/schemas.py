@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
 import json
@@ -82,7 +83,9 @@ class MethodMetadataModel(BaseModel):
     name: str
     family: str
     input_mode: Literal["univariate", "multivariate", "channelwise"]
-    maturity: Literal["flagship", "stable", "optional-backend", "experimental"]
+    maturity: Literal["maintained", "stable", "optional-backend", "experimental"]
+    claim_scope: Literal["maintained", "integration", "experimental-operator"]
+    alias_of: str | None = None
     implementation: Literal["native-backed", "python", "wrapper", "optional-backend"]
     dependency_tier: Literal["core", "core-upstream", "optional-backend"]
     multivariate_support: Literal["univariate", "channelwise", "shared-model"]
@@ -115,6 +118,7 @@ class RecommendationRequestModel(BaseModel):
     channels: int = Field(default=1, ge=1)
     prefer: Literal["speed", "balanced", "accuracy"] = "balanced"
     allow_optional_backends: bool = False
+    allow_experimental: bool = False
     require_native: bool = False
     top_k: int = Field(default=5, ge=1, le=20)
 

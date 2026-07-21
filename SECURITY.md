@@ -85,6 +85,10 @@ third-party backends. Security hardening therefore includes:
 - failing clearly when optional dependencies are unavailable or unsupported,
 - avoiding undocumented network behavior in the library and CLI.
 
+The experimental Gabor-cluster model format stores numeric arrays and a JSON
+configuration in a compressed NPZ archive. DeTime loads this format with
+`allow_pickle=False`; legacy pickle-backed model files are rejected.
+
 ### External benchmark bridge
 
 `detime benchmark` and `run_tsdecompose_benchmark()` can download and execute
@@ -97,6 +101,7 @@ The bridge is hardened as follows:
 - execution requires `--allow-external-benchmark-code` or
   `allow_external_code=True`,
 - downloaded revisions must be immutable 40-character commit SHAs by default,
+- the default pinned snapshot is checked against a package-owned SHA-256 digest,
 - branch or tag revisions require the second explicit opt-in
   `--allow-unpinned-benchmark-revision` or
   `allow_unpinned_revision=True`,

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 import argparse
 import json
 import os
@@ -333,6 +334,7 @@ def _recommend_request_from_args(args) -> Dict[str, Any]:
     request: Dict[str, Any] = {
         "prefer": args.prefer,
         "allow_optional_backends": args.allow_optional_backends,
+        "allow_experimental": getattr(args, "allow_experimental", False),
         "require_native": args.require_native,
         "top_k": args.top_k,
     }
@@ -490,7 +492,7 @@ def main():
     p_run.add_argument("--n-jobs", type=int, default=1, help="Parallel job count")
     p_run.add_argument("--profile", action="store_true", help="Record runtime metadata")
     p_run.add_argument("--device", default="cpu", help="Execution device")
-    p_run.add_argument("--out_dir", required=True, help="Output directory")
+    p_run.add_argument("--out-dir", "--out_dir", dest="out_dir", required=True, help="Output directory")
     p_run.add_argument(
         "--output-mode",
         choices=("full", "summary", "meta"),
@@ -514,7 +516,7 @@ def main():
     p_batch.add_argument("--n-jobs", type=int, default=1, help="Parallel job count")
     p_batch.add_argument("--profile", action="store_true", help="Record runtime metadata")
     p_batch.add_argument("--device", default="cpu", help="Execution device")
-    p_batch.add_argument("--out_dir", required=True)
+    p_batch.add_argument("--out-dir", "--out_dir", dest="out_dir", required=True)
     p_batch.add_argument(
         "--output-mode",
         choices=("full", "summary", "meta"),
@@ -565,6 +567,11 @@ def main():
         "--allow-optional-backends",
         action="store_true",
         help="Allow methods that depend on optional multivariate backends.",
+    )
+    p_recommend.add_argument(
+        "--allow-experimental",
+        action="store_true",
+        help="Allow explicitly experimental operators in the recommendation ranking.",
     )
     p_recommend.add_argument(
         "--require-native",

@@ -21,8 +21,7 @@ tasks in DeTime.
   - a channelwise-capable method such as `STD` or `STDR`
 - If the caller knows the main seasonal period, pass it explicitly in
   `params.period` or the method-specific equivalent.
-- If the task is routing rather than execution, call `detime recommend` or the
-  MCP `recommend_method` tool first.
+- If the task is routing rather than execution, call `detime recommend` first.
 - If the caller wants a safe default, use `backend="auto"` and
   `speed_mode="exact"`.
 
@@ -78,7 +77,7 @@ tasks in DeTime.
 - `cols`
   - multiple named input columns for multivariate file-based runs
 - `backend`
-  - `auto`, `native`, `python`, or `gpu`
+  - `auto`, `native`, or `python`
 - `speed_mode`
   - `exact` or `fast`
 - `channel_names`

@@ -8,7 +8,7 @@ hide_toc: true
 
 Use [`CITATION.cff`](https://github.com/systems-mechanobiology/DeTime/blob/main/CITATION.cff) for machine-readable citation metadata.
 
-The current branch targets `0.1.2`. Tagged standalone releases use the
+The current branch targets `0.1.3`. Tagged standalone releases use the
 `de-time-v*` convention and publish the `detime-toolkit` distribution.
 
 ## Release notes

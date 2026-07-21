@@ -10,7 +10,6 @@ The current machine contract series is `0.1`. Within this series, the package
 aims to keep the following stable:
 
 - schema names: `config`, `result`, `meta`, `method-registry`
-- MCP tool names
 - the core method-catalog field set
 - the `full` / `summary` / `meta` serialization modes
 
@@ -57,15 +56,14 @@ public method catalog. Every entry is expected to expose at least:
 - `typical_failure_modes`
 
 The current catalog also carries assumptions, not-recommended cases, and
-optional-dependency hints so the generated method cards and MCP responses stay
-aligned. It now also carries structured `references` and `package_links`
+optional-dependency hints so the generated method cards and recommendation
+responses stay aligned. It now also carries structured `references` and `package_links`
 arrays so machine consumers can trace each retained method back to its
 literature and official upstream project pages.
 
 ## Recommendation interface
 
-`detime recommend` and the MCP `recommend_method` tool provide the same routing
-surface:
+`detime recommend` provides a machine-readable routing surface with:
 
 - input length
 - channel count
@@ -97,36 +95,6 @@ The recommended progressive-disclosure path is:
 Token-budget evidence for these modes is summarized in
 [Token Benchmarks](token-benchmarks.md). That page is kept as a reference
 appendix rather than a primary navigation item.
-
-## MCP surface
-
-The MCP server is available at:
-
-```bash
-python -m detime.mcp.server
-```
-
-Current status:
-
-- local-first
-- stdio transport
-- no hosted remote endpoint claimed
-- intended for deterministic tool access rather than free-form prompting
-
-Stable tools in the current surface:
-
-- `list_methods`
-- `get_schema`
-- `recommend_method`
-- `run_decomposition`
-- `summarize_result`
-
-Recommended tool subsets:
-
-- routing only: `list_methods`, `recommend_method`, `get_schema`
-- bounded-context execution: add `run_decomposition` in `summary` or `meta`
-  mode
-- post-hoc condensation: add `summarize_result`
 
 ## Artifact contract
 

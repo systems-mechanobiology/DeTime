@@ -6,8 +6,8 @@ compatibility aliases.
 
 ## Current release target
 
-The current reviewed release is `0.1.2`. The public PyPI distribution is
-`detime-toolkit==0.1.2`, while the import namespace remains `detime`. The
+The current reviewed release target is `0.1.3`. The matching PyPI distribution is
+`detime-toolkit==0.1.3`, while the import namespace remains `detime`. The
 reviewed GitHub source tag uses the existing `de-time-v*` convention.
 
 Release contract:
@@ -44,8 +44,9 @@ submodules such as `tsdecomp.methods.*`, `tsdecomp.leaderboard`, and
 
 ```bash
 python -m pip install -U pip build twine
-python -m pip install -e .[dev,multivar,docs]
+python -m pip install -e .[dev,emd,multivar,docs]
 python -m pytest tests -q
+python scripts/smoke_optional_univariate_backends.py
 python -m pytest tests/optional/test_multivar_optional_backends.py -q
 python scripts/generate_schema_assets.py --check
 python scripts/generate_schema_assets.py
@@ -54,7 +55,6 @@ python scripts/generate_performance_snapshot.py
 python benchmarks/software_comparison/generate_comparison_evidence.py
 python examples/workflow_comparisons/compare_specialist_glue_vs_detime.py
 python benchmarks/token_benchmarks/generate_token_benchmarks.py
-python evals/agent/run_agent_evals.py
 python scripts/generate_method_cards.py
 python scripts/check_doc_consistency.py
 python -m mkdocs build --strict
@@ -69,8 +69,8 @@ python -m twine check dist/*
 Use release tags that match the standalone product:
 
 ```bash
-git tag -a de-time-v0.1.2 -m "Release DeTime 0.1.2"
-git push origin de-time-v0.1.2
+git tag -a de-time-v0.1.3 -m "Release DeTime 0.1.3"
+git push origin de-time-v0.1.3
 ```
 
 The wheel workflow is configured around `de-time-v*` tags.

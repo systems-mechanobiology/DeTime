@@ -65,7 +65,6 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="../stylesheets/extra.css?v=7">
 
     </head>
 
@@ -504,7 +503,6 @@
 <li><code>profile.py</code>: runtime profiling helpers.</li>
 <li><code>viz.py</code>: plotting helpers.</li>
 <li><code>methods/</code>: core methods and retained wrappers.</li>
-<li><code>mcp/server.py</code>: minimal MCP server for tool-based access.</li>
 <li><code>_native.py</code>: native extension discovery and capability checks.</li>
 </ul>
 <h2 id="compatibility-layer">Compatibility layer</h2>
@@ -519,13 +517,15 @@ window is the <code>0.1.x</code> series, with earliest removal planned for <code
 <li>packaged JSON schemas under <code>src/detime/schema_assets</code>,</li>
 <li>machine-readable method metadata from <code>MethodRegistry.list_catalog()</code>,</li>
 <li><code>detime schema</code> and the metadata-based <code>detime recommend</code> shortlist command,</li>
-<li>the local-first MCP server at <code>python -m detime.mcp.server</code>,</li>
 <li>low-token result exports via <code>summary</code> and <code>meta</code> modes.</li>
 </ul>
 <h2 id="native-boundary">Native boundary</h2>
 <p>Native kernels are built and loaded under the DeTime naming path first. The
-main package exposes native support only for the retained core methods.
-Benchmark-derived native code is no longer part of the main package boundary.</p></div>
+release-timed paths are SSA, STD, STDR, MA baseline, MSSA, and VMD. The
+experimental Gabor-cluster operator also has a native-backed path but is
+excluded from release timing because it requires a trained model and optional
+clustering backend. Benchmark-derived <code>DR_TS_REG</code> code is excluded from both
+the compiled extension and the source distribution.</p></div>
             </div>
         </div>
 

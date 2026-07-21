@@ -9,7 +9,7 @@ This repository is focused on the `detime` software package itself.
 - tests for the retained public surface,
 - examples and tutorials for package workflows,
 - documentation for installation, APIs, methods, and migration,
-- packaged JSON schemas and a minimal MCP server for machine-facing workflows.
+- packaged JSON schemas and metadata-based recommendation for machine-facing use.
 
 ## Moved out
 
@@ -131,18 +131,23 @@ The core-surface denominator intentionally omits:
 - optional wrappers and non-core integrations that remain tested but are
   not part of the gated coverage surface.
 
-The 2026-06-22 `0.1.2` release-candidate audit was run against the checkout
-source by removing the stale `_de_time_editable` import hook before pytest
-startup and putting `src/` first on `sys.path`. It reached `92.58%`
-core-contract coverage and `88.41%` package-wide coverage.
+The 2026-07-14 audit installed the checkout with
+`python -m pip install -e .` before pytest and normalized installed paths to
+`src/detime` through the coverage configuration. It reached `92.33%`
+selected-core coverage and `87.78%` package-wide coverage. The core gate
+excludes CLI/I/O/visualization presentation layers, optional integrations, and
+experimental operators. The broader maintained-package report includes the
+CLI and wrappers but excludes the deprecated compatibility namespace and the
+optional experimental Torch learned-priors module.
 
 Package-wide coverage is emitted separately in CI and uploaded as a second
 artifact so release reports can show both the narrow safety gate and the
 broader installable surface.
 
-Optional `.[multivar]` integrations are validated separately in a dedicated
-smoke path so `MVMD` / `MEMD` execution evidence is published without
-broadening the core-method coverage gate.
+Optional `.[emd,multivar]` integrations are validated separately in a dedicated
+smoke path. It executes EMD and CEEMDAN against PyEMD and MVMD and MEMD against
+PySDKit without broadening the core-method coverage gate. The required
+PyWavelets backend is exercised in the main test suite.
 
 ## Native agreement checks
 
@@ -181,14 +186,18 @@ against internal Python fallback paths in one review environment. It verifies
 that the native paths are installed, callable, and routed through the same
 result contract. It is not a portable runtime ranking against other packages.
 
-| Method | Python median (ms) | Native median (ms) | Speedup | Repeats / warmup |
+| Method | Python median (ms) | Native median (ms) | Python/native ratio | Repeats / warmup |
 |---|---:|---:|---:|---:|
-| `SSA` | 13.707 | 1.859 | 7.37x | 50 / 10 |
-| `STD` | 0.159 | 0.041 | 3.89x | 50 / 10 |
-| `STDR` | 0.198 | 0.040 | 4.93x | 50 / 10 |
-| `MA_BASELINE` | 0.087 | 0.037 | 2.36x | 50 / 10 |
-| `MSSA` | 64.251 | 25.930 | 2.48x | 50 / 10 |
-| `VMD` | 52.082 | 13.991 | 3.72x | 50 / 10 |
+| `SSA` | 0.526 | 3.523 | 0.15x | 50 / 10 |
+| `STD` | 0.138 | 0.111 | 1.24x | 50 / 10 |
+| `STDR` | 0.176 | 0.118 | 1.50x | 50 / 10 |
+| `MA_BASELINE` | 0.071 | 0.064 | 1.10x | 50 / 10 |
+| `MSSA` | 42.933 | 16.053 | 2.67x | 50 / 10 |
+| `VMD` | 125.270 | 464.513 | 0.27x | 50 / 10 |
+
+A ratio above 1 means the native path was faster. Native execution was faster
+for STD, STDR, MA baseline, and MSSA; Python execution was faster for SSA and
+VMD on this input and environment.
 
 Experimental `GABOR_CLUSTER` timing is excluded from release-validation
 performance evidence because it depends on a trained model object and optional

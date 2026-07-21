@@ -42,7 +42,7 @@ This file is a compact documentation map for agents and contributors.
 - `docs/api.md`
   - public package surface in the top-nav `API` group
 - `docs/machine-api.md`
-  - schemas, catalog contracts, recommendation, and MCP
+  - schemas, catalog contracts, recommendation, and compact result modes
 - `docs/method-references.md`
   - citations and upstream package links for retained methods
 - `docs/comparisons.md`

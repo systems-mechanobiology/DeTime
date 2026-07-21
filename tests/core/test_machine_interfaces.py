@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
 import json
@@ -36,7 +37,7 @@ def test_registry_catalog_exposes_machine_metadata() -> None:
     assert {"SSA", "STD", "STDR", "MSSA"}.issubset(names)
 
     ssa = MethodRegistry.get_metadata("SSA")
-    assert ssa["maturity"] == "flagship"
+    assert ssa["maturity"] == "maintained"
     assert ssa["native_backed"] is True
     assert ssa["family"] == "SSA"
     assert ssa["assumptions"]
@@ -92,6 +93,8 @@ def test_schema_assets_are_packaged_and_regeneratable(tmp_path) -> None:
     assert "contract_version" in method_registry_schema["properties"]
     method_properties = method_registry_schema["$defs"]["MethodMetadataModel"]["properties"]
     assert "references" in method_properties
+    assert "claim_scope" in method_properties
+    assert "alias_of" in method_properties
     assert "package_links" in method_properties
     assert "parameter_docs" in method_properties
     assert "output_components" in method_properties
@@ -103,7 +106,7 @@ def test_schema_assets_are_packaged_and_regeneratable(tmp_path) -> None:
     assert json.loads((tmp_path / "meta.schema.json").read_text(encoding="utf-8"))["title"] == "MetaPayloadModel"
 
 
-def test_recommend_methods_prefers_multivariate_flagship() -> None:
+def test_recommend_methods_prefers_multivariate_maintained_path() -> None:
     response = recommend_methods(
         {
             "length": 192,
@@ -132,7 +135,7 @@ def test_recommend_methods_surface_reason_codes_and_rejections() -> None:
         }
     )
     std_item = next(item for item in short_balanced.recommendations if item.method == "STD")
-    assert "balanced_flagship" in std_item.reason_codes
+    assert "balanced_core" in std_item.reason_codes
     assert "short_series_friendly" in std_item.reason_codes
     assert any("univariate_ready" in item.reason_codes for item in short_balanced.recommendations)
     assert short_balanced.rejected_methods["MSSA"] == "requires_multivariate_input"
@@ -154,6 +157,19 @@ def test_recommend_methods_surface_reason_codes_and_rejections() -> None:
     assert "MA_BASELINE" not in native_speed.rejected_methods
     assert any(item.method == "MA_BASELINE" for item in native_speed.recommendations)
 
+    without_optional = recommend_methods(
+        {
+            "length": 128,
+            "channels": 1,
+            "prefer": "balanced",
+            "allow_optional_backends": False,
+            "require_native": False,
+            "top_k": 20,
+        }
+    )
+    assert without_optional.rejected_methods["EMD"] == "optional_backend_disabled"
+    assert without_optional.rejected_methods["CEEMDAN"] == "optional_backend_disabled"
+
 
 def test_recommend_methods_keeps_experimental_gabor_out_of_default_ranking() -> None:
     response = recommend_methods(
@@ -168,4 +184,22 @@ def test_recommend_methods_keeps_experimental_gabor_out_of_default_ranking() -> 
     )
 
     assert all(item.method != "GABOR_CLUSTER" for item in response.recommendations)
+    assert response.rejected_methods["GABOR_CLUSTER"] == "experimental_disabled"
+    assert response.rejected_methods["AUTOFORMER_BLOCK"] == "experimental_disabled"
+
+
+def test_recommend_methods_requires_explicit_opt_in_for_experimental_operators() -> None:
+    response = recommend_methods(
+        {
+            "length": 128,
+            "channels": 1,
+            "prefer": "balanced",
+            "allow_optional_backends": True,
+            "allow_experimental": True,
+            "require_native": False,
+            "top_k": 20,
+        }
+    )
+
+    assert any(item.method == "AUTOFORMER_BLOCK" for item in response.recommendations)
     assert response.rejected_methods["GABOR_CLUSTER"] == "experimental_trained_model_required"

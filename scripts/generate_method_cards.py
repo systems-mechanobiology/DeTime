@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
 from collections import defaultdict
@@ -7,6 +8,11 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
+sys.meta_path[:] = [
+    finder
+    for finder in sys.meta_path
+    if not any(token in finder.__class__.__module__.lower() for token in ("detime", "de_time"))
+]
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
@@ -18,24 +24,18 @@ MATRIX_OUTPUT = ROOT / "docs" / "method-matrix.md"
 CONFIG_OUTPUT = ROOT / "docs" / "config-reference.md"
 
 SECTION_ORDER = [
-    ("flagship", "Core maintained methods"),
+    ("maintained", "Core maintained methods"),
     ("stable", "Stable wrappers and retained methods"),
     ("optional-backend", "Optional backend methods"),
     ("experimental", "Experimental methods"),
 ]
 
-MATURITY_LABELS = {
-    "flagship": "core maintained",
-}
-
-
 def _display_maturity(value: object) -> str:
-    text = str(value)
-    return MATURITY_LABELS.get(text, text)
+    return str(value)
 
 
 def _display_text(value: object) -> str:
-    return str(value).replace("flagship method", "core method").replace("flagship", "core maintained")
+    return str(value)
 
 
 def _bullet_list(values: list[str]) -> str:
@@ -124,6 +124,7 @@ def _render_method(entry: dict[str, object]) -> str:
     outputs = list(entry.get("output_components", []))
     use_when = [_display_text(item) for item in list(entry.get("recommended_for", []))[:2]]
     avoid_when = [_display_text(item) for item in list(entry.get("not_recommended_for", []))[:2]]
+    alias_line = f"- Alias of: `{entry['alias_of']}`" if entry.get("alias_of") else "- Alias of: none"
     return "\n".join(
         [
             f"### `{entry['name']}`",
@@ -133,6 +134,8 @@ def _render_method(entry: dict[str, object]) -> str:
             f"- Avoid when: {'; '.join(str(item) for item in avoid_when) if avoid_when else 'parameter assumptions do not match the data'}",
             f"- Key params: {_common_params(params)}",
             f"- Input/backend: `{entry['input_mode']}` input, `{entry['implementation']}` implementation, maturity `{_display_maturity(entry['maturity'])}`",
+            f"- Claim scope: `{entry['claim_scope']}`",
+            alias_line,
             f"- Optional dependencies: {optional_dep_text}",
             f"- Output components: {', '.join(f'`{item}`' for item in outputs) if outputs else '`trend`, `season`, `residual`'}",
             f"- References: [Method References](method-references.md#{_heading_anchor(entry['name'])})",
@@ -234,8 +237,8 @@ def _render_matrix(catalog: list[dict[str, object]]) -> str:
         "",
         f"Current package version target: `{__version__}`.",
         "",
-        "| Method | Input mode | Backend | Maturity | Required/common params | Optional deps | Native | Multivariate | Output components | Recommended use |",
-        "|---|---|---|---|---|---|---|---|---|---|",
+        "| Method | Input mode | Backend | Maturity | Claim scope | Required/common params | Optional deps | Native | Multivariate | Output components | Recommended use |",
+        "|---|---|---|---|---|---|---|---|---|---|---|",
     ]
     for entry in sorted(catalog, key=lambda item: str(item["name"])):
         optional_dependencies = entry.get("optional_dependencies", [])
@@ -252,6 +255,7 @@ def _render_matrix(catalog: list[dict[str, object]]) -> str:
                     f"`{_table_cell(entry['input_mode'])}`",
                     f"`{_table_cell(entry['implementation'])}`",
                     f"`{_table_cell(_display_maturity(entry['maturity']))}`",
+                    f"`{_table_cell(entry['claim_scope'])}`",
                     _table_cell(_common_params(list(entry.get("parameter_docs", [])))),
                     _table_cell(optional_dep_text),
                     "yes" if entry.get("native_backed") else "no",
@@ -330,6 +334,7 @@ def _render_config_reference(catalog: list[dict[str, object]]) -> str:
                 "",
                 f"- Input mode: `{entry['input_mode']}`",
                 f"- Maturity: `{_display_maturity(entry['maturity'])}`",
+                f"- Claim scope: `{entry['claim_scope']}`",
                 f"- Output components: {', '.join(f'`{item}`' for item in list(entry.get('output_components', [])))}",
                 "",
                 _param_table(list(entry.get("parameter_docs", []))),

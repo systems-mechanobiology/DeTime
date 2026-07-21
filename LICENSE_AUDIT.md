@@ -5,13 +5,10 @@ is in `LICENSE`.
 
 ## Source Headers
 
-The current source tree does not yet enforce SPDX headers on every `.py`,
-`.cpp`, `.hpp`, or `.h` file. For the JMLR-reviewed release, add a CI check that
-verifies either:
-
-- an SPDX license identifier in each source file, or
-- a documented project-level policy that the repository-level BSD-3-Clause
-  license covers files without per-file headers.
+The repository-level BSD-3-Clause license covers project files unless a file
+states otherwise. The release boundary is stricter: `scripts/check_dist_contents.py`
+rejects any shipped Python or C/C++ source under `examples/`, `native/`,
+`scripts/`, `src/`, or `tests/` that lacks an SPDX identifier.
 
 ## Included Components
 
@@ -25,9 +22,10 @@ verifies either:
 
 ## Release Gate
 
-Before tagging the release, attach:
-
-1. dependency-license report for the locked reviewer environment,
-2. SPDX/header-check result,
-3. wheel and sdist manifests,
-4. third-party notice file if any vendored component is added.
+Before tagging, build the wheel and source distribution and run
+`scripts/check_dist_contents.py` on both. The check enforces the package
+boundary, compatibility-file allowlist, banned benchmark paths, required
+experimental-operator files, and SPDX headers for shipped source. Run
+`python -m twine check` on the same artifacts and retain their file listings
+with the release evidence. Add a third-party notice only if a future release
+vendors external source.

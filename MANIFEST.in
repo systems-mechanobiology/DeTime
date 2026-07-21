@@ -25,7 +25,7 @@ include docs/assets/generated/evidence/method_runtime_matrix.*
 include docs/assets/generated/evidence/performance_snapshot.*
 include docs/assets/generated/evidence/workflow_comparison.json
 recursive-include docs/stylesheets *.css
-recursive-include docs/overrides *.html
+recursive-include overrides *.html
 include docs/robots.txt
 include docs/googlec8d99a452cb93b2a.html
 include examples/*.py
@@ -51,8 +51,8 @@ prune examples/quant_trading
 recursive-exclude examples/quant_trading *
 prune docs/tutorials/hot-trend-lab/notebooks
 prune docs/tutorials/quant-trading/notebooks
-exclude docs/assets/generated/evidence/agent_eval_summary*
 exclude docs/assets/generated/evidence/token_benchmarks*
+exclude native/src/dr_ts_reg.cpp
 exclude DeTime_Codex_task_list.md
 exclude DeTime_final_checklist.md
 exclude DeTime_JMLR_revision_plan.md

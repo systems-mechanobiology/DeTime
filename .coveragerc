@@ -14,8 +14,7 @@ omit =
     */detime/methods/ma_baseline.py
     */detime/methods/memd.py
     */detime/methods/mvmd.py
-    */detime/methods/neural_blocks/learned_priors.py
-    */detime/methods/std_multi.py
+    */detime/methods/neural_blocks/*
     */detime/methods/stl.py
     */detime/methods/utils.py
     */detime/methods/vmd.py

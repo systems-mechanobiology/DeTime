@@ -1,12 +1,11 @@
 cff-version: 1.2.0
 message: "If you use DeTime in research software or publications, please cite the software record below."
 title: "DeTime"
-version: "0.1.2"
-date-released: 2026-07-04
+version: "0.1.3"
 type: software
 abstract: >-
   DeTime is Python and CLI research software for reproducible time-series
-  decomposition. Version 0.1.2 freezes the reviewed decomposition interface,
+  decomposition. Version 0.1.3 defines the reviewed decomposition interface,
   metadata catalog, result schema, validation evidence, and package/archive
   boundary for the JMLR-MLOSS software-paper candidate.
 authors:
@@ -30,8 +29,7 @@ preferred-citation:
     - family-names: "Wu"
       given-names: "Zipeng"
       affiliation: "The University of Birmingham"
-  version: "0.1.2"
-  date-released: 2026-07-04
+  version: "0.1.3"
   url: "https://github.com/systems-mechanobiology/DeTime"
   repository-code: "https://github.com/systems-mechanobiology/DeTime"
   notes: >-

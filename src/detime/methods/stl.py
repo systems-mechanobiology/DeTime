@@ -1,5 +1,6 @@
+# SPDX-License-Identifier: BSD-3-Clause
 import numpy as np
-from typing import Dict, Any, Optional
+from typing import Dict, Any
 from ..backends import finalize_result, split_runtime_params
 from ..core import DecompResult
 from ..registry import MethodRegistry
@@ -53,33 +54,64 @@ def mstl_decompose(
     cfg, runtime = split_runtime_params(params)
     if runtime.backend in {"native", "gpu"}:
         raise ValueError("MSTL only provides a python backend.")
-    periods = cfg.pop("periods", None)
-    if periods is None:
-         # Try to infer or require it
-         raise ValueError("MSTL requires 'periods' list in params.")
-    
-    # Ensure periods are integers >= 2
-    periods = [int(p) for p in periods if p >= 2]
-    if not periods:
-        raise ValueError("MSTL 'periods' must contain at least one integer >= 2.")
+    raw_periods = cfg.pop("periods", None)
+    if raw_periods is None:
+        raise ValueError("MSTL requires 'periods' in params.")
+    if isinstance(raw_periods, (int, np.integer)) and not isinstance(
+        raw_periods, (bool, np.bool_)
+    ):
+        period_values = [raw_periods]
+    else:
+        try:
+            period_values = list(raw_periods)
+        except TypeError as exc:
+            raise ValueError("MSTL 'periods' must be an integer or an integer sequence.") from exc
+    if not period_values or any(
+        isinstance(period, (bool, np.bool_))
+        or not isinstance(period, (int, np.integer))
+        or period < 2
+        for period in period_values
+    ):
+        raise ValueError("MSTL 'periods' must contain integer values >= 2.")
+    periods = [int(period) for period in period_values]
 
     mstl = MSTL(y, periods=periods, **cfg)
     res = mstl.fit()
-    
-    seasonal = res.seasonal
+
+    seasonal = np.asarray(res.seasonal, dtype=float)
     if seasonal.ndim == 2:
         season = seasonal.sum(axis=1)
     else:
         season = seasonal
-    
-    trend = res.trend
-    residual = res.resid
-    
+
+    trend = np.asarray(res.trend, dtype=float)
+    residual = np.asarray(res.resid, dtype=float)
+    effective_lmbda = None
+    observed = np.asarray(getattr(res, "observed", y), dtype=float)
+    if not np.allclose(observed, np.asarray(y, dtype=float)):
+        from scipy.special import inv_boxcox
+
+        effective_lmbda = getattr(mstl, "est_lmbda", cfg.get("lmbda"))
+        fitted = inv_boxcox(trend + season, effective_lmbda)
+        original_trend = inv_boxcox(trend, effective_lmbda)
+        if not np.isfinite(fitted).all() or not np.isfinite(original_trend).all():
+            raise ValueError("MSTL Box-Cox components could not be mapped to the original scale.")
+        trend = original_trend
+        season = fitted - original_trend
+        residual = np.asarray(y, dtype=float) - fitted
+
     result = DecompResult(
         trend=trend,
         season=season,
         residual=residual,
-        meta={"method": "MSTL", "params": {"periods": periods, **cfg}}
+        meta={
+            "method": "MSTL",
+            "params": {"periods": periods, **cfg},
+            "output_scale": "original",
+            "boxcox_lambda": (
+                float(effective_lmbda) if effective_lmbda is not None else None
+            ),
+        },
     )
     return finalize_result(result, method="MSTL", runtime=runtime, backend_used="python")
 

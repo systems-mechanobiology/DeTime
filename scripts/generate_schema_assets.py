@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
 import argparse
@@ -9,6 +10,11 @@ ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
 ASSET_DIR = SRC / "detime" / "schema_assets"
 SRC_TEXT = str(SRC)
+sys.meta_path[:] = [
+    finder
+    for finder in sys.meta_path
+    if not any(token in finder.__class__.__module__.lower() for token in ("detime", "de_time"))
+]
 sys.path = [entry for entry in sys.path if entry != SRC_TEXT]
 sys.path.insert(0, SRC_TEXT)
 for module_name in list(sys.modules):

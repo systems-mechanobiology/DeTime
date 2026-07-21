@@ -65,7 +65,6 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="../stylesheets/extra.css?v=7">
 
     </head>
 
@@ -478,7 +477,7 @@
 <h1 id="method-comparison-matrix">Method Comparison Matrix</h1>
 <p>This page is generated from <code>MethodRegistry.list_catalog()</code> and summarizes
 method-level behavior for onboarding, review, and machine-facing routing.</p>
-<p>Current package version target: <code>0.1.2</code>.</p>
+<p>Current package version target: <code>0.1.3</code>.</p>
 <table>
 <thead>
 <tr>
@@ -486,6 +485,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <th>Input mode</th>
 <th>Backend</th>
 <th>Maturity</th>
+<th>Claim scope</th>
 <th>Required/common params</th>
 <th>Optional deps</th>
 <th>Native</th>
@@ -500,6 +500,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>univariate</code></td>
 <td><code>python</code></td>
 <td><code>experimental</code></td>
+<td><code>experimental-operator</code></td>
 <td><code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>multiscale_windows</code> (null)</td>
 <td>none</td>
 <td>no</td>
@@ -512,6 +513,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>univariate</code></td>
 <td><code>python</code></td>
 <td><code>experimental</code></td>
+<td><code>experimental-operator</code></td>
 <td><code>moving_avg</code> (null), <code>primary_period</code> (null)</td>
 <td>none</td>
 <td>no</td>
@@ -522,8 +524,9 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <tr>
 <td><code>CEEMDAN</code></td>
 <td><code>univariate</code></td>
-<td><code>python</code></td>
+<td><code>wrapper</code></td>
 <td><code>stable</code></td>
+<td><code>integration</code></td>
 <td><code>trials</code> (50), <code>noise_width</code> (0.05), <code>primary_period</code> (null)</td>
 <td>PyEMD</td>
 <td>no</td>
@@ -536,6 +539,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>univariate</code></td>
 <td><code>python</code></td>
 <td><code>experimental</code></td>
+<td><code>experimental-operator</code></td>
 <td><code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>alpha</code> (0.4), <code>beta</code> (0.2)</td>
 <td>none</td>
 <td>no</td>
@@ -548,6 +552,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>univariate</code></td>
 <td><code>python</code></td>
 <td><code>experimental</code></td>
+<td><code>experimental-operator</code></td>
 <td><code>moving_avg</code> (null), <code>primary_period</code> (null)</td>
 <td>none</td>
 <td>no</td>
@@ -558,8 +563,9 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <tr>
 <td><code>EMD</code></td>
 <td><code>univariate</code></td>
-<td><code>python</code></td>
+<td><code>wrapper</code></td>
 <td><code>stable</code></td>
+<td><code>integration</code></td>
 <td><code>n_imfs</code> (null), <code>primary_period</code> (null)</td>
 <td>PyEMD</td>
 <td>no</td>
@@ -572,6 +578,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>univariate</code></td>
 <td><code>python</code></td>
 <td><code>experimental</code></td>
+<td><code>experimental-operator</code></td>
 <td><code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>trend_window</code> (null), <code>num_bands</code> (4)</td>
 <td>none</td>
 <td>no</td>
@@ -582,11 +589,12 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <tr>
 <td><code>GABOR_CLUSTER</code></td>
 <td><code>univariate</code></td>
-<td><code>optional-backend</code></td>
+<td><code>native-backed</code></td>
 <td><code>experimental</code></td>
+<td><code>experimental-operator</code></td>
 <td><code>model</code> (null), <code>model_path</code> (null)</td>
 <td>faiss</td>
-<td>no</td>
+<td>yes</td>
 <td><code>univariate</code></td>
 <td><code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.Cluster_*</code></td>
 <td>research prototypes; exploratory clustering-style decomposition</td>
@@ -596,6 +604,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>univariate</code></td>
 <td><code>python</code></td>
 <td><code>experimental</code></td>
+<td><code>experimental-operator</code></td>
 <td><code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>trend_window</code> (null)</td>
 <td>none</td>
 <td>no</td>
@@ -608,6 +617,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>univariate</code></td>
 <td><code>python</code></td>
 <td><code>experimental</code></td>
+<td><code>experimental-operator</code></td>
 <td><code>kernel_size</code> (25), <code>sigma</code> (1.0)</td>
 <td>none</td>
 <td>no</td>
@@ -620,6 +630,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>univariate</code></td>
 <td><code>native-backed</code></td>
 <td><code>stable</code></td>
+<td><code>maintained</code></td>
 <td><code>trend_window</code> (7), <code>season_period</code> (null)</td>
 <td>none</td>
 <td>yes</td>
@@ -632,6 +643,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>multivariate</code></td>
 <td><code>optional-backend</code></td>
 <td><code>optional-backend</code></td>
+<td><code>integration</code></td>
 <td><code>primary_period</code> (null)</td>
 <td>PySDKit</td>
 <td>no</td>
@@ -644,6 +656,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>univariate</code></td>
 <td><code>python</code></td>
 <td><code>experimental</code></td>
+<td><code>experimental-operator</code></td>
 <td><code>moving_avg</code> (null), <code>primary_period</code> (null)</td>
 <td>none</td>
 <td>no</td>
@@ -655,7 +668,8 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>MSSA</code></td>
 <td><code>multivariate</code></td>
 <td><code>native-backed</code></td>
-<td><code>core maintained</code></td>
+<td><code>maintained</code></td>
+<td><code>maintained</code></td>
 <td><code>window</code> (null), <code>rank</code> (null), <code>primary_period</code> (null)</td>
 <td>none</td>
 <td>yes</td>
@@ -668,6 +682,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>univariate</code></td>
 <td><code>wrapper</code></td>
 <td><code>stable</code></td>
+<td><code>integration</code></td>
 <td><code>periods</code> (required)</td>
 <td>statsmodels</td>
 <td>no</td>
@@ -680,6 +695,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>multivariate</code></td>
 <td><code>optional-backend</code></td>
 <td><code>optional-backend</code></td>
+<td><code>integration</code></td>
 <td><code>K</code> (4), <code>alpha</code> (2000.0), <code>primary_period</code> (null)</td>
 <td>PySDKit</td>
 <td>no</td>
@@ -692,6 +708,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>univariate</code></td>
 <td><code>python</code></td>
 <td><code>experimental</code></td>
+<td><code>experimental-operator</code></td>
 <td><code>degree_of_polynomial</code> (3), <code>num_harmonics</code> (8), <code>fit_scope</code> ("full"), <code>n_epochs</code> (200)</td>
 <td>torch</td>
 <td>no</td>
@@ -704,6 +721,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>univariate</code></td>
 <td><code>python</code></td>
 <td><code>experimental</code></td>
+<td><code>experimental-operator</code></td>
 <td><code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>trend_window</code> (null), <code>num_harmonics</code> (2)</td>
 <td>none</td>
 <td>no</td>
@@ -716,6 +734,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>univariate</code></td>
 <td><code>wrapper</code></td>
 <td><code>stable</code></td>
+<td><code>integration</code></td>
 <td><code>period</code> (required)</td>
 <td>statsmodels</td>
 <td>no</td>
@@ -727,7 +746,8 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>SSA</code></td>
 <td><code>univariate</code></td>
 <td><code>native-backed</code></td>
-<td><code>core maintained</code></td>
+<td><code>maintained</code></td>
+<td><code>maintained</code></td>
 <td><code>window</code> (null), <code>rank</code> (null), <code>primary_period</code> (null)</td>
 <td>none</td>
 <td>yes</td>
@@ -739,7 +759,8 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>STD</code></td>
 <td><code>channelwise</code></td>
 <td><code>native-backed</code></td>
-<td><code>core maintained</code></td>
+<td><code>maintained</code></td>
+<td><code>maintained</code></td>
 <td><code>period</code> (null)</td>
 <td>none</td>
 <td>yes</td>
@@ -751,7 +772,8 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>STDR</code></td>
 <td><code>channelwise</code></td>
 <td><code>native-backed</code></td>
-<td><code>core maintained</code></td>
+<td><code>maintained</code></td>
+<td><code>maintained</code></td>
 <td><code>period</code> (null)</td>
 <td>none</td>
 <td>yes</td>
@@ -764,6 +786,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>univariate</code></td>
 <td><code>wrapper</code></td>
 <td><code>stable</code></td>
+<td><code>integration</code></td>
 <td><code>period</code> (required)</td>
 <td>statsmodels</td>
 <td>no</td>
@@ -776,6 +799,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>univariate</code></td>
 <td><code>python</code></td>
 <td><code>experimental</code></td>
+<td><code>experimental-operator</code></td>
 <td><code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>trend_window</code> (null), <code>season_smooth_window</code> (null)</td>
 <td>none</td>
 <td>no</td>
@@ -788,6 +812,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>univariate</code></td>
 <td><code>python</code></td>
 <td><code>experimental</code></td>
+<td><code>experimental-operator</code></td>
 <td><code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>trend_window</code> (null), <code>num_bands</code> (2)</td>
 <td>none</td>
 <td>no</td>
@@ -800,6 +825,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>univariate</code></td>
 <td><code>python</code></td>
 <td><code>experimental</code></td>
+<td><code>experimental-operator</code></td>
 <td><code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>top_k_periods</code> (2), <code>num_harmonics</code> (1), <code>trend_window</code> (null)</td>
 <td>none</td>
 <td>no</td>
@@ -812,8 +838,9 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>univariate</code></td>
 <td><code>native-backed</code></td>
 <td><code>stable</code></td>
+<td><code>maintained</code></td>
 <td><code>K</code> (4), <code>alpha</code> (2000.0), <code>primary_period</code> (null)</td>
-<td>vmdpy, sktime</td>
+<td>vmdpy</td>
 <td>yes</td>
 <td><code>univariate</code></td>
 <td><code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.modes</code></td>
@@ -824,6 +851,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>univariate</code></td>
 <td><code>python</code></td>
 <td><code>experimental</code></td>
+<td><code>experimental-operator</code></td>
 <td><code>wavelet</code> ("db4"), <code>level</code> (3), <code>season_levels</code> ([1, 2])</td>
 <td>PyWavelets</td>
 <td>no</td>
@@ -836,6 +864,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>univariate</code></td>
 <td><code>wrapper</code></td>
 <td><code>stable</code></td>
+<td><code>integration</code></td>
 <td><code>wavelet</code> ("db4"), <code>level</code> (null)</td>
 <td>PyWavelets</td>
 <td>no</td>
@@ -848,6 +877,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>univariate</code></td>
 <td><code>python</code></td>
 <td><code>experimental</code></td>
+<td><code>experimental-operator</code></td>
 <td><code>wavelet</code> ("sym4"), <code>level</code> (4), <code>season_levels</code> ([1, 2, 3])</td>
 <td>PyWavelets</td>
 <td>no</td>
@@ -860,6 +890,7 @@ method-level behavior for onboarding, review, and machine-facing routing.</p>
 <td><code>univariate</code></td>
 <td><code>python</code></td>
 <td><code>experimental</code></td>
+<td><code>experimental-operator</code></td>
 <td><code>ma_type</code> ("ema"), <code>trend_window</code> (null), <code>season_smooth</code> (null)</td>
 <td>none</td>
 <td>no</td>

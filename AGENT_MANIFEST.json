@@ -18,33 +18,8 @@
   ],
   "machine_entrypoints": [
     "MethodRegistry.list_catalog()",
-    "python -m detime.mcp.server",
     "src/detime/schema_assets/*.json"
   ],
-  "mcp": {
-    "status": "local-first",
-    "tool_names": [
-      "list_methods",
-      "get_schema",
-      "recommend_method",
-      "run_decomposition",
-      "summarize_result"
-    ],
-    "recommended_tool_subsets": {
-      "routing": [
-        "list_methods",
-        "get_schema",
-        "recommend_method"
-      ],
-      "bounded_context_execution": [
-        "list_methods",
-        "get_schema",
-        "recommend_method",
-        "run_decomposition",
-        "summarize_result"
-      ]
-    }
-  },
   "best_first_methods": {
     "known_period_univariate": [
       "STD",

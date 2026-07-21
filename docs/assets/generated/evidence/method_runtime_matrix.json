@@ -2,7 +2,7 @@
   "experimental_excluded_by_default": [
     "GABOR_CLUSTER"
   ],
-  "generated_at": "2026-07-05T10:53:47.348675+00:00",
+  "generated_at": "2026-07-14T14:45:21.569413+00:00",
   "native_capabilities": {
     "gabor_cluster_decompose": true,
     "gabor_istft_rfft": true,
@@ -13,7 +13,7 @@
     "std_decompose": true,
     "vmd_decompose": true
   },
-  "package_version": "0.1.2",
+  "package_version": "0.1.3",
   "platform": {
     "machine": "AMD64",
     "platform": "Windows-10-10.0.26200-SP0",
@@ -25,19 +25,19 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.4565,
-      "mean_ms": 0.256833,
+      "max_ms": 0.3357,
+      "mean_ms": 0.214267,
       "method": "AMD_BLOCK",
-      "min_ms": 0.1486,
+      "min_ms": 0.1511,
       "params": {
         "fit_scope": "full",
         "primary_period": 12
       },
       "repeat": 3,
       "samples_ms": [
-        0.4565,
-        0.1654,
-        0.1486
+        0.3357,
+        0.156,
+        0.1511
       ],
       "series_shape": [
         128
@@ -48,19 +48,19 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.0712,
-      "mean_ms": 0.0601,
+      "max_ms": 0.0718,
+      "mean_ms": 0.0624,
       "method": "AUTOFORMER_BLOCK",
-      "min_ms": 0.053,
+      "min_ms": 0.0562,
       "params": {
         "moving_avg": 13,
         "primary_period": 12
       },
       "repeat": 3,
       "samples_ms": [
-        0.0712,
-        0.0561,
-        0.053
+        0.0718,
+        0.0592,
+        0.0562
       ],
       "series_shape": [
         128
@@ -68,22 +68,19 @@
     },
     {
       "backend_requested": "python",
-      "backend_used": "python",
+      "backend_used": null,
       "captured_stdout": null,
-      "error": null,
-      "max_ms": 26.178,
-      "mean_ms": 25.7863,
+      "error": "ImportError: PyEMD>=1.0 is required for CEEMDAN decomposition. Install 'detime-toolkit[emd]' or 'EMD-signal'.",
+      "max_ms": null,
+      "mean_ms": null,
       "method": "CEEMDAN",
-      "min_ms": 25.3946,
+      "min_ms": null,
       "params": {
         "primary_period": 12,
         "trials": 4
       },
       "repeat": 2,
-      "samples_ms": [
-        26.178,
-        25.3946
-      ],
+      "samples_ms": [],
       "series_shape": [
         128
       ]
@@ -93,19 +90,709 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.1822,
-      "mean_ms": 0.1432,
+      "max_ms": 0.1502,
+      "mean_ms": 0.134867,
       "method": "DELELSTM_BLOCK",
-      "min_ms": 0.1197,
+      "min_ms": 0.1208,
       "params": {
         "fit_scope": "full",
         "primary_period": 12
       },
       "repeat": 3,
       "samples_ms": [
-        0.1822,
-        0.1277,
-        0.1197
+        0.1502,
+        0.1336,
+        0.1208
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.0643,
+      "mean_ms": 0.058467,
+      "method": "DLINEAR_BLOCK",
+      "min_ms": 0.054,
+      "params": {
+        "moving_avg": 13,
+        "primary_period": 12
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.0643,
+        0.0571,
+        0.054
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": null,
+      "captured_stdout": null,
+      "error": "ImportError: PyEMD is required for EMD decomposition. Install 'detime-toolkit[emd]' or 'EMD-signal'.",
+      "max_ms": null,
+      "mean_ms": null,
+      "method": "EMD",
+      "min_ms": null,
+      "params": {
+        "n_imfs": 4,
+        "primary_period": 12
+      },
+      "repeat": 3,
+      "samples_ms": [],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.4495,
+      "mean_ms": 0.295867,
+      "method": "FREQMOE_BLOCK",
+      "min_ms": 0.204,
+      "params": {
+        "fit_scope": "full",
+        "primary_period": 12,
+        "trend_window": 13
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.4495,
+        0.2341,
+        0.204
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.1041,
+      "mean_ms": 0.099267,
+      "method": "INPARFORMER_BLOCK",
+      "min_ms": 0.0965,
+      "params": {
+        "fit_scope": "full",
+        "primary_period": 12,
+        "trend_window": 13
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.1041,
+        0.0972,
+        0.0965
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.0771,
+      "mean_ms": 0.0657,
+      "method": "LEDDAM_BLOCK",
+      "min_ms": 0.0576,
+      "params": {},
+      "repeat": 3,
+      "samples_ms": [
+        0.0771,
+        0.0624,
+        0.0576
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.0985,
+      "mean_ms": 0.086667,
+      "method": "MA_BASELINE",
+      "min_ms": 0.0779,
+      "params": {
+        "season_period": 12,
+        "trend_window": 7
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.0985,
+        0.0836,
+        0.0779
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "native",
+      "backend_used": "native",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.1747,
+      "mean_ms": 0.104733,
+      "method": "MA_BASELINE",
+      "min_ms": 0.0678,
+      "params": {
+        "season_period": 12,
+        "trend_window": 7
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.1747,
+        0.0717,
+        0.0678
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": "(2, 128)\n(2, 128)\n(2, 128)\n(2, 128)",
+      "error": null,
+      "max_ms": 289.1156,
+      "mean_ms": 151.8634,
+      "method": "MEMD",
+      "min_ms": 14.6112,
+      "params": {
+        "primary_period": 12
+      },
+      "repeat": 2,
+      "samples_ms": [
+        289.1156,
+        14.6112
+      ],
+      "series_shape": [
+        128,
+        2
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.1144,
+      "mean_ms": 0.0804,
+      "method": "MOVING_AVERAGE_DECOMPOSITION_BLOCK",
+      "min_ms": 0.0586,
+      "params": {
+        "moving_avg": 13,
+        "primary_period": 12
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.1144,
+        0.0682,
+        0.0586
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 7.9374,
+      "mean_ms": 7.7748,
+      "method": "MSSA",
+      "min_ms": 7.6186,
+      "params": {
+        "primary_period": 12,
+        "rank": 6,
+        "window": 24
+      },
+      "repeat": 3,
+      "samples_ms": [
+        7.9374,
+        7.7684,
+        7.6186
+      ],
+      "series_shape": [
+        128,
+        2
+      ]
+    },
+    {
+      "backend_requested": "native",
+      "backend_used": "native",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 2.2771,
+      "mean_ms": 2.1208,
+      "method": "MSSA",
+      "min_ms": 2.0203,
+      "params": {
+        "primary_period": 12,
+        "rank": 6,
+        "window": 24
+      },
+      "repeat": 3,
+      "samples_ms": [
+        2.2771,
+        2.0203,
+        2.065
+      ],
+      "series_shape": [
+        128,
+        2
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 17.1354,
+      "mean_ms": 9.280467,
+      "method": "MSTL",
+      "min_ms": 5.3389,
+      "params": {
+        "periods": [
+          12,
+          24
+        ]
+      },
+      "repeat": 3,
+      "samples_ms": [
+        17.1354,
+        5.3389,
+        5.3671
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 16.2291,
+      "mean_ms": 16.22035,
+      "method": "MVMD",
+      "min_ms": 16.2116,
+      "params": {
+        "K": 3,
+        "alpha": 300.0,
+        "primary_period": 12
+      },
+      "repeat": 2,
+      "samples_ms": [
+        16.2116,
+        16.2291
+      ],
+      "series_shape": [
+        128,
+        2
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": null,
+      "captured_stdout": null,
+      "error": "ImportError: NBEATS_INTERPRETABLE requires the optional dependency 'torch'. Install 'detime-toolkit[neural]' or torch before running this method in DeTime. Original import error: ModuleNotFoundError(\"No module named 'torch'\")",
+      "max_ms": null,
+      "mean_ms": null,
+      "method": "NBEATS_INTERPRETABLE",
+      "min_ms": null,
+      "params": {
+        "layer_size": 16,
+        "layers": 1,
+        "n_epochs": 2,
+        "restarts": 1,
+        "seasonality_blocks": 1,
+        "trend_blocks": 1
+      },
+      "repeat": 2,
+      "samples_ms": [],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.1824,
+      "mean_ms": 0.1377,
+      "method": "PARSIMONY_BLOCK",
+      "min_ms": 0.1077,
+      "params": {
+        "fit_scope": "full",
+        "primary_period": 12,
+        "trend_window": 13
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.1824,
+        0.123,
+        0.1077
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 6.1694,
+      "mean_ms": 6.1301,
+      "method": "ROBUST_STL",
+      "min_ms": 6.1032,
+      "params": {
+        "period": 12
+      },
+      "repeat": 3,
+      "samples_ms": [
+        6.1694,
+        6.1032,
+        6.1177
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.4411,
+      "mean_ms": 0.367933,
+      "method": "SSA",
+      "min_ms": 0.3191,
+      "params": {
+        "primary_period": 12,
+        "rank": 6,
+        "window": 24
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.4411,
+        0.3436,
+        0.3191
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "native",
+      "backend_used": "native",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 1.2687,
+      "mean_ms": 1.1976,
+      "method": "SSA",
+      "min_ms": 1.1582,
+      "params": {
+        "primary_period": 12,
+        "rank": 6,
+        "window": 24
+      },
+      "repeat": 3,
+      "samples_ms": [
+        1.2687,
+        1.1659,
+        1.1582
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.1499,
+      "mean_ms": 0.122033,
+      "method": "STD",
+      "min_ms": 0.1033,
+      "params": {
+        "period": 12
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.1499,
+        0.1129,
+        0.1033
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "native",
+      "backend_used": "native",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.1346,
+      "mean_ms": 0.1096,
+      "method": "STD",
+      "min_ms": 0.094,
+      "params": {
+        "period": 12
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.1346,
+        0.1002,
+        0.094
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.1486,
+      "mean_ms": 0.136833,
+      "method": "STDR",
+      "min_ms": 0.1301,
+      "params": {
+        "period": 12
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.1486,
+        0.1318,
+        0.1301
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "native",
+      "backend_used": "native",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.1075,
+      "mean_ms": 0.101267,
+      "method": "STDR",
+      "min_ms": 0.0962,
+      "params": {
+        "period": 12
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.1075,
+        0.1001,
+        0.0962
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 1.0002,
+      "mean_ms": 0.978867,
+      "method": "STL",
+      "min_ms": 0.962,
+      "params": {
+        "period": 12
+      },
+      "repeat": 3,
+      "samples_ms": [
+        1.0002,
+        0.9744,
+        0.962
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.1345,
+      "mean_ms": 0.114033,
+      "method": "ST_MTM_BLOCK",
+      "min_ms": 0.1007,
+      "params": {
+        "fit_scope": "full",
+        "primary_period": 12,
+        "trend_window": 13
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.1345,
+        0.1069,
+        0.1007
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.2479,
+      "mean_ms": 0.217933,
+      "method": "TIMEKAN_BLOCK",
+      "min_ms": 0.1949,
+      "params": {
+        "fit_scope": "full",
+        "primary_period": 12,
+        "trend_window": 13
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.2479,
+        0.211,
+        0.1949
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.1446,
+      "mean_ms": 0.1362,
+      "method": "TIMES2D_BLOCK",
+      "min_ms": 0.1313,
+      "params": {
+        "fit_scope": "full",
+        "primary_period": 12,
+        "trend_window": 13
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.1446,
+        0.1327,
+        0.1313
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 31.2235,
+      "mean_ms": 30.8552,
+      "method": "VMD",
+      "min_ms": 30.6333,
+      "params": {
+        "K": 4,
+        "alpha": 300.0,
+        "primary_period": 12
+      },
+      "repeat": 3,
+      "samples_ms": [
+        30.6333,
+        30.7088,
+        31.2235
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "native",
+      "backend_used": "native",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 103.9524,
+      "mean_ms": 103.111333,
+      "method": "VMD",
+      "min_ms": 102.6756,
+      "params": {
+        "K": 4,
+        "alpha": 300.0,
+        "primary_period": 12
+      },
+      "repeat": 3,
+      "samples_ms": [
+        102.706,
+        102.6756,
+        103.9524
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.25,
+      "mean_ms": 0.152167,
+      "method": "WAVEFORM_BLOCK",
+      "min_ms": 0.0956,
+      "params": {},
+      "repeat": 3,
+      "samples_ms": [
+        0.25,
+        0.1109,
+        0.0956
+      ],
+      "series_shape": [
+        128
+      ]
+    },
+    {
+      "backend_requested": "python",
+      "backend_used": "python",
+      "captured_stdout": null,
+      "error": null,
+      "max_ms": 0.0921,
+      "mean_ms": 0.083967,
+      "method": "WAVELET",
+      "min_ms": 0.0785,
+      "params": {
+        "level": 3,
+        "wavelet": "db4"
+      },
+      "repeat": 3,
+      "samples_ms": [
+        0.0921,
+        0.0813,
+        0.0785
       ],
       "series_shape": [
         128
@@ -117,706 +804,9 @@
       "captured_stdout": null,
       "error": null,
       "max_ms": 0.0767,
-      "mean_ms": 0.062933,
-      "method": "DLINEAR_BLOCK",
-      "min_ms": 0.0552,
-      "params": {
-        "moving_avg": 13,
-        "primary_period": 12
-      },
-      "repeat": 3,
-      "samples_ms": [
-        0.0767,
-        0.0569,
-        0.0552
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 0.7877,
-      "mean_ms": 0.753067,
-      "method": "EMD",
-      "min_ms": 0.7285,
-      "params": {
-        "n_imfs": 4,
-        "primary_period": 12
-      },
-      "repeat": 3,
-      "samples_ms": [
-        0.7877,
-        0.7285,
-        0.743
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 0.3307,
-      "mean_ms": 0.242333,
-      "method": "FREQMOE_BLOCK",
-      "min_ms": 0.1864,
-      "params": {
-        "fit_scope": "full",
-        "primary_period": 12,
-        "trend_window": 13
-      },
-      "repeat": 3,
-      "samples_ms": [
-        0.3307,
-        0.2099,
-        0.1864
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 0.102,
-      "mean_ms": 0.098167,
-      "method": "INPARFORMER_BLOCK",
-      "min_ms": 0.0933,
-      "params": {
-        "fit_scope": "full",
-        "primary_period": 12,
-        "trend_window": 13
-      },
-      "repeat": 3,
-      "samples_ms": [
-        0.102,
-        0.0992,
-        0.0933
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 0.0761,
-      "mean_ms": 0.063867,
-      "method": "LEDDAM_BLOCK",
-      "min_ms": 0.0574,
-      "params": {},
-      "repeat": 3,
-      "samples_ms": [
-        0.0761,
-        0.0581,
-        0.0574
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 0.1136,
-      "mean_ms": 0.101933,
-      "method": "MA_BASELINE",
-      "min_ms": 0.0949,
-      "params": {
-        "season_period": 12,
-        "trend_window": 7
-      },
-      "repeat": 3,
-      "samples_ms": [
-        0.1136,
-        0.0973,
-        0.0949
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "native",
-      "backend_used": "native",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 0.0886,
-      "mean_ms": 0.0577,
-      "method": "MA_BASELINE",
-      "min_ms": 0.0399,
-      "params": {
-        "season_period": 12,
-        "trend_window": 7
-      },
-      "repeat": 3,
-      "samples_ms": [
-        0.0886,
-        0.0446,
-        0.0399
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": "(2, 128)\n(2, 128)\n(2, 128)\n(2, 128)",
-      "error": null,
-      "max_ms": 32.5265,
-      "mean_ms": 24.8361,
-      "method": "MEMD",
-      "min_ms": 17.1457,
-      "params": {
-        "primary_period": 12
-      },
-      "repeat": 2,
-      "samples_ms": [
-        32.5265,
-        17.1457
-      ],
-      "series_shape": [
-        128,
-        2
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 0.1096,
-      "mean_ms": 0.076433,
-      "method": "MOVING_AVERAGE_DECOMPOSITION_BLOCK",
-      "min_ms": 0.0534,
-      "params": {
-        "moving_avg": 13,
-        "primary_period": 12
-      },
-      "repeat": 3,
-      "samples_ms": [
-        0.1096,
-        0.0663,
-        0.0534
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 8.2871,
-      "mean_ms": 8.067567,
-      "method": "MSSA",
-      "min_ms": 7.812,
-      "params": {
-        "primary_period": 12,
-        "rank": 6,
-        "window": 24
-      },
-      "repeat": 3,
-      "samples_ms": [
-        8.2871,
-        8.1036,
-        7.812
-      ],
-      "series_shape": [
-        128,
-        2
-      ]
-    },
-    {
-      "backend_requested": "native",
-      "backend_used": "native",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 1.8122,
-      "mean_ms": 1.690633,
-      "method": "MSSA",
-      "min_ms": 1.5894,
-      "params": {
-        "primary_period": 12,
-        "rank": 6,
-        "window": 24
-      },
-      "repeat": 3,
-      "samples_ms": [
-        1.5894,
-        1.6703,
-        1.8122
-      ],
-      "series_shape": [
-        128,
-        2
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 16.9794,
-      "mean_ms": 9.1845,
-      "method": "MSTL",
-      "min_ms": 5.2559,
-      "params": {
-        "periods": [
-          12,
-          24
-        ]
-      },
-      "repeat": 3,
-      "samples_ms": [
-        16.9794,
-        5.3182,
-        5.2559
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 16.4147,
-      "mean_ms": 16.338,
-      "method": "MVMD",
-      "min_ms": 16.2613,
-      "params": {
-        "K": 3,
-        "alpha": 300.0,
-        "primary_period": 12
-      },
-      "repeat": 2,
-      "samples_ms": [
-        16.2613,
-        16.4147
-      ],
-      "series_shape": [
-        128,
-        2
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 802.402,
-      "mean_ms": 405.0491,
-      "method": "NBEATS_INTERPRETABLE",
-      "min_ms": 7.6962,
-      "params": {
-        "layer_size": 16,
-        "layers": 1,
-        "n_epochs": 2,
-        "restarts": 1,
-        "seasonality_blocks": 1,
-        "trend_blocks": 1
-      },
-      "repeat": 2,
-      "samples_ms": [
-        802.402,
-        7.6962
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 0.2266,
-      "mean_ms": 0.155767,
-      "method": "PARSIMONY_BLOCK",
-      "min_ms": 0.1138,
-      "params": {
-        "fit_scope": "full",
-        "primary_period": 12,
-        "trend_window": 13
-      },
-      "repeat": 3,
-      "samples_ms": [
-        0.2266,
-        0.1269,
-        0.1138
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 6.3728,
-      "mean_ms": 6.3259,
-      "method": "ROBUST_STL",
-      "min_ms": 6.2527,
-      "params": {
-        "period": 12
-      },
-      "repeat": 3,
-      "samples_ms": [
-        6.3728,
-        6.3522,
-        6.2527
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 3.7097,
-      "mean_ms": 3.677867,
-      "method": "SSA",
-      "min_ms": 3.6537,
-      "params": {
-        "primary_period": 12,
-        "rank": 6,
-        "window": 24
-      },
-      "repeat": 3,
-      "samples_ms": [
-        3.6702,
-        3.7097,
-        3.6537
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "native",
-      "backend_used": "native",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 0.7943,
-      "mean_ms": 0.679033,
-      "method": "SSA",
-      "min_ms": 0.5917,
-      "params": {
-        "primary_period": 12,
-        "rank": 6,
-        "window": 24
-      },
-      "repeat": 3,
-      "samples_ms": [
-        0.6511,
-        0.5917,
-        0.7943
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 0.1841,
-      "mean_ms": 0.142233,
-      "method": "STD",
-      "min_ms": 0.1158,
-      "params": {
-        "period": 12
-      },
-      "repeat": 3,
-      "samples_ms": [
-        0.1841,
-        0.1268,
-        0.1158
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "native",
-      "backend_used": "native",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 0.0676,
-      "mean_ms": 0.054,
-      "method": "STD",
-      "min_ms": 0.0453,
-      "params": {
-        "period": 12
-      },
-      "repeat": 3,
-      "samples_ms": [
-        0.0676,
-        0.0491,
-        0.0453
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 0.1546,
-      "mean_ms": 0.146767,
-      "method": "STDR",
-      "min_ms": 0.1419,
-      "params": {
-        "period": 12
-      },
-      "repeat": 3,
-      "samples_ms": [
-        0.1546,
-        0.1438,
-        0.1419
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "native",
-      "backend_used": "native",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 0.0493,
-      "mean_ms": 0.046367,
-      "method": "STDR",
-      "min_ms": 0.044,
-      "params": {
-        "period": 12
-      },
-      "repeat": 3,
-      "samples_ms": [
-        0.0493,
-        0.0458,
-        0.044
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 1.0816,
-      "mean_ms": 1.015167,
-      "method": "STL",
-      "min_ms": 0.9706,
-      "params": {
-        "period": 12
-      },
-      "repeat": 3,
-      "samples_ms": [
-        1.0816,
-        0.9933,
-        0.9706
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 0.1536,
-      "mean_ms": 0.123633,
-      "method": "ST_MTM_BLOCK",
-      "min_ms": 0.1043,
-      "params": {
-        "fit_scope": "full",
-        "primary_period": 12,
-        "trend_window": 13
-      },
-      "repeat": 3,
-      "samples_ms": [
-        0.1536,
-        0.113,
-        0.1043
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 0.2424,
-      "mean_ms": 0.212967,
-      "method": "TIMEKAN_BLOCK",
-      "min_ms": 0.1946,
-      "params": {
-        "fit_scope": "full",
-        "primary_period": 12,
-        "trend_window": 13
-      },
-      "repeat": 3,
-      "samples_ms": [
-        0.2424,
-        0.2019,
-        0.1946
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 0.1483,
-      "mean_ms": 0.136533,
-      "method": "TIMES2D_BLOCK",
-      "min_ms": 0.1287,
-      "params": {
-        "fit_scope": "full",
-        "primary_period": 12,
-        "trend_window": 13
-      },
-      "repeat": 3,
-      "samples_ms": [
-        0.1483,
-        0.1326,
-        0.1287
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 32.5428,
-      "mean_ms": 32.026167,
-      "method": "VMD",
-      "min_ms": 31.2759,
-      "params": {
-        "K": 4,
-        "alpha": 300.0,
-        "primary_period": 12
-      },
-      "repeat": 3,
-      "samples_ms": [
-        32.2598,
-        31.2759,
-        32.5428
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "native",
-      "backend_used": "native",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 6.1881,
-      "mean_ms": 6.023333,
-      "method": "VMD",
-      "min_ms": 5.9056,
-      "params": {
-        "K": 4,
-        "alpha": 300.0,
-        "primary_period": 12
-      },
-      "repeat": 3,
-      "samples_ms": [
-        5.9763,
-        6.1881,
-        5.9056
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 0.2159,
-      "mean_ms": 0.139333,
-      "method": "WAVEFORM_BLOCK",
-      "min_ms": 0.0933,
-      "params": {},
-      "repeat": 3,
-      "samples_ms": [
-        0.2159,
-        0.1088,
-        0.0933
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 0.0892,
-      "mean_ms": 0.083433,
-      "method": "WAVELET",
-      "min_ms": 0.0779,
-      "params": {
-        "level": 3,
-        "wavelet": "db4"
-      },
-      "repeat": 3,
-      "samples_ms": [
-        0.0892,
-        0.0832,
-        0.0779
-      ],
-      "series_shape": [
-        128
-      ]
-    },
-    {
-      "backend_requested": "python",
-      "backend_used": "python",
-      "captured_stdout": null,
-      "error": null,
-      "max_ms": 0.0739,
-      "mean_ms": 0.071733,
+      "mean_ms": 0.0741,
       "method": "WAVELETMIXER_BLOCK",
-      "min_ms": 0.0692,
+      "min_ms": 0.0694,
       "params": {
         "level": 2,
         "season_levels": [
@@ -826,9 +816,9 @@
       },
       "repeat": 3,
       "samples_ms": [
-        0.0739,
-        0.0721,
-        0.0692
+        0.0767,
+        0.0762,
+        0.0694
       ],
       "series_shape": [
         128
@@ -839,18 +829,18 @@
       "backend_used": "python",
       "captured_stdout": null,
       "error": null,
-      "max_ms": 0.0875,
-      "mean_ms": 0.078833,
+      "max_ms": 0.0884,
+      "mean_ms": 0.077967,
       "method": "XPATCH_BLOCK",
-      "min_ms": 0.074,
+      "min_ms": 0.0715,
       "params": {
         "trend_window": 13
       },
       "repeat": 3,
       "samples_ms": [
-        0.0875,
-        0.075,
-        0.074
+        0.0884,
+        0.074,
+        0.0715
       ],
       "series_shape": [
         128

@@ -65,7 +65,6 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="../stylesheets/extra.css?v=7">
 
     </head>
 
@@ -573,7 +572,7 @@ repo_src = Path.cwd() / &quot;src&quot;
 if (repo_src / &quot;detime&quot;).exists():
     sys.meta_path[:] = [
         finder for finder in sys.meta_path
-        if finder.__class__.__module__ != &quot;_de_time_editable&quot;
+        if not any(token in finder.__class__.__module__.lower() for token in (&quot;detime&quot;, &quot;de_time&quot;))
     ]
     sys.path.insert(0, str(repo_src))
 
@@ -1074,7 +1073,7 @@ requires a trained GaborClusterModel or model_path plus the experimental cluster
 </tr>
 </tbody>
 </table>
-<p>Total running time of the gallery script: 2.228 seconds.</p>
+<p>Total running time of the gallery script: 7.257 seconds.</p>
 <p>Methods run: 14; skipped with explicit reason: 1.</p>
 <p><a id="download-gallery"></a></p>
 <h2 id="downloads">Downloads</h2>

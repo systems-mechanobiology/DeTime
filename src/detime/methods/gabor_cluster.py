@@ -1,8 +1,10 @@
-import numpy as np
-import pickle
+# SPDX-License-Identifier: BSD-3-Clause
+import json
+from dataclasses import asdict, dataclass, field
 from time import perf_counter
-from dataclasses import dataclass, field
 from typing import Dict, Any, List, Optional, Sequence, Tuple
+
+import numpy as np
 from .._native import has_native_method, invoke_native
 from ..backends import finalize_result, resolve_backend, result_from_native_payload, split_runtime_params
 from ..core import DecompResult
@@ -44,16 +46,38 @@ class GaborClusterModel:
             centroids=self.centroids.astype(np.float32),
             mu=self.mu.astype(np.float32),
             sigma=self.sigma.astype(np.float32),
-            cfg=np.array([self.cfg], dtype=object),
+            cfg_json=np.array(json.dumps(asdict(self.cfg), sort_keys=True)),
         )
 
     @staticmethod
     def load(path: str) -> "GaborClusterModel":
-        data = np.load(path, allow_pickle=True)
-        centroids = data["centroids"]
-        mu = data["mu"]
-        sigma = data["sigma"]
-        cfg = data["cfg"][0]
+        try:
+            with np.load(path, allow_pickle=False) as data:
+                required = {"centroids", "mu", "sigma", "cfg_json"}
+                missing = required.difference(data.files)
+                if missing:
+                    names = ", ".join(sorted(missing))
+                    raise ValueError(f"missing fields: {names}")
+                centroids = np.asarray(data["centroids"], dtype=np.float32)
+                mu = np.asarray(data["mu"], dtype=np.float32)
+                sigma = np.asarray(data["sigma"], dtype=np.float32)
+                cfg_payload = json.loads(str(data["cfg_json"].item()))
+        except (OSError, TypeError, ValueError, KeyError, json.JSONDecodeError) as exc:
+            raise ValueError(
+                "Invalid Gabor model archive. Expected the safe NPZ+JSON format "
+                "written by DeTime 0.1.3 or later."
+            ) from exc
+
+        if not isinstance(cfg_payload, dict):
+            raise ValueError("Invalid Gabor model archive: cfg_json must contain an object.")
+        if centroids.ndim != 2 or mu.ndim != 1 or sigma.ndim != 1:
+            raise ValueError("Invalid Gabor model archive: inconsistent array dimensions.")
+        if mu.shape != sigma.shape or mu.shape[0] != centroids.shape[1]:
+            raise ValueError("Invalid Gabor model archive: feature dimensions do not match.")
+        if not all(np.isfinite(array).all() for array in (centroids, mu, sigma)):
+            raise ValueError("Invalid Gabor model archive: arrays must be finite.")
+
+        cfg = GaborClusterConfig(**cfg_payload)
         return GaborClusterModel(centroids=centroids, mu=mu, sigma=sigma, cfg=cfg)
 
 def _make_window(L: int, wtype: str, sigma: Optional[float]) -> np.ndarray:
@@ -172,6 +196,14 @@ def _assign_clusters_faiss(feats: np.ndarray, model: GaborClusterModel) -> np.nd
     index.add(model.centroids.astype(np.float32))
     D, I = index.search(X, 1)
     return I.ravel()
+
+
+def _centroid_frequency(model: GaborClusterModel, cluster_idx: int) -> float:
+    """Return a centroid frequency in the original normalized-frequency scale."""
+    scale = float(model.sigma[1])
+    if abs(scale) <= 1e-12:
+        scale = 1.0
+    return float(model.centroids[cluster_idx, 1]) * scale + float(model.mu[1])
 
 @MethodRegistry.register("GABOR_CLUSTER")
 def gabor_cluster_decompose(y: np.ndarray, params: Dict[str, Any]) -> DecompResult:
@@ -293,8 +325,7 @@ def gabor_cluster_decompose(y: np.ndarray, params: Dict[str, Any]) -> DecompResu
     
     for key, val in components.items():
         cluster_idx = int(key.split("_")[1])
-        # Centroid freq is at index 1 (normalized freq)
-        f_norm = float(model.centroids[cluster_idx, 1])
+        f_norm = _centroid_frequency(model, cluster_idx)
         if f_norm <= trend_freq_thr:
             trend += val
         else:

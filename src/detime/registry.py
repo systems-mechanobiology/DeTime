@@ -1,7 +1,10 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
+from collections.abc import Sequence
 from dataclasses import dataclass, field
 from difflib import get_close_matches
+from numbers import Integral, Real
 from typing import Any, Callable, Dict, Literal
 
 import numpy as np
@@ -30,7 +33,7 @@ REMOVED_METHOD_HINTS: Dict[str, str] = {
 METHOD_METADATA: Dict[str, Dict[str, Any]] = {
     "SSA": {
         "family": "SSA",
-        "maturity": "flagship",
+        "maturity": "maintained",
         "implementation": "native-backed",
         "dependency_tier": "core",
         "multivariate_support": "univariate",
@@ -49,7 +52,7 @@ METHOD_METADATA: Dict[str, Dict[str, Any]] = {
     },
     "STD": {
         "family": "SeasonalTrend",
-        "maturity": "flagship",
+        "maturity": "maintained",
         "implementation": "native-backed",
         "dependency_tier": "core",
         "multivariate_support": "channelwise",
@@ -68,7 +71,7 @@ METHOD_METADATA: Dict[str, Dict[str, Any]] = {
     },
     "STDR": {
         "family": "SeasonalTrend",
-        "maturity": "flagship",
+        "maturity": "maintained",
         "implementation": "native-backed",
         "dependency_tier": "core",
         "multivariate_support": "channelwise",
@@ -87,7 +90,7 @@ METHOD_METADATA: Dict[str, Dict[str, Any]] = {
     },
     "MSSA": {
         "family": "SSA",
-        "maturity": "flagship",
+        "maturity": "maintained",
         "implementation": "native-backed",
         "dependency_tier": "core",
         "multivariate_support": "shared-model",
@@ -161,8 +164,8 @@ METHOD_METADATA: Dict[str, Dict[str, Any]] = {
     "EMD": {
         "family": "EMD",
         "maturity": "stable",
-        "implementation": "python",
-        "dependency_tier": "core",
+        "implementation": "wrapper",
+        "dependency_tier": "optional-backend",
         "multivariate_support": "univariate",
         "native_backed": False,
         "min_length": 16,
@@ -179,8 +182,8 @@ METHOD_METADATA: Dict[str, Dict[str, Any]] = {
     "CEEMDAN": {
         "family": "EMD",
         "maturity": "stable",
-        "implementation": "python",
-        "dependency_tier": "core",
+        "implementation": "wrapper",
+        "dependency_tier": "optional-backend",
         "multivariate_support": "univariate",
         "native_backed": False,
         "min_length": 24,
@@ -251,12 +254,12 @@ METHOD_METADATA: Dict[str, Dict[str, Any]] = {
     "GABOR_CLUSTER": {
         "family": "Experimental",
         "maturity": "experimental",
-        "implementation": "optional-backend",
+        "implementation": "native-backed",
         "dependency_tier": "optional-backend",
         "multivariate_support": "univariate",
-        "native_backed": False,
+        "native_backed": True,
         "min_length": 16,
-        "summary": "Experimental optional clustering path that requires a trained Gabor model.",
+        "summary": "Experimental trained-model clustering operator with optional native acceleration.",
         "recommended_for": [
             "research prototypes",
             "exploratory clustering-style decomposition",
@@ -308,12 +311,13 @@ _NEURAL_BLOCK_METHOD_METADATA: Dict[str, Dict[str, Any]] = {
     "AUTOFORMER_BLOCK": {
         "family": "NeuralBlock",
         "maturity": "experimental",
+        "alias_of": "MOVING_AVERAGE_DECOMPOSITION_BLOCK",
         "implementation": "python",
         "dependency_tier": "core",
         "multivariate_support": "univariate",
         "native_backed": False,
         "min_length": 8,
-        "summary": "Standalone moving-average decomposition head extracted from the Autoformer architecture.",
+        "summary": "Compatibility alias for the generic experimental moving-average operator, inspired by Autoformer.",
         "recommended_for": [
             "neural-architecture-inspired seasonal-trend baselines",
             "Autoformer-style decomposition ablations",
@@ -326,12 +330,13 @@ _NEURAL_BLOCK_METHOD_METADATA: Dict[str, Dict[str, Any]] = {
     "DLINEAR_BLOCK": {
         "family": "NeuralBlock",
         "maturity": "experimental",
+        "alias_of": "MOVING_AVERAGE_DECOMPOSITION_BLOCK",
         "implementation": "python",
         "dependency_tier": "core",
         "multivariate_support": "univariate",
         "native_backed": False,
         "min_length": 8,
-        "summary": "Standalone moving-average decomposition head extracted from DLinear-style forecasting blocks.",
+        "summary": "Compatibility alias for the generic experimental moving-average operator, inspired by DLinear.",
         "recommended_for": [
             "DLinear-style trend/season split baselines",
             "fast neural decomposition head comparisons",
@@ -349,7 +354,7 @@ _NEURAL_BLOCK_METHOD_METADATA: Dict[str, Dict[str, Any]] = {
         "multivariate_support": "univariate",
         "native_backed": False,
         "min_length": 8,
-        "summary": "Generic neural forecasting moving-average decomposition block exposed as a DeTime method.",
+        "summary": "Generic experimental moving-average operator; not a forecasting-architecture implementation.",
         "recommended_for": [
             "generic decomposition-block smoke tests",
             "fast moving-average neural head baselines",
@@ -983,20 +988,36 @@ METHOD_PARAMETER_GUIDE: Dict[str, list[Dict[str, Any]]] = {
     ],
     "STL": [
         _param_doc("period", "int", "Seasonal period passed to statsmodels STL.", required=True),
-        _param_doc("seasonal", "int | None", "Odd LOESS seasonal smoother length.", default=None, common=False),
+        _param_doc("seasonal", "int", "Odd LOESS seasonal smoother length.", default=7, common=False),
         _param_doc("trend", "int | None", "Odd LOESS trend smoother length.", default=None, common=False),
+        _param_doc("low_pass", "int | None", "Odd LOESS low-pass filter length.", default=None, common=False),
+        _param_doc("seasonal_deg", "int", "Seasonal LOESS degree, either 0 or 1.", default=1, common=False),
+        _param_doc("trend_deg", "int", "Trend LOESS degree, either 0 or 1.", default=1, common=False),
+        _param_doc("low_pass_deg", "int", "Low-pass LOESS degree, either 0 or 1.", default=1, common=False),
         _param_doc("robust", "bool", "Whether to use robust LOESS fitting.", default=False, common=False),
+        _param_doc("seasonal_jump", "int", "Positive interpolation step for the seasonal smoother.", default=1, common=False),
+        _param_doc("trend_jump", "int", "Positive interpolation step for the trend smoother.", default=1, common=False),
+        _param_doc("low_pass_jump", "int", "Positive interpolation step for the low-pass smoother.", default=1, common=False),
     ],
     "MSTL": [
-        _param_doc("periods", "list[int]", "One or more seasonal periods passed to statsmodels MSTL.", required=True),
-        _param_doc("windows", "list[int] | None", "Optional smoother windows aligned with periods.", default=None, common=False),
+        _param_doc("periods", "int | sequence[int]", "One or more seasonal periods passed to statsmodels MSTL.", required=True),
+        _param_doc("windows", "int | sequence[int] | None", "Optional odd smoother windows aligned with periods.", default=None, common=False),
+        _param_doc("lmbda", "float | 'auto' | None", "Optional Box--Cox transform parameter.", default=None, common=False),
+        _param_doc("iterate", "int", "Positive number of seasonal-refinement iterations.", default=2, common=False),
         _param_doc("stl_kwargs", "dict | None", "Additional statsmodels STL keyword arguments.", default=None, common=False),
     ],
     "ROBUST_STL": [
         _param_doc("period", "int", "Seasonal period passed to robust statsmodels STL.", required=True),
-        _param_doc("seasonal", "int | None", "Odd LOESS seasonal smoother length.", default=None, common=False),
+        _param_doc("seasonal", "int", "Odd LOESS seasonal smoother length.", default=7, common=False),
         _param_doc("trend", "int | None", "Odd LOESS trend smoother length.", default=None, common=False),
+        _param_doc("low_pass", "int | None", "Odd LOESS low-pass filter length.", default=None, common=False),
+        _param_doc("seasonal_deg", "int", "Seasonal LOESS degree, either 0 or 1.", default=1, common=False),
+        _param_doc("trend_deg", "int", "Trend LOESS degree, either 0 or 1.", default=1, common=False),
+        _param_doc("low_pass_deg", "int", "Low-pass LOESS degree, either 0 or 1.", default=1, common=False),
         _param_doc("robust", "bool", "Whether to use robust LOESS fitting.", default=True, common=False),
+        _param_doc("seasonal_jump", "int", "Positive interpolation step for the seasonal smoother.", default=1, common=False),
+        _param_doc("trend_jump", "int", "Positive interpolation step for the trend smoother.", default=1, common=False),
+        _param_doc("low_pass_jump", "int", "Positive interpolation step for the low-pass smoother.", default=1, common=False),
     ],
     "EMD": [
         _param_doc("n_imfs", "int | None", "Maximum number of intrinsic mode functions to retain.", default=None),
@@ -1065,7 +1086,7 @@ METHOD_PARAMETER_GUIDE: Dict[str, list[Dict[str, Any]]] = {
     ],
     "GABOR_CLUSTER": [
         _param_doc("model", "GaborClusterModel | None", "In-memory trained clustering model.", default=None),
-        _param_doc("model_path", "str | None", "Path to a serialized trained clustering model.", default=None),
+        _param_doc("model_path", "str | None", "Path to a DeTime NPZ+JSON trained-model archive.", default=None),
         _param_doc("max_clusters", "int | None", "Optional cap on clusters used during reconstruction.", default=None, common=False),
         _param_doc("trend_freq_thr", "float | None", "Frequency threshold used for trend-like atoms.", default=None, common=False),
     ],
@@ -1126,7 +1147,7 @@ METHOD_EXAMPLE_CONFIGS: Dict[str, Dict[str, Any]] = {
     "MA_BASELINE": {"method": "MA_BASELINE", "params": {"trend_window": 7, "season_period": 12}},
     "MVMD": {"method": "MVMD", "params": {"K": 4, "alpha": 2000.0, "primary_period": 12}},
     "MEMD": {"method": "MEMD", "params": {"primary_period": 12}},
-    "GABOR_CLUSTER": {"method": "GABOR_CLUSTER", "params": {"model_path": "path/to/trained-gabor-model.pkl"}},
+    "GABOR_CLUSTER": {"method": "GABOR_CLUSTER", "params": {"model_path": "path/to/trained-gabor-model.npz"}},
 }
 
 _NEURAL_FIT_SCOPE_PARAMS = [
@@ -1334,7 +1355,10 @@ def _default_assumptions(name: str, family: str, input_mode: InputMode) -> list[
         "Variational": "assumes the number of modes and bandwidth penalties can be tuned to the signal family",
         "Baseline": "assumes a coarse baseline is acceptable as a sanity check",
         "Experimental": "assumes exploratory use is acceptable and output should be validated against a stable baseline",
-        "NeuralBlock": "uses an extracted neural-architecture decomposition head as a standalone operator",
+        "NeuralBlock": (
+            "is a standalone experimental operator inspired by a cited architecture; "
+            "it is not a complete implementation of that forecasting architecture"
+        ),
     }
     if family in family_assumptions:
         assumptions.append(family_assumptions[family])
@@ -1365,16 +1389,18 @@ def _default_not_recommended(name: str, maturity: str, input_mode: InputMode) ->
 def _default_optional_dependencies(name: str, dependency_tier: str) -> list[str]:
     if name == "GABOR_CLUSTER":
         return ["faiss"]
-    if dependency_tier == "optional-backend":
+    if name in {"EMD", "CEEMDAN"}:
+        return ["PyEMD"]
+    if name in {"MVMD", "MEMD"}:
         return ["PySDKit"]
     if name in {"STL", "MSTL", "ROBUST_STL"}:
         return ["statsmodels"]
-    if name in {"EMD", "CEEMDAN"}:
-        return ["PyEMD"]
     if name == "VMD":
-        return ["vmdpy", "sktime"]
+        return ["vmdpy"]
     if name == "WAVELET":
         return ["PyWavelets"]
+    if dependency_tier == "optional-backend":
+        return []
     return []
 
 
@@ -1421,13 +1447,21 @@ def _fallback_metadata(name: str, input_mode: InputMode) -> Dict[str, Any]:
 def _metadata_for_method(name: str, input_mode: InputMode) -> Dict[str, Any]:
     base = dict(METHOD_METADATA.get(name, _fallback_metadata(name, input_mode)))
     base["input_mode"] = input_mode
+    maturity = str(base.get("maturity", "stable"))
+    implementation = str(base.get("implementation", "python"))
+    if maturity == "experimental":
+        base.setdefault("claim_scope", "experimental-operator")
+    elif maturity == "optional-backend" or implementation in {"wrapper", "optional-backend"}:
+        base.setdefault("claim_scope", "integration")
+    else:
+        base.setdefault("claim_scope", "maintained")
     base.setdefault(
         "assumptions",
         _default_assumptions(name, str(base.get("family", "Other")), input_mode),
     )
     base.setdefault(
         "not_recommended_for",
-        _default_not_recommended(name, str(base.get("maturity", "stable")), input_mode),
+        _default_not_recommended(name, maturity, input_mode),
     )
     base.setdefault(
         "optional_dependencies",
@@ -1541,6 +1575,131 @@ def validate_method_params(method: str, params: Dict[str, Any] | None) -> None:
         raise ValueError(
             f"Missing required parameter(s) for method {normalized}: {', '.join(missing)}."
         )
+
+    values = dict(params or {})
+    if normalized in {"STL", "ROBUST_STL"}:
+        _validate_stl_params(normalized, values)
+    elif normalized == "MSTL":
+        _validate_mstl_params(values)
+
+
+def _parameter_error(method: str, name: str, expectation: str, value: Any) -> ValueError:
+    return ValueError(
+        f"Invalid parameter '{name}' for method {method}: expected {expectation}; "
+        f"got {value!r}."
+    )
+
+
+def _validate_integer(
+    method: str,
+    name: str,
+    value: Any,
+    *,
+    minimum: int | None = None,
+    odd: bool = False,
+    choices: set[int] | None = None,
+) -> None:
+    if isinstance(value, (bool, np.bool_)) or not isinstance(value, Integral):
+        raise _parameter_error(method, name, "an integer", value)
+
+    integer = int(value)
+    if minimum is not None and integer < minimum:
+        raise _parameter_error(method, name, f"an integer >= {minimum}", value)
+    if odd and integer % 2 == 0:
+        raise _parameter_error(method, name, "an odd integer", value)
+    if choices is not None and integer not in choices:
+        allowed = ", ".join(str(choice) for choice in sorted(choices))
+        raise _parameter_error(method, name, f"one of {{{allowed}}}", value)
+
+
+def _integer_sequence(method: str, name: str, value: Any) -> list[int]:
+    if isinstance(value, (bool, np.bool_)):
+        raise _parameter_error(method, name, "an integer or a sequence of integers", value)
+    if isinstance(value, Integral):
+        return [int(value)]
+    if isinstance(value, np.ndarray):
+        if value.ndim != 1:
+            raise _parameter_error(method, name, "a one-dimensional sequence of integers", value)
+        items = value.tolist()
+    elif isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+        items = list(value)
+    else:
+        raise _parameter_error(method, name, "an integer or a sequence of integers", value)
+
+    if not items:
+        raise _parameter_error(method, name, "at least one integer", value)
+    for item in items:
+        _validate_integer(method, name, item)
+    return [int(item) for item in items]
+
+
+def _validate_stl_params(method: str, values: Dict[str, Any]) -> None:
+    _validate_integer(method, "period", values["period"], minimum=2)
+    period = int(values["period"])
+
+    for name in ("seasonal", "trend", "low_pass"):
+        value = values.get(name)
+        if value is not None:
+            _validate_integer(method, name, value, minimum=3, odd=True)
+            if name in {"trend", "low_pass"} and int(value) <= period:
+                raise _parameter_error(
+                    method,
+                    name,
+                    f"an odd integer greater than period ({period})",
+                    value,
+                )
+
+    for name in ("seasonal_deg", "trend_deg", "low_pass_deg"):
+        if name in values:
+            _validate_integer(method, name, values[name], choices={0, 1})
+
+    if "robust" in values and not isinstance(values["robust"], (bool, np.bool_)):
+        raise _parameter_error(method, "robust", "a boolean", values["robust"])
+
+    for name in ("seasonal_jump", "trend_jump", "low_pass_jump"):
+        if name in values:
+            _validate_integer(method, name, values[name], minimum=1)
+
+
+def _validate_mstl_params(values: Dict[str, Any]) -> None:
+    periods = _integer_sequence("MSTL", "periods", values["periods"])
+    for period in periods:
+        if period < 2:
+            raise _parameter_error("MSTL", "periods", "integer values >= 2", values["periods"])
+
+    windows_value = values.get("windows")
+    if windows_value is not None:
+        windows = _integer_sequence("MSTL", "windows", windows_value)
+        for window in windows:
+            if window < 3 or window % 2 == 0:
+                raise _parameter_error(
+                    "MSTL", "windows", "odd integer values >= 3", windows_value
+                )
+        if len(windows) != len(periods):
+            raise _parameter_error(
+                "MSTL",
+                "windows",
+                "one window for each seasonal period",
+                windows_value,
+            )
+
+    lmbda = values.get("lmbda")
+    if lmbda is not None:
+        is_auto = isinstance(lmbda, str) and lmbda == "auto"
+        valid_number = (
+            isinstance(lmbda, Real)
+            and not isinstance(lmbda, (bool, np.bool_))
+            and np.isfinite(float(lmbda))
+        )
+        if not is_auto and not valid_number:
+            raise _parameter_error("MSTL", "lmbda", "a finite number, 'auto', or None", lmbda)
+
+    if "iterate" in values:
+        _validate_integer("MSTL", "iterate", values["iterate"], minimum=1)
+
+    stl_kwargs = values.get("stl_kwargs")
+    if stl_kwargs is not None and not isinstance(stl_kwargs, dict):
+        raise _parameter_error("MSTL", "stl_kwargs", "a dictionary or None", stl_kwargs)
 
 
 def _normalize_input(series: np.ndarray) -> np.ndarray:

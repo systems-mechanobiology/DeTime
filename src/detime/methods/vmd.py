@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from typing import Dict, Any, List, Optional
 from time import perf_counter
 

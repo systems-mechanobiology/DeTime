@@ -65,7 +65,6 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="../stylesheets/extra.css?v=7">
 
     </head>
 
@@ -488,10 +487,6 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#mcp-surface" class="nav-link">MCP surface</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
             <li class="nav-item" data-bs-level="2"><a href="#artifact-contract" class="nav-link">Artifact contract</a>
               <ul class="nav flex-column">
               </ul>
@@ -512,7 +507,6 @@ README.</p>
 aims to keep the following stable:</p>
 <ul>
 <li>schema names: <code>config</code>, <code>result</code>, <code>meta</code>, <code>method-registry</code></li>
-<li>MCP tool names</li>
 <li>the core method-catalog field set</li>
 <li>the <code>full</code> / <code>summary</code> / <code>meta</code> serialization modes</li>
 </ul>
@@ -554,13 +548,12 @@ public method catalog. Every entry is expected to expose at least:</p>
 <li><code>typical_failure_modes</code></li>
 </ul>
 <p>The current catalog also carries assumptions, not-recommended cases, and
-optional-dependency hints so the generated method cards and MCP responses stay
-aligned. It now also carries structured <code>references</code> and <code>package_links</code>
+optional-dependency hints so the generated method cards and recommendation
+responses stay aligned. It now also carries structured <code>references</code> and <code>package_links</code>
 arrays so machine consumers can trace each retained method back to its
 literature and official upstream project pages.</p>
 <h2 id="recommendation-interface">Recommendation interface</h2>
-<p><code>detime recommend</code> and the MCP <code>recommend_method</code> tool provide the same routing
-surface:</p>
+<p><code>detime recommend</code> provides a machine-readable routing surface with:</p>
 <ul>
 <li>input length</li>
 <li>channel count</li>
@@ -590,32 +583,6 @@ Machine consumers can request:</p>
 <p>Token-budget evidence for these modes is summarized in
 <a href="../token-benchmarks/">Token Benchmarks</a>. That page is kept as a reference
 appendix rather than a primary navigation item.</p>
-<h2 id="mcp-surface">MCP surface</h2>
-<p>The MCP server is available at:</p>
-<pre><code class="language-bash">python -m detime.mcp.server
-</code></pre>
-<p>Current status:</p>
-<ul>
-<li>local-first</li>
-<li>stdio transport</li>
-<li>no hosted remote endpoint claimed</li>
-<li>intended for deterministic tool access rather than free-form prompting</li>
-</ul>
-<p>Stable tools in the current surface:</p>
-<ul>
-<li><code>list_methods</code></li>
-<li><code>get_schema</code></li>
-<li><code>recommend_method</code></li>
-<li><code>run_decomposition</code></li>
-<li><code>summarize_result</code></li>
-</ul>
-<p>Recommended tool subsets:</p>
-<ul>
-<li>routing only: <code>list_methods</code>, <code>recommend_method</code>, <code>get_schema</code></li>
-<li>bounded-context execution: add <code>run_decomposition</code> in <code>summary</code> or <code>meta</code>
-  mode</li>
-<li>post-hoc condensation: add <code>summarize_result</code></li>
-</ul>
 <h2 id="artifact-contract">Artifact contract</h2>
 <p>Programmatic calls return one <code>DecompResult</code>. CLI calls persist one of the
 following artifact patterns:</p>

@@ -1,8 +1,9 @@
+# SPDX-License-Identifier: BSD-3-Clause
 import numpy as np
 from time import perf_counter
 from typing import Dict, Any, List, Optional
 from .._native import invoke_native
-from ..backends import finalize_result, resolve_backend, result_from_native_payload, split_runtime_params
+from ..backends import RuntimeOptions, finalize_result, resolve_backend, result_from_native_payload, split_runtime_params
 from ..core import DecompResult
 from ..registry import MethodRegistry
 
@@ -14,14 +15,37 @@ def _dominant_frequency(x: np.ndarray, fs: float = 1.0) -> float:
 def _diagonal_averaging(matrix: np.ndarray) -> np.ndarray:
     L, K = matrix.shape
     T = L + K - 1
-    recon = np.zeros(T)
-    counts = np.zeros(T)
-    for i in range(L):
-        for j in range(K):
-            recon[i + j] += matrix[i, j]
-            counts[i + j] += 1.0
-    counts[counts == 0.0] = 1.0
+    anti_diagonals = (
+        np.arange(L, dtype=np.intp)[:, None]
+        + np.arange(K, dtype=np.intp)[None, :]
+    ).ravel()
+    recon = np.bincount(
+        anti_diagonals,
+        weights=np.asarray(matrix, dtype=float).ravel(),
+        minlength=T,
+    )
+    counts = np.bincount(anti_diagonals, minlength=T)
     return recon / counts
+
+
+def _finalize_python_ssa(
+    result: DecompResult,
+    *,
+    runtime: RuntimeOptions,
+    started_at: float,
+) -> DecompResult:
+    result = finalize_result(
+        result,
+        method="SSA",
+        runtime=runtime,
+        backend_used="python",
+        started_at=started_at,
+    )
+    result.meta["solver"] = "numpy-svd"
+    if runtime.speed_mode != "exact":
+        result.meta["speed_mode_requested"] = runtime.speed_mode
+        result.meta["speed_mode"] = "exact"
+    return result
 
 def _basic_ssa(y: np.ndarray, window: int, rank: int) -> List[np.ndarray]:
     y_arr = np.asarray(y, dtype=float)
@@ -102,16 +126,14 @@ def ssa_decompose(
     
     if num_rc == 0:
         zeros = np.zeros_like(y_arr)
-        return finalize_result(
+        return _finalize_python_ssa(
             DecompResult(
             trend=zeros,
             season=zeros,
             residual=y_arr.copy(),
             meta={"method": "SSA", "window": window, "rank": rank, "rc_list": []}
             ),
-            method="SSA",
             runtime=runtime,
-            backend_used="python",
             started_at=started_at,
         )
 
@@ -151,7 +173,7 @@ def ssa_decompose(
     season = _sum_components(rc_list, season_components, T)
     residual = y_arr - trend - season
 
-    return finalize_result(
+    return _finalize_python_ssa(
         DecompResult(
             trend=trend,
             season=season,
@@ -164,8 +186,6 @@ def ssa_decompose(
                 "season_components": season_components
             }
         ),
-        method="SSA",
         runtime=runtime,
-        backend_used="python",
         started_at=started_at,
     )

@@ -65,7 +65,6 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="../stylesheets/extra.css?v=7">
 
     </head>
 
@@ -484,7 +483,7 @@
 <h1 id="method-cards">Method Cards</h1>
 <p>This page is generated from <code>MethodRegistry.list_catalog()</code> so the human-facing
 method cards stay aligned with the machine-facing catalog contract.</p>
-<p>Current package version target: <code>0.1.2</code>.</p>
+<p>Current package version target: <code>0.1.3</code>.</p>
 <p>Source citations and official upstream package links are collected in
 <a href="../method-references/">Method References</a>.</p>
 <p>This page intentionally keeps cards compact. Use
@@ -499,7 +498,9 @@ not the canonical surface for any method listed below.</p>
 <li>Use when: multivariate component recovery; shared seasonal structure across channels</li>
 <li>Avoid when: single-series workflows where a univariate core method is sufficient; very short series that cannot support a sensible window length</li>
 <li>Key params: <code>window</code> (null), <code>rank</code> (null), <code>primary_period</code> (null)</li>
-<li>Input/backend: <code>multivariate</code> input, <code>native-backed</code> implementation, maturity <code>core maintained</code></li>
+<li>Input/backend: <code>multivariate</code> input, <code>native-backed</code> implementation, maturity <code>maintained</code></li>
+<li>Claim scope: <code>maintained</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.elementary</code></li>
 <li>References: <a href="../method-references/#mssa">Method References</a></li>
@@ -511,7 +512,9 @@ not the canonical surface for any method listed below.</p>
 <li>Use when: accuracy-first univariate decomposition; component recovery</li>
 <li>Avoid when: shared-model multivariate decomposition problems; very short series that cannot support a sensible window length</li>
 <li>Key params: <code>window</code> (null), <code>rank</code> (null), <code>primary_period</code> (null)</li>
-<li>Input/backend: <code>univariate</code> input, <code>native-backed</code> implementation, maturity <code>core maintained</code></li>
+<li>Input/backend: <code>univariate</code> input, <code>native-backed</code> implementation, maturity <code>maintained</code></li>
+<li>Claim scope: <code>maintained</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.elementary</code></li>
 <li>References: <a href="../method-references/#ssa">Method References</a></li>
@@ -523,7 +526,9 @@ not the canonical surface for any method listed below.</p>
 <li>Use when: fast seasonal-trend baselines; channelwise multivariate workflows</li>
 <li>Avoid when: problems that require one shared latent model across channels; series where the dominant period is unknown and cannot be inferred reliably</li>
 <li>Key params: <code>period</code> (null)</li>
-<li>Input/backend: <code>channelwise</code> input, <code>native-backed</code> implementation, maturity <code>core maintained</code></li>
+<li>Input/backend: <code>channelwise</code> input, <code>native-backed</code> implementation, maturity <code>maintained</code></li>
+<li>Claim scope: <code>maintained</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.dispersion</code>, <code>components.seasonal_shape</code></li>
 <li>References: <a href="../method-references/#std">Method References</a></li>
@@ -535,7 +540,9 @@ not the canonical surface for any method listed below.</p>
 <li>Use when: robust seasonal-trend decomposition; channelwise multivariate workflows</li>
 <li>Avoid when: problems that require one shared latent model across channels; series where the dominant period is unknown and cannot be inferred reliably</li>
 <li>Key params: <code>period</code> (null)</li>
-<li>Input/backend: <code>channelwise</code> input, <code>native-backed</code> implementation, maturity <code>core maintained</code></li>
+<li>Input/backend: <code>channelwise</code> input, <code>native-backed</code> implementation, maturity <code>maintained</code></li>
+<li>Claim scope: <code>maintained</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.dispersion</code>, <code>components.seasonal_shape</code></li>
 <li>References: <a href="../method-references/#stdr">Method References</a></li>
@@ -548,7 +555,9 @@ not the canonical surface for any method listed below.</p>
 <li>Use when: noise-assisted EMD workflows; adaptive decomposition with improved IMF stability</li>
 <li>Avoid when: shared-model multivariate decomposition problems</li>
 <li>Key params: <code>trials</code> (50), <code>noise_width</code> (0.05), <code>primary_period</code> (null)</li>
-<li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>stable</code></li>
+<li>Input/backend: <code>univariate</code> input, <code>wrapper</code> implementation, maturity <code>stable</code></li>
+<li>Claim scope: <code>integration</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: PyEMD</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.imfs</code></li>
 <li>References: <a href="../method-references/#ceemdan">Method References</a></li>
@@ -560,7 +569,9 @@ not the canonical surface for any method listed below.</p>
 <li>Use when: adaptive decomposition of nonlinear signals; IMF-oriented exploratory analysis</li>
 <li>Avoid when: shared-model multivariate decomposition problems</li>
 <li>Key params: <code>n_imfs</code> (null), <code>primary_period</code> (null)</li>
-<li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>stable</code></li>
+<li>Input/backend: <code>univariate</code> input, <code>wrapper</code> implementation, maturity <code>stable</code></li>
+<li>Claim scope: <code>integration</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: PyEMD</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.imfs</code></li>
 <li>References: <a href="../method-references/#emd">Method References</a></li>
@@ -573,6 +584,8 @@ not the canonical surface for any method listed below.</p>
 <li>Avoid when: shared-model multivariate decomposition problems</li>
 <li>Key params: <code>trend_window</code> (7), <code>season_period</code> (null)</li>
 <li>Input/backend: <code>univariate</code> input, <code>native-backed</code> implementation, maturity <code>stable</code></li>
+<li>Claim scope: <code>maintained</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code></li>
 <li>References: <a href="../method-references/#ma_baseline">Method References</a></li>
@@ -585,6 +598,8 @@ not the canonical surface for any method listed below.</p>
 <li>Avoid when: shared-model multivariate decomposition problems; series where the dominant period is unknown and cannot be inferred reliably</li>
 <li>Key params: <code>periods</code> (required)</li>
 <li>Input/backend: <code>univariate</code> input, <code>wrapper</code> implementation, maturity <code>stable</code></li>
+<li>Claim scope: <code>integration</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: statsmodels</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.seasonal_terms</code></li>
 <li>References: <a href="../method-references/#mstl">Method References</a></li>
@@ -597,6 +612,8 @@ not the canonical surface for any method listed below.</p>
 <li>Avoid when: shared-model multivariate decomposition problems; series where the dominant period is unknown and cannot be inferred reliably</li>
 <li>Key params: <code>period</code> (required)</li>
 <li>Input/backend: <code>univariate</code> input, <code>wrapper</code> implementation, maturity <code>stable</code></li>
+<li>Claim scope: <code>integration</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: statsmodels</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code></li>
 <li>References: <a href="../method-references/#robust_stl">Method References</a></li>
@@ -609,6 +626,8 @@ not the canonical surface for any method listed below.</p>
 <li>Avoid when: shared-model multivariate decomposition problems; series where the dominant period is unknown and cannot be inferred reliably</li>
 <li>Key params: <code>period</code> (required)</li>
 <li>Input/backend: <code>univariate</code> input, <code>wrapper</code> implementation, maturity <code>stable</code></li>
+<li>Claim scope: <code>integration</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: statsmodels</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code></li>
 <li>References: <a href="../method-references/#stl">Method References</a></li>
@@ -621,7 +640,9 @@ not the canonical surface for any method listed below.</p>
 <li>Avoid when: shared-model multivariate decomposition problems</li>
 <li>Key params: <code>K</code> (4), <code>alpha</code> (2000.0), <code>primary_period</code> (null)</li>
 <li>Input/backend: <code>univariate</code> input, <code>native-backed</code> implementation, maturity <code>stable</code></li>
-<li>Optional dependencies: vmdpy, sktime</li>
+<li>Claim scope: <code>maintained</code></li>
+<li>Alias of: none</li>
+<li>Optional dependencies: vmdpy</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.modes</code></li>
 <li>References: <a href="../method-references/#vmd">Method References</a></li>
 </ul>
@@ -633,6 +654,8 @@ not the canonical surface for any method listed below.</p>
 <li>Avoid when: shared-model multivariate decomposition problems</li>
 <li>Key params: <code>wavelet</code> ("db4"), <code>level</code> (null)</li>
 <li>Input/backend: <code>univariate</code> input, <code>wrapper</code> implementation, maturity <code>stable</code></li>
+<li>Claim scope: <code>integration</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: PyWavelets</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.coefficients</code></li>
 <li>References: <a href="../method-references/#wavelet">Method References</a></li>
@@ -646,6 +669,8 @@ not the canonical surface for any method listed below.</p>
 <li>Avoid when: single-series workflows where a univariate core method is sufficient; environments where optional backend dependencies cannot be installed</li>
 <li>Key params: <code>primary_period</code> (null)</li>
 <li>Input/backend: <code>multivariate</code> input, <code>optional-backend</code> implementation, maturity <code>optional-backend</code></li>
+<li>Claim scope: <code>integration</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: PySDKit</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.imfs</code></li>
 <li>References: <a href="../method-references/#memd">Method References</a></li>
@@ -658,6 +683,8 @@ not the canonical surface for any method listed below.</p>
 <li>Avoid when: single-series workflows where a univariate core method is sufficient; environments where optional backend dependencies cannot be installed</li>
 <li>Key params: <code>K</code> (4), <code>alpha</code> (2000.0), <code>primary_period</code> (null)</li>
 <li>Input/backend: <code>multivariate</code> input, <code>optional-backend</code> implementation, maturity <code>optional-backend</code></li>
+<li>Claim scope: <code>integration</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: PySDKit</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.modes</code></li>
 <li>References: <a href="../method-references/#mvmd">Method References</a></li>
@@ -671,6 +698,8 @@ not the canonical surface for any method listed below.</p>
 <li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
 <li>Key params: <code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>multiscale_windows</code> (null)</li>
 <li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 <li>References: <a href="../method-references/#amd_block">Method References</a></li>
@@ -678,11 +707,13 @@ not the canonical surface for any method listed below.</p>
 <p>See <a href="../config-reference/#amd_block">Config Reference</a> for the full parameter table.</p>
 <h3 id="autoformer_block"><code>AUTOFORMER_BLOCK</code></h3>
 <ul>
-<li>Summary: Standalone moving-average decomposition head extracted from the Autoformer architecture.</li>
+<li>Summary: Compatibility alias for the generic experimental moving-average operator, inspired by Autoformer.</li>
 <li>Use when: neural-architecture-inspired seasonal-trend baselines; Autoformer-style decomposition ablations</li>
 <li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
 <li>Key params: <code>moving_avg</code> (null), <code>primary_period</code> (null)</li>
 <li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
+<li>Alias of: <code>MOVING_AVERAGE_DECOMPOSITION_BLOCK</code></li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.moving_mean</code></li>
 <li>References: <a href="../method-references/#autoformer_block">Method References</a></li>
@@ -695,6 +726,8 @@ not the canonical surface for any method listed below.</p>
 <li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
 <li>Key params: <code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>alpha</code> (0.4), <code>beta</code> (0.2)</li>
 <li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 <li>References: <a href="../method-references/#delelstm_block">Method References</a></li>
@@ -702,11 +735,13 @@ not the canonical surface for any method listed below.</p>
 <p>See <a href="../config-reference/#delelstm_block">Config Reference</a> for the full parameter table.</p>
 <h3 id="dlinear_block"><code>DLINEAR_BLOCK</code></h3>
 <ul>
-<li>Summary: Standalone moving-average decomposition head extracted from DLinear-style forecasting blocks.</li>
+<li>Summary: Compatibility alias for the generic experimental moving-average operator, inspired by DLinear.</li>
 <li>Use when: DLinear-style trend/season split baselines; fast neural decomposition head comparisons</li>
 <li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
 <li>Key params: <code>moving_avg</code> (null), <code>primary_period</code> (null)</li>
 <li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
+<li>Alias of: <code>MOVING_AVERAGE_DECOMPOSITION_BLOCK</code></li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.moving_mean</code></li>
 <li>References: <a href="../method-references/#dlinear_block">Method References</a></li>
@@ -719,6 +754,8 @@ not the canonical surface for any method listed below.</p>
 <li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
 <li>Key params: <code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>trend_window</code> (null), <code>num_bands</code> (4)</li>
 <li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 <li>References: <a href="../method-references/#freqmoe_block">Method References</a></li>
@@ -726,11 +763,13 @@ not the canonical surface for any method listed below.</p>
 <p>See <a href="../config-reference/#freqmoe_block">Config Reference</a> for the full parameter table.</p>
 <h3 id="gabor_cluster"><code>GABOR_CLUSTER</code></h3>
 <ul>
-<li>Summary: Experimental optional clustering path that requires a trained Gabor model.</li>
+<li>Summary: Experimental trained-model clustering operator with optional native acceleration.</li>
 <li>Use when: research prototypes; exploratory clustering-style decomposition</li>
 <li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
 <li>Key params: <code>model</code> (null), <code>model_path</code> (null)</li>
-<li>Input/backend: <code>univariate</code> input, <code>optional-backend</code> implementation, maturity <code>experimental</code></li>
+<li>Input/backend: <code>univariate</code> input, <code>native-backed</code> implementation, maturity <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: faiss</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.Cluster_*</code></li>
 <li>References: <a href="../method-references/#gabor_cluster">Method References</a></li>
@@ -743,6 +782,8 @@ not the canonical surface for any method listed below.</p>
 <li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
 <li>Key params: <code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>trend_window</code> (null)</li>
 <li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 <li>References: <a href="../method-references/#inparformer_block">Method References</a></li>
@@ -755,6 +796,8 @@ not the canonical surface for any method listed below.</p>
 <li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
 <li>Key params: <code>kernel_size</code> (25), <code>sigma</code> (1.0)</li>
 <li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.ld_trend</code>, <code>components.kernel</code></li>
 <li>References: <a href="../method-references/#leddam_block">Method References</a></li>
@@ -762,11 +805,13 @@ not the canonical surface for any method listed below.</p>
 <p>See <a href="../config-reference/#leddam_block">Config Reference</a> for the full parameter table.</p>
 <h3 id="moving_average_decomposition_block"><code>MOVING_AVERAGE_DECOMPOSITION_BLOCK</code></h3>
 <ul>
-<li>Summary: Generic neural forecasting moving-average decomposition block exposed as a DeTime method.</li>
+<li>Summary: Generic experimental moving-average operator; not a forecasting-architecture implementation.</li>
 <li>Use when: generic decomposition-block smoke tests; fast moving-average neural head baselines</li>
 <li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
 <li>Key params: <code>moving_avg</code> (null), <code>primary_period</code> (null)</li>
 <li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.moving_mean</code></li>
 <li>References: <a href="../method-references/#moving_average_decomposition_block">Method References</a></li>
@@ -779,6 +824,8 @@ not the canonical surface for any method listed below.</p>
 <li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
 <li>Key params: <code>degree_of_polynomial</code> (3), <code>num_harmonics</code> (8), <code>fit_scope</code> ("full"), <code>n_epochs</code> (200)</li>
 <li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: torch</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 <li>References: <a href="../method-references/#nbeats_interpretable">Method References</a></li>
@@ -791,6 +838,8 @@ not the canonical surface for any method listed below.</p>
 <li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
 <li>Key params: <code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>trend_window</code> (null), <code>num_harmonics</code> (2)</li>
 <li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 <li>References: <a href="../method-references/#parsimony_block">Method References</a></li>
@@ -803,6 +852,8 @@ not the canonical surface for any method listed below.</p>
 <li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
 <li>Key params: <code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>trend_window</code> (null), <code>season_smooth_window</code> (null)</li>
 <li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 <li>References: <a href="../method-references/#st_mtm_block">Method References</a></li>
@@ -815,6 +866,8 @@ not the canonical surface for any method listed below.</p>
 <li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
 <li>Key params: <code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>trend_window</code> (null), <code>num_bands</code> (2)</li>
 <li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 <li>References: <a href="../method-references/#timekan_block">Method References</a></li>
@@ -827,6 +880,8 @@ not the canonical surface for any method listed below.</p>
 <li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
 <li>Key params: <code>primary_period</code> (null), <code>fit_scope</code> ("full"), <code>top_k_periods</code> (2), <code>num_harmonics</code> (1), <code>trend_window</code> (null)</li>
 <li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 <li>References: <a href="../method-references/#times2d_block">Method References</a></li>
@@ -839,6 +894,8 @@ not the canonical surface for any method listed below.</p>
 <li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
 <li>Key params: <code>wavelet</code> ("db4"), <code>level</code> (3), <code>season_levels</code> ([1, 2])</li>
 <li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: PyWavelets</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 <li>References: <a href="../method-references/#waveform_block">Method References</a></li>
@@ -851,6 +908,8 @@ not the canonical surface for any method listed below.</p>
 <li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
 <li>Key params: <code>wavelet</code> ("sym4"), <code>level</code> (4), <code>season_levels</code> ([1, 2, 3])</li>
 <li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: PyWavelets</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 <li>References: <a href="../method-references/#waveletmixer_block">Method References</a></li>
@@ -863,6 +922,8 @@ not the canonical surface for any method listed below.</p>
 <li>Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows</li>
 <li>Key params: <code>ma_type</code> ("ema"), <code>trend_window</code> (null), <code>season_smooth</code> (null)</li>
 <li>Input/backend: <code>univariate</code> input, <code>python</code> implementation, maturity <code>experimental</code></li>
+<li>Claim scope: <code>experimental-operator</code></li>
+<li>Alias of: none</li>
 <li>Optional dependencies: none</li>
 <li>Output components: <code>trend</code>, <code>season</code>, <code>residual</code>, <code>components.trend</code>, <code>components.season</code></li>
 <li>References: <a href="../method-references/#xpatch_block">Method References</a></li>

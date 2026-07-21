@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
 from pathlib import Path
@@ -9,6 +10,7 @@ import detime.benchmark as benchmark
 
 
 def test_download_tsdecompose_benchmark_fetches_code_prefix(monkeypatch, tmp_path) -> None:
+    monkeypatch.setattr(benchmark, "TSDECOMPOSE_BENCHMARK_SHA256", None)
     monkeypatch.setattr(
         benchmark,
         "_read_json_url",
@@ -35,6 +37,25 @@ def test_download_tsdecompose_benchmark_fetches_code_prefix(monkeypatch, tmp_pat
     assert (source_dir / "src" / "tsdecomp" / "__init__.py").exists()
     assert len(downloaded) == 2
     assert (source_dir / ".detime_benchmark_source.json").exists()
+
+
+def test_download_tsdecompose_benchmark_rejects_digest_mismatch(monkeypatch, tmp_path) -> None:
+    monkeypatch.setattr(
+        benchmark,
+        "_read_json_url",
+        lambda url: [
+            {"type": "file", "path": "code/TSDecompose/scripts/run_paper_benchmark.py"},
+        ],
+    )
+    monkeypatch.setattr(
+        benchmark,
+        "_download_file",
+        lambda url, target: target.parent.mkdir(parents=True, exist_ok=True)
+        or target.write_text("# altered runner\n", encoding="utf-8"),
+    )
+
+    with pytest.raises(benchmark.BenchmarkSourceError, match="digest mismatch"):
+        benchmark.download_tsdecompose_benchmark(cache_dir=tmp_path)
 
 
 def test_benchmark_helpers_cover_env_headers_tree_and_cache(monkeypatch, tmp_path) -> None:
@@ -78,6 +99,7 @@ def test_benchmark_helpers_cover_env_headers_tree_and_cache(monkeypatch, tmp_pat
 
 
 def test_download_tsdecompose_benchmark_error_paths(monkeypatch, tmp_path) -> None:
+    monkeypatch.setattr(benchmark, "TSDECOMPOSE_BENCHMARK_SHA256", None)
     monkeypatch.setattr(benchmark, "_read_json_url", lambda url: [])
     with pytest.raises(benchmark.BenchmarkSourceError, match="No files found"):
         benchmark.download_tsdecompose_benchmark(cache_dir=tmp_path)

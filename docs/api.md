@@ -110,8 +110,7 @@ method catalog.
 - `MethodRegistry.list_methods()`
   Return registered public method names.
 - `MethodRegistry.list_catalog()`
-  Return the full catalog used by docs generation, metadata-based shortlists,
-  and MCP.
+  Return the full catalog used by docs generation and metadata-based shortlists.
 - `MethodRegistry.get_metadata(method_name)`
   Return one catalog entry as a dictionary.
 - `MethodRegistry.get(method_name)`
@@ -163,7 +162,6 @@ Machine-facing entrypoints:
 
 - `detime schema --name config|result|meta|method-registry`
 - `detime recommend --length ... --channels ...`
-- `python -m detime.mcp.server`
 
 The `method-registry` schema and payload are versioned within the current
 machine-contract series `0.1`. Consumers should prefer `contract_version` over

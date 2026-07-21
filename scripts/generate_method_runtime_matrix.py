@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
 import argparse
@@ -13,6 +14,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from _repo_source import prefer_repo_source
+
+ROOT = Path(__file__).resolve().parents[1]
+prefer_repo_source(ROOT)
+
 import numpy as np
 
 from detime import DecompositionConfig, decompose, native_capabilities
@@ -20,7 +26,6 @@ from detime._metadata import installed_version
 from detime.registry import METHOD_EXAMPLE_CONFIGS, MethodRegistry
 
 
-ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_JSON = ROOT / "docs" / "assets" / "generated" / "evidence" / "method_runtime_matrix.json"
 DEFAULT_CSV = ROOT / "docs" / "assets" / "generated" / "evidence" / "method_runtime_matrix.csv"
 

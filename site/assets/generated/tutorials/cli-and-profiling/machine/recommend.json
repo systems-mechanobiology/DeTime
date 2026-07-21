@@ -2,11 +2,13 @@
   "recommendations": [
     {
       "metadata": {
+        "alias_of": null,
         "assumptions": [
           "expects a 2D array with at least two aligned channels",
           "works best when window and rank reflect the dominant temporal structure",
           "MSSA should be evaluated against residual diagnostics rather than used as a black box"
         ],
+        "claim_scope": "maintained",
         "dependency_tier": "core",
         "example_config": {
           "backend": "auto",
@@ -26,7 +28,7 @@
         "family": "SSA",
         "implementation": "native-backed",
         "input_mode": "multivariate",
-        "maturity": "flagship",
+        "maturity": "maintained",
         "min_length": 24,
         "multivariate_support": "shared-model",
         "name": "MSSA",
@@ -144,7 +146,7 @@
       "method": "MSSA",
       "rank": 1,
       "reason_codes": [
-        "maturity:flagship",
+        "maturity:maintained",
         "native_backed",
         "shared_multivariate",
         "accuracy_shortlist",
@@ -156,11 +158,13 @@
     },
     {
       "metadata": {
+        "alias_of": null,
         "assumptions": [
           "treats each channel independently under one shared method surface",
           "works best when one seasonal period or block structure is reasonably stable",
           "STDR should be evaluated against residual diagnostics rather than used as a black box"
         ],
+        "claim_scope": "maintained",
         "dependency_tier": "core",
         "example_config": {
           "backend": "auto",
@@ -173,7 +177,7 @@
         "family": "SeasonalTrend",
         "implementation": "native-backed",
         "input_mode": "channelwise",
-        "maturity": "flagship",
+        "maturity": "maintained",
         "min_length": 8,
         "multivariate_support": "channelwise",
         "name": "STDR",
@@ -238,7 +242,7 @@
       "method": "STDR",
       "rank": 2,
       "reason_codes": [
-        "maturity:flagship",
+        "maturity:maintained",
         "native_backed",
         "channelwise_multivariate",
         "accuracy_shortlist",
@@ -249,11 +253,13 @@
     },
     {
       "metadata": {
+        "alias_of": null,
         "assumptions": [
           "treats each channel independently under one shared method surface",
           "works best when one seasonal period or block structure is reasonably stable",
           "STD should be evaluated against residual diagnostics rather than used as a black box"
         ],
+        "claim_scope": "maintained",
         "dependency_tier": "core",
         "example_config": {
           "backend": "auto",
@@ -266,7 +272,7 @@
         "family": "SeasonalTrend",
         "implementation": "native-backed",
         "input_mode": "channelwise",
-        "maturity": "flagship",
+        "maturity": "maintained",
         "min_length": 8,
         "multivariate_support": "channelwise",
         "name": "STD",
@@ -331,7 +337,7 @@
       "method": "STD",
       "rank": 3,
       "reason_codes": [
-        "maturity:flagship",
+        "maturity:maintained",
         "native_backed",
         "channelwise_multivariate",
         "long_series_native"
@@ -371,6 +377,7 @@
     "XPATCH_BLOCK": "univariate_only"
   },
   "request": {
+    "allow_experimental": false,
     "allow_optional_backends": false,
     "channels": 3,
     "length": 192,

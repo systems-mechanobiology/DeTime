@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
 import numpy as np
@@ -33,6 +34,7 @@ def test_ssa_native_matches_python_with_documented_tolerance() -> None:
     python_result = decompose(series, DecompositionConfig(method="SSA", params=params, backend="python"))
     native_result = decompose(series, DecompositionConfig(method="SSA", params=params, backend="native"))
 
+    assert native_result.meta["native_solver"] == "numpy-svd"
     np.testing.assert_allclose(native_result.trend, python_result.trend, atol=1e-6)
     np.testing.assert_allclose(native_result.season, python_result.season, atol=1e-6)
     np.testing.assert_allclose(native_result.residual, python_result.residual, atol=1e-6)

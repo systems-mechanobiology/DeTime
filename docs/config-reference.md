@@ -3,7 +3,7 @@
 `DecompositionConfig` is the single runtime contract shared by Python, CLI,
 docs examples, and machine-facing schema exports.
 
-Current package version target: `0.1.2`.
+Current package version target: `0.1.3`.
 
 ## Top-level fields
 
@@ -77,6 +77,7 @@ Current package version target: `0.1.2`.
 
 - Input mode: `univariate`
 - Maturity: `experimental`
+- Claim scope: `experimental-operator`
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 
 | Parameter | Type | Required | Default | Description |
@@ -107,6 +108,7 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `experimental`
+- Claim scope: `experimental-operator`
 - Output components: `trend`, `season`, `residual`, `components.moving_mean`
 
 | Parameter | Type | Required | Default | Description |
@@ -133,6 +135,7 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `stable`
+- Claim scope: `integration`
 - Output components: `trend`, `season`, `residual`, `components.imfs`
 
 | Parameter | Type | Required | Default | Description |
@@ -161,6 +164,7 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `experimental`
+- Claim scope: `experimental-operator`
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 
 | Parameter | Type | Required | Default | Description |
@@ -189,6 +193,7 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `experimental`
+- Claim scope: `experimental-operator`
 - Output components: `trend`, `season`, `residual`, `components.moving_mean`
 
 | Parameter | Type | Required | Default | Description |
@@ -215,6 +220,7 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `stable`
+- Claim scope: `integration`
 - Output components: `trend`, `season`, `residual`, `components.imfs`
 
 | Parameter | Type | Required | Default | Description |
@@ -243,6 +249,7 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `experimental`
+- Claim scope: `experimental-operator`
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 
 | Parameter | Type | Required | Default | Description |
@@ -272,12 +279,13 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `experimental`
+- Claim scope: `experimental-operator`
 - Output components: `trend`, `season`, `residual`, `components.Cluster_*`
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
 | `model` | GaborClusterModel \| None | no | `None` | In-memory trained clustering model. |
-| `model_path` | str \| None | no | `None` | Path to a serialized trained clustering model. |
+| `model_path` | str \| None | no | `None` | Path to a DeTime NPZ+JSON trained-model archive. |
 | `max_clusters` | int \| None | no | `None` | Optional cap on clusters used during reconstruction. |
 | `trend_freq_thr` | float \| None | no | `None` | Frequency threshold used for trend-like atoms. |
 
@@ -287,7 +295,7 @@ Example config:
 {
   "method": "GABOR_CLUSTER",
   "params": {
-    "model_path": "path/to/trained-gabor-model.pkl"
+    "model_path": "path/to/trained-gabor-model.npz"
   }
 }
 ```
@@ -296,6 +304,7 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `experimental`
+- Claim scope: `experimental-operator`
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 
 | Parameter | Type | Required | Default | Description |
@@ -322,6 +331,7 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `experimental`
+- Claim scope: `experimental-operator`
 - Output components: `trend`, `season`, `residual`, `components.ld_trend`, `components.kernel`
 
 | Parameter | Type | Required | Default | Description |
@@ -345,6 +355,7 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `stable`
+- Claim scope: `maintained`
 - Output components: `trend`, `season`, `residual`
 
 | Parameter | Type | Required | Default | Description |
@@ -368,6 +379,7 @@ Example config:
 
 - Input mode: `multivariate`
 - Maturity: `optional-backend`
+- Claim scope: `integration`
 - Output components: `trend`, `season`, `residual`, `components.imfs`
 
 | Parameter | Type | Required | Default | Description |
@@ -397,6 +409,7 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `experimental`
+- Claim scope: `experimental-operator`
 - Output components: `trend`, `season`, `residual`, `components.moving_mean`
 
 | Parameter | Type | Required | Default | Description |
@@ -422,7 +435,8 @@ Example config:
 ### `MSSA`
 
 - Input mode: `multivariate`
-- Maturity: `core maintained`
+- Maturity: `maintained`
+- Claim scope: `maintained`
 - Output components: `trend`, `season`, `residual`, `components.elementary`
 
 | Parameter | Type | Required | Default | Description |
@@ -461,12 +475,15 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `stable`
+- Claim scope: `integration`
 - Output components: `trend`, `season`, `residual`, `components.seasonal_terms`
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
-| `periods` | list[int] | yes | required | One or more seasonal periods passed to statsmodels MSTL. |
-| `windows` | list[int] \| None | no | `None` | Optional smoother windows aligned with periods. |
+| `periods` | int \| sequence[int] | yes | required | One or more seasonal periods passed to statsmodels MSTL. |
+| `windows` | int \| sequence[int] \| None | no | `None` | Optional odd smoother windows aligned with periods. |
+| `lmbda` | float \| 'auto' \| None | no | `None` | Optional Box--Cox transform parameter. |
+| `iterate` | int | no | `2` | Positive number of seasonal-refinement iterations. |
 | `stl_kwargs` | dict \| None | no | `None` | Additional statsmodels STL keyword arguments. |
 
 Example config:
@@ -487,6 +504,7 @@ Example config:
 
 - Input mode: `multivariate`
 - Maturity: `optional-backend`
+- Claim scope: `integration`
 - Output components: `trend`, `season`, `residual`, `components.modes`
 
 | Parameter | Type | Required | Default | Description |
@@ -520,6 +538,7 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `experimental`
+- Claim scope: `experimental-operator`
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 
 | Parameter | Type | Required | Default | Description |
@@ -558,6 +577,7 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `experimental`
+- Claim scope: `experimental-operator`
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 
 | Parameter | Type | Required | Default | Description |
@@ -586,14 +606,22 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `stable`
+- Claim scope: `integration`
 - Output components: `trend`, `season`, `residual`
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
 | `period` | int | yes | required | Seasonal period passed to robust statsmodels STL. |
-| `seasonal` | int \| None | no | `None` | Odd LOESS seasonal smoother length. |
+| `seasonal` | int | no | `7` | Odd LOESS seasonal smoother length. |
 | `trend` | int \| None | no | `None` | Odd LOESS trend smoother length. |
+| `low_pass` | int \| None | no | `None` | Odd LOESS low-pass filter length. |
+| `seasonal_deg` | int | no | `1` | Seasonal LOESS degree, either 0 or 1. |
+| `trend_deg` | int | no | `1` | Trend LOESS degree, either 0 or 1. |
+| `low_pass_deg` | int | no | `1` | Low-pass LOESS degree, either 0 or 1. |
 | `robust` | bool | no | `true` | Whether to use robust LOESS fitting. |
+| `seasonal_jump` | int | no | `1` | Positive interpolation step for the seasonal smoother. |
+| `trend_jump` | int | no | `1` | Positive interpolation step for the trend smoother. |
+| `low_pass_jump` | int | no | `1` | Positive interpolation step for the low-pass smoother. |
 
 Example config:
 
@@ -609,7 +637,8 @@ Example config:
 ### `SSA`
 
 - Input mode: `univariate`
-- Maturity: `core maintained`
+- Maturity: `maintained`
+- Claim scope: `maintained`
 - Output components: `trend`, `season`, `residual`, `components.elementary`
 
 | Parameter | Type | Required | Default | Description |
@@ -643,7 +672,8 @@ Example config:
 ### `STD`
 
 - Input mode: `channelwise`
-- Maturity: `core maintained`
+- Maturity: `maintained`
+- Claim scope: `maintained`
 - Output components: `trend`, `season`, `residual`, `components.dispersion`, `components.seasonal_shape`
 
 | Parameter | Type | Required | Default | Description |
@@ -668,7 +698,8 @@ Example config:
 ### `STDR`
 
 - Input mode: `channelwise`
-- Maturity: `core maintained`
+- Maturity: `maintained`
+- Claim scope: `maintained`
 - Output components: `trend`, `season`, `residual`, `components.dispersion`, `components.seasonal_shape`
 
 | Parameter | Type | Required | Default | Description |
@@ -694,14 +725,22 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `stable`
+- Claim scope: `integration`
 - Output components: `trend`, `season`, `residual`
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
 | `period` | int | yes | required | Seasonal period passed to statsmodels STL. |
-| `seasonal` | int \| None | no | `None` | Odd LOESS seasonal smoother length. |
+| `seasonal` | int | no | `7` | Odd LOESS seasonal smoother length. |
 | `trend` | int \| None | no | `None` | Odd LOESS trend smoother length. |
+| `low_pass` | int \| None | no | `None` | Odd LOESS low-pass filter length. |
+| `seasonal_deg` | int | no | `1` | Seasonal LOESS degree, either 0 or 1. |
+| `trend_deg` | int | no | `1` | Trend LOESS degree, either 0 or 1. |
+| `low_pass_deg` | int | no | `1` | Low-pass LOESS degree, either 0 or 1. |
 | `robust` | bool | no | `false` | Whether to use robust LOESS fitting. |
+| `seasonal_jump` | int | no | `1` | Positive interpolation step for the seasonal smoother. |
+| `trend_jump` | int | no | `1` | Positive interpolation step for the trend smoother. |
+| `low_pass_jump` | int | no | `1` | Positive interpolation step for the low-pass smoother. |
 
 Example config:
 
@@ -718,6 +757,7 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `experimental`
+- Claim scope: `experimental-operator`
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 
 | Parameter | Type | Required | Default | Description |
@@ -746,6 +786,7 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `experimental`
+- Claim scope: `experimental-operator`
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 
 | Parameter | Type | Required | Default | Description |
@@ -775,6 +816,7 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `experimental`
+- Claim scope: `experimental-operator`
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 
 | Parameter | Type | Required | Default | Description |
@@ -804,6 +846,7 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `stable`
+- Claim scope: `maintained`
 - Output components: `trend`, `season`, `residual`, `components.modes`
 
 | Parameter | Type | Required | Default | Description |
@@ -838,6 +881,7 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `experimental`
+- Claim scope: `experimental-operator`
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 
 | Parameter | Type | Required | Default | Description |
@@ -866,6 +910,7 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `stable`
+- Claim scope: `integration`
 - Output components: `trend`, `season`, `residual`, `components.coefficients`
 
 | Parameter | Type | Required | Default | Description |
@@ -891,6 +936,7 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `experimental`
+- Claim scope: `experimental-operator`
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 
 | Parameter | Type | Required | Default | Description |
@@ -920,6 +966,7 @@ Example config:
 
 - Input mode: `univariate`
 - Maturity: `experimental`
+- Claim scope: `experimental-operator`
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 
 | Parameter | Type | Required | Default | Description |

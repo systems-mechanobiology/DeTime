@@ -1,6 +1,8 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
 from dataclasses import dataclass
+from hashlib import sha256
 import json
 import os
 from pathlib import Path
@@ -15,6 +17,7 @@ from urllib.request import Request, urlopen
 TSDECOMPOSE_BENCHMARK_DATASET = "Zipeng365/TSDecompose-Benchmark"
 TSDECOMPOSE_BENCHMARK_CODE_PREFIX = "code/TSDecompose"
 TSDECOMPOSE_BENCHMARK_REVISION = "ff178deae0d4ad21962a38f7588fd2971845469d"
+TSDECOMPOSE_BENCHMARK_SHA256 = "7d16a29b1534cf2ce22aaefc40fd7d331a8ae4ca3a304d655cf21988532d2d57"
 PINNED_REVISION_RE = re.compile(r"^[0-9a-fA-F]{40}$")
 SENSITIVE_ENV_PREFIXES = ("AWS_", "AZURE_", "GOOGLE_", "GCP_")
 SENSITIVE_ENV_NAMES = {
@@ -152,6 +155,40 @@ def _cache_subdir(dataset: str, revision: str, code_prefix: str) -> Path:
     return Path(safe_dataset) / safe_revision / safe_prefix
 
 
+def _snapshot_sha256(benchmark_dir: Path, relative_paths: list[str]) -> str:
+    digest = sha256()
+    for relative_path in sorted(relative_paths):
+        digest.update(relative_path.encode("utf-8"))
+        digest.update(b"\0")
+        digest.update((benchmark_dir / relative_path).read_bytes())
+        digest.update(b"\0")
+    return digest.hexdigest()
+
+
+def _expected_snapshot_sha256(dataset: str, revision: str, code_prefix: str) -> str | None:
+    if (
+        dataset == TSDECOMPOSE_BENCHMARK_DATASET
+        and revision == TSDECOMPOSE_BENCHMARK_REVISION
+        and code_prefix == TSDECOMPOSE_BENCHMARK_CODE_PREFIX
+    ):
+        return TSDECOMPOSE_BENCHMARK_SHA256
+    return None
+
+
+def _verify_snapshot(
+    benchmark_dir: Path,
+    relative_paths: list[str],
+    expected_sha256: str | None,
+) -> str:
+    actual_sha256 = _snapshot_sha256(benchmark_dir, relative_paths)
+    if expected_sha256 and actual_sha256 != expected_sha256:
+        raise BenchmarkSourceError(
+            "External benchmark snapshot digest mismatch: "
+            f"expected {expected_sha256}, got {actual_sha256}."
+        )
+    return actual_sha256
+
+
 def download_tsdecompose_benchmark(
     *,
     cache_dir: str | Path | None = None,
@@ -180,7 +217,19 @@ def download_tsdecompose_benchmark(
     )
     benchmark_dir = root / _cache_subdir(dataset, revision, code_prefix)
     runner = benchmark_dir / "scripts" / "run_paper_benchmark.py"
+    metadata_path = benchmark_dir / ".detime_benchmark_source.json"
+    expected_sha256 = _expected_snapshot_sha256(dataset, revision, code_prefix)
     if runner.exists() and not force:
+        if expected_sha256:
+            try:
+                cached_metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+                cached_files = [str(path) for path in cached_metadata["files"]]
+            except (OSError, KeyError, TypeError, ValueError, json.JSONDecodeError) as exc:
+                raise BenchmarkSourceError(
+                    "Cached benchmark snapshot lacks verifiable digest metadata; "
+                    "download it again with force=True."
+                ) from exc
+            _verify_snapshot(benchmark_dir, cached_files, expected_sha256)
         return benchmark_dir
 
     payload = _read_json_url(_repo_tree_url(dataset, revision))
@@ -199,14 +248,19 @@ def download_tsdecompose_benchmark(
         relative = Path(remote_path).relative_to(code_prefix)
         _download_file(_resolve_url(dataset, revision, remote_path), benchmark_dir / relative)
 
+    relative_paths = [Path(path).relative_to(code_prefix).as_posix() for path in files]
+    snapshot_sha256 = _verify_snapshot(benchmark_dir, relative_paths, expected_sha256)
+
     metadata = {
         "dataset": dataset,
         "revision": revision,
         "code_prefix": code_prefix,
         "file_count": len(files),
+        "files": sorted(relative_paths),
         "runner": "scripts/run_paper_benchmark.py",
+        "sha256": snapshot_sha256,
     }
-    (benchmark_dir / ".detime_benchmark_source.json").write_text(
+    metadata_path.write_text(
         json.dumps(metadata, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )

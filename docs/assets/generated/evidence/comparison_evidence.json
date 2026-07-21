@@ -1,105 +1,99 @@
 {
-  "audit_date": "2026-06-19",
+  "audit_date": "2026-07-14",
+  "audit_date_source": "utc-current",
   "capability_matrix": [
     {
       "batch_cli": "yes",
       "compact_output": "yes",
       "machine_readable_catalog": "yes",
       "maturity_labeling": "explicit",
-      "mcp_tool_surface": "yes",
       "multivariate_support": "yes",
       "package": "DeTime",
-      "primary_scope": "workflow-oriented decomposition layer",
+      "primary_scope": "standalone cross-family time-series decomposition",
       "profiling_path": "yes",
       "unified_config_object": "yes",
       "unified_result_object": "yes"
     },
     {
-      "batch_cli": "no",
-      "compact_output": "no",
-      "machine_readable_catalog": "no",
+      "batch_cli": "library API",
+      "compact_output": "method result",
+      "machine_readable_catalog": "library metadata",
       "maturity_labeling": "implicit",
-      "mcp_tool_surface": "no",
       "multivariate_support": "limited",
       "package": "statsmodels",
       "primary_scope": "classical decomposition and modeling",
-      "profiling_path": "no",
-      "unified_config_object": "no",
-      "unified_result_object": "partial"
+      "profiling_path": "external tooling",
+      "unified_config_object": "per-method constructors",
+      "unified_result_object": "shared for STL/MSTL"
     },
     {
-      "batch_cli": "no",
-      "compact_output": "no",
-      "machine_readable_catalog": "no",
+      "batch_cli": "library API",
+      "compact_output": "IMF arrays",
+      "machine_readable_catalog": "method state",
       "maturity_labeling": "family-specific",
-      "mcp_tool_surface": "no",
       "multivariate_support": "family-specific",
       "package": "PyEMD",
       "primary_scope": "EMD-family toolkit",
-      "profiling_path": "no",
-      "unified_config_object": "no",
-      "unified_result_object": "no"
+      "profiling_path": "external tooling",
+      "unified_config_object": "family classes",
+      "unified_result_object": "IMF arrays"
     },
     {
-      "batch_cli": "no",
-      "compact_output": "no",
-      "machine_readable_catalog": "no",
+      "batch_cli": "library API",
+      "compact_output": "coefficients",
+      "machine_readable_catalog": "transform metadata",
       "maturity_labeling": "family-specific",
-      "mcp_tool_surface": "no",
       "multivariate_support": "transform-specific",
       "package": "PyWavelets",
       "primary_scope": "wavelet toolkit",
-      "profiling_path": "no",
-      "unified_config_object": "no",
-      "unified_result_object": "no"
+      "profiling_path": "external tooling",
+      "unified_config_object": "function arguments",
+      "unified_result_object": "coefficient trees"
     },
     {
-      "batch_cli": "limited",
-      "compact_output": "no",
-      "machine_readable_catalog": "no",
+      "batch_cli": "library API",
+      "compact_output": "method-specific",
+      "machine_readable_catalog": "method documentation",
       "maturity_labeling": "less explicit",
-      "mcp_tool_surface": "no",
       "multivariate_support": "yes",
       "package": "PySDKit",
       "primary_scope": "signal decomposition toolkit",
-      "profiling_path": "no",
-      "unified_config_object": "partial",
-      "unified_result_object": "partial"
+      "profiling_path": "external tooling",
+      "unified_config_object": "method-family classes",
+      "unified_result_object": "method-specific"
     },
     {
-      "batch_cli": "no",
-      "compact_output": "no",
-      "machine_readable_catalog": "no",
+      "batch_cli": "library API",
+      "compact_output": "SSA results",
+      "machine_readable_catalog": "SSA metadata",
       "maturity_labeling": "focused",
-      "mcp_tool_surface": "no",
       "multivariate_support": "no",
       "package": "SSALib",
       "primary_scope": "SSA specialist toolkit",
-      "profiling_path": "no",
+      "profiling_path": "external tooling",
       "unified_config_object": "SSA-specific",
       "unified_result_object": "SSA-specific"
     },
     {
-      "batch_cli": "no",
-      "compact_output": "no",
-      "machine_readable_catalog": "runtime registry; no DeTime schemas",
+      "batch_cli": "library API",
+      "compact_output": "task-specific",
+      "machine_readable_catalog": "runtime estimator registry",
       "maturity_labeling": "ecosystem-level",
-      "mcp_tool_surface": "no",
       "multivariate_support": "partial",
       "package": "sktime",
       "primary_scope": "broad time-series ecosystem",
-      "profiling_path": "no",
-      "unified_config_object": "no",
-      "unified_result_object": "no"
+      "profiling_path": "external tooling",
+      "unified_config_object": "estimator parameters",
+      "unified_result_object": "task-specific"
     }
   ],
   "comparator_versions": {
-    "PyEMD/EMD-signal": "1.6.4",
-    "PySDKit": "0.4.23",
+    "PyEMD/EMD-signal": "not installed in local audit environment",
+    "PySDKit": "0.4.25",
     "PyWavelets": "1.9.0",
     "SSALib": "not installed in local audit environment",
-    "sktime": "0.33.2",
-    "statsmodels": "0.14.5"
+    "sktime": "not installed in local audit environment",
+    "statsmodels": "0.14.6"
   },
   "evidence_type": "curated feature audit",
   "family_fairness": [
@@ -134,17 +128,17 @@
       "specialist_deeper_strength": "broader signal-decomposition toolkit with optional multivariate backends"
     }
   ],
-  "generated_at": "2026-07-05T11:07:02.284341+00:00",
+  "generated_at": "2026-07-14T15:15:44.279658+00:00",
   "install_matrix": [
     {
       "api_docs": "yes",
       "ci_platforms": "ubuntu, macOS, windows",
       "coverage_disclosure": "dual report",
       "docs_website": "GitHub Pages",
-      "github_release": "de-time-v0.1.2",
+      "github_release": "not verified",
       "package": "DeTime",
-      "public_release_story": "0.1.2 public PyPI/GitHub release",
-      "pypi_path": "detime-toolkit",
+      "public_release_story": "0.1.3 local source state; publication status unverified",
+      "pypi_path": "not verified",
       "reproducibility_script": "yes",
       "tutorials": "yes",
       "wheels": "yes"
@@ -235,7 +229,6 @@
       "compact_result_modes": "full/summary/meta",
       "json_schema_assets": "yes",
       "machine_readable_catalog": "yes",
-      "mcp_surface": "optional local-first",
       "metadata_shortlist_interface": "yes",
       "package": "DeTime"
     },
@@ -245,7 +238,6 @@
       "compact_result_modes": "no",
       "json_schema_assets": "no",
       "machine_readable_catalog": "no",
-      "mcp_surface": "no",
       "metadata_shortlist_interface": "no",
       "package": "statsmodels"
     },
@@ -255,7 +247,6 @@
       "compact_result_modes": "no",
       "json_schema_assets": "no",
       "machine_readable_catalog": "no",
-      "mcp_surface": "no",
       "metadata_shortlist_interface": "no",
       "package": "PyEMD"
     },
@@ -265,7 +256,6 @@
       "compact_result_modes": "no",
       "json_schema_assets": "no",
       "machine_readable_catalog": "no",
-      "mcp_surface": "no",
       "metadata_shortlist_interface": "no",
       "package": "PyWavelets"
     },
@@ -275,7 +265,6 @@
       "compact_result_modes": "no",
       "json_schema_assets": "no",
       "machine_readable_catalog": "no",
-      "mcp_surface": "no",
       "metadata_shortlist_interface": "no",
       "package": "PySDKit"
     },
@@ -285,7 +274,6 @@
       "compact_result_modes": "no",
       "json_schema_assets": "no",
       "machine_readable_catalog": "no",
-      "mcp_surface": "no",
       "metadata_shortlist_interface": "no",
       "package": "SSALib"
     },
@@ -295,12 +283,12 @@
       "compact_result_modes": "no",
       "json_schema_assets": "no",
       "machine_readable_catalog": "yes-runtime-registry",
-      "mcp_surface": "no",
       "metadata_shortlist_interface": "no",
       "package": "sktime"
     }
   ],
-  "release_target_version": "0.1.2",
+  "release_state": "local-unverified",
+  "release_target_version": "0.1.3",
   "runtime_memory_boundary": "Feature audit only; no cross-package runtime or peak-memory ranking is claimed.",
   "runtime_snapshot_csv": "docs\\assets\\generated\\evidence\\performance_snapshot.csv"
 }

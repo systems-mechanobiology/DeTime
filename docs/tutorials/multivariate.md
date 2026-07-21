@@ -82,7 +82,7 @@ python -m detime run \
   --param window=24 \
   --param rank=8 \
   --param primary_period=12 \
-  --out_dir out/mssa_run \
+  --out-dir out/mssa_run \
   --output-mode summary
 ```
 

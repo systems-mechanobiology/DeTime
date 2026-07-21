@@ -1,7 +1,9 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
 import argparse
 import csv
+from importlib.metadata import PackageNotFoundError, version
 import json
 import platform
 import statistics
@@ -10,6 +12,11 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
+from _repo_source import prefer_repo_source
+
+ROOT = Path(__file__).resolve().parents[1]
+prefer_repo_source(ROOT)
+
 import numpy as np
 
 import detime
@@ -17,9 +24,18 @@ from detime import DecompositionConfig, decompose, native_capabilities
 from detime._metadata import installed_version
 
 
-ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_JSON = ROOT / "docs" / "assets" / "generated" / "evidence" / "performance_snapshot.json"
 DEFAULT_CSV = ROOT / "docs" / "assets" / "generated" / "evidence" / "performance_snapshot.csv"
+
+
+def _dependency_versions() -> dict[str, str]:
+    versions: dict[str, str] = {}
+    for distribution_name in ("numpy", "scipy", "pydantic", "scikit-learn"):
+        try:
+            versions[distribution_name] = version(distribution_name)
+        except PackageNotFoundError:
+            versions[distribution_name] = "not-installed"
+    return versions
 
 
 def _make_signal(length: int = 240) -> np.ndarray:
@@ -233,6 +249,15 @@ def main() -> int:
             "platform": platform.platform(),
             "python": sys.version.split()[0],
             "machine": platform.machine(),
+            "processor": platform.processor(),
+        },
+        "dependencies": _dependency_versions(),
+        "protocol": {
+            "scope": "single-machine within-package native-vs-Python release validation",
+            "clock": "time.perf_counter",
+            "summary_statistic": "median_ms",
+            "repeat": args.repeat,
+            "warmup": args.warmup,
         },
         "native_capabilities": native_ready,
         "summary_statistic": "median_ms",

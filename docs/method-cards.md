@@ -3,7 +3,7 @@
 This page is generated from `MethodRegistry.list_catalog()` so the human-facing
 method cards stay aligned with the machine-facing catalog contract.
 
-Current package version target: `0.1.2`.
+Current package version target: `0.1.3`.
 
 Source citations and official upstream package links are collected in
 [Method References](method-references.md).
@@ -23,7 +23,9 @@ not the canonical surface for any method listed below.
 - Use when: multivariate component recovery; shared seasonal structure across channels
 - Avoid when: single-series workflows where a univariate core method is sufficient; very short series that cannot support a sensible window length
 - Key params: `window` (null), `rank` (null), `primary_period` (null)
-- Input/backend: `multivariate` input, `native-backed` implementation, maturity `core maintained`
+- Input/backend: `multivariate` input, `native-backed` implementation, maturity `maintained`
+- Claim scope: `maintained`
+- Alias of: none
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.elementary`
 - References: [Method References](method-references.md#mssa)
@@ -36,7 +38,9 @@ See [Config Reference](config-reference.md#mssa) for the full parameter table.
 - Use when: accuracy-first univariate decomposition; component recovery
 - Avoid when: shared-model multivariate decomposition problems; very short series that cannot support a sensible window length
 - Key params: `window` (null), `rank` (null), `primary_period` (null)
-- Input/backend: `univariate` input, `native-backed` implementation, maturity `core maintained`
+- Input/backend: `univariate` input, `native-backed` implementation, maturity `maintained`
+- Claim scope: `maintained`
+- Alias of: none
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.elementary`
 - References: [Method References](method-references.md#ssa)
@@ -49,7 +53,9 @@ See [Config Reference](config-reference.md#ssa) for the full parameter table.
 - Use when: fast seasonal-trend baselines; channelwise multivariate workflows
 - Avoid when: problems that require one shared latent model across channels; series where the dominant period is unknown and cannot be inferred reliably
 - Key params: `period` (null)
-- Input/backend: `channelwise` input, `native-backed` implementation, maturity `core maintained`
+- Input/backend: `channelwise` input, `native-backed` implementation, maturity `maintained`
+- Claim scope: `maintained`
+- Alias of: none
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.dispersion`, `components.seasonal_shape`
 - References: [Method References](method-references.md#std)
@@ -62,7 +68,9 @@ See [Config Reference](config-reference.md#std) for the full parameter table.
 - Use when: robust seasonal-trend decomposition; channelwise multivariate workflows
 - Avoid when: problems that require one shared latent model across channels; series where the dominant period is unknown and cannot be inferred reliably
 - Key params: `period` (null)
-- Input/backend: `channelwise` input, `native-backed` implementation, maturity `core maintained`
+- Input/backend: `channelwise` input, `native-backed` implementation, maturity `maintained`
+- Claim scope: `maintained`
+- Alias of: none
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.dispersion`, `components.seasonal_shape`
 - References: [Method References](method-references.md#stdr)
@@ -77,7 +85,9 @@ See [Config Reference](config-reference.md#stdr) for the full parameter table.
 - Use when: noise-assisted EMD workflows; adaptive decomposition with improved IMF stability
 - Avoid when: shared-model multivariate decomposition problems
 - Key params: `trials` (50), `noise_width` (0.05), `primary_period` (null)
-- Input/backend: `univariate` input, `python` implementation, maturity `stable`
+- Input/backend: `univariate` input, `wrapper` implementation, maturity `stable`
+- Claim scope: `integration`
+- Alias of: none
 - Optional dependencies: PyEMD
 - Output components: `trend`, `season`, `residual`, `components.imfs`
 - References: [Method References](method-references.md#ceemdan)
@@ -90,7 +100,9 @@ See [Config Reference](config-reference.md#ceemdan) for the full parameter table
 - Use when: adaptive decomposition of nonlinear signals; IMF-oriented exploratory analysis
 - Avoid when: shared-model multivariate decomposition problems
 - Key params: `n_imfs` (null), `primary_period` (null)
-- Input/backend: `univariate` input, `python` implementation, maturity `stable`
+- Input/backend: `univariate` input, `wrapper` implementation, maturity `stable`
+- Claim scope: `integration`
+- Alias of: none
 - Optional dependencies: PyEMD
 - Output components: `trend`, `season`, `residual`, `components.imfs`
 - References: [Method References](method-references.md#emd)
@@ -104,6 +116,8 @@ See [Config Reference](config-reference.md#emd) for the full parameter table.
 - Avoid when: shared-model multivariate decomposition problems
 - Key params: `trend_window` (7), `season_period` (null)
 - Input/backend: `univariate` input, `native-backed` implementation, maturity `stable`
+- Claim scope: `maintained`
+- Alias of: none
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`
 - References: [Method References](method-references.md#ma_baseline)
@@ -117,6 +131,8 @@ See [Config Reference](config-reference.md#ma_baseline) for the full parameter t
 - Avoid when: shared-model multivariate decomposition problems; series where the dominant period is unknown and cannot be inferred reliably
 - Key params: `periods` (required)
 - Input/backend: `univariate` input, `wrapper` implementation, maturity `stable`
+- Claim scope: `integration`
+- Alias of: none
 - Optional dependencies: statsmodels
 - Output components: `trend`, `season`, `residual`, `components.seasonal_terms`
 - References: [Method References](method-references.md#mstl)
@@ -130,6 +146,8 @@ See [Config Reference](config-reference.md#mstl) for the full parameter table.
 - Avoid when: shared-model multivariate decomposition problems; series where the dominant period is unknown and cannot be inferred reliably
 - Key params: `period` (required)
 - Input/backend: `univariate` input, `wrapper` implementation, maturity `stable`
+- Claim scope: `integration`
+- Alias of: none
 - Optional dependencies: statsmodels
 - Output components: `trend`, `season`, `residual`
 - References: [Method References](method-references.md#robust_stl)
@@ -143,6 +161,8 @@ See [Config Reference](config-reference.md#robust_stl) for the full parameter ta
 - Avoid when: shared-model multivariate decomposition problems; series where the dominant period is unknown and cannot be inferred reliably
 - Key params: `period` (required)
 - Input/backend: `univariate` input, `wrapper` implementation, maturity `stable`
+- Claim scope: `integration`
+- Alias of: none
 - Optional dependencies: statsmodels
 - Output components: `trend`, `season`, `residual`
 - References: [Method References](method-references.md#stl)
@@ -156,7 +176,9 @@ See [Config Reference](config-reference.md#stl) for the full parameter table.
 - Avoid when: shared-model multivariate decomposition problems
 - Key params: `K` (4), `alpha` (2000.0), `primary_period` (null)
 - Input/backend: `univariate` input, `native-backed` implementation, maturity `stable`
-- Optional dependencies: vmdpy, sktime
+- Claim scope: `maintained`
+- Alias of: none
+- Optional dependencies: vmdpy
 - Output components: `trend`, `season`, `residual`, `components.modes`
 - References: [Method References](method-references.md#vmd)
 
@@ -169,6 +191,8 @@ See [Config Reference](config-reference.md#vmd) for the full parameter table.
 - Avoid when: shared-model multivariate decomposition problems
 - Key params: `wavelet` ("db4"), `level` (null)
 - Input/backend: `univariate` input, `wrapper` implementation, maturity `stable`
+- Claim scope: `integration`
+- Alias of: none
 - Optional dependencies: PyWavelets
 - Output components: `trend`, `season`, `residual`, `components.coefficients`
 - References: [Method References](method-references.md#wavelet)
@@ -184,6 +208,8 @@ See [Config Reference](config-reference.md#wavelet) for the full parameter table
 - Avoid when: single-series workflows where a univariate core method is sufficient; environments where optional backend dependencies cannot be installed
 - Key params: `primary_period` (null)
 - Input/backend: `multivariate` input, `optional-backend` implementation, maturity `optional-backend`
+- Claim scope: `integration`
+- Alias of: none
 - Optional dependencies: PySDKit
 - Output components: `trend`, `season`, `residual`, `components.imfs`
 - References: [Method References](method-references.md#memd)
@@ -197,6 +223,8 @@ See [Config Reference](config-reference.md#memd) for the full parameter table.
 - Avoid when: single-series workflows where a univariate core method is sufficient; environments where optional backend dependencies cannot be installed
 - Key params: `K` (4), `alpha` (2000.0), `primary_period` (null)
 - Input/backend: `multivariate` input, `optional-backend` implementation, maturity `optional-backend`
+- Claim scope: `integration`
+- Alias of: none
 - Optional dependencies: PySDKit
 - Output components: `trend`, `season`, `residual`, `components.modes`
 - References: [Method References](method-references.md#mvmd)
@@ -212,6 +240,8 @@ See [Config Reference](config-reference.md#mvmd) for the full parameter table.
 - Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows
 - Key params: `primary_period` (null), `fit_scope` ("full"), `multiscale_windows` (null)
 - Input/backend: `univariate` input, `python` implementation, maturity `experimental`
+- Claim scope: `experimental-operator`
+- Alias of: none
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#amd_block)
@@ -220,11 +250,13 @@ See [Config Reference](config-reference.md#amd_block) for the full parameter tab
 
 ### `AUTOFORMER_BLOCK`
 
-- Summary: Standalone moving-average decomposition head extracted from the Autoformer architecture.
+- Summary: Compatibility alias for the generic experimental moving-average operator, inspired by Autoformer.
 - Use when: neural-architecture-inspired seasonal-trend baselines; Autoformer-style decomposition ablations
 - Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows
 - Key params: `moving_avg` (null), `primary_period` (null)
 - Input/backend: `univariate` input, `python` implementation, maturity `experimental`
+- Claim scope: `experimental-operator`
+- Alias of: `MOVING_AVERAGE_DECOMPOSITION_BLOCK`
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.moving_mean`
 - References: [Method References](method-references.md#autoformer_block)
@@ -238,6 +270,8 @@ See [Config Reference](config-reference.md#autoformer_block) for the full parame
 - Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows
 - Key params: `primary_period` (null), `fit_scope` ("full"), `alpha` (0.4), `beta` (0.2)
 - Input/backend: `univariate` input, `python` implementation, maturity `experimental`
+- Claim scope: `experimental-operator`
+- Alias of: none
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#delelstm_block)
@@ -246,11 +280,13 @@ See [Config Reference](config-reference.md#delelstm_block) for the full paramete
 
 ### `DLINEAR_BLOCK`
 
-- Summary: Standalone moving-average decomposition head extracted from DLinear-style forecasting blocks.
+- Summary: Compatibility alias for the generic experimental moving-average operator, inspired by DLinear.
 - Use when: DLinear-style trend/season split baselines; fast neural decomposition head comparisons
 - Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows
 - Key params: `moving_avg` (null), `primary_period` (null)
 - Input/backend: `univariate` input, `python` implementation, maturity `experimental`
+- Claim scope: `experimental-operator`
+- Alias of: `MOVING_AVERAGE_DECOMPOSITION_BLOCK`
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.moving_mean`
 - References: [Method References](method-references.md#dlinear_block)
@@ -264,6 +300,8 @@ See [Config Reference](config-reference.md#dlinear_block) for the full parameter
 - Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows
 - Key params: `primary_period` (null), `fit_scope` ("full"), `trend_window` (null), `num_bands` (4)
 - Input/backend: `univariate` input, `python` implementation, maturity `experimental`
+- Claim scope: `experimental-operator`
+- Alias of: none
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#freqmoe_block)
@@ -272,11 +310,13 @@ See [Config Reference](config-reference.md#freqmoe_block) for the full parameter
 
 ### `GABOR_CLUSTER`
 
-- Summary: Experimental optional clustering path that requires a trained Gabor model.
+- Summary: Experimental trained-model clustering operator with optional native acceleration.
 - Use when: research prototypes; exploratory clustering-style decomposition
 - Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows
 - Key params: `model` (null), `model_path` (null)
-- Input/backend: `univariate` input, `optional-backend` implementation, maturity `experimental`
+- Input/backend: `univariate` input, `native-backed` implementation, maturity `experimental`
+- Claim scope: `experimental-operator`
+- Alias of: none
 - Optional dependencies: faiss
 - Output components: `trend`, `season`, `residual`, `components.Cluster_*`
 - References: [Method References](method-references.md#gabor_cluster)
@@ -290,6 +330,8 @@ See [Config Reference](config-reference.md#gabor_cluster) for the full parameter
 - Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows
 - Key params: `primary_period` (null), `fit_scope` ("full"), `trend_window` (null)
 - Input/backend: `univariate` input, `python` implementation, maturity `experimental`
+- Claim scope: `experimental-operator`
+- Alias of: none
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#inparformer_block)
@@ -303,6 +345,8 @@ See [Config Reference](config-reference.md#inparformer_block) for the full param
 - Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows
 - Key params: `kernel_size` (25), `sigma` (1.0)
 - Input/backend: `univariate` input, `python` implementation, maturity `experimental`
+- Claim scope: `experimental-operator`
+- Alias of: none
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.ld_trend`, `components.kernel`
 - References: [Method References](method-references.md#leddam_block)
@@ -311,11 +355,13 @@ See [Config Reference](config-reference.md#leddam_block) for the full parameter 
 
 ### `MOVING_AVERAGE_DECOMPOSITION_BLOCK`
 
-- Summary: Generic neural forecasting moving-average decomposition block exposed as a DeTime method.
+- Summary: Generic experimental moving-average operator; not a forecasting-architecture implementation.
 - Use when: generic decomposition-block smoke tests; fast moving-average neural head baselines
 - Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows
 - Key params: `moving_avg` (null), `primary_period` (null)
 - Input/backend: `univariate` input, `python` implementation, maturity `experimental`
+- Claim scope: `experimental-operator`
+- Alias of: none
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.moving_mean`
 - References: [Method References](method-references.md#moving_average_decomposition_block)
@@ -329,6 +375,8 @@ See [Config Reference](config-reference.md#moving_average_decomposition_block) f
 - Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows
 - Key params: `degree_of_polynomial` (3), `num_harmonics` (8), `fit_scope` ("full"), `n_epochs` (200)
 - Input/backend: `univariate` input, `python` implementation, maturity `experimental`
+- Claim scope: `experimental-operator`
+- Alias of: none
 - Optional dependencies: torch
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#nbeats_interpretable)
@@ -342,6 +390,8 @@ See [Config Reference](config-reference.md#nbeats_interpretable) for the full pa
 - Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows
 - Key params: `primary_period` (null), `fit_scope` ("full"), `trend_window` (null), `num_harmonics` (2)
 - Input/backend: `univariate` input, `python` implementation, maturity `experimental`
+- Claim scope: `experimental-operator`
+- Alias of: none
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#parsimony_block)
@@ -355,6 +405,8 @@ See [Config Reference](config-reference.md#parsimony_block) for the full paramet
 - Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows
 - Key params: `primary_period` (null), `fit_scope` ("full"), `trend_window` (null), `season_smooth_window` (null)
 - Input/backend: `univariate` input, `python` implementation, maturity `experimental`
+- Claim scope: `experimental-operator`
+- Alias of: none
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#st_mtm_block)
@@ -368,6 +420,8 @@ See [Config Reference](config-reference.md#st_mtm_block) for the full parameter 
 - Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows
 - Key params: `primary_period` (null), `fit_scope` ("full"), `trend_window` (null), `num_bands` (2)
 - Input/backend: `univariate` input, `python` implementation, maturity `experimental`
+- Claim scope: `experimental-operator`
+- Alias of: none
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#timekan_block)
@@ -381,6 +435,8 @@ See [Config Reference](config-reference.md#timekan_block) for the full parameter
 - Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows
 - Key params: `primary_period` (null), `fit_scope` ("full"), `top_k_periods` (2), `num_harmonics` (1), `trend_window` (null)
 - Input/backend: `univariate` input, `python` implementation, maturity `experimental`
+- Claim scope: `experimental-operator`
+- Alias of: none
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#times2d_block)
@@ -394,6 +450,8 @@ See [Config Reference](config-reference.md#times2d_block) for the full parameter
 - Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows
 - Key params: `wavelet` ("db4"), `level` (3), `season_levels` ([1, 2])
 - Input/backend: `univariate` input, `python` implementation, maturity `experimental`
+- Claim scope: `experimental-operator`
+- Alias of: none
 - Optional dependencies: PyWavelets
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#waveform_block)
@@ -407,6 +465,8 @@ See [Config Reference](config-reference.md#waveform_block) for the full paramete
 - Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows
 - Key params: `wavelet` ("sym4"), `level` (4), `season_levels` ([1, 2, 3])
 - Input/backend: `univariate` input, `python` implementation, maturity `experimental`
+- Claim scope: `experimental-operator`
+- Alias of: none
 - Optional dependencies: PyWavelets
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#waveletmixer_block)
@@ -420,6 +480,8 @@ See [Config Reference](config-reference.md#waveletmixer_block) for the full para
 - Avoid when: shared-model multivariate decomposition problems; first-pass baselines or high-trust production workflows
 - Key params: `ma_type` ("ema"), `trend_window` (null), `season_smooth` (null)
 - Input/backend: `univariate` input, `python` implementation, maturity `experimental`
+- Claim scope: `experimental-operator`
+- Alias of: none
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#xpatch_block)

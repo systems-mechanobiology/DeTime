@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
 from importlib.metadata import PackageNotFoundError, version
@@ -7,7 +8,7 @@ PRODUCT_NAME = "DeTime"
 DISTRIBUTION_NAME = "detime-toolkit"
 CANONICAL_IMPORT = "detime"
 LEGACY_IMPORT = "tsdecomp"
-FALLBACK_VERSION = "0.1.2"
+FALLBACK_VERSION = "0.1.3"
 LEGACY_COMPATIBILITY_SERIES = "0.1.x"
 LEGACY_EARLIEST_REMOVAL = "0.2.0"
 MACHINE_CONTRACT_VERSION = "0.1"
