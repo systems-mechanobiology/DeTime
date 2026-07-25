@@ -16,6 +16,10 @@ The current branch targets `0.1.3`. Tagged standalone releases use the
 - [`CHANGELOG.md`](https://github.com/systems-mechanobiology/DeTime/blob/main/CHANGELOG.md) tracks package-level changes.
 - [Method References](method-references.md) lists the primary literature and
   official upstream package links for the retained DeTime methods.
+- [Relation to the ICML 2026 decomposition benchmark](https://github.com/systems-mechanobiology/DeTime/blob/main/RELATION_TO_ICML2026.md)
+  distinguishes the earlier Python `TSDecompose` / `tsdecomp` benchmark
+  implementation from the subsequent, independently versioned DeTime package
+  and its public software interfaces.
 - `tsdecomp` remains available only as a deprecated compatibility alias.
 - Benchmark code and review artifacts are no longer part of the release payload
   for the main package.
