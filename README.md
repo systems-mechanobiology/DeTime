@@ -216,7 +216,7 @@ The benchmark code remains in the external Hugging Face bundle
 The ICML study used an earlier Python `TSDecompose` / `tsdecomp`
 implementation. Its relationship to the subsequent DeTime package is
 documented in
-[`RELATION_TO_ICML2026.md`](RELATION_TO_ICML2026.md).
+[`RELATION_TO_ICML2026.md`](https://github.com/systems-mechanobiology/DeTime/blob/main/RELATION_TO_ICML2026.md).
 DeTime provides a bridge API and CLI that downloads the bundle's
 `code/TSDecompose` source snapshot into a local cache and runs its published
 paper-core runner.
