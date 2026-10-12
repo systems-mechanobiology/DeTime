@@ -1,6 +1,7 @@
-# DeTime
+# DeTime: Time-Series Decomposition in Python
 
-One Python and CLI interface for trend, oscillation, residual, components, and metadata.
+DeTime is an open-source Python time-series decomposition toolkit with a CLI for
+trend, oscillation, residual, components, and metadata.
 
 [![License: BSD-3-Clause](https://img.shields.io/badge/license-BSD--3--Clause-0f172a.svg)](LICENSE)
 ![Status: Beta](https://img.shields.io/badge/status-beta-1d4ed8.svg)

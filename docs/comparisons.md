@@ -1,4 +1,9 @@
-# Compare Alternatives
+---
+title: Compare Python Time-Series Decomposition Libraries
+description: Compare DeTime with specialist Python decomposition libraries, including PySDKit, SSALib and sktime. Review workflow differences and measured native-path timings.
+---
+
+# Compare Python Time-Series Decomposition Libraries
 
 DeTime is useful when the project needs one decomposition workflow across
 Python, CLI, saved artifacts, and machine-readable metadata. Specialist

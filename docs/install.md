@@ -1,4 +1,9 @@
-# Install
+---
+title: Install DeTime for Python
+description: Install detime-toolkit from PyPI or build DeTime from source. Configure optional decomposition backends and native C++ support for Python and CLI workflows.
+---
+
+# Install DeTime for Python
 
 ## Current install path
 

@@ -1,4 +1,9 @@
-# Methods & Chooser
+---
+title: Time-Series Decomposition Methods
+description: Choose a DeTime decomposition method for univariate or multichannel time series. Compare SSA, MSSA, STL, VMD, EMD, wavelets and optional backends.
+---
+
+# Time-Series Decomposition Methods in DeTime
 
 Start with the four core maintained paths. Move to wrappers only when the
 data or comparison need points there.
