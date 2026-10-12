@@ -4,7 +4,7 @@
   {% set seo_title = page.meta.seo_title | default(config.site_name) %}
   {% set seo_description = config.site_description %}
 {% elif page %}
-  {% set seo_title = page.title ~ " | " ~ config.site_name %}
+  {% set seo_title = page.meta.title | default(page.title) ~ " | " ~ config.site_name %}
   {% set seo_description = page.meta.description | default(page.title ~ ": DeTime Python and CLI time-series decomposition documentation, examples and reference.") %}
 {% else %}
   {% set seo_title = "Page not found | " ~ config.site_name %}
