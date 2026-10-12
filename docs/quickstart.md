@@ -1,4 +1,9 @@
-# Quickstart
+---
+title: Python Time-Series Decomposition Quickstart
+description: Run your first DeTime time-series decomposition in Python or the CLI. Use SSA and MSSA to extract trend, seasonal components and residuals.
+---
+
+# DeTime Quickstart: Time-Series Decomposition in Python
 
 Before you start, install the released package:
 

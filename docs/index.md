@@ -1,8 +1,19 @@
-# DeTime
+---
+seo_title: DeTime | Time-Series Decomposition in Python
+---
 
-DeTime is a time-series decomposition Python package and CLI software contract for
-trend, oscillation, residual, method-specific components, and metadata across
-univariate and aligned multichannel decomposition workflows.
+# DeTime: Time-Series Decomposition in Python
+
+DeTime is an open-source Python time-series decomposition toolkit and command-line
+tool. Extract trend, seasonal or oscillatory components, and residuals from a single
+series or aligned multichannel data using one interface for SSA, MSSA, STL, VMD,
+EMD, wavelets, and other decomposition methods.
+
+Also written as **De-Time**, the package is distributed as
+[`detime-toolkit` on PyPI](https://pypi.org/project/detime-toolkit/) and imported as
+`detime`. See the [source code](https://github.com/systems-mechanobiology/DeTime)
+and [Zipeng Wu's research homepage](https://zipengwu.me/) for the project and its
+research context.
 
 <div class="hero-panel hero-split linear-theme">
   <div class="hero-copy">
@@ -13,7 +24,7 @@ univariate and aligned multichannel decomposition workflows.
     <p>Give DeTime one series or aligned multichannel data. It returns trend, seasonal or oscillatory structure, residuals, method-specific components, and metadata through the same Python and CLI interface.</p>
     <div class="hero-actions">
       <a href="quickstart/">Run First Example</a>
-      <a class="secondary" href="install/">Install from GitHub</a>
+      <a class="secondary" href="install/">Install DeTime</a>
     </div>
   </div>
   <div class="hero-visual">
@@ -165,7 +176,7 @@ univariate and aligned multichannel decomposition workflows.
   <a class="info-card" href="install/">
     <span class="card-icon icon-install"></span>
     <h3>Install</h3>
-    <p>Current GitHub install path, extras, native build prerequisites, and FAQ.</p>
+    <p>Install detime-toolkit from PyPI, choose extras, or build from source.</p>
   </a>
   <a class="info-card" href="quickstart/">
     <span class="card-icon icon-quickstart"></span>

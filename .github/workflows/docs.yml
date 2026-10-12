@@ -10,6 +10,7 @@ on:
       - master
     paths:
       - "docs/**"
+      - "overrides/**"
       - "benchmarks/**"
       - "examples/**"
       - "mkdocs.yml"

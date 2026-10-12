@@ -1,18 +1,40 @@
 {% extends "base.html" %}
 
+{% if page and page.is_homepage %}
+  {% set seo_title = page.meta.seo_title | default(config.site_name) %}
+  {% set seo_description = config.site_description %}
+{% elif page %}
+  {% set seo_title = page.title ~ " | " ~ config.site_name %}
+  {% set seo_description = page.meta.description | default(page.title ~ ": DeTime Python and CLI time-series decomposition documentation, examples and reference.") %}
+{% else %}
+  {% set seo_title = "Page not found | " ~ config.site_name %}
+  {% set seo_description = config.site_description %}
+{% endif %}
+
+{% block htmltitle %}
+  <title>{{ seo_title | e }}</title>
+{% endblock %}
+
 {% block extrahead %}
   {{ super() }}
+  {% if page %}
+  {% if not page.is_homepage %}<meta name="description" content="{{ seo_description | e }}">{% endif %}
   <meta name="robots" content="index, follow, max-image-preview:large">
-  <meta name="keywords" content="DeTime, detime, de-time, time series decomposition, Python time series, SSA, MSSA, VMD, STL, decomposition software">
+  {% else %}
+  <meta name="robots" content="noindex, follow">
+  {% endif %}
   <meta property="og:site_name" content="DeTime">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="DeTime - Python and CLI time-series decomposition">
-  <meta property="og:description" content="DeTime is a Python and CLI toolkit for reproducible time-series decomposition across SSA, MSSA, VMD, STL, EMD, wavelet, and native C++ backed methods.">
-  <meta property="og:url" content="https://systems-mechanobiology.github.io/DeTime/">
-  <meta property="og:image" content="https://systems-mechanobiology.github.io/DeTime/assets/brand/detime-title-card.svg">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="DeTime - time-series decomposition for Python">
-  <meta name="twitter:description" content="Python and CLI software for reusable trend, oscillation, residual, metadata, schema, and artifact outputs.">
+  <meta property="og:title" content="{{ seo_title | e }}">
+  <meta property="og:description" content="{{ seo_description | e }}">
+  {% if page and page.canonical_url %}<meta property="og:url" content="{{ page.canonical_url | e }}">{% endif %}
+  <meta property="og:image" content="{{ config.site_url }}assets/brand/detime-logo-color.png">
+  <meta property="og:image:alt" content="DeTime time-series decomposition toolkit">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{ seo_title | e }}">
+  <meta name="twitter:description" content="{{ seo_description | e }}">
+  <meta name="twitter:image" content="{{ config.site_url }}assets/brand/detime-logo-color.png">
+  {% if page %}
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -21,7 +43,7 @@
         "@type": "WebSite",
         "@id": "https://systems-mechanobiology.github.io/DeTime/#website",
         "name": "DeTime",
-        "alternateName": ["detime", "de-time", "De-Time"],
+        "alternateName": ["detime", "De-Time", "detime-toolkit"],
         "url": "https://systems-mechanobiology.github.io/DeTime/",
         "description": "DeTime documentation for Python and CLI time-series decomposition software.",
         "inLanguage": "en"
@@ -30,19 +52,37 @@
         "@type": "SoftwareSourceCode",
         "@id": "https://systems-mechanobiology.github.io/DeTime/#software",
         "name": "DeTime",
-        "alternateName": ["detime", "de-time", "De-Time"],
+        "alternateName": ["detime", "De-Time", "detime-toolkit"],
         "description": "Python and CLI toolkit for reproducible time-series decomposition with native C++ backed SSA, MSSA, VMD, STD, STDR, MA baseline, and Gabor clustering paths.",
         "codeRepository": "https://github.com/systems-mechanobiology/DeTime",
+        "sameAs": [
+          "https://github.com/systems-mechanobiology/DeTime",
+          "https://pypi.org/project/detime-toolkit/"
+        ],
+        "license": "https://github.com/systems-mechanobiology/DeTime/blob/main/LICENSE",
         "url": "https://systems-mechanobiology.github.io/DeTime/",
         "programmingLanguage": ["Python", "C++"],
         "applicationCategory": "Scientific software",
         "keywords": "DeTime, time-series decomposition, Python, SSA, MSSA, VMD, STL, EMD, wavelet, native C++",
         "author": {
           "@type": "Person",
-          "name": "Zipeng Wu"
+          "@id": "https://zipengwu.me/#person",
+          "name": "Zipeng Wu",
+          "url": "https://zipengwu.me/",
+          "sameAs": ["https://github.com/ZipengWu365"]
         }
+      },
+      {
+        "@type": "WebPage",
+        "@id": {{ (page.canonical_url ~ "#webpage") | tojson }},
+        "url": {{ page.canonical_url | tojson }},
+        "name": {{ seo_title | tojson }},
+        "description": {{ seo_description | tojson }},
+        "isPartOf": {"@id": "https://systems-mechanobiology.github.io/DeTime/#website"},
+        "about": {"@id": "https://systems-mechanobiology.github.io/DeTime/#software"}
       }
     ]
   }
   </script>
+  {% endif %}
 {% endblock %}

@@ -1,5 +1,5 @@
 site_name: DeTime
-site_description: DeTime is Python and CLI research software for reusable time-series decomposition outputs.
+site_description: DeTime is a Python time-series decomposition toolkit with a CLI. Extract trend, seasonal components and residuals with SSA, MSSA, STL, VMD and more.
 site_author: Zipeng Wu
 site_url: https://systems-mechanobiology.github.io/DeTime/
 repo_name: systems-mechanobiology/DeTime
