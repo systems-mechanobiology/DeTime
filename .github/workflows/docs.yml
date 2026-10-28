@@ -18,6 +18,8 @@ on:
       - "MANIFEST.in"
       - "pyproject.toml"
       - "scripts/check_doc_consistency.py"
+      - "scripts/check_site_seo.py"
+      - "tests/docs/test_site_seo.py"
       - "scripts/generate_schema_assets.py"
       - "scripts/generate_method_cards.py"
       - "scripts/generate_notebook_gallery.py"
@@ -132,6 +134,8 @@ jobs:
           python benchmarks/token_benchmarks/generate_token_benchmarks.py
           python scripts/check_doc_consistency.py
           mkdocs build --strict
+          python -m unittest discover -s tests/docs -p test_site_seo.py
+          python scripts/check_site_seo.py
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

@@ -1,3 +1,8 @@
+---
+title: Hot Trend Lab — Real Data Trend and Cycle Decomposition
+description: Use DeTime to separate trends, cycles and shocks in public arXiv, Hugging Face, GitHub and attention data, with source protocols and interpretation limits.
+---
+
 # Hot Trend Lab: Real Data Trend and Cycle Decomposition
 
 Hot topics usually have three time structures: a durable trend, a repeating
