@@ -150,7 +150,10 @@ jobs:
         run: python benchmarks/token_benchmarks/generate_token_benchmarks.py
 
       - name: Build documentation
-        run: mkdocs build --strict
+        run: |
+          mkdocs build --strict
+          python -m unittest discover -s tests/docs -p test_site_seo.py
+          python scripts/check_site_seo.py
 
   optional-backend-smoke:
     name: Optional backends (ubuntu, py3.11)

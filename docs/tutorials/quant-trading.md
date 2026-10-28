@@ -1,3 +1,8 @@
+---
+title: Time-Series Decomposition for Quant Trading
+description: Explore DeTime quant research tutorials for trend following, residual reversion and pairs trading, with executed notebooks and walk-forward validation.
+---
+
 # Decomposition-First Quant Trading Tutorials with DeTime
 
 This tutorial sequence rebuilds the quant-trading examples around one thesis:
