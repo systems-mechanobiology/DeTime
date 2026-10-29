@@ -46,6 +46,13 @@ def mstl_decompose(
     y: np.ndarray,
     params: Dict[str, Any],
 ) -> DecompResult:
+    """Return MSTL components in the input scale, including after Box-Cox.
+
+    For a transformed trend T and combined seasonal term S, the original-scale
+    allocation is trend = inverse(T), season = inverse(T + S) - inverse(T), and
+    residual = y - inverse(T + S). Nonlinear inverse transforms do not preserve
+    additivity when applied to each component independently.
+    """
     try:
         from statsmodels.tsa.seasonal import MSTL
     except ImportError as exc:
@@ -75,7 +82,21 @@ def mstl_decompose(
         raise ValueError("MSTL 'periods' must contain integer values >= 2.")
     periods = [int(period) for period in period_values]
 
-    mstl = MSTL(y, periods=periods, **cfg)
+    requested_lmbda = cfg.get("lmbda")
+    upstream_cfg = dict(cfg)
+    if isinstance(upstream_cfg.get("stl_kwargs"), dict):
+        # MSTL removes fit-only options from this nested dictionary in-place.
+        upstream_cfg["stl_kwargs"] = dict(upstream_cfg["stl_kwargs"])
+    fit_y = y
+    if requested_lmbda == 0:
+        # statsmodels 0.14/0.15 use a truthiness check for fixed lambda, which
+        # skips lambda=0. Apply its log transform explicitly and fit once.
+        fit_y = np.asarray(y, dtype=float)
+        if np.any(fit_y <= 0):
+            raise ValueError("MSTL with lmbda=0 requires strictly positive input.")
+        fit_y = np.log(fit_y)
+        upstream_cfg["lmbda"] = None
+    mstl = MSTL(fit_y, periods=periods, **upstream_cfg)
     res = mstl.fit()
 
     seasonal = np.asarray(res.seasonal, dtype=float)
@@ -87,11 +108,16 @@ def mstl_decompose(
     trend = np.asarray(res.trend, dtype=float)
     residual = np.asarray(res.resid, dtype=float)
     effective_lmbda = None
-    observed = np.asarray(getattr(res, "observed", y), dtype=float)
-    if not np.allclose(observed, np.asarray(y, dtype=float)):
+    if requested_lmbda == "auto":
+        effective_lmbda = getattr(mstl, "est_lmbda", None)
+        if effective_lmbda is None or not np.isfinite(effective_lmbda):
+            raise ValueError("MSTL did not return a finite estimated Box-Cox lambda.")
+    elif requested_lmbda is not None:
+        # In statsmodels 0.15 est_lmbda exists but stays None for fixed lambda.
+        effective_lmbda = float(requested_lmbda)
+    if effective_lmbda is not None:
         from scipy.special import inv_boxcox
 
-        effective_lmbda = getattr(mstl, "est_lmbda", cfg.get("lmbda"))
         fitted = inv_boxcox(trend + season, effective_lmbda)
         original_trend = inv_boxcox(trend, effective_lmbda)
         if not np.isfinite(fitted).all() or not np.isfinite(original_trend).all():

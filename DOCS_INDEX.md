@@ -49,6 +49,10 @@ This file is a compact documentation map for agents and contributors.
   - comparison framing under the top-nav `Project` group
 - `docs/comparison-evidence.md`
   - generated cross-package evidence appendix, linked from `docs/comparisons.md`
+- `docs/research/index.md`
+  - practical method guides, literature map, CSV/BibTeX reading list, and English sharing drafts
+- `docs/ml-workflows.md`
+  - executable history-only forecasting feature comparison with held-out targets
 
 ## Examples
 

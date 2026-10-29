@@ -97,7 +97,7 @@ Related packages:
 - Optional/runtime dependencies: statsmodels
 
 Primary references:
-- [Bandara, Hyndman, and Bergmeir (2021), MSTL: A Seasonal-Trend Decomposition Algorithm for Time Series with Multiple Seasonal Patterns](https://arxiv.org/abs/2107.13462) - Primary MSTL reference used by the statsmodels implementation.
+- [Bandara, Hyndman, and Bergmeir (2025), MSTL: a seasonal-trend decomposition algorithm for time series with multiple seasonal patterns](https://doi.org/10.1504/IJOR.2025.143957) - Published in International Journal of Operational Research 52(1), 79-98; the earlier preprint is arXiv:2107.13462.
 
 Related packages:
 - [statsmodels](https://www.statsmodels.org/) - Official project site for the upstream MSTL implementation.

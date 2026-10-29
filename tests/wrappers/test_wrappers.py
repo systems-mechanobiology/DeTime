@@ -52,10 +52,13 @@ def test_stl_family_with_fake_statsmodels(monkeypatch: pytest.MonkeyPatch) -> No
                     np.full_like(self.y, 1.5),
                 ]
             )
+            self.est_lmbda = 0.5
+            observed = 2.0 * (np.sqrt(self.y) - 1.0)
             return SimpleNamespace(
+                observed=observed,
                 trend=np.full_like(self.y, 1.0),
                 seasonal=seasonals,
-                resid=self.y - 3.0,
+                resid=observed - 3.0,
             )
 
     seasonal = ModuleType("statsmodels.tsa.seasonal")
@@ -65,7 +68,7 @@ def test_stl_family_with_fake_statsmodels(monkeypatch: pytest.MonkeyPatch) -> No
     monkeypatch.setitem(__import__("sys").modules, "statsmodels.tsa", ModuleType("statsmodels.tsa"))
     monkeypatch.setitem(__import__("sys").modules, "statsmodels.tsa.seasonal", seasonal)
 
-    y = np.arange(12, dtype=float)
+    y = np.arange(1, 13, dtype=float)
     stl_result = stl.stl_decompose(
         y,
         {
@@ -137,6 +140,95 @@ def test_mstl_boxcox_output_preserves_original_scale_contract() -> None:
     assert result.meta["boxcox_lambda"] == pytest.approx(0.5)
 
 
+@pytest.mark.parametrize("lmbda", [None, 0.0, 0.5, 1.0, -0.5, "auto"])
+@pytest.mark.parametrize("periods", [(12,), (12, 24)])
+def test_mstl_components_match_explicit_transformed_fit(lmbda, periods) -> None:
+    from scipy.special import inv_boxcox
+    from scipy.stats import boxcox
+    from statsmodels.tsa.seasonal import MSTL
+
+    t = np.arange(240, dtype=float)
+    y = 10.0 + 0.01 * t + np.sin(2 * np.pi * t / 12)
+    y += 0.5 * np.sin(2 * np.pi * t / 24) + 0.1 * np.cos(2 * np.pi * t / 7)
+    windows = (7, 11)[:len(periods)]
+    if lmbda == "auto":
+        transformed, expected_lmbda = boxcox(y)
+    elif lmbda is not None:
+        expected_lmbda = lmbda
+        transformed = boxcox(y, lmbda=lmbda)
+    else:
+        expected_lmbda = None
+        transformed = y
+    reference = MSTL(transformed, periods=periods, windows=windows).fit()
+    reference_season = np.asarray(reference.seasonal)
+    if reference_season.ndim == 2:
+        reference_season = reference_season.sum(axis=1)
+    if expected_lmbda is None:
+        expected_trend = reference.trend
+        expected_season = reference_season
+        expected_residual = reference.resid
+    else:
+        expected_trend = inv_boxcox(reference.trend, expected_lmbda)
+        expected_fit = inv_boxcox(reference.trend + reference_season, expected_lmbda)
+        expected_season = expected_fit - expected_trend
+        expected_residual = y - expected_fit
+
+    result = decompose(
+        y,
+        DecompositionConfig(
+            method="MSTL",
+            params={"periods": periods, "windows": windows, "lmbda": lmbda},
+        ),
+    )
+
+    np.testing.assert_allclose(result.trend, expected_trend, rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(result.season, expected_season, rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(result.residual, expected_residual, rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(result.trend + result.season + result.residual, y)
+    assert result.meta["output_scale"] == "original"
+    if expected_lmbda is None:
+        assert result.meta["boxcox_lambda"] is None
+    else:
+        assert result.meta["boxcox_lambda"] == pytest.approx(expected_lmbda)
+    assert result.meta["params"]["lmbda"] == lmbda
+
+
+def test_mstl_transform_is_not_detected_by_float_closeness() -> None:
+    from statsmodels.tsa.seasonal import MSTL
+
+    t = np.arange(120, dtype=float)
+    y = 1e6 + 0.1 * t + np.sin(2 * np.pi * t / 12)
+    assert np.allclose(y - 1.0, y)
+    reference = MSTL(y - 1.0, periods=(12,)).fit()
+    result = decompose(
+        y, DecompositionConfig(method="MSTL", params={"periods": (12,), "lmbda": 1.0})
+    )
+    np.testing.assert_allclose(result.trend, reference.trend + 1.0, rtol=0, atol=1e-7)
+    assert result.meta["boxcox_lambda"] == 1.0
+
+
+@pytest.mark.parametrize("invalid_value", [0.0, -1.0])
+def test_mstl_log_transform_rejects_nonpositive_input(invalid_value) -> None:
+    y = np.ones(120)
+    y[10] = invalid_value
+    with pytest.raises(ValueError, match="strictly positive"):
+        decompose(
+            y, DecompositionConfig(method="MSTL", params={"periods": (12,), "lmbda": 0.0})
+        )
+
+
+def test_mstl_preserves_nested_stl_options() -> None:
+    t = np.arange(120, dtype=float)
+    y = 10.0 + np.sin(2 * np.pi * t / 12)
+    options = {"robust": True, "inner_iter": 2, "outer_iter": 1}
+    config = DecompositionConfig(
+        method="MSTL", params={"periods": (12,), "stl_kwargs": options.copy()}
+    )
+    result = decompose(y, config)
+    assert config.params["stl_kwargs"] == options
+    assert result.meta["params"]["stl_kwargs"] == options
+
+
 def test_wavelet_decompose_with_fake_pywt(monkeypatch: pytest.MonkeyPatch) -> None:
     class FakeWavelet:
         def __init__(self, name: str):
@@ -169,6 +261,13 @@ def test_emd_ceemdan_and_vmd_with_fake_backends(monkeypatch: pytest.MonkeyPatch)
             return np.vstack([0.6 * arr, 0.3 * arr, 0.1 * arr])
 
     class FakeCEEMDAN:
+        def __init__(self, **kwargs):
+            for name, value in kwargs.items():
+                setattr(self, name, value)
+
+        def noise_seed(self, seed):
+            self.seed = seed
+
         def __call__(self, y):
             arr = np.asarray(y, dtype=float)
             return np.vstack([0.5 * arr, 0.25 * arr, 0.25 * arr])

@@ -1,6 +1,8 @@
 # SPDX-License-Identifier: BSD-3-Clause
 import numpy as np
+import warnings
 from typing import Dict, Any, Tuple, Optional
+from ..backends import split_runtime_params
 from ..core import DecompResult
 from ..registry import MethodRegistry
 from .utils import dominant_frequency
@@ -39,9 +41,13 @@ def assign_imfs_to_components(
 
     if not trend_mask.any():
         trend_mask[np.argmin(freqs)] = True
+    # A mode contributes to at most one named component. In particular, a
+    # single low-frequency mode must not be counted as both trend and season.
+    season_mask &= ~trend_mask
     if not season_mask.any():
-        if primary_freq:
-            idx = int(np.argmin(np.abs(freqs - primary_freq)))
+        candidates = np.flatnonzero(~trend_mask)
+        if primary_freq and candidates.size:
+            idx = candidates[np.argmin(np.abs(freqs[candidates] - primary_freq))]
             season_mask[idx] = True
         else:
             season_mask[~trend_mask] = True
@@ -57,12 +63,37 @@ def ceemdan_decompose(
             "PyEMD>=1.0 is required for CEEMDAN decomposition. Install 'detime-toolkit[emd]' or 'EMD-signal'."
         ) from _CEEMDAN_IMPORT_ERROR
 
-    cfg = params.copy()
-    ceemdan = CEEMDAN()
-    if "trials" in cfg:
-        ceemdan.trials = int(cfg["trials"])
+    cfg, runtime = split_runtime_params(params)
+    if runtime.backend == "native":
+        raise ValueError("CEEMDAN only provides a python backend.")
+    if "epsilon" in cfg and "noise_width" in cfg:
+        raise ValueError("CEEMDAN accepts either epsilon or legacy noise_width, not both.")
     if "noise_width" in cfg:
-        ceemdan.noise_width = float(cfg["noise_width"])
+        warnings.warn(
+            "CEEMDAN noise_width is deprecated; use epsilon. The legacy parameter "
+            "previously had no effect and now controls the upstream epsilon value.",
+            FutureWarning,
+            stacklevel=2,
+        )
+    trials = int(cfg.get("trials", 100))
+    epsilon = float(cfg.get("epsilon", cfg.get("noise_width", 0.005)))
+    parallel = runtime.n_jobs > 1
+    backend_options = {"trials": trials, "epsilon": epsilon, "parallel": parallel}
+    if parallel:
+        backend_options["processes"] = runtime.n_jobs
+    ceemdan = CEEMDAN(**backend_options)
+    if runtime.seed is not None:
+        ceemdan.noise_seed(int(runtime.seed))
+
+    runtime_meta = {
+        "method": "CEEMDAN",
+        "backend_used": "python",
+        "trials": trials,
+        "epsilon": epsilon,
+        "seed": runtime.seed,
+        "n_jobs": runtime.n_jobs,
+        "parallel": parallel,
+    }
 
     imfs = ceemdan(y)
     imfs = np.asarray(imfs, dtype=float)
@@ -75,7 +106,8 @@ def ceemdan_decompose(
             trend=zeros,
             season=zeros,
             residual=y.copy(),
-            meta={"method": "CEEMDAN", "imfs": []}
+            components={"imfs": imfs},
+            meta={**runtime_meta, "imfs": []}
         )
 
     fs = float(cfg.get("fs", 1.0))
@@ -93,8 +125,9 @@ def ceemdan_decompose(
         trend=trend,
         season=season,
         residual=residual,
+        components={"imfs": imfs},
         meta={
-            "method": "CEEMDAN",
+            **runtime_meta,
             "dominant_frequencies": freqs.tolist(),
             "trend_mask": trend_mask.tolist(),
             "season_mask": season_mask.tolist(),

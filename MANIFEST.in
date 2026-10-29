@@ -11,6 +11,8 @@ recursive-include native *.cpp *.hpp *.h
 recursive-include tests *.py
 include docs/*.md
 recursive-include docs/gallery *.md
+recursive-include docs/research *.md *.csv *.bib
+recursive-include docs/maintenance *.md
 include docs/tutorials/*.md
 include docs/tutorials/quant-trading/*.md
 include docs/tutorials/hot-trend-lab/*.md

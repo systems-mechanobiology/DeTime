@@ -7,12 +7,13 @@ trend, oscillation, residual, components, and metadata.
 ![Status: Beta](https://img.shields.io/badge/status-beta-1d4ed8.svg)
 [![Release target: 0.1.3](https://img.shields.io/badge/release%20target-0.1.3-0f766e.svg)](CHANGELOG.md)
 [![Docs: GitHub Pages](https://img.shields.io/badge/docs-GitHub_Pages-0b5fff.svg)](https://systems-mechanobiology.github.io/DeTime/)
+[![CI](https://github.com/systems-mechanobiology/DeTime/actions/workflows/ci.yml/badge.svg)](https://github.com/systems-mechanobiology/DeTime/actions/workflows/ci.yml)
 ![Python: 3.10+](https://img.shields.io/badge/python-3.10%2B-0f766e.svg)
 [![PyPI](https://img.shields.io/pypi/v/detime-toolkit.svg)](https://pypi.org/project/detime-toolkit/)
-[![Unit tests: 145 passed, 1 skipped](https://img.shields.io/badge/unit%20tests-145%20passed%2C%201%20skipped-brightgreen.svg)](tests/)
+[![Release tests: 145 passed, 1 skipped](https://img.shields.io/badge/release%20tests-145%20passed%2C%201%20skipped-brightgreen.svg)](README.md#quality-and-evidence)
 [![Core coverage: 92.33%](https://img.shields.io/badge/core%20coverage-92.33%25-brightgreen.svg)](README.md#quality-and-evidence)
 [![Package coverage: 87.78%](https://img.shields.io/badge/package%20coverage-87.78%25-84cc16.svg)](README.md#quality-and-evidence)
-[![Release-timed native paths: 6](https://img.shields.io/badge/release--timed%20native%20paths-6-475569.svg)](docs/comparisons.md#native-path-timing)
+[![Release-timed native paths: 6](https://img.shields.io/badge/release--timed%20native%20paths-6-475569.svg)](docs/comparisons.md#runtime-snapshot)
 [![CLI: detime](https://img.shields.io/badge/CLI-detime-2563eb.svg)](docs/quickstart.md)
 [![Schemas: JSON](https://img.shields.io/badge/schemas-JSON-0891b2.svg)](docs/machine-api.md)
 [![Native kernels: C++](https://img.shields.io/badge/native%20kernels-C%2B%2B-475569.svg)](native/)
@@ -36,12 +37,22 @@ the repository head.
 Fast entry points:
 
 - [Documentation site](https://systems-mechanobiology.github.io/DeTime/)
+- [Research guides and verified reading list](docs/research/index.md)
 - [Inline method gallery](https://systems-mechanobiology.github.io/DeTime/notebook-gallery/)
 - [Beginner notebook method gallery](examples/notebooks/de_time_method_gallery.ipynb)
 - [Cross-package comparison](docs/comparisons.md)
 - [Method comparison matrix](docs/method-matrix.md)
 - [Release manifest](RELEASE_MANIFEST.md)
 - [Release evidence tables](docs/reproducibility.md)
+
+## Read, compare, and try
+
+- **[STL, SSA, Wavelets, EMD, or VMD? Choosing Python Decomposition Tools](docs/research/python-decomposition-tools.md)** compares method assumptions, outputs, reproducibility controls, and library workflows using official sources.
+- **[Time-Series Decomposition in 2026: Algorithms, Tokens, and Losses](docs/research/decomposition-landscape-2026.md)** maps 20 selected references across classical algorithms, neural blocks, tokenizers, objectives, and evaluation, with [CSV](docs/research/decomposition-reading-list.csv) and [BibTeX](docs/research/decomposition-reading-list.bib) downloads.
+- **[History-only forecasting features](docs/ml-workflows.md)** is a runnable example comparing raw lags and decomposition features on held-out prediction origins.
+
+These guides are written by the DeTime maintainers. Source-head fixes and
+released wheels are distinguished in the [changelog](CHANGELOG.md).
 
 ## Scope
 

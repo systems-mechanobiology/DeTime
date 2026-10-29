@@ -6,6 +6,42 @@ The project brand is **DeTime**, the PyPI distribution is `detime-toolkit`, the
 preferred Python import path is `detime`, and the legacy `tsdecomp` import/CLI
 aliases remain available for compatibility.
 
+## [Unreleased]
+
+### Maintenance
+
+- fixes MSTL Box-Cox conversion with statsmodels 0.15, supports the zero-lambda
+  logarithm explicitly, and preserves the original-scale additive result
+  contract and nested STL configuration
+- forwards CEEMDAN noise settings and the top-level random seed to PyEMD;
+  uses serial execution for `n_jobs=1` and bounds worker count for larger values
+- introduces the canonical CEEMDAN `epsilon` parameter; legacy `noise_width`
+  now maps to `epsilon` with a warning because it previously had no effect
+- records effective CEEMDAN settings, returns the documented IMF array, and
+  prevents a mode from being assigned to both trend and season
+- rejects an explicitly requested native CEEMDAN backend, since this method
+  uses the Python upstream integration
+- corrects the documented CEEMDAN defaults to the previously used upstream
+  values (`trials=100`, `epsilon=0.005`), removes an unsupported MSTL extra
+  component listing, and updates MSTL's citation to its 2025 journal version
+
+### Research guides and examples
+
+- adds a source-linked comparison of Python decomposition tools and a
+  20-reference research map spanning classical algorithms, tokenization,
+  neural modules, training objectives, and evaluation through 2026
+- provides matching CSV/BibTeX references and English sharing drafts, with
+  implemented methods distinguished from literature candidates
+- replaces the ML example's same-time reconstruction regression with
+  history-only features and held-out one-step forecasting evaluation
+- connects the guides from the README and documentation site, preserves
+  generated metadata checks, and adds a live CI badge beside release evidence
+
+These are source-branch changes. The existing `detime-toolkit==0.1.3` wheel
+and release tag are unchanged. The
+[maintenance note](docs/maintenance/2026-10-29.md) records verification and
+the compatibility changes relevant to reproducing prior results.
+
 ## [0.1.3] - 2026-07-14
 
 ### Contract and provenance corrections

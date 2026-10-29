@@ -195,6 +195,26 @@ research context.
   </a>
 </div>
 
+## Research and Method Selection
+
+<div class="info-grid">
+  <a class="info-card" href="research/python-decomposition-tools/">
+    <span class="card-icon icon-compare"></span>
+    <h3>Which Python Decomposition Tool?</h3>
+    <p>Compare STL, SSA, wavelets, EMD and VMD by assumptions, outputs, and reproducibility controls.</p>
+  </a>
+  <a class="info-card" href="research/decomposition-landscape-2026/">
+    <span class="card-icon icon-refs"></span>
+    <h3>Decomposition Research in 2026</h3>
+    <p>Explore algorithms, tokenizers, training losses, and component evaluation with 20 verified references.</p>
+  </a>
+  <a class="info-card" href="ml-workflows/">
+    <span class="card-icon icon-quickstart"></span>
+    <h3>Build Forecasting Features</h3>
+    <p>Run a history-only example with raw-lag and decomposition-feature models on held-out forecast origins.</p>
+  </a>
+</div>
+
 ## Applications
 
 These examples show how the same decomposition interface can be used in larger

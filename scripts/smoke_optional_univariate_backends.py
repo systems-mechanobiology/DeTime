@@ -22,7 +22,7 @@ def main() -> None:
     _check("EMD", {"primary_period": 12, "n_imfs": 3})
     _check(
         "CEEMDAN",
-        {"primary_period": 12, "trials": 2, "noise_width": 0.02},
+        {"primary_period": 12, "trials": 2, "epsilon": 0.02},
     )
     print("optional EMD/CEEMDAN backends passed")
 
