@@ -12,6 +12,9 @@ in docs builds and local checkouts.
 
 Regenerate this page and its assets with `python scripts/generate_notebook_gallery.py`.
 
+[Animated method explanations](methods.md#animated-method-explanations) show the
+calculation steps for every registered method, with GIFs, static images and source arrays.
+
 ## Imports and synthetic data
 
 ```python
@@ -167,6 +170,8 @@ def run_gallery_case(name):
 
 ## Univariate SSA
 
+[Watch how SSA works](gallery/ssa.md#how-it-works).
+
 ```python
 case = CASES["SSA"]
 run_gallery_case("SSA")
@@ -188,6 +193,8 @@ residual RMSE: 0.00000000
 ![SSA decomposition](assets/generated/notebooks/method-gallery/ssa.png)
 
 ## Seasonal-trend decomposition
+
+[Watch how STD works](gallery/std.md#how-it-works).
 
 ```python
 case = CASES["STD"]
@@ -211,6 +218,8 @@ residual RMSE: 0.00000000
 
 ## Robust seasonal-trend decomposition
 
+[Watch how STDR works](gallery/stdr.md#how-it-works).
+
 ```python
 case = CASES["STDR"]
 run_gallery_case("STDR")
@@ -232,6 +241,8 @@ residual RMSE: 0.00000000
 ![STDR decomposition](assets/generated/notebooks/method-gallery/stdr.png)
 
 ## Multivariate SSA
+
+[Watch how MSSA works](gallery/mssa.md#how-it-works).
 
 ```python
 case = CASES["MSSA"]
@@ -255,6 +266,8 @@ residual RMSE: 0.00000000
 
 ## Statsmodels STL wrapper
 
+[Watch how STL works](gallery/stl.md#how-it-works).
+
 ```python
 case = CASES["STL"]
 run_gallery_case("STL")
@@ -276,6 +289,8 @@ residual RMSE: 0.00000000
 ![STL decomposition](assets/generated/notebooks/method-gallery/stl.png)
 
 ## Statsmodels MSTL wrapper
+
+[Watch how MSTL works](gallery/mstl.md#how-it-works).
 
 ```python
 case = CASES["MSTL"]
@@ -299,6 +314,8 @@ residual RMSE: 0.00000000
 
 ## Robust STL wrapper
 
+[Watch how ROBUST_STL works](gallery/robust-stl.md#how-it-works).
+
 ```python
 case = CASES["ROBUST_STL"]
 run_gallery_case("ROBUST_STL")
@@ -320,6 +337,8 @@ residual RMSE: 0.00000000
 ![ROBUST_STL decomposition](assets/generated/notebooks/method-gallery/robust_stl.png)
 
 ## Empirical mode decomposition
+
+[Watch how EMD works](gallery/emd.md#how-it-works).
 
 ```python
 case = CASES["EMD"]
@@ -343,6 +362,8 @@ residual RMSE: 0.00000000
 
 ## Noise-assisted EMD
 
+[Watch how CEEMDAN works](gallery/ceemdan.md#how-it-works).
+
 ```python
 case = CASES["CEEMDAN"]
 run_gallery_case("CEEMDAN")
@@ -364,6 +385,8 @@ residual RMSE: 0.00000000
 ![CEEMDAN decomposition](assets/generated/notebooks/method-gallery/ceemdan.png)
 
 ## Variational mode decomposition
+
+[Watch how VMD works](gallery/vmd.md#how-it-works).
 
 ```python
 case = CASES["VMD"]
@@ -387,6 +410,8 @@ residual RMSE: 0.00000000
 
 ## Wavelet decomposition
 
+[Watch how WAVELET works](gallery/wavelet.md#how-it-works).
+
 ```python
 case = CASES["WAVELET"]
 run_gallery_case("WAVELET")
@@ -408,6 +433,8 @@ residual RMSE: 0.00000000
 ![WAVELET decomposition](assets/generated/notebooks/method-gallery/wavelet.png)
 
 ## Moving-average baseline
+
+[Watch how MA_BASELINE works](gallery/ma-baseline.md#how-it-works).
 
 ```python
 case = CASES["MA_BASELINE"]
@@ -431,6 +458,8 @@ residual RMSE: 0.00000000
 
 ## Optional multivariate VMD backend
 
+[Watch how MVMD works](gallery/mvmd.md#how-it-works).
+
 ```python
 case = CASES["MVMD"]
 run_gallery_case("MVMD")
@@ -453,6 +482,8 @@ residual RMSE: 0.00000000
 
 ## Optional multivariate EMD backend
 
+[Watch how MEMD works](gallery/memd.md#how-it-works).
+
 ```python
 case = CASES["MEMD"]
 run_gallery_case("MEMD")
@@ -474,6 +505,8 @@ residual RMSE: 0.00000000
 ![MEMD decomposition](assets/generated/notebooks/method-gallery/memd.png)
 
 ## Experimental Gabor clustering path
+
+[Watch how GABOR_CLUSTER works](gallery/gabor-cluster.md#how-it-works).
 
 ```python
 case = CASES["GABOR_CLUSTER"]

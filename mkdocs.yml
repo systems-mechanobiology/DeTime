@@ -13,6 +13,8 @@ theme:
 extra_css:
   - stylesheets/brand.css
   - stylesheets/extra.css
+extra_javascript:
+  - javascripts/method-animations.js
 nav:
   - Home: index.md
   - Start:

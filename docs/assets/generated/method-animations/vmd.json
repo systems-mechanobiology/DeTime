@@ -1,0 +1,166 @@
+{
+  "method": "VMD",
+  "slug": "vmd",
+  "title": "VMD: update narrow-band modes and their center frequencies",
+  "summary": "VMD alternates between frequency-domain mode updates and spectral-energy centers. DeTime's grouping into trend and season is a separate step after this optimization.",
+  "steps": [
+    {
+      "title": "Prepare the spectrum",
+      "text": "Mirror the signal, compute its FFT, and retain the positive-frequency representation."
+    },
+    {
+      "title": "Update a mode",
+      "text": "Fit the remaining spectrum with a bandwidth penalty around the current center frequency."
+    },
+    {
+      "title": "Update its center",
+      "text": "Use the mode's positive-frequency energy to update its center, then repeat across modes."
+    },
+    {
+      "title": "Reconstruct and group",
+      "text": "Complete the conjugate spectrum, invert the FFT, crop the mirrored margins, and group modes."
+    }
+  ],
+  "parameters": [
+    {
+      "name": "K",
+      "effect": "Number of modes; the demonstration uses 3."
+    },
+    {
+      "name": "alpha",
+      "effect": "Penalizes spectral spread around each center; the demonstration uses 1500."
+    },
+    {
+      "name": "tau",
+      "effect": "Dual-update step; zero permits noise slack and does not enforce an exact sum of modes."
+    },
+    {
+      "name": "init / tol",
+      "effect": "Initialization and convergence tolerance affect the computed solution."
+    }
+  ],
+  "cautions": [
+    "The animation captures the optional vmdpy path; the native path has its own implementation and iteration control.",
+    "Center frequencies shown here are raw solver frequencies in cycles/sample, not DeTime's converted metadata field.",
+    "VMD modes need a grouping rule before being named trend or season; frequency ordering is not a physical-source guarantee."
+  ],
+  "references": [
+    {
+      "title": "Original VMD paper",
+      "url": "https://doi.org/10.1109/TSP.2013.2288675"
+    },
+    {
+      "title": "vmdpy reference implementation",
+      "url": "https://github.com/vrcarva/vmdpy"
+    },
+    {
+      "title": "Maintained sktime continuation",
+      "url": "https://www.sktime.net/docs/api-reference/sktimetransformationsvmdvmdtransformer/"
+    }
+  ],
+  "trace_kind": "upstream execution trace",
+  "trace_note": "Captured vmdpy 0.2 loop arrays without changing solver updates; intermediate time-domain modes use its conjugate-completion and mirror-cropping convention.",
+  "input_note": "Deterministic synthetic teaching signal; not a benchmark.",
+  "example_config": {
+    "method": "VMD",
+    "params": {
+      "K": 3,
+      "alpha": 1500.0,
+      "tau": 0.0,
+      "init": 1,
+      "tol": 1e-07,
+      "primary_period": 24
+    },
+    "backend": "python"
+  },
+  "checks": {
+    "recorded_final_iterate": 24,
+    "trace_matches_upstream_modes": 0.0,
+    "mode_sum_rmse": 0.05055252233370291
+  },
+  "source_files": [
+    "src/detime/methods/vmd.py",
+    "native/src/vmd.cpp"
+  ],
+  "frames": 32,
+  "duration_ms": 12050,
+  "poster_frame": 15,
+  "width": 1280,
+  "height": 820,
+  "artifacts": {
+    "gif": {
+      "file": "vmd.gif",
+      "bytes": 399253,
+      "sha256": "847bfe96e5ebeb3695fe6d45a3af338f02b549724f28ab777f291b43346fc8cb"
+    },
+    "poster": {
+      "file": "vmd.png",
+      "bytes": 179243,
+      "sha256": "1d69db3c4af2c1486d1a940875ab9b45b1636250df729557cfc10bb80f6c9237"
+    },
+    "data": {
+      "file": "vmd.npz",
+      "bytes": 117559,
+      "sha256": "f50c40d4998605fae91aa9f55c5bec5f692e19d6f7c857d1a3cc21a6c58f368b"
+    }
+  },
+  "source_arrays": {
+    "time": [
+      192
+    ],
+    "input": [
+      192
+    ],
+    "mirrored_input": [
+      384
+    ],
+    "frequency_grid": [
+      384
+    ],
+    "iteration_ids": [
+      8
+    ],
+    "mode_spectra": [
+      8,
+      384,
+      3
+    ],
+    "center_frequency_trace": [
+      25,
+      3
+    ],
+    "mode_trace": [
+      8,
+      3,
+      192
+    ],
+    "returned_modes": [
+      3,
+      192
+    ]
+  },
+  "render_provenance": {
+    "python_version": "3.12.14",
+    "dependencies": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "statsmodels": "0.15.0",
+      "matplotlib": "3.11.2",
+      "Pillow": "13.0.0",
+      "PyWavelets": "1.10.0",
+      "EMD-signal": "1.10.0",
+      "vmdpy": "0.2",
+      "PySDKit": "0.5.0"
+    },
+    "source_hashes": {
+      "native/src/vmd.cpp": "27b730744b4c17b2b0cfa4d2c4c0d29798d335294a71fb6a7a3e077e3012041b",
+      "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+      "scripts/method_animations/adaptive.py": "7d728d88b4ba1a8dd82890c7a6b017d542728b50dc477c281e9bbfcbae164a1d",
+      "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
+      "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
+      "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
+      "src/detime/methods/vmd.py": "79dff465440e6d991dc5f65bdf65540b7599c4356c7455481f20d6208693f294",
+      "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+    }
+  }
+}

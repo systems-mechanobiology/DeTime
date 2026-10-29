@@ -54,6 +54,21 @@ Fast entry points:
 These guides are written by the DeTime maintainers. Source-head fixes and
 released wheels are distinguished in the [changelog](CHANGELOG.md).
 
+## Watch how a decomposition works
+
+Follow the window, matrix, filter, envelope, or basis calculation in the
+[animated method explanations](https://systems-mechanobiology.github.io/DeTime/methods/#animated-method-explanations).
+Every registered method has a four-step GIF, an English explanation,
+parameter guidance, and the numerical arrays behind the plots. Aliases and
+experimental blocks are identified by their implemented scope.
+
+[![SSA: sliding windows, a trajectory matrix, singular components, and diagonal reconstruction](docs/assets/generated/method-animations/ssa.gif)](https://systems-mechanobiology.github.io/DeTime/gallery/ssa/#how-it-works)
+
+[SSA walkthrough](https://systems-mechanobiology.github.io/DeTime/gallery/ssa/#how-it-works) ·
+[EMD sifting](https://systems-mechanobiology.github.io/DeTime/gallery/emd/#how-it-works) ·
+[Wavelet filters](https://systems-mechanobiology.github.io/DeTime/gallery/wavelet/#how-it-works) ·
+[Reproduce the animations](docs/maintenance/method-animations.md)
+
 ## Scope
 
 Use DeTime when you want:

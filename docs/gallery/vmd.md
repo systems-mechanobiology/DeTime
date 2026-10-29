@@ -14,6 +14,88 @@
 | **Status** | ran |
 | **Residual RMSE** | 0.03421948 |
 
+<!-- detime:method-animation:start -->
+## How it works
+
+VMD alternates between frequency-domain mode updates and spectral-energy centers. DeTime's grouping into trend and season is a separate step after this optimization.
+
+[![VMD: Prepare the spectrum; Update a mode; Update its center; Reconstruct and group](../assets/generated/method-animations/vmd.png)](../assets/generated/method-animations/vmd.gif)
+
+Deterministic synthetic teaching signal; not a benchmark.
+
+[Open GIF](../assets/generated/method-animations/vmd.gif) · [Static PNG](../assets/generated/method-animations/vmd.png) · [Source arrays (NPZ)](../assets/generated/method-animations/vmd.npz) · [Trace metadata](../assets/generated/method-animations/vmd.json)
+
+### Follow the four steps
+
+**1. Prepare the spectrum**
+
+Mirror the signal, compute its FFT, and retain the positive-frequency representation.
+
+**2. Update a mode**
+
+Fit the remaining spectrum with a bandwidth penalty around the current center frequency.
+
+**3. Update its center**
+
+Use the mode's positive-frequency energy to update its center, then repeat across modes.
+
+**4. Reconstruct and group**
+
+Complete the conjugate spectrum, invert the FFT, crop the mirrored margins, and group modes.
+
+### Parameters that change the result
+
+| Parameter | Effect on the computation |
+|---|---|
+| `K` | Number of modes; the demonstration uses 3. |
+| `alpha` | Penalizes spectral spread around each center; the demonstration uses 1500. |
+| `tau` | Dual-update step; zero permits noise slack and does not enforce an exact sum of modes. |
+| `init / tol` | Initialization and convergence tolerance affect the computed solution. |
+
+### What this animation computes
+
+Captured vmdpy 0.2 loop arrays without changing solver updates; intermediate time-domain modes use its conjugate-completion and mirror-cropping convention.
+
+### Interpretation
+
+- The animation captures the optional vmdpy path; the native path has its own implementation and iteration control.
+- Center frequencies shown here are raw solver frequencies in cycles/sample, not DeTime's converted metadata field.
+- VMD modes need a grouping rule before being named trend or season; frequency ordering is not a physical-source guarantee.
+
+### Try the method
+
+Use this configuration with DecompositionConfig and decompose. The animation generator supplies the teaching input and records intermediate arrays.
+
+```json
+{
+  "method": "VMD",
+  "params": {
+    "K": 3,
+    "alpha": 1500.0,
+    "tau": 0.0,
+    "init": 1,
+    "tol": 1e-07,
+    "primary_period": 24
+  },
+  "backend": "python"
+}
+```
+
+See [the configuration reference](../config-reference.md#vmd) for the full interface and optional dependencies.
+
+### Sources and reproduction
+
+- [Original VMD paper](https://doi.org/10.1109/TSP.2013.2288675)
+- [vmdpy reference implementation](https://github.com/vrcarva/vmdpy)
+- [Maintained sktime continuation](https://www.sktime.net/docs/api-reference/sktimetransformationsvmdvmdtransformer/)
+- [DeTime implementation: `src/detime/methods/vmd.py`](https://github.com/systems-mechanobiology/DeTime/blob/main/src/detime/methods/vmd.py)
+- [DeTime implementation: `native/src/vmd.cpp`](https://github.com/systems-mechanobiology/DeTime/blob/main/native/src/vmd.cpp)
+
+Regenerate this animation with `python scripts/generate_method_animations.py --methods VMD`.
+The [reproduction guide](../maintenance/method-animations.md) explains the environment,
+numerical checks, coverage manifest, and how to inspect the stored arrays.
+<!-- detime:method-animation:end -->
+
 ## Code
 
 ```python

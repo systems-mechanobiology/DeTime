@@ -448,6 +448,9 @@ def write_markdown_gallery() -> Path:
         "",
         "Regenerate this page and its assets with `python scripts/generate_notebook_gallery.py`.",
         "",
+        "[Animated method explanations](methods.md#animated-method-explanations) show the",
+        "calculation steps for every registered method, with GIFs, static images and source arrays.",
+        "",
         "## Imports and synthetic data",
         "",
         "```python",
@@ -464,6 +467,8 @@ def write_markdown_gallery() -> Path:
         lines.extend(
             [
                 f"## {title}",
+                "",
+                f"[Watch how {method} works](gallery/{method.lower().replace('_', '-')}.md#how-it-works).",
                 "",
                 "```python",
                 _case_code(method),

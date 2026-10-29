@@ -125,6 +125,9 @@ jobs:
       - name: Check documentation consistency
         run: python scripts/check_doc_consistency.py
 
+      - name: Check method animation coverage and source arrays
+        run: python scripts/generate_method_animations.py --check
+
       - name: Regenerate schema assets
         run: python scripts/generate_schema_assets.py
 

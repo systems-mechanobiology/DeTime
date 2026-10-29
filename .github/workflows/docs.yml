@@ -22,6 +22,8 @@ on:
       - "tests/docs/test_site_seo.py"
       - "scripts/generate_schema_assets.py"
       - "scripts/generate_method_cards.py"
+      - "scripts/generate_method_animations.py"
+      - "scripts/method_animations/**"
       - "scripts/generate_notebook_gallery.py"
       - "scripts/generate_tutorial_assets.py"
       - "src/detime/schema_assets/**"
@@ -125,6 +127,7 @@ jobs:
 
       - name: Build documentation
         run: |
+          python scripts/generate_method_animations.py --check
           python scripts/generate_schema_assets.py
           python scripts/generate_method_cards.py
           python scripts/generate_notebook_gallery.py

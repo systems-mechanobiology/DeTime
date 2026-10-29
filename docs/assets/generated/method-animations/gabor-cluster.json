@@ -1,0 +1,175 @@
+{
+  "method": "GABOR_CLUSTER",
+  "slug": "gabor-cluster",
+  "title": "Gabor clustering: assign time-frequency atoms and reconstruct masks",
+  "summary": "DeTime's experimental operator builds windowed Fourier atoms, assigns their features to a supplied codebook, and reconstructs cluster-specific contributions with overlap-add.",
+  "steps": [
+    {
+      "title": "Window and transform",
+      "text": "Slide the normalized Gaussian window and compute real FFT coefficients."
+    },
+    {
+      "title": "Build atom features",
+      "text": "Represent each time-frequency bin by normalized time, normalized frequency, and log amplitude."
+    },
+    {
+      "title": "Assign the codebook",
+      "text": "Standardize features with the stored mean/scale and select the nearest supplied centroid."
+    },
+    {
+      "title": "Mask and reconstruct",
+      "text": "Retain each cluster's complex coefficients, apply inverse FFT and normalized overlap-add, then group contributions heuristically."
+    }
+  ],
+  "parameters": [
+    {
+      "name": "model / model_path",
+      "effect": "A supplied GaborClusterModel is required; the decomposition function does not train a codebook."
+    },
+    {
+      "name": "win_len / hop / n_fft",
+      "effect": "Stored in the model; the example uses 48/12/64 and a Gaussian window."
+    },
+    {
+      "name": "max_clusters",
+      "effect": "Optionally retains the highest-energy clusters before reconstruction."
+    },
+    {
+      "name": "trend_freq_thr",
+      "effect": "Heuristic threshold on the de-standardized centroid frequency, normalized from zero to Nyquist."
+    }
+  ],
+  "cautions": [
+    "This is an experimental, repository-specific operator, not a claimed reproduction of a canonical forecasting or decomposition architecture.",
+    "The fixed four-centroid teaching codebook is neither trained nor evidence of a useful scientific clustering.",
+    "The current frame grid can leave an uncovered tail when the record length is not aligned with the hop; the residual retains that difference.",
+    "Cluster labels are codebook labels; assigning low-frequency clusters to trend is a heuristic."
+  ],
+  "references": [
+    {
+      "title": "DeTime Gabor operator source",
+      "url": "https://github.com/systems-mechanobiology/DeTime/blob/main/src/detime/methods/gabor_cluster.py"
+    },
+    {
+      "title": "DeTime native Gabor kernels",
+      "url": "https://github.com/systems-mechanobiology/DeTime/blob/main/native/src/gabor.cpp"
+    }
+  ],
+  "trace_kind": "repository numerical stages with illustrative fixed codebook",
+  "trace_note": "Uses the current repository's window, STFT, feature extraction and inverse-overlap-add functions. Squared Euclidean assignment matches the supplied-centroid operation; native cluster reconstructions are independently compared when available. Model normalization, fixed teaching centroids, and numeric window settings are saved with the trace. The public call requires a GaborClusterModel or a model archive created with its save() method; the generic config is incomplete until that model is supplied.",
+  "input_note": "Deterministic synthetic teaching signal; not a benchmark.",
+  "example_config": {
+    "method": "GABOR_CLUSTER",
+    "params": {
+      "trend_freq_thr": 0.08
+    }
+  },
+  "checks": {
+    "mask_partition_error": 0,
+    "overlap_add_reconstruction_error": 7.888691721635865e-06,
+    "component_plus_residual_error": 0.0,
+    "native_cluster_component_max_abs_difference": 6.273240017895532e-06
+  },
+  "source_files": [
+    "src/detime/methods/gabor_cluster.py",
+    "native/src/gabor.cpp"
+  ],
+  "frames": 32,
+  "duration_ms": 12050,
+  "poster_frame": 15,
+  "width": 1280,
+  "height": 820,
+  "artifacts": {
+    "gif": {
+      "file": "gabor-cluster.gif",
+      "bytes": 478033,
+      "sha256": "97a916480535767d7b7df51c6f0db7800fb55e9463038b2ad6c95b2367bfe6a8"
+    },
+    "poster": {
+      "file": "gabor-cluster.png",
+      "bytes": 158688,
+      "sha256": "12f4ae2c69751ffb76632ba15653f6550a7e07de6eb9998332172e778845405c"
+    },
+    "data": {
+      "file": "gabor-cluster.npz",
+      "bytes": 23164,
+      "sha256": "107ee113443ec8b28620d26cf205b6cd6f5dcd4b3bc5a65bd50ef2a3fa833ed6"
+    }
+  },
+  "source_arrays": {
+    "time": [
+      192
+    ],
+    "input": [
+      192
+    ],
+    "window": [
+      48
+    ],
+    "stft": [
+      13,
+      33
+    ],
+    "raw_features": [
+      429,
+      3
+    ],
+    "feature_mean": [
+      3
+    ],
+    "feature_scale": [
+      3
+    ],
+    "raw_demo_centroids": [
+      4,
+      3
+    ],
+    "standardized_demo_centroids": [
+      4,
+      3
+    ],
+    "squared_centroid_distances": [
+      429,
+      4
+    ],
+    "cluster_labels": [
+      13,
+      33
+    ],
+    "cluster_components": [
+      4,
+      192
+    ],
+    "residual": [
+      192
+    ],
+    "config_win_len": [],
+    "config_hop": [],
+    "config_n_fft": [],
+    "config_use_log_amp": []
+  },
+  "render_provenance": {
+    "python_version": "3.12.14",
+    "dependencies": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "statsmodels": "0.15.0",
+      "matplotlib": "3.11.2",
+      "Pillow": "13.0.0",
+      "PyWavelets": "1.10.0",
+      "EMD-signal": "1.10.0",
+      "vmdpy": "0.2",
+      "PySDKit": "0.5.0"
+    },
+    "source_hashes": {
+      "native/src/gabor.cpp": "705f5c9465d1639be25bdfed903c8518748a1dbfe3d6cf883ea2438e41db6384",
+      "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+      "scripts/method_animations/adaptive.py": "7d728d88b4ba1a8dd82890c7a6b017d542728b50dc477c281e9bbfcbae164a1d",
+      "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
+      "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
+      "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
+      "src/detime/methods/gabor_cluster.py": "e8836ac9567ada7a8a7edb3cb66b63916d721ee1e554e282987c177d2eb3e2e7",
+      "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+    }
+  }
+}

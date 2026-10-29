@@ -1,0 +1,178 @@
+{
+  "method": "MVMD",
+  "slug": "mvmd",
+  "title": "MVMD: share mode frequencies across multiple channels",
+  "summary": "MVMD couples channel-specific mode spectra through shared center frequencies. The modes can have different amplitudes and phases in each channel.",
+  "steps": [
+    {
+      "title": "Align the channels",
+      "text": "Supply measurements on a common time grid and prepare their mirrored spectra."
+    },
+    {
+      "title": "Update channel spectra",
+      "text": "Each channel fits a mode around the current shared center."
+    },
+    {
+      "title": "Pool spectral energy",
+      "text": "Update each center using the spectral energy from all channels, then repeat."
+    },
+    {
+      "title": "Recover mode stacks",
+      "text": "Invert the spectra and retain the (mode,time,channel) organization before application-specific grouping."
+    }
+  ],
+  "parameters": [
+    {
+      "name": "K and alpha",
+      "effect": "The teaching run uses three modes and bandwidth penalty 1500."
+    },
+    {
+      "name": "Upstream trace settings",
+      "effect": "Uniform initialization, tau=0, and max_iter=60 bound this PySDKit demonstration; not all are public DeTime parameters."
+    },
+    {
+      "name": "primary_period / mode groups",
+      "effect": "Controls DeTime's assignment of the returned modes to output components."
+    }
+  ],
+  "cautions": [
+    "The optional backend requires aligned multichannel input and an explicitly checked axis convention.",
+    "PySDKit's all-axis FFT shift changes the internal channel order; its final inverse shift restores input order. The animation applies that same restoration to every displayed iterate.",
+    "A shared mode center does not identify a shared causal source, and tau=0 can leave reconstruction error."
+  ],
+  "references": [
+    {
+      "title": "PySDKit MVMD interface and implementation",
+      "url": "https://pysdkit.readthedocs.io/en/stable/API/pysdkit._vmd.html"
+    },
+    {
+      "title": "Multivariate variational mode decomposition",
+      "url": "https://doi.org/10.1109/TSP.2019.2951223"
+    }
+  ],
+  "trace_kind": "upstream execution trace",
+  "trace_note": "Captured PySDKit 0.5.0 joint solver arrays on input shaped (channel,time). Internal channels correspond to input indexes [2, 0, 1] (zero-based); applying indexes [1, 2, 0] restores original order in every displayed spectrum and mode. The final trace is checked against the upstream returned modes.",
+  "input_note": "Deterministic synthetic teaching signal; not a benchmark.",
+  "example_config": {
+    "method": "MVMD",
+    "params": {
+      "K": 3,
+      "alpha": 1500.0,
+      "primary_period": 24
+    },
+    "backend": "python"
+  },
+  "checks": {
+    "captured_final_iteration": 18,
+    "trace_matches_upstream_modes": 1.8490349884547896e-07,
+    "mode_sum_rmse": 0.05570209440280112,
+    "backend_version": "0.5.0",
+    "internal_channel_input_indexes": [
+      2,
+      0,
+      1
+    ],
+    "output_channel_permutation": [
+      1,
+      2,
+      0
+    ],
+    "finite_trace": true
+  },
+  "source_files": [
+    "src/detime/methods/mvmd.py"
+  ],
+  "frames": 32,
+  "duration_ms": 12050,
+  "poster_frame": 15,
+  "width": 1280,
+  "height": 820,
+  "artifacts": {
+    "gif": {
+      "file": "mvmd.gif",
+      "bytes": 419913,
+      "sha256": "32619e36a8e1a296dc46cdf9c85818f476f9c49a463b22d8b13efea16c0e05b1"
+    },
+    "poster": {
+      "file": "mvmd.png",
+      "bytes": 191673,
+      "sha256": "9a7171d5f66eab1c0489e69167168e6ecb43a99555d8858909209b8c7fd06cd8"
+    },
+    "data": {
+      "file": "mvmd.npz",
+      "bytes": 250939,
+      "sha256": "5c3d9d51f6ff6cc8ddee9c8fd5a337ba17d3b2ac4a945e72ecce789a16c4fe30"
+    }
+  },
+  "source_arrays": {
+    "time": [
+      144
+    ],
+    "input_channels": [
+      144,
+      3
+    ],
+    "frequency_grid": [
+      288
+    ],
+    "iteration_ids": [
+      8
+    ],
+    "mode_spectra": [
+      8,
+      288,
+      3,
+      3
+    ],
+    "internal_mode_spectra": [
+      8,
+      288,
+      3,
+      3
+    ],
+    "shared_centers": [
+      19,
+      3
+    ],
+    "input_order_mode_trace": [
+      8,
+      3,
+      144,
+      3
+    ],
+    "internal_channel_input_indexes": [
+      3
+    ],
+    "output_channel_permutation": [
+      3
+    ],
+    "upstream_returned_modes": [
+      3,
+      144,
+      3
+    ]
+  },
+  "render_provenance": {
+    "python_version": "3.12.14",
+    "dependencies": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "statsmodels": "0.15.0",
+      "matplotlib": "3.11.2",
+      "Pillow": "13.0.0",
+      "PyWavelets": "1.10.0",
+      "EMD-signal": "1.10.0",
+      "vmdpy": "0.2",
+      "PySDKit": "0.5.0"
+    },
+    "source_hashes": {
+      "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+      "scripts/method_animations/adaptive.py": "7d728d88b4ba1a8dd82890c7a6b017d542728b50dc477c281e9bbfcbae164a1d",
+      "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
+      "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
+      "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
+      "src/detime/methods/mvmd.py": "ee95033e6f67484e8aa0bea3dba4ecd3f540bb868e80db6450e7736fe359b3b7",
+      "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+    }
+  }
+}

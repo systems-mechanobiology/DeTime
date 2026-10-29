@@ -29,6 +29,7 @@ not the canonical surface for any method listed below.
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.elementary`
 - References: [Method References](method-references.md#mssa)
+- Learn the mechanism: [Animated explanation](gallery/mssa.md#how-it-works)
 
 See [Config Reference](config-reference.md#mssa) for the full parameter table.
 
@@ -44,6 +45,7 @@ See [Config Reference](config-reference.md#mssa) for the full parameter table.
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.elementary`
 - References: [Method References](method-references.md#ssa)
+- Learn the mechanism: [Animated explanation](gallery/ssa.md#how-it-works)
 
 See [Config Reference](config-reference.md#ssa) for the full parameter table.
 
@@ -59,6 +61,7 @@ See [Config Reference](config-reference.md#ssa) for the full parameter table.
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.dispersion`, `components.seasonal_shape`
 - References: [Method References](method-references.md#std)
+- Learn the mechanism: [Animated explanation](gallery/std.md#how-it-works)
 
 See [Config Reference](config-reference.md#std) for the full parameter table.
 
@@ -74,6 +77,7 @@ See [Config Reference](config-reference.md#std) for the full parameter table.
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.dispersion`, `components.seasonal_shape`
 - References: [Method References](method-references.md#stdr)
+- Learn the mechanism: [Animated explanation](gallery/stdr.md#how-it-works)
 
 See [Config Reference](config-reference.md#stdr) for the full parameter table.
 
@@ -91,6 +95,7 @@ See [Config Reference](config-reference.md#stdr) for the full parameter table.
 - Optional dependencies: PyEMD
 - Output components: `trend`, `season`, `residual`, `components.imfs`
 - References: [Method References](method-references.md#ceemdan)
+- Learn the mechanism: [Animated explanation](gallery/ceemdan.md#how-it-works)
 
 See [Config Reference](config-reference.md#ceemdan) for the full parameter table.
 
@@ -106,6 +111,7 @@ See [Config Reference](config-reference.md#ceemdan) for the full parameter table
 - Optional dependencies: PyEMD
 - Output components: `trend`, `season`, `residual`, `components.imfs`
 - References: [Method References](method-references.md#emd)
+- Learn the mechanism: [Animated explanation](gallery/emd.md#how-it-works)
 
 See [Config Reference](config-reference.md#emd) for the full parameter table.
 
@@ -121,6 +127,7 @@ See [Config Reference](config-reference.md#emd) for the full parameter table.
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`
 - References: [Method References](method-references.md#ma_baseline)
+- Learn the mechanism: [Animated explanation](gallery/ma-baseline.md#how-it-works)
 
 See [Config Reference](config-reference.md#ma_baseline) for the full parameter table.
 
@@ -136,6 +143,7 @@ See [Config Reference](config-reference.md#ma_baseline) for the full parameter t
 - Optional dependencies: statsmodels
 - Output components: `trend`, `season`, `residual`
 - References: [Method References](method-references.md#mstl)
+- Learn the mechanism: [Animated explanation](gallery/mstl.md#how-it-works)
 
 See [Config Reference](config-reference.md#mstl) for the full parameter table.
 
@@ -151,6 +159,7 @@ See [Config Reference](config-reference.md#mstl) for the full parameter table.
 - Optional dependencies: statsmodels
 - Output components: `trend`, `season`, `residual`
 - References: [Method References](method-references.md#robust_stl)
+- Learn the mechanism: [Animated explanation](gallery/robust-stl.md#how-it-works)
 
 See [Config Reference](config-reference.md#robust_stl) for the full parameter table.
 
@@ -166,6 +175,7 @@ See [Config Reference](config-reference.md#robust_stl) for the full parameter ta
 - Optional dependencies: statsmodels
 - Output components: `trend`, `season`, `residual`
 - References: [Method References](method-references.md#stl)
+- Learn the mechanism: [Animated explanation](gallery/stl.md#how-it-works)
 
 See [Config Reference](config-reference.md#stl) for the full parameter table.
 
@@ -181,6 +191,7 @@ See [Config Reference](config-reference.md#stl) for the full parameter table.
 - Optional dependencies: vmdpy
 - Output components: `trend`, `season`, `residual`, `components.modes`
 - References: [Method References](method-references.md#vmd)
+- Learn the mechanism: [Animated explanation](gallery/vmd.md#how-it-works)
 
 See [Config Reference](config-reference.md#vmd) for the full parameter table.
 
@@ -196,6 +207,7 @@ See [Config Reference](config-reference.md#vmd) for the full parameter table.
 - Optional dependencies: PyWavelets
 - Output components: `trend`, `season`, `residual`, `components.coefficients`
 - References: [Method References](method-references.md#wavelet)
+- Learn the mechanism: [Animated explanation](gallery/wavelet.md#how-it-works)
 
 See [Config Reference](config-reference.md#wavelet) for the full parameter table.
 
@@ -213,6 +225,7 @@ See [Config Reference](config-reference.md#wavelet) for the full parameter table
 - Optional dependencies: PySDKit
 - Output components: `trend`, `season`, `residual`, `components.imfs`
 - References: [Method References](method-references.md#memd)
+- Learn the mechanism: [Animated explanation](gallery/memd.md#how-it-works)
 
 See [Config Reference](config-reference.md#memd) for the full parameter table.
 
@@ -228,6 +241,7 @@ See [Config Reference](config-reference.md#memd) for the full parameter table.
 - Optional dependencies: PySDKit
 - Output components: `trend`, `season`, `residual`, `components.modes`
 - References: [Method References](method-references.md#mvmd)
+- Learn the mechanism: [Animated explanation](gallery/mvmd.md#how-it-works)
 
 See [Config Reference](config-reference.md#mvmd) for the full parameter table.
 
@@ -245,6 +259,7 @@ See [Config Reference](config-reference.md#mvmd) for the full parameter table.
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#amd_block)
+- Learn the mechanism: [Animated explanation](gallery/amd-block.md#how-it-works)
 
 See [Config Reference](config-reference.md#amd_block) for the full parameter table.
 
@@ -260,6 +275,7 @@ See [Config Reference](config-reference.md#amd_block) for the full parameter tab
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.moving_mean`
 - References: [Method References](method-references.md#autoformer_block)
+- Learn the mechanism: [Animated explanation](gallery/autoformer-block.md#how-it-works)
 
 See [Config Reference](config-reference.md#autoformer_block) for the full parameter table.
 
@@ -275,6 +291,7 @@ See [Config Reference](config-reference.md#autoformer_block) for the full parame
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#delelstm_block)
+- Learn the mechanism: [Animated explanation](gallery/delelstm-block.md#how-it-works)
 
 See [Config Reference](config-reference.md#delelstm_block) for the full parameter table.
 
@@ -290,6 +307,7 @@ See [Config Reference](config-reference.md#delelstm_block) for the full paramete
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.moving_mean`
 - References: [Method References](method-references.md#dlinear_block)
+- Learn the mechanism: [Animated explanation](gallery/dlinear-block.md#how-it-works)
 
 See [Config Reference](config-reference.md#dlinear_block) for the full parameter table.
 
@@ -305,6 +323,7 @@ See [Config Reference](config-reference.md#dlinear_block) for the full parameter
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#freqmoe_block)
+- Learn the mechanism: [Animated explanation](gallery/freqmoe-block.md#how-it-works)
 
 See [Config Reference](config-reference.md#freqmoe_block) for the full parameter table.
 
@@ -320,6 +339,7 @@ See [Config Reference](config-reference.md#freqmoe_block) for the full parameter
 - Optional dependencies: faiss
 - Output components: `trend`, `season`, `residual`, `components.Cluster_*`
 - References: [Method References](method-references.md#gabor_cluster)
+- Learn the mechanism: [Animated explanation](gallery/gabor-cluster.md#how-it-works)
 
 See [Config Reference](config-reference.md#gabor_cluster) for the full parameter table.
 
@@ -335,6 +355,7 @@ See [Config Reference](config-reference.md#gabor_cluster) for the full parameter
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#inparformer_block)
+- Learn the mechanism: [Animated explanation](gallery/inparformer-block.md#how-it-works)
 
 See [Config Reference](config-reference.md#inparformer_block) for the full parameter table.
 
@@ -350,6 +371,7 @@ See [Config Reference](config-reference.md#inparformer_block) for the full param
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.ld_trend`, `components.kernel`
 - References: [Method References](method-references.md#leddam_block)
+- Learn the mechanism: [Animated explanation](gallery/leddam-block.md#how-it-works)
 
 See [Config Reference](config-reference.md#leddam_block) for the full parameter table.
 
@@ -365,6 +387,7 @@ See [Config Reference](config-reference.md#leddam_block) for the full parameter 
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.moving_mean`
 - References: [Method References](method-references.md#moving_average_decomposition_block)
+- Learn the mechanism: [Animated explanation](gallery/moving-average-decomposition-block.md#how-it-works)
 
 See [Config Reference](config-reference.md#moving_average_decomposition_block) for the full parameter table.
 
@@ -380,6 +403,7 @@ See [Config Reference](config-reference.md#moving_average_decomposition_block) f
 - Optional dependencies: torch
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#nbeats_interpretable)
+- Learn the mechanism: [Animated explanation](gallery/nbeats-interpretable.md#how-it-works)
 
 See [Config Reference](config-reference.md#nbeats_interpretable) for the full parameter table.
 
@@ -395,6 +419,7 @@ See [Config Reference](config-reference.md#nbeats_interpretable) for the full pa
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#parsimony_block)
+- Learn the mechanism: [Animated explanation](gallery/parsimony-block.md#how-it-works)
 
 See [Config Reference](config-reference.md#parsimony_block) for the full parameter table.
 
@@ -410,6 +435,7 @@ See [Config Reference](config-reference.md#parsimony_block) for the full paramet
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#st_mtm_block)
+- Learn the mechanism: [Animated explanation](gallery/st-mtm-block.md#how-it-works)
 
 See [Config Reference](config-reference.md#st_mtm_block) for the full parameter table.
 
@@ -425,6 +451,7 @@ See [Config Reference](config-reference.md#st_mtm_block) for the full parameter 
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#timekan_block)
+- Learn the mechanism: [Animated explanation](gallery/timekan-block.md#how-it-works)
 
 See [Config Reference](config-reference.md#timekan_block) for the full parameter table.
 
@@ -440,6 +467,7 @@ See [Config Reference](config-reference.md#timekan_block) for the full parameter
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#times2d_block)
+- Learn the mechanism: [Animated explanation](gallery/times2d-block.md#how-it-works)
 
 See [Config Reference](config-reference.md#times2d_block) for the full parameter table.
 
@@ -455,6 +483,7 @@ See [Config Reference](config-reference.md#times2d_block) for the full parameter
 - Optional dependencies: PyWavelets
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#waveform_block)
+- Learn the mechanism: [Animated explanation](gallery/waveform-block.md#how-it-works)
 
 See [Config Reference](config-reference.md#waveform_block) for the full parameter table.
 
@@ -470,6 +499,7 @@ See [Config Reference](config-reference.md#waveform_block) for the full paramete
 - Optional dependencies: PyWavelets
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#waveletmixer_block)
+- Learn the mechanism: [Animated explanation](gallery/waveletmixer-block.md#how-it-works)
 
 See [Config Reference](config-reference.md#waveletmixer_block) for the full parameter table.
 
@@ -485,5 +515,6 @@ See [Config Reference](config-reference.md#waveletmixer_block) for the full para
 - Optional dependencies: none
 - Output components: `trend`, `season`, `residual`, `components.trend`, `components.season`
 - References: [Method References](method-references.md#xpatch_block)
+- Learn the mechanism: [Animated explanation](gallery/xpatch-block.md#how-it-works)
 
 See [Config Reference](config-reference.md#xpatch_block) for the full parameter table.

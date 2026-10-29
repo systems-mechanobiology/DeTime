@@ -10,6 +10,9 @@ aliases remain available for compatibility.
 
 ### Maintenance
 
+- sends MVMD inputs to PySDKit in its documented `(channels, time)` layout;
+  prevents silently accepted wrong-axis decompositions and preserves solver
+  errors instead of retrying a different orientation
 - fixes MSTL Box-Cox conversion with statsmodels 0.15, supports the zero-lambda
   logarithm explicitly, and preserves the original-scale additive result
   contract and nested STL configuration
@@ -28,6 +31,13 @@ aliases remain available for compatibility.
 
 ### Research guides and examples
 
+- adds four-step GIF explanations for all 31 registered method entries,
+  with static PNGs, numerical source arrays, trace provenance, and English
+  parameter/interpretation guides in the existing method gallery
+- adds click-to-play controls and direct GIF links, preserves the current
+  navigation, and checks animation coverage and source hashes in docs CI
+- identifies experimental operator scope and aliases, and labels the
+  N-BEATS basis illustration's explicitly chosen, untrained coefficients
 - adds a source-linked comparison of Python decomposition tools and a
   20-reference research map spanning classical algorithms, tokenization,
   neural modules, training objectives, and evaluation through 2026

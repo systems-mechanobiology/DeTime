@@ -1,0 +1,145 @@
+{
+  "method": "DLINEAR_BLOCK",
+  "slug": "dlinear-block",
+  "title": "DLinear block: moving-average split",
+  "summary": "The implemented operator replaces each sample with a centered local mean and assigns the input minus that mean to a second stream. Edge replication maintains the original length. AUTOFORMER_BLOCK, DLINEAR_BLOCK and MOVING_AVERAGE_DECOMPOSITION_BLOCK call the same numeric implementation at equal settings; their method identifiers record provenance. The animation therefore shows the same numerical mechanism for all three, with a separate named asset for each entry.",
+  "steps": [
+    {
+      "title": "Specify the filter",
+      "text": "Inspect the normalized filter weights and the replicated-edge input window used for a local mean."
+    },
+    {
+      "title": "Move along the series",
+      "text": "At each sample, multiply the local values by the same fixed kernel and sum them to form the trend."
+    },
+    {
+      "title": "Subtract the trend",
+      "text": "Compute the nontrend stream as the input minus the smoothed trend, sample by sample."
+    },
+    {
+      "title": "Inspect the output contract",
+      "text": "The two streams already reconstruct the input, leaving a derived residual of zero up to arithmetic precision."
+    }
+  ],
+  "parameters": [
+    {
+      "name": "moving_avg",
+      "effect": "Sets the smoothing window. Larger windows average more samples; even requests become odd windows."
+    },
+    {
+      "name": "window",
+      "effect": "Acts as an alias after moving_avg. If neither is supplied, period hints are checked before the default window of 25."
+    },
+    {
+      "name": "primary_period",
+      "effect": "Can supply a window hint; this operator does not fit a periodic template."
+    }
+  ],
+  "cautions": [
+    "The three registered moving-average block names are numerical aliases at equal configuration.",
+    "This is the decomposition head. It does not execute Autoformer attention or DLinear's fitted forecasting projections.",
+    "The nontrend stream can contain noise and transients. Here season = input - trend, so the derived residual is zero by construction.",
+    "The centered filter uses future neighbours relative to an interior sample in a full-record analysis."
+  ],
+  "references": [
+    {
+      "title": "Implemented DeTime operator",
+      "url": "https://github.com/systems-mechanobiology/DeTime/blob/main/src/detime/methods/neural_blocks/forecasting_blocks.py"
+    },
+    {
+      "title": "Zeng et al. (2023), Are Transformers Effective for Time Series Forecasting?",
+      "url": "https://ojs.aaai.org/index.php/AAAI/article/view/26317"
+    }
+  ],
+  "trace_kind": "computed_operator_trace",
+  "trace_note": "Intermediate arrays are computed with the implemented operator helpers. The final trend, season and residual are checked against public decompose(). The animation explains this standalone experimental block; its source architecture is cited for provenance.",
+  "input_note": "Deterministic synthetic teaching signal; not a benchmark.",
+  "example_config": {
+    "method": "DLINEAR_BLOCK",
+    "params": {
+      "moving_avg": 25
+    },
+    "backend": "python"
+  },
+  "checks": {
+    "public_method_executed": true,
+    "method_output_max_abs_errors": {
+      "trend": 0.0,
+      "season": 0.0,
+      "residual": 0.0
+    },
+    "reconstruction_max_abs_error": 1.1102230246251565e-16,
+    "validation_scope": "One deterministic teaching input; no benchmark claim.",
+    "kernel_sum": 1.0,
+    "shared_operator_identifiers": [
+      "AUTOFORMER_BLOCK",
+      "DLINEAR_BLOCK",
+      "MOVING_AVERAGE_DECOMPOSITION_BLOCK"
+    ]
+  },
+  "source_files": [
+    "src/detime/methods/neural_blocks/forecasting_blocks.py"
+  ],
+  "frames": 32,
+  "duration_ms": 12050,
+  "poster_frame": 15,
+  "width": 1280,
+  "height": 820,
+  "artifacts": {
+    "gif": {
+      "file": "dlinear-block.gif",
+      "bytes": 319040,
+      "sha256": "3ab12feb7e48082fe2dfb0c45b2074e4352a27c7964bdf88d833458f29da31e4"
+    },
+    "poster": {
+      "file": "dlinear-block.png",
+      "bytes": 121407,
+      "sha256": "2711b6bd464c4d7f84ec6d2c421d1d2257e662ffcce9e408a95a19853a3f913a"
+    },
+    "data": {
+      "file": "dlinear-block.npz",
+      "bytes": 4444,
+      "sha256": "1eb3ce696b5a4ad419debcc65bbac0a64a7a9d0268391442a62414af844b6f2e"
+    }
+  },
+  "source_arrays": {
+    "observed": [
+      144
+    ],
+    "kernel": [
+      25
+    ],
+    "trend": [
+      144
+    ],
+    "season": [
+      144
+    ],
+    "residual": [
+      144
+    ]
+  },
+  "render_provenance": {
+    "python_version": "3.12.14",
+    "dependencies": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "statsmodels": "0.15.0",
+      "matplotlib": "3.11.2",
+      "Pillow": "13.0.0",
+      "PyWavelets": "1.10.0",
+      "EMD-signal": "1.10.0",
+      "vmdpy": "0.2",
+      "PySDKit": "0.5.0"
+    },
+    "source_hashes": {
+      "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+      "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
+      "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
+      "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
+      "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
+      "src/detime/methods/neural_blocks/forecasting_blocks.py": "8404a89cab00a5443f75aae2b168b55218485fbb256f7723250f9470637ccb02",
+      "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+    }
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "method": "PARSIMONY_BLOCK",
+  "slug": "parsimony-block",
+  "title": "Parsimony block: a compact harmonic fit",
+  "summary": "This implementation first smooths the observed series, then projects the remaining signal onto cosine and sine columns at a supplied period. It is a fixed-basis least-squares operator. The trace makes the design matrix, fitted coefficients and additive contributions visible; it does not reproduce a complete forecasting architecture from the cited paper.",
+  "steps": [
+    {
+      "title": "Remove a smoothed trend",
+      "text": "Estimate the trend with a 25-sample centered mean, then form the signal to project onto harmonic basis functions."
+    },
+    {
+      "title": "Build the harmonic design",
+      "text": "Create cosine and sine columns at the requested period and its harmonics, and solve their coefficients by ordinary least squares."
+    },
+    {
+      "title": "Add fitted basis terms",
+      "text": "The animation adds the already fitted weighted basis terms. This is an algebraic construction, not an optimization trajectory."
+    },
+    {
+      "title": "Inspect the decomposition",
+      "text": "The trend, harmonic projection and remaining residual match the registered standalone operator."
+    }
+  ],
+  "parameters": [
+    {
+      "name": "trend_window",
+      "effect": "Controls which structure remains after centered trend smoothing."
+    },
+    {
+      "name": "primary_period",
+      "effect": "Sets the base harmonic period in sample units."
+    },
+    {
+      "name": "num_harmonics",
+      "effect": "Adds paired cosine/sine columns. More terms increase representational capacity without guaranteeing better identification."
+    },
+    {
+      "name": "fit_scope",
+      "effect": "The example uses the complete record. Prefix fitting estimates coefficients on the chosen prefix and evaluates the basis over the record."
+    }
+  ],
+  "cautions": [
+    "The harmonic coefficients are fitted numerically, but this standalone operator has no trained neural backbone.",
+    "Changing the supplied period changes the basis. The algorithm does not establish that the period is physically correct.",
+    "The visual addition of basis terms is not the temporal sequence of a training algorithm.",
+    "Full-record smoothing and fitting require an appropriate information boundary before downstream forecasting."
+  ],
+  "references": [
+    {
+      "title": "Implemented DeTime operator",
+      "url": "https://github.com/systems-mechanobiology/DeTime/blob/main/src/detime/methods/neural_blocks/neural_block_portfolio.py"
+    },
+    {
+      "title": "Deng et al. (2024), Parsimony or Capability? Decomposition Delivers Both in Long-term Time Series Forecasting",
+      "url": "https://arxiv.org/abs/2401.11929"
+    }
+  ],
+  "trace_kind": "computed_operator_trace",
+  "trace_note": "Intermediate arrays are computed with the implemented operator helpers. The final trend, season and residual are checked against public decompose(). The animation explains this standalone experimental block; its source architecture is cited for provenance.",
+  "input_note": "Deterministic synthetic teaching signal; not a benchmark.",
+  "example_config": {
+    "method": "PARSIMONY_BLOCK",
+    "params": {
+      "primary_period": 24,
+      "trend_window": 25,
+      "num_harmonics": 2,
+      "fit_scope": "full"
+    },
+    "backend": "python"
+  },
+  "checks": {
+    "public_method_executed": true,
+    "method_output_max_abs_errors": {
+      "trend": 0.0,
+      "season": 0.0,
+      "residual": 0.0
+    },
+    "reconstruction_max_abs_error": 4.440892098500626e-16,
+    "validation_scope": "One deterministic teaching input; no benchmark claim."
+  },
+  "source_files": [
+    "src/detime/methods/neural_blocks/neural_block_portfolio.py"
+  ],
+  "frames": 32,
+  "duration_ms": 12050,
+  "poster_frame": 15,
+  "width": 1280,
+  "height": 820,
+  "artifacts": {
+    "gif": {
+      "file": "parsimony-block.gif",
+      "bytes": 383193,
+      "sha256": "a91cea81d5181a61ba2e2c9a1af424049015c8fcaee1e70e0a12039e9d4a7c42"
+    },
+    "poster": {
+      "file": "parsimony-block.png",
+      "bytes": 150351,
+      "sha256": "ffb36a25935a03dcbec3d882f3634a24681860f89eb39891307b0c55dc628c0b"
+    },
+    "data": {
+      "file": "parsimony-block.npz",
+      "bytes": 9875,
+      "sha256": "02513610b5dc9b8b9eba3b268528523d28a742ed53cf6d2fc61ea16030fc5927"
+    }
+  },
+  "source_arrays": {
+    "observed": [
+      144
+    ],
+    "trend": [
+      144
+    ],
+    "detrended": [
+      144
+    ],
+    "harmonic_design": [
+      144,
+      4
+    ],
+    "coefficients": [
+      4
+    ],
+    "weighted_terms": [
+      4,
+      144
+    ],
+    "season": [
+      144
+    ],
+    "residual": [
+      144
+    ]
+  },
+  "render_provenance": {
+    "python_version": "3.12.14",
+    "dependencies": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "statsmodels": "0.15.0",
+      "matplotlib": "3.11.2",
+      "Pillow": "13.0.0",
+      "PyWavelets": "1.10.0",
+      "EMD-signal": "1.10.0",
+      "vmdpy": "0.2",
+      "PySDKit": "0.5.0"
+    },
+    "source_hashes": {
+      "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+      "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
+      "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
+      "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
+      "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
+      "src/detime/methods/neural_blocks/neural_block_portfolio.py": "2aab635b9927d1d42bbcd8e0b4f37cb9fcdcf85cbd0331b5011621b495c4acfa",
+      "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+    }
+  }
+}

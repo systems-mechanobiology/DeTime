@@ -1,0 +1,167 @@
+{
+  "method": "TIMES2D_BLOCK",
+  "slug": "times2d-block",
+  "title": "Times2D block: selected-period projections",
+  "summary": "This standalone operator obtains candidate periods from an FFT magnitude ranking and fits a separate harmonic projection for each one. The selected seasonal estimate is their equal-weight average. The frames expose the selection signal, rounded periods, candidate curves and averaging operation. The operator uses rounded FFT periods and harmonic projections. It does not implement a two-dimensional derivative-mapping forecasting backbone.",
+  "steps": [
+    {
+      "title": "Separate trend and selection input",
+      "text": "Compute the moving-average trend. FreqMoE selects frequencies from the detrended signal; Times2D selects them from the original signal after mean removal."
+    },
+    {
+      "title": "Select discrete spectral peaks",
+      "text": "Rank FFT magnitudes, convert bin positions into rounded integer periods, and retain distinct periods as implemented."
+    },
+    {
+      "title": "Fit and average candidate seasons",
+      "text": "Fit a harmonic projection of the detrended signal for each selected period, then take the arithmetic mean of these projections."
+    },
+    {
+      "title": "Inspect actual output streams",
+      "text": "The final trend, averaged projection and derived residual are checked against the public registered operator."
+    }
+  ],
+  "parameters": [
+    {
+      "name": "trend_window",
+      "effect": "Sets the centered moving-average trend."
+    },
+    {
+      "name": "top_k_periods",
+      "effect": "Controls how many distinct rounded FFT periods are retained."
+    },
+    {
+      "name": "num_harmonics",
+      "effect": "Sets the number of cosine/sine pairs in each candidate projection."
+    },
+    {
+      "name": "fit_scope",
+      "effect": "Explicitly full in this animation; prefix settings restrict the fitting interval."
+    }
+  ],
+  "cautions": [
+    "The operator uses rounded FFT periods and harmonic projections. It does not implement a two-dimensional derivative-mapping forecasting backbone.",
+    "A large FFT bin need not correspond to a stable physical oscillation. Trends, finite windows and rounding affect the selected periods.",
+    "The independent candidate projections are averaged, rather than jointly fitted as one combined design.",
+    "All coefficients use the selected fitting interval; no held-out forecast accuracy is shown."
+  ],
+  "references": [
+    {
+      "title": "Implemented DeTime operator",
+      "url": "https://github.com/systems-mechanobiology/DeTime/blob/main/src/detime/methods/neural_blocks/neural_block_portfolio.py"
+    },
+    {
+      "title": "Nematirad, Pahwa, and Natarajan (2025), Times2D: Multi-Period Decomposition and Derivative Mapping for General Time Series Forecasting",
+      "url": "https://arxiv.org/abs/2504.00118"
+    }
+  ],
+  "trace_kind": "computed_operator_trace",
+  "trace_note": "Intermediate arrays are computed with the implemented operator helpers. The final trend, season and residual are checked against public decompose(). The animation explains this standalone experimental block; its source architecture is cited for provenance.",
+  "input_note": "Deterministic synthetic teaching signal; not a benchmark.",
+  "example_config": {
+    "method": "TIMES2D_BLOCK",
+    "params": {
+      "primary_period": 24,
+      "trend_window": 49,
+      "fit_scope": "full",
+      "top_k_periods": 2,
+      "num_harmonics": 1
+    },
+    "backend": "python"
+  },
+  "checks": {
+    "public_method_executed": true,
+    "method_output_max_abs_errors": {
+      "trend": 0.0,
+      "season": 0.0,
+      "residual": 0.0
+    },
+    "reconstruction_max_abs_error": 2.220446049250313e-16,
+    "validation_scope": "One deterministic teaching input; no benchmark claim.",
+    "selected_periods": [
+      24,
+      144
+    ]
+  },
+  "source_files": [
+    "src/detime/methods/neural_blocks/neural_block_portfolio.py"
+  ],
+  "frames": 32,
+  "duration_ms": 12050,
+  "poster_frame": 15,
+  "width": 1280,
+  "height": 820,
+  "artifacts": {
+    "gif": {
+      "file": "times2d-block.gif",
+      "bytes": 289266,
+      "sha256": "9371a33901b3662d3842ea5ab1a5c3142e19ceeefd95a7e953d2d060c930ff73"
+    },
+    "poster": {
+      "file": "times2d-block.png",
+      "bytes": 113118,
+      "sha256": "386220631068d619cf71037c5f054ce03c7c72f91236ed21ce26d7777e919542"
+    },
+    "data": {
+      "file": "times2d-block.npz",
+      "bytes": 11013,
+      "sha256": "71ae3b889f5a804e76ebeeaf631c52c2bc398d9277d74a7473a5ef2597bca116"
+    }
+  },
+  "source_arrays": {
+    "observed": [
+      144
+    ],
+    "trend": [
+      144
+    ],
+    "detrended": [
+      144
+    ],
+    "selection_input": [
+      144
+    ],
+    "spectrum": [
+      73
+    ],
+    "fft_frequencies": [
+      73
+    ],
+    "selected_periods": [
+      2
+    ],
+    "candidate_seasons": [
+      2,
+      144
+    ],
+    "season": [
+      144
+    ],
+    "residual": [
+      144
+    ]
+  },
+  "render_provenance": {
+    "python_version": "3.12.14",
+    "dependencies": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "statsmodels": "0.15.0",
+      "matplotlib": "3.11.2",
+      "Pillow": "13.0.0",
+      "PyWavelets": "1.10.0",
+      "EMD-signal": "1.10.0",
+      "vmdpy": "0.2",
+      "PySDKit": "0.5.0"
+    },
+    "source_hashes": {
+      "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+      "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
+      "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
+      "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
+      "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
+      "src/detime/methods/neural_blocks/neural_block_portfolio.py": "2aab635b9927d1d42bbcd8e0b4f37cb9fcdcf85cbd0331b5011621b495c4acfa",
+      "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+    }
+  }
+}

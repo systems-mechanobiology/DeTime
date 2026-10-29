@@ -26,7 +26,9 @@ This file is a compact documentation map for agents and contributors.
 - `docs/quickstart.md`
   - first Python and CLI workflows
 - `docs/methods.md`
-  - methods overview and chooser in the top-nav `Methods` group
+  - methods overview, chooser, and complete animated explanation index in the top-nav `Methods` group
+- `docs/maintenance/method-animations.md`
+  - GIF reproduction, numerical trace scope, source-array audit, and browser behavior
 - `docs/method-matrix.md`
   - generated retained-method comparison table
 - `docs/config-reference.md`
@@ -69,6 +71,7 @@ This file is a compact documentation map for agents and contributors.
 
 ## Best next files for agents
 
+- `scripts/generate_method_animations.py` builds and checks the method animations; `scripts/method_animations/` contains the numerical teaching traces
 - open `AGENT_INPUT_CONTRACT.md` before trying to synthesize a wrapper
 - open `docs/api.md` before calling programmatic entrypoints
 - open `src/detime/registry.py` if you need exact method and input-mode rules

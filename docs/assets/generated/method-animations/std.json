@@ -1,0 +1,167 @@
+{
+  "method": "STD",
+  "slug": "std",
+  "title": "Separate cycle level, scale, and shape",
+  "summary": "STD represents each cycle using its mean, an L2 dispersion, and its own normalized shape.",
+  "steps": [
+    {
+      "title": "Partition and center cycles",
+      "text": "Split at the configured period, compute each block's arithmetic mean, and subtract it. DeTime assigns that mean to every sample of the block, producing a piecewise-constant trend. A final partial block uses the samples that exist."
+    },
+    {
+      "title": "Separate dispersion and shape",
+      "text": "Compute the Euclidean norm of each centered block as its dispersion. Divide by that norm to obtain a unit-length seasonal shape. A block whose norm is below eps receives zero dispersion and a zero shape."
+    },
+    {
+      "title": "Restore each cycle's shape",
+      "text": "Multiply every cycle's own normalized shape by its own dispersion. This recovers the centered block, including irregular fluctuations. Add the block mean to reconstruct the observed values."
+    },
+    {
+      "title": "Compute the common result",
+      "text": "Return trend, the scaled seasonal term, and residual = observed - trend - season, plus dispersion and seasonal-shape arrays. Residual is approximately zero by construction for nondegenerate blocks; this behavior is part of the representation and is not a denoising result."
+    }
+  ],
+  "parameters": [
+    {
+      "name": "period",
+      "effect": "Block length and seasonal phase convention; a wrong period changes levels, scales, and shape alignment."
+    },
+    {
+      "name": "eps",
+      "effect": "Threshold below which a centered block is treated as having zero dispersion."
+    },
+    {
+      "name": "max_period_search",
+      "effect": "Upper bound on the FFT-based period heuristic used only when period is omitted; this animation supplies the period explicitly."
+    }
+  ],
+  "cautions": [
+    "DeTime's STD/STDR use block means and L2 norms. Dispersion is not the sample standard deviation.",
+    "STDR uses ordinary phase-wise means of normalized shapes. No robust loss, trimming, or outlier weights are used in this implementation.",
+    "A partial cycle has its own mean and norm and contributes only available phases; its scale is not directly comparable to a full cycle without accounting for length.",
+    "STD retains within-cycle irregular variation in its shape. STDR assigns deviations from a shared shape to the remainder.",
+    "The supplied period and the starting phase define block boundaries; shifting the start changes the decomposition."
+  ],
+  "references": [
+    {
+      "title": "Dudek (2022), STD: A Seasonal-Trend-Dispersion Decomposition of Time Series",
+      "url": "https://arxiv.org/abs/2204.10398"
+    }
+  ],
+  "trace_kind": "computed operator trace",
+  "trace_note": "Every stage follows compute_std_components and the corresponding native kernel: block means, Euclidean norms, phase counts, and scaling. Both direct-source and public Python outputs are compared. The final short block is intentional.",
+  "input_note": "Deterministic synthetic teaching signal; not a benchmark.",
+  "example_config": {
+    "method": "STD",
+    "backend": "python",
+    "params": {
+      "period": 24
+    }
+  },
+  "checks": {
+    "traced_block_levels_max_abs_error": 0.0,
+    "traced_dispersion_max_abs_error": 0.0,
+    "traced_shape_max_abs_error": 0.0,
+    "traced_season_max_abs_error": 0.0,
+    "source_trend_max_abs_error": 0.0,
+    "source_season_max_abs_error": 0.0,
+    "source_residual_max_abs_error": 0.0,
+    "additive_reconstruction_max_abs_error": 1.1102230246251565e-16,
+    "phase_average_trace_max_abs_error": 0.0
+  },
+  "source_files": [
+    "src/detime/methods/std.py",
+    "native/src/std.cpp"
+  ],
+  "frames": 32,
+  "duration_ms": 12050,
+  "poster_frame": 15,
+  "width": 1280,
+  "height": 820,
+  "artifacts": {
+    "gif": {
+      "file": "std.gif",
+      "bytes": 546790,
+      "sha256": "4cccdf76f8557f195acf18f66250c2f4a77837d57956342ff9773401414ef193"
+    },
+    "poster": {
+      "file": "std.png",
+      "bytes": 101149,
+      "sha256": "8dc2f42d64693db4fa14c36d45d5d6c7974adf96e9d2dcb0eec5bd452b7b06af"
+    },
+    "data": {
+      "file": "std.npz",
+      "bytes": 8822,
+      "sha256": "bfb69bb445168616d3e7d296814dcf081fd77f0126e772ec2bfbc1d463f41ff5"
+    }
+  },
+  "source_arrays": {
+    "t": [
+      139
+    ],
+    "observed": [
+      139
+    ],
+    "block_means": [
+      6
+    ],
+    "block_dispersion": [
+      6
+    ],
+    "normalized_shapes_zero_padded": [
+      6,
+      24
+    ],
+    "phase_available_mask": [
+      6,
+      24
+    ],
+    "running_phase_counts": [
+      6,
+      24
+    ],
+    "running_average_shapes": [
+      6,
+      24
+    ],
+    "sample_dispersion": [
+      139
+    ],
+    "returned_seasonal_shape": [
+      139
+    ],
+    "trend": [
+      139
+    ],
+    "season": [
+      139
+    ],
+    "residual": [
+      139
+    ]
+  },
+  "render_provenance": {
+    "python_version": "3.12.14",
+    "dependencies": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "statsmodels": "0.15.0",
+      "matplotlib": "3.11.2",
+      "Pillow": "13.0.0",
+      "PyWavelets": "1.10.0",
+      "EMD-signal": "1.10.0",
+      "vmdpy": "0.2",
+      "PySDKit": "0.5.0"
+    },
+    "source_hashes": {
+      "native/src/std.cpp": "5d5fddc1b7267985d73336386b9a34834b688eab60266430669b4a049c59ad4c",
+      "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+      "scripts/method_animations/classical.py": "8a8a9ef82936f0aa5b1c5775c6c0158c3b48d3bc7dca1de691b83d95e5c23ba3",
+      "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
+      "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
+      "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
+      "src/detime/methods/std.py": "7d72be4a4bff8c15f3723eaf1198d55b6863c517caa592690a5858f3e30f3578",
+      "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+    }
+  }
+}

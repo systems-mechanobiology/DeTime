@@ -14,6 +14,82 @@
 | **Status** | ran |
 | **Residual RMSE** | 0.00000000 |
 
+<!-- detime:method-animation:start -->
+## How it works
+
+STDR uses a phase-wise average of normalized cycle shapes, then restores each cycle's dispersion and keeps a remainder.
+
+[![STDR: Partition and center cycles; Separate dispersion and shape; Average shapes across cycles; Compute the common result](../assets/generated/method-animations/stdr.png)](../assets/generated/method-animations/stdr.gif)
+
+Deterministic synthetic teaching signal; not a benchmark.
+
+[Open GIF](../assets/generated/method-animations/stdr.gif) · [Static PNG](../assets/generated/method-animations/stdr.png) · [Source arrays (NPZ)](../assets/generated/method-animations/stdr.npz) · [Trace metadata](../assets/generated/method-animations/stdr.json)
+
+### Follow the four steps
+
+**1. Partition and center cycles**
+
+Split at the configured period, compute each block's arithmetic mean, and subtract it. DeTime assigns that mean to every sample of the block, producing a piecewise-constant trend. A final partial block uses the samples that exist.
+
+**2. Separate dispersion and shape**
+
+Compute the Euclidean norm of each centered block as its dispersion. Divide by that norm to obtain a unit-length seasonal shape. A block whose norm is below eps receives zero dispersion and a zero shape.
+
+**3. Average shapes across cycles**
+
+Average normalized shape entries at the same phase across cycles. For a partial cycle, increment counts only for available phases. Multiply this shared average by each cycle's own dispersion; the average shape is not normalized again.
+
+**4. Compute the common result**
+
+Return trend, the scaled seasonal term, and residual = observed - trend - season, plus dispersion and seasonal-shape arrays. Deviations from the common cycle shape remain in the residual. In the cited formulation, R denotes a remainder; the code does not perform robust reweighting.
+
+### Parameters that change the result
+
+| Parameter | Effect on the computation |
+|---|---|
+| `period` | Block length and seasonal phase convention; a wrong period changes levels, scales, and shape alignment. |
+| `eps` | Threshold below which a centered block is treated as having zero dispersion. |
+| `max_period_search` | Upper bound on the FFT-based period heuristic used only when period is omitted; this animation supplies the period explicitly. |
+
+### What this animation computes
+
+Every stage follows compute_std_components and the corresponding native kernel: block means, Euclidean norms, phase counts, and scaling. Both direct-source and public Python outputs are compared. The final short block is intentional.
+
+### Interpretation
+
+- DeTime's STD/STDR use block means and L2 norms. Dispersion is not the sample standard deviation.
+- STDR uses ordinary phase-wise means of normalized shapes. No robust loss, trimming, or outlier weights are used in this implementation.
+- A partial cycle has its own mean and norm and contributes only available phases; its scale is not directly comparable to a full cycle without accounting for length.
+- STD retains within-cycle irregular variation in its shape. STDR assigns deviations from a shared shape to the remainder.
+- The supplied period and the starting phase define block boundaries; shifting the start changes the decomposition.
+
+### Try the method
+
+Use this configuration with DecompositionConfig and decompose. The animation generator supplies the teaching input and records intermediate arrays.
+
+```json
+{
+  "method": "STDR",
+  "backend": "python",
+  "params": {
+    "period": 24
+  }
+}
+```
+
+See [the configuration reference](../config-reference.md#stdr) for the full interface and optional dependencies.
+
+### Sources and reproduction
+
+- [Dudek (2022), STD: A Seasonal-Trend-Dispersion Decomposition of Time Series](https://arxiv.org/abs/2204.10398)
+- [DeTime implementation: `src/detime/methods/std.py`](https://github.com/systems-mechanobiology/DeTime/blob/main/src/detime/methods/std.py)
+- [DeTime implementation: `native/src/std.cpp`](https://github.com/systems-mechanobiology/DeTime/blob/main/native/src/std.cpp)
+
+Regenerate this animation with `python scripts/generate_method_animations.py --methods STDR`.
+The [reproduction guide](../maintenance/method-animations.md) explains the environment,
+numerical checks, coverage manifest, and how to inspect the stored arrays.
+<!-- detime:method-animation:end -->
+
 ## Code
 
 ```python

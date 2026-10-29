@@ -139,6 +139,7 @@ def _render_method(entry: dict[str, object]) -> str:
             f"- Optional dependencies: {optional_dep_text}",
             f"- Output components: {', '.join(f'`{item}`' for item in outputs) if outputs else '`trend`, `season`, `residual`'}",
             f"- References: [Method References](method-references.md#{_heading_anchor(entry['name'])})",
+            f"- Learn the mechanism: [Animated explanation](gallery/{str(entry['name']).lower().replace('_', '-')}.md#how-it-works)",
             "",
             f"See [Config Reference](config-reference.md#{_heading_anchor(entry['name'])}) for the full parameter table.",
             "",

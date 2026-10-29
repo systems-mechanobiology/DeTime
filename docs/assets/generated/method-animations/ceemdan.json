@@ -1,0 +1,158 @@
+{
+  "method": "CEEMDAN",
+  "slug": "ceemdan",
+  "title": "CEEMDAN: ensemble averaging with adaptive noise",
+  "summary": "CEEMDAN repeatedly estimates components from perturbed signals and updates a shared residual. The noise modes and ensemble averages are algorithmic inputs, not decorative uncertainty bands.",
+  "steps": [
+    {
+      "title": "Generate perturbations",
+      "text": "Normalize the input, draw seeded noise, and decompose the noise realizations."
+    },
+    {
+      "title": "Average first IMFs",
+      "text": "Apply EMD to each perturbed input and average its first IMF."
+    },
+    {
+      "title": "Update adaptively",
+      "text": "Perturb the current residual with the next noise mode, average local means, and extract the next cIMF."
+    },
+    {
+      "title": "Retain the residue",
+      "text": "Continue until the stopping criterion, then retain the remaining signal for additive reconstruction."
+    }
+  ],
+  "parameters": [
+    {
+      "name": "trials",
+      "effect": "Number of ensemble members; this small animation uses 8, while DeTime's default is 100."
+    },
+    {
+      "name": "epsilon",
+      "effect": "Controls the perturbation scale; this visibility-oriented trace uses 0.04, not the default 0.005."
+    },
+    {
+      "name": "seed and n_jobs",
+      "effect": "The trace uses seed 42 and serial execution. Preserve both for reproducibility."
+    },
+    {
+      "name": "primary_period",
+      "effect": "Affects DeTime's grouping after the upstream component extraction."
+    }
+  ],
+  "cautions": [
+    "Different CEEMDAN variants exist; PyEMD includes the later improved formulation documented by its authors.",
+    "An ensemble average does not establish that an IMF is a unique physical component.",
+    "Raw DeTime IMF arrays use (mode, time, channel), including a singleton channel for one series."
+  ],
+  "references": [
+    {
+      "title": "PyEMD CEEMDAN implementation and reproducibility",
+      "url": "https://pyemd.readthedocs.io/en/latest/ceemdan.html"
+    },
+    {
+      "title": "Torres et al. (2011)",
+      "url": "https://doi.org/10.1109/ICASSP.2011.5947265"
+    },
+    {
+      "title": "Colominas et al. (2014)",
+      "url": "https://doi.org/10.1016/j.bspc.2014.06.009"
+    }
+  ],
+  "trace_kind": "upstream execution trace",
+  "trace_note": "Trial inputs, first IMFs, and adaptive local means recorded from EMD-signal 1.10.0; max_imf=3 bounds this upstream teaching run. DeTime's example below exposes the public controls and does not set this internal trace cap.",
+  "input_note": "Deterministic synthetic teaching signal; not a benchmark.",
+  "example_config": {
+    "method": "CEEMDAN",
+    "params": {
+      "trials": 8,
+      "epsilon": 0.04,
+      "primary_period": 24
+    },
+    "seed": 42,
+    "n_jobs": 1,
+    "backend": "python"
+  },
+  "checks": {
+    "first_ensemble_mean_error": 2.7755575615628914e-17,
+    "second_local_mean_error": 8.881784197001252e-16,
+    "sum_of_returned_slices_error": 4.440892098500626e-16
+  },
+  "source_files": [
+    "src/detime/methods/ceemdan.py"
+  ],
+  "frames": 32,
+  "duration_ms": 12050,
+  "poster_frame": 15,
+  "width": 1280,
+  "height": 820,
+  "artifacts": {
+    "gif": {
+      "file": "ceemdan.gif",
+      "bytes": 1107889,
+      "sha256": "6dee2646627d165080698ede29e1b02d87e29c33c10dd032d75000f56440a016"
+    },
+    "poster": {
+      "file": "ceemdan.png",
+      "bytes": 194779,
+      "sha256": "1e02ca6f8bf8e14b0b1cf272f6b0c6eab62069649e09c7b83e711e64c00b0329"
+    },
+    "data": {
+      "file": "ceemdan.npz",
+      "bytes": 60494,
+      "sha256": "5f654fae2d8d9e015b88e60d2edff162874eff2b21c43bd8927b318a970e1af6"
+    }
+  },
+  "source_arrays": {
+    "time": [
+      144
+    ],
+    "input": [
+      144
+    ],
+    "first_trial_input_and_imf": [
+      8,
+      2,
+      144
+    ],
+    "adaptive_trial_input_and_local_mean": [
+      8,
+      2,
+      144
+    ],
+    "first_running_means": [
+      8,
+      144
+    ],
+    "adaptive_running_means": [
+      8,
+      144
+    ],
+    "returned_slices": [
+      4,
+      144
+    ]
+  },
+  "render_provenance": {
+    "python_version": "3.12.14",
+    "dependencies": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "statsmodels": "0.15.0",
+      "matplotlib": "3.11.2",
+      "Pillow": "13.0.0",
+      "PyWavelets": "1.10.0",
+      "EMD-signal": "1.10.0",
+      "vmdpy": "0.2",
+      "PySDKit": "0.5.0"
+    },
+    "source_hashes": {
+      "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+      "scripts/method_animations/adaptive.py": "7d728d88b4ba1a8dd82890c7a6b017d542728b50dc477c281e9bbfcbae164a1d",
+      "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
+      "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
+      "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
+      "src/detime/methods/ceemdan.py": "3afa048be78ff8bf1671a3f80412a1e717a8574ef85a8f9a2aea5354e605c694",
+      "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+    }
+  }
+}

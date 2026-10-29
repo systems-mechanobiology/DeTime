@@ -206,6 +206,20 @@ def _instantiate_backend(backend_cls: Any, cfg: Dict[str, Any], method_name: str
 
 
 def _call_backend(instance: Any, y_arr: np.ndarray, method_name: str) -> Any:
+    if method_name == "MVMD":
+        # PySDKit MVMD requires (channels, time). It may silently accept the
+        # reverse layout, and reshaping its output cannot repair that fit.
+        # Select an available entry point once; a solver error must propagate
+        # instead of causing another fit on a different layout or interface.
+        backend_input = y_arr.T
+        for attr_name in ("fit_transform", "transform", "decompose"):
+            fn = getattr(instance, attr_name, None)
+            if callable(fn):
+                return fn(backend_input)
+        if callable(instance):
+            return instance(backend_input)
+        raise RuntimeError(f"Could not execute the optional backend for {method_name}.")
+
     last_error: Exception | None = None
     attempts = (
         ("fit_transform", y_arr),
