@@ -59,7 +59,7 @@ Related packages:
 
 ### `CEEMDAN`
 
-- Summary: Noise-assisted EMD variant for more stable IMF extraction.
+- Summary: Noise-assisted EMD wrapper with IMFs in (mode, time, channel) layout.
 - Optional/runtime dependencies: PyEMD
 
 Primary references:

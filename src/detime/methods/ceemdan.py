@@ -93,6 +93,7 @@ def ceemdan_decompose(
         "seed": runtime.seed,
         "n_jobs": runtime.n_jobs,
         "parallel": parallel,
+        "component_layouts": {"imfs": "mode,time,channel"},
     }
 
     imfs = ceemdan(y)
@@ -106,7 +107,7 @@ def ceemdan_decompose(
             trend=zeros,
             season=zeros,
             residual=y.copy(),
-            components={"imfs": imfs},
+            components={"imfs": np.empty((0, len(y), 1), dtype=float)},
             meta={**runtime_meta, "imfs": []}
         )
 
@@ -125,7 +126,9 @@ def ceemdan_decompose(
         trend=trend,
         season=season,
         residual=residual,
-        components={"imfs": imfs},
+        # Retain a channel axis for mode collections so save_result uses its
+        # established 3D NPZ layout, rather than interpreting modes as time.
+        components={"imfs": imfs[:, :, np.newaxis]},
         meta={
             **runtime_meta,
             "dominant_frequencies": freqs.tolist(),

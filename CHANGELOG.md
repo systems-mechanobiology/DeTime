@@ -17,8 +17,9 @@ aliases remain available for compatibility.
   uses serial execution for `n_jobs=1` and bounds worker count for larger values
 - introduces the canonical CEEMDAN `epsilon` parameter; legacy `noise_width`
   now maps to `epsilon` with a warning because it previously had no effect
-- records effective CEEMDAN settings, returns the documented IMF array, and
-  prevents a mode from being assigned to both trend and season
+- records effective CEEMDAN settings, returns IMFs in the existing
+  `(mode, time, channel)` NPZ export layout, and prevents a mode from being
+  assigned to both trend and season
 - rejects an explicitly requested native CEEMDAN backend, since this method
   uses the Python upstream integration
 - corrects the documented CEEMDAN defaults to the previously used upstream

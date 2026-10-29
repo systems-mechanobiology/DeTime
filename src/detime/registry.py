@@ -187,7 +187,7 @@ METHOD_METADATA: Dict[str, Dict[str, Any]] = {
         "multivariate_support": "univariate",
         "native_backed": False,
         "min_length": 24,
-        "summary": "Noise-assisted EMD variant for more stable IMF extraction.",
+        "summary": "Noise-assisted EMD wrapper with IMFs in (mode, time, channel) layout.",
         "recommended_for": [
             "noise-assisted EMD workflows",
             "adaptive decomposition with improved IMF stability",

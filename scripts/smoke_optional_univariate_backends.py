@@ -1,9 +1,13 @@
 # SPDX-License-Identifier: BSD-3-Clause
 from __future__ import annotations
 
+from pathlib import Path
+from tempfile import TemporaryDirectory
+
 import numpy as np
 
 from detime import DecompositionConfig, decompose
+from detime.io import save_result
 
 
 def _check(method: str, params: dict[str, object]) -> None:
@@ -16,6 +20,20 @@ def _check(method: str, params: dict[str, object]) -> None:
     assert result.season.shape == series.shape
     assert result.residual.shape == series.shape
     np.testing.assert_allclose(result.trend + result.season + result.residual, series)
+
+    # Exercise the artifact boundary too: optional arrays must not break the
+    # default full-output path used by the CLI.
+    with TemporaryDirectory(prefix="detime-backend-smoke-") as directory:
+        output = Path(directory)
+        save_result(result, output, "smoke")
+        table = np.genfromtxt(output / "smoke_components.csv", delimiter=",", names=True)
+        np.testing.assert_allclose(
+            table["trend"] + table["season"] + table["residual"], series
+        )
+        if method == "CEEMDAN":
+            with np.load(output / "smoke_components_3d.npz", allow_pickle=False) as archive:
+                np.testing.assert_array_equal(archive["imfs"], result.components["imfs"])
+                assert archive["imfs"].shape[1:] == (series.size, 1)
 
 
 def main() -> None:
