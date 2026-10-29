@@ -140,8 +140,9 @@ Example config:
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
-| `trials` | int | no | `50` | Number of noise-assisted ensemble trials. |
-| `noise_width` | float | no | `0.05` | Relative width of the injected noise. |
+| `trials` | int | no | `100` | Positive number of noise-assisted ensemble trials. |
+| `epsilon` | float | no | `0.005` | Non-negative upstream noise multiplier. Top-level seed controls noise generation; n_jobs=1 gives serial reproducibility. |
+| `noise_width` | float | no | `None` | Deprecated alias for epsilon; previously ignored. Specify only one of epsilon and noise_width. |
 | `primary_period` | int \| None | no | `None` | Period hint for grouping IMFs into season and trend. |
 | `fs` | float | no | `1.0` | Sampling frequency used by grouping heuristics. |
 | `trend_freq_max` | float \| None | no | `None` | Maximum dominant frequency assigned to the trend. |
@@ -153,7 +154,7 @@ Example config:
 {
   "method": "CEEMDAN",
   "params": {
-    "noise_width": 0.05,
+    "epsilon": 0.005,
     "primary_period": 12,
     "trials": 20
   }
@@ -476,13 +477,13 @@ Example config:
 - Input mode: `univariate`
 - Maturity: `stable`
 - Claim scope: `integration`
-- Output components: `trend`, `season`, `residual`, `components.seasonal_terms`
+- Output components: `trend`, `season`, `residual`
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
 | `periods` | int \| sequence[int] | yes | required | One or more seasonal periods passed to statsmodels MSTL. |
 | `windows` | int \| sequence[int] \| None | no | `None` | Optional odd smoother windows aligned with periods. |
-| `lmbda` | float \| 'auto' \| None | no | `None` | Optional Box--Cox transform parameter. |
+| `lmbda` | float \| 'auto' \| None | no | `None` | Optional Box--Cox parameter; zero uses log, 'auto' estimates lambda. Outputs retain the original input scale with a combined seasonal contribution. |
 | `iterate` | int | no | `2` | Positive number of seasonal-refinement iterations. |
 | `stl_kwargs` | dict \| None | no | `None` | Additional statsmodels STL keyword arguments. |
 

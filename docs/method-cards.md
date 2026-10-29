@@ -81,10 +81,10 @@ See [Config Reference](config-reference.md#stdr) for the full parameter table.
 
 ### `CEEMDAN`
 
-- Summary: Noise-assisted EMD variant for more stable IMF extraction.
+- Summary: Noise-assisted EMD wrapper with IMFs in (mode, time, channel) layout.
 - Use when: noise-assisted EMD workflows; adaptive decomposition with improved IMF stability
 - Avoid when: shared-model multivariate decomposition problems
-- Key params: `trials` (50), `noise_width` (0.05), `primary_period` (null)
+- Key params: `trials` (100), `epsilon` (0.005), `primary_period` (null)
 - Input/backend: `univariate` input, `wrapper` implementation, maturity `stable`
 - Claim scope: `integration`
 - Alias of: none
@@ -134,7 +134,7 @@ See [Config Reference](config-reference.md#ma_baseline) for the full parameter t
 - Claim scope: `integration`
 - Alias of: none
 - Optional dependencies: statsmodels
-- Output components: `trend`, `season`, `residual`, `components.seasonal_terms`
+- Output components: `trend`, `season`, `residual`
 - References: [Method References](method-references.md#mstl)
 
 See [Config Reference](config-reference.md#mstl) for the full parameter table.

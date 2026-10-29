@@ -187,7 +187,7 @@ METHOD_METADATA: Dict[str, Dict[str, Any]] = {
         "multivariate_support": "univariate",
         "native_backed": False,
         "min_length": 24,
-        "summary": "Noise-assisted EMD variant for more stable IMF extraction.",
+        "summary": "Noise-assisted EMD wrapper with IMFs in (mode, time, channel) layout.",
         "recommended_for": [
             "noise-assisted EMD workflows",
             "adaptive decomposition with improved IMF stability",
@@ -649,9 +649,9 @@ METHOD_REFERENCE_LINKS: Dict[str, list[Dict[str, str]]] = {
     ],
     "MSTL": [
         {
-            "title": "Bandara, Hyndman, and Bergmeir (2021), MSTL: A Seasonal-Trend Decomposition Algorithm for Time Series with Multiple Seasonal Patterns",
-            "url": "https://arxiv.org/abs/2107.13462",
-            "note": "Primary MSTL reference used by the statsmodels implementation.",
+            "title": "Bandara, Hyndman, and Bergmeir (2025), MSTL: a seasonal-trend decomposition algorithm for time series with multiple seasonal patterns",
+            "url": "https://doi.org/10.1504/IJOR.2025.143957",
+            "note": "Published in International Journal of Operational Research 52(1), 79-98; the earlier preprint is arXiv:2107.13462.",
         }
     ],
     "EMD": [
@@ -1002,7 +1002,7 @@ METHOD_PARAMETER_GUIDE: Dict[str, list[Dict[str, Any]]] = {
     "MSTL": [
         _param_doc("periods", "int | sequence[int]", "One or more seasonal periods passed to statsmodels MSTL.", required=True),
         _param_doc("windows", "int | sequence[int] | None", "Optional odd smoother windows aligned with periods.", default=None, common=False),
-        _param_doc("lmbda", "float | 'auto' | None", "Optional Box--Cox transform parameter.", default=None, common=False),
+        _param_doc("lmbda", "float | 'auto' | None", "Optional Box--Cox parameter; zero uses log, 'auto' estimates lambda. Outputs retain the original input scale with a combined seasonal contribution.", default=None, common=False),
         _param_doc("iterate", "int", "Positive number of seasonal-refinement iterations.", default=2, common=False),
         _param_doc("stl_kwargs", "dict | None", "Additional statsmodels STL keyword arguments.", default=None, common=False),
     ],
@@ -1029,8 +1029,9 @@ METHOD_PARAMETER_GUIDE: Dict[str, list[Dict[str, Any]]] = {
         _param_doc("trend_freq_threshold", "float | None", "Low-frequency threshold for automatic trend grouping.", default=None, common=False),
     ],
     "CEEMDAN": [
-        _param_doc("trials", "int", "Number of noise-assisted ensemble trials.", default=50),
-        _param_doc("noise_width", "float", "Relative width of the injected noise.", default=0.05),
+        _param_doc("trials", "int", "Positive number of noise-assisted ensemble trials.", default=100),
+        _param_doc("epsilon", "float", "Non-negative upstream noise multiplier. Top-level seed controls noise generation; n_jobs=1 gives serial reproducibility.", default=0.005),
+        _param_doc("noise_width", "float", "Deprecated alias for epsilon; previously ignored. Specify only one of epsilon and noise_width.", default=None, common=False),
         _param_doc("primary_period", "int | None", "Period hint for grouping IMFs into season and trend.", default=None),
         _param_doc("fs", "float", "Sampling frequency used by grouping heuristics.", default=1.0, common=False),
         _param_doc("trend_freq_max", "float | None", "Maximum dominant frequency assigned to the trend.", default=None, common=False),
@@ -1098,7 +1099,7 @@ METHOD_OUTPUT_COMPONENTS: Dict[str, list[str]] = {
     "STDR": ["trend", "season", "residual", "components.dispersion", "components.seasonal_shape"],
     "MSSA": ["trend", "season", "residual", "components.elementary"],
     "STL": ["trend", "season", "residual"],
-    "MSTL": ["trend", "season", "residual", "components.seasonal_terms"],
+    "MSTL": ["trend", "season", "residual"],
     "ROBUST_STL": ["trend", "season", "residual"],
     "EMD": ["trend", "season", "residual", "components.imfs"],
     "CEEMDAN": ["trend", "season", "residual", "components.imfs"],
@@ -1141,7 +1142,7 @@ METHOD_EXAMPLE_CONFIGS: Dict[str, Dict[str, Any]] = {
     "MSTL": {"method": "MSTL", "params": {"periods": [12, 24]}},
     "ROBUST_STL": {"method": "ROBUST_STL", "params": {"period": 12}},
     "EMD": {"method": "EMD", "params": {"primary_period": 12, "n_imfs": 4}},
-    "CEEMDAN": {"method": "CEEMDAN", "params": {"primary_period": 12, "trials": 20, "noise_width": 0.05}},
+    "CEEMDAN": {"method": "CEEMDAN", "params": {"primary_period": 12, "trials": 20, "epsilon": 0.005}},
     "VMD": {"method": "VMD", "params": {"K": 4, "alpha": 2000.0, "primary_period": 12}},
     "WAVELET": {"method": "WAVELET", "params": {"wavelet": "db4", "level": 3}},
     "MA_BASELINE": {"method": "MA_BASELINE", "params": {"trend_window": 7, "season_period": 12}},
@@ -1581,6 +1582,21 @@ def validate_method_params(method: str, params: Dict[str, Any] | None) -> None:
         _validate_stl_params(normalized, values)
     elif normalized == "MSTL":
         _validate_mstl_params(values)
+    elif normalized == "CEEMDAN":
+        if "trials" in values:
+            _validate_integer("CEEMDAN", "trials", values["trials"], minimum=1)
+        if "epsilon" in values and "noise_width" in values:
+            raise ValueError("CEEMDAN accepts either epsilon or legacy noise_width, not both.")
+        for key in ("epsilon", "noise_width"):
+            if key in values:
+                value = values[key]
+                if (
+                    isinstance(value, (bool, np.bool_))
+                    or not isinstance(value, Real)
+                    or not np.isfinite(float(value))
+                    or value < 0
+                ):
+                    raise _parameter_error("CEEMDAN", key, "a finite number >= 0", value)
 
 
 def _parameter_error(method: str, name: str, expectation: str, value: Any) -> ValueError:

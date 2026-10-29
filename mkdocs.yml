@@ -22,11 +22,16 @@ nav:
       - Methods & Chooser: methods.md
       - Method Matrix: method-matrix.md
       - Method References: method-references.md
+      - Research Guides:
+          - Overview: research/index.md
+          - Choosing Python Tools: research/python-decomposition-tools.md
+          - Decomposition Research in 2026: research/decomposition-landscape-2026.md
   - Workflows:
       - Notebook Gallery: notebook-gallery.md
       - Univariate Tutorial: tutorials/univariate.md
       - Multivariate Tutorial: tutorials/multivariate.md
       - CLI Guide: tutorials/cli-and-profiling.md
+      - ML Features and Forecasting: ml-workflows.md
       - Quant Trading Tutorial:
           - Overview: tutorials/quant-trading.md
           - Tutorial Notebooks: tutorials/quant-trading/notebooks/index.md

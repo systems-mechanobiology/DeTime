@@ -10,6 +10,11 @@ Python, CLI, saved artifacts, and machine-readable metadata. Specialist
 packages remain the better choice when you only need their deepest family-
 specific API.
 
+For method assumptions, library-specific controls, and a forecasting evaluation
+protocol, read [Choosing Python Decomposition Tools](research/python-decomposition-tools.md).
+The [research map](research/decomposition-landscape-2026.md) connects these
+interfaces to the literature through 2026.
+
 ## Before and after
 
 <div class="pipeline-panel">
