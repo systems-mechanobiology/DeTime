@@ -94,18 +94,18 @@
   "artifacts": {
     "gif": {
       "file": "times2d-block.gif",
-      "bytes": 289266,
-      "sha256": "9371a33901b3662d3842ea5ab1a5c3142e19ceeefd95a7e953d2d060c930ff73"
+      "bytes": 279388,
+      "sha256": "9d7b4fc77b31e37e181ac9991123178b15040039ccbe80bccc4cc8ae78b90403"
     },
     "poster": {
       "file": "times2d-block.png",
-      "bytes": 113118,
-      "sha256": "386220631068d619cf71037c5f054ce03c7c72f91236ed21ce26d7777e919542"
+      "bytes": 116023,
+      "sha256": "bcaefc457289056cc78fe83ed40f61f51786e2500361af56dea5fbc827077812"
     },
     "data": {
       "file": "times2d-block.npz",
-      "bytes": 11013,
-      "sha256": "71ae3b889f5a804e76ebeeaf631c52c2bc398d9277d74a7473a5ef2597bca116"
+      "bytes": 11014,
+      "sha256": "e79710bccc89e33a310467a0519a265e1d65dd8abdbb83f70bc6e20a3f2083d9"
     }
   },
   "source_arrays": {
@@ -144,24 +144,24 @@
   "render_provenance": {
     "python_version": "3.12.14",
     "dependencies": {
-      "numpy": "2.5.4",
-      "scipy": "1.18.1",
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
       "statsmodels": "0.15.0",
-      "matplotlib": "3.11.2",
-      "Pillow": "13.0.0",
+      "matplotlib": "3.10.8",
+      "Pillow": "12.3.0",
       "PyWavelets": "1.10.0",
       "EMD-signal": "1.10.0",
       "vmdpy": "0.2",
       "PySDKit": "0.5.0"
     },
     "source_hashes": {
-      "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+      "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
       "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
       "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
       "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
       "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
       "src/detime/methods/neural_blocks/neural_block_portfolio.py": "2aab635b9927d1d42bbcd8e0b4f37cb9fcdcf85cbd0331b5011621b495c4acfa",
-      "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+      "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
     }
   }
 }

@@ -30,6 +30,7 @@ include docs/assets/generated/evidence/workflow_comparison.json
 recursive-include docs/stylesheets *.css
 recursive-include docs/javascripts *.js
 include scripts/generate_method_animations.py
+include scripts/check_site_links.py
 recursive-include scripts/method_animations *.py
 recursive-include overrides *.html
 include docs/robots.txt

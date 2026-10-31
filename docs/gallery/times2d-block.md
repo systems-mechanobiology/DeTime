@@ -5,12 +5,12 @@ description: "TIMES2D_BLOCK: This standalone operator obtains candidate periods 
 
 # Times2D block: selected-period projections
 
-[Back to methods](../methods.md#animated-method-explanations)
-
-**Method:** `TIMES2D_BLOCK`. **Status:** experimental. **Implementation:** python.
+[← All 31 animations](index.md)
 
 <!-- detime:method-animation:start -->
 ## How it works
+
+**Method maturity:** `experimental`. **Implementation:** `python`.
 
 This standalone operator obtains candidate periods from an FFT magnitude ranking and fits a separate harmonic projection for each one. The selected seasonal estimate is their equal-weight average. The frames expose the selection signal, rounded periods, candidate curves and averaging operation. The operator uses rounded FFT periods and harmonic projections. It does not implement a two-dimensional derivative-mapping forecasting backbone.
 

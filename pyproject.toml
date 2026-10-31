@@ -177,6 +177,7 @@ include = [
   "tests/**/*.py",
   "scripts/check_dist_contents.py",
   "scripts/check_doc_consistency.py",
+  "scripts/check_site_links.py",
   "scripts/_repo_source.py",
   "scripts/release_smoke_matrix.py",
   "scripts/smoke_optional_univariate_backends.py",

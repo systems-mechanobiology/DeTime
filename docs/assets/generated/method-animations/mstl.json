@@ -101,13 +101,13 @@
   "artifacts": {
     "gif": {
       "file": "mstl.gif",
-      "bytes": 443926,
-      "sha256": "4fe90c958c8e74748a0ffa8487b579c7cbd6c018e3f92042ab95a1f7cf2a7bc1"
+      "bytes": 443564,
+      "sha256": "2775454700149bfd468fd77d953f94d099377b368e371f982d75815ccbb8c205"
     },
     "poster": {
       "file": "mstl.png",
-      "bytes": 169840,
-      "sha256": "7f23baa2cf48e1791951837983a04a2e36a75596a7cd45ae9df28a5f550af00b"
+      "bytes": 169208,
+      "sha256": "c8a5d7e26fa2a51077a7801928422906a45e5ff1355eb1dabc00b29534d95bc1"
     },
     "data": {
       "file": "mstl.npz",
@@ -166,24 +166,24 @@
   "render_provenance": {
     "python_version": "3.12.14",
     "dependencies": {
-      "numpy": "2.5.4",
-      "scipy": "1.18.1",
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
       "statsmodels": "0.15.0",
-      "matplotlib": "3.11.2",
-      "Pillow": "13.0.0",
+      "matplotlib": "3.10.8",
+      "Pillow": "12.3.0",
       "PyWavelets": "1.10.0",
       "EMD-signal": "1.10.0",
       "vmdpy": "0.2",
       "PySDKit": "0.5.0"
     },
     "source_hashes": {
-      "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+      "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
       "scripts/method_animations/classical.py": "8a8a9ef82936f0aa5b1c5775c6c0158c3b48d3bc7dca1de691b83d95e5c23ba3",
       "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
       "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
       "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
       "src/detime/methods/stl.py": "bb9db3808691490849d06b6eff3f1d6083b6d79fa4d0ea526201e6cec11bdd4d",
-      "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+      "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
     }
   }
 }

@@ -83,7 +83,7 @@ Current package version target: `0.1.3`.
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
 | `primary_period` | int \| None | no | `None` | Dominant period hint used by neural block heuristics. |
-| `fit_scope` | str | no | `"full"` | Whether to fit templates on the full series or a prefix window. |
+| `fit_scope` | str | no | `"prefix"` | Whether to fit templates on the full series or a prefix window. |
 | `train_fraction` | float | no | `0.6` | Prefix fraction used when fit_scope='prefix'. |
 | `multiscale_windows` | list[int] \| None | no | `None` | Smoothing windows averaged into the multiscale trend. |
 
@@ -142,7 +142,7 @@ Example config:
 |---|---|---:|---|---|
 | `trials` | int | no | `100` | Positive number of noise-assisted ensemble trials. |
 | `epsilon` | float | no | `0.005` | Non-negative upstream noise multiplier. Top-level seed controls noise generation; n_jobs=1 gives serial reproducibility. |
-| `noise_width` | float | no | `None` | Deprecated alias for epsilon; previously ignored. Specify only one of epsilon and noise_width. |
+| `noise_width` | float | no | derived; see description | Deprecated alias for epsilon; previously ignored. Specify only one of epsilon and noise_width. |
 | `primary_period` | int \| None | no | `None` | Period hint for grouping IMFs into season and trend. |
 | `fs` | float | no | `1.0` | Sampling frequency used by grouping heuristics. |
 | `trend_freq_max` | float \| None | no | `None` | Maximum dominant frequency assigned to the trend. |
@@ -171,7 +171,7 @@ Example config:
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
 | `primary_period` | int \| None | no | `None` | Dominant period hint used by neural block heuristics. |
-| `fit_scope` | str | no | `"full"` | Whether to fit templates on the full series or a prefix window. |
+| `fit_scope` | str | no | `"prefix"` | Whether to fit templates on the full series or a prefix window. |
 | `train_fraction` | float | no | `0.6` | Prefix fraction used when fit_scope='prefix'. |
 | `alpha` | float | no | `0.4` | Holt level smoothing coefficient. |
 | `beta` | float | no | `0.2` | Holt slope smoothing coefficient. |
@@ -260,7 +260,7 @@ Example config:
 | `train_fraction` | float | no | `0.6` | Prefix fraction used when fit_scope='prefix'. |
 | `trend_window` | int \| None | no | `None` | Moving-average trend window. |
 | `num_bands` | int | no | `4` | Number of frequency bands in the mixture. |
-| `expert_width` | int | no | `64` | Frequency expert width used by the scaffold. |
+| `expert_width` | int | no | `64` | Controls harmonic capacity via max(1, round(expert_width / 64)); no mixture-of-experts network is trained. |
 
 Example config:
 
@@ -311,7 +311,7 @@ Example config:
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
 | `primary_period` | int \| None | no | `None` | Dominant period hint used by neural block heuristics. |
-| `fit_scope` | str | no | `"full"` | Whether to fit templates on the full series or a prefix window. |
+| `fit_scope` | str | no | `"prefix"` | Whether to fit templates on the full series or a prefix window. |
 | `train_fraction` | float | no | `0.6` | Prefix fraction used when fit_scope='prefix'. |
 | `trend_window` | int \| None | no | `None` | Moving-average trend window. |
 
@@ -361,7 +361,7 @@ Example config:
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
-| `trend_window` | int | no | `7` | Moving-average window used for the trend estimate. |
+| `trend_window` | int | no | derived; see description | Centered moving-average width. When omitted, max(3, T // 20); even values advance to the next odd integer. Explicit null is not accepted. |
 | `season_period` | int \| None | no | `None` | Optional period for a simple seasonal average. |
 
 Example config:
@@ -442,8 +442,8 @@ Example config:
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
-| `window` | int \| None | no | `None` | Shared embedding window length for aligned channels. |
-| `rank` | int \| None | no | `None` | Number of shared elementary components to retain. |
+| `window` | int | no | derived; see description | Shared embedding window length. When omitted, max(4, T // 4), clipped to [2, T - 1]. Omit the parameter to select this rule; explicit null is not accepted. |
+| `rank` | int | no | derived; see description | Number of shared elementary components. When omitted, min(10, window * channels, T - window + 1). Explicit null is not accepted. |
 | `primary_period` | int \| None | no | `None` | Dominant shared period used by automatic grouping. |
 | `fs` | float | no | `1.0` | Sampling frequency used by frequency-based grouping. |
 | `trend_components` | list[int] \| None | no | `None` | Explicit component indexes assigned to trend. |
@@ -510,7 +510,7 @@ Example config:
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
-| `K` | int | no | `4` | Number of shared variational modes requested from PySDKit. |
+| `K` | int | no | `3` | Number of shared variational modes requested from PySDKit. |
 | `alpha` | float | no | `2000.0` | Bandwidth penalty parameter for the MVMD backend. |
 | `primary_period` | int \| None | no | `None` | Shared period hint for grouping modes. |
 | `fs` | float | no | `1.0` | Sampling frequency used by grouping heuristics. |
@@ -544,11 +544,11 @@ Example config:
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
-| `degree_of_polynomial` | int | no | `3` | Polynomial trend basis degree. |
+| `degree_of_polynomial` | int | no | `2` | Polynomial trend basis degree. |
 | `num_harmonics` | int | no | `8` | Number of Fourier harmonics in the seasonality stack. |
-| `trend_blocks` | int | no | `2` | Number of interpretable trend blocks. |
-| `seasonality_blocks` | int | no | `2` | Number of interpretable seasonality blocks. |
-| `layers` | int | no | `6` | Fully connected layers per block. |
+| `trend_blocks` | int | no | `3` | Number of interpretable trend blocks. |
+| `seasonality_blocks` | int | no | `3` | Number of interpretable seasonality blocks. |
+| `layers` | int | no | `4` | Fully connected layers per block. |
 | `layer_size` | int | no | `128` | Hidden width for each block. |
 | `fit_scope` | str | no | `"full"` | Whether to fit on the full series or prefix window. |
 | `train_fraction` | float | no | `0.6` | Prefix fraction used when fit_scope='prefix'. |
@@ -558,7 +558,7 @@ Example config:
 | `learning_rate` | float | no | `0.001` | Adam learning rate. |
 | `weight_decay` | float | no | `0.0001` | Adam weight decay. |
 | `device` | str | no | `"auto"` | Torch device: auto, cpu, cuda, or gpu. |
-| `seed` | int | no | `0` | Base random seed for torch restarts. |
+| `seed` | int | no | `42` | Base random seed for torch restarts. |
 
 Example config:
 
@@ -644,15 +644,15 @@ Example config:
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
-| `window` | int \| None | no | `None` | Embedding window length for trajectory-matrix construction. |
-| `rank` | int \| None | no | `None` | Number of elementary components to retain before grouping. |
+| `window` | int | no | derived; see description | Embedding window length. When omitted, max(4, T // 4), clipped to [2, T - 1]. Omit the parameter to select this rule; explicit null is not accepted. |
+| `rank` | int | no | `10` | Number of elementary components, clipped to the trajectory-matrix dimensions. |
 | `primary_period` | int \| None | no | `None` | Dominant seasonal period used by automatic grouping. |
 | `fs` | float | no | `1.0` | Sampling frequency used by frequency-based grouping. |
 | `trend_components` | list[int] \| None | no | `None` | Explicit component indexes assigned to trend. |
 | `season_components` | list[int] \| None | no | `None` | Explicit component indexes assigned to season. |
 | `season_freq_tol_ratio` | float | no | `0.25` | Relative frequency tolerance for automatic seasonal grouping. |
 | `trend_freq_threshold` | float \| None | no | `None` | Low-frequency threshold for automatic trend grouping. |
-| `power_iterations` | int | no | `4` | Fast native mode iteration count when speed_mode='fast'. |
+| `power_iterations` | int | no | `12` | Fast native mode iteration count when speed_mode='fast'. |
 
 Example config:
 
@@ -680,8 +680,8 @@ Example config:
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
 | `period` | int \| None | no | `None` | Seasonal period in samples. If omitted, DeTime estimates it. |
-| `max_period_search` | int \| None | no | `None` | Optional search horizon when period inference is enabled. |
-| `eps` | float | no | `1e-08` | Small numerical guard for dispersion calculations. |
+| `max_period_search` | int | no | `128` | Upper bound for the inferred seasonal period when period is omitted. |
+| `eps` | float | no | `1e-12` | Centered blocks with L2 norm at or below this threshold receive zero dispersion. |
 
 Example config:
 
@@ -706,8 +706,8 @@ Example config:
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
 | `period` | int \| None | no | `None` | Seasonal period in samples. If omitted, DeTime estimates it. |
-| `max_period_search` | int \| None | no | `None` | Optional search horizon when period inference is enabled. |
-| `eps` | float | no | `1e-08` | Small numerical guard for robust dispersion calculations. |
+| `max_period_search` | int | no | `128` | Upper bound for the inferred seasonal period when period is omitted. |
+| `eps` | float | no | `1e-12` | Centered blocks with L2 norm at or below this threshold receive zero dispersion; this does not apply robust weighting. |
 
 Example config:
 
@@ -764,7 +764,7 @@ Example config:
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
 | `primary_period` | int \| None | no | `None` | Dominant period hint used by neural block heuristics. |
-| `fit_scope` | str | no | `"full"` | Whether to fit templates on the full series or a prefix window. |
+| `fit_scope` | str | no | `"prefix"` | Whether to fit templates on the full series or a prefix window. |
 | `train_fraction` | float | no | `0.6` | Prefix fraction used when fit_scope='prefix'. |
 | `trend_window` | int \| None | no | `None` | Moving-average trend window. |
 | `season_smooth_window` | int \| None | no | `None` | Smoother applied to the periodic seasonal template. |
@@ -793,7 +793,7 @@ Example config:
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
 | `primary_period` | int \| None | no | `None` | Dominant period hint used by neural block heuristics. |
-| `fit_scope` | str | no | `"full"` | Whether to fit templates on the full series or a prefix window. |
+| `fit_scope` | str | no | `"prefix"` | Whether to fit templates on the full series or a prefix window. |
 | `train_fraction` | float | no | `0.6` | Prefix fraction used when fit_scope='prefix'. |
 | `trend_window` | int \| None | no | `None` | Moving-average trend window. |
 | `num_bands` | int | no | `2` | Number of dominant periods/templates to blend. |
@@ -852,8 +852,8 @@ Example config:
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
-| `K` | int | no | `4` | Number of variational modes. |
-| `alpha` | float | no | `2000.0` | Bandwidth penalty parameter. |
+| `K` | int | no | derived; see description | Number of variational modes. When omitted, max(5, 2 * n_periods + 2), using periods or the primary_period hint and n_periods=1 without either hint. Explicit null is not accepted. |
+| `alpha` | float | no | `300.0` | Bandwidth penalty parameter. |
 | `periods` | list[int] \| None | no | `None` | Optional seasonal periods used to derive the mode count. |
 | `tau` | float | no | `0.0` | Dual ascent time step. |
 | `DC` | bool | no | `false` | Keep the first mode at zero frequency. |
@@ -917,9 +917,9 @@ Example config:
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
 | `wavelet` | str | no | `"db4"` | PyWavelets wavelet family name. |
-| `level` | int \| None | no | `None` | Decomposition depth. Defaults to PyWavelets maximum usable level. |
-| `trend_levels` | list[int] \| None | no | `None` | Detail levels assigned to trend reconstruction. |
-| `season_levels` | list[int] \| None | no | `None` | Detail levels assigned to seasonal reconstruction. |
+| `level` | int \| None | no | `None` | Decomposition depth. When omitted or null, max(1, min(5, PyWavelets maximum usable level)). |
+| `trend_levels` | list[int] \| None | no | `None` | Coefficient-list positions in [cA_L, cD_L, ..., cD_1]. Defaults to [0], the coarsest approximation. |
+| `season_levels` | list[int] \| None | no | `None` | Coefficient-list positions in [cA_L, cD_L, ..., cD_1]. Defaults to [1, 2] when available, otherwise the available detail position. |
 
 Example config:
 

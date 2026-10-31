@@ -5,12 +5,12 @@ description: "INPARFORMER_BLOCK: A centered moving average estimates the prefix 
 
 # InParformer block: smooth, group, repeat
 
-[Back to methods](../methods.md#animated-method-explanations)
-
-**Method:** `INPARFORMER_BLOCK`. **Status:** experimental. **Implementation:** python.
+[← All 31 animations](index.md)
 
 <!-- detime:method-animation:start -->
 ## How it works
+
+**Method maturity:** `experimental`. **Implementation:** `python`.
 
 A centered moving average estimates the prefix trend and the final trend level is held constant afterward. The next step uses phase-wise means of the detrended prefix. The frames expose those buckets, their cumulative averages and the repeated seasonal output. The computation shown contains smoothing and phase averaging. It does not execute evolutionary search or interactive parallel attention.
 

@@ -2701,6 +2701,7 @@ footer,
   font: inherit;
   font-size: 0.88rem;
   cursor: pointer;
+  min-height: 44px;
 }
 
 .animation-toggle:hover {
@@ -2716,4 +2717,60 @@ footer,
   display: inline;
   color: var(--dt-muted);
   font-size: 0.82rem;
+}
+
+.method-animation [hidden] {
+  display: none;
+}
+
+.animation-fallback {
+  padding: 1rem;
+  border: 1px solid var(--dt-border);
+  border-radius: var(--dt-radius);
+  background: var(--dt-panel);
+}
+
+/* Keep the complete method menu reachable at short and narrow viewports. */
+.navbar .dropdown-menu:has(> li:nth-child(20)) {
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+.navbar .dropdown-menu > li > a {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 991.98px) {
+  #navbar-collapse {
+    max-height: calc(100dvh - 76px);
+    overflow-y: auto;
+  }
+
+  #navbar-collapse > .navbar-nav:first-child {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #navbar-collapse > .navbar-nav:first-child > li {
+    display: block;
+    min-height: 0;
+  }
+
+  .navbar .dropdown-menu,
+  .navbar .show > .dropdown-menu:has(> li:nth-child(8)),
+  .navbar .dropdown-menu.show:has(> li:nth-child(8)) {
+    position: static;
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+    transform: none;
+  }
+
+  .method-detail-header h1,
+  h1,
+  .animation-status {
+    overflow-wrap: anywhere;
+  }
 }

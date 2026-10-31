@@ -5,12 +5,12 @@ description: "TIMEKAN_BLOCK: The current standalone TimeKAN-inspired operator co
 
 # TimeKAN block: template–harmonic blending
 
-[Back to methods](../methods.md#animated-method-explanations)
-
-**Method:** `TIMEKAN_BLOCK`. **Status:** experimental. **Implementation:** python.
+[← All 31 animations](index.md)
 
 <!-- detime:method-animation:start -->
 ## How it works
+
+**Method maturity:** `experimental`. **Implementation:** `python`.
 
 The current standalone TimeKAN-inspired operator combines familiar numerical estimates. It smooths a trend, selects periods from a prefix FFT, averages phase templates, and fits a harmonic projection at the supplied primary period. A fixed rule blends the two seasonal estimates. The animation shows that rule directly; it does not portray the complete frequency-decomposition KAN architecture from the cited paper.
 

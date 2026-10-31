@@ -5,12 +5,12 @@ description: "LEDDAM_BLOCK: This standalone implementation evaluates a fixed Gau
 
 # LEDDAM block: fixed Gaussian smoothing
 
-[Back to methods](../methods.md#animated-method-explanations)
-
-**Method:** `LEDDAM_BLOCK`. **Status:** experimental. **Implementation:** python.
+[← All 31 animations](index.md)
 
 <!-- detime:method-animation:start -->
 ## How it works
+
+**Method maturity:** `experimental`. **Implementation:** `python`.
 
 This standalone implementation evaluates a fixed Gaussian-weighted convolution. Its kernel is normalized to sum to one, the edge samples are replicated, and the filtered signal becomes the trend stream. Subtracting that stream from the input creates the second stream. The animation displays actual weights and local products before assembling the output. The kernel is not trained in this operator.
 

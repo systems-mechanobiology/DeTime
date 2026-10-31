@@ -5,12 +5,12 @@ description: "MOVING_AVERAGE_DECOMPOSITION_BLOCK: The implemented operator repla
 
 # Moving-average block: moving-average split
 
-[Back to methods](../methods.md#animated-method-explanations)
-
-**Method:** `MOVING_AVERAGE_DECOMPOSITION_BLOCK`. **Status:** experimental. **Implementation:** python.
+[← All 31 animations](index.md)
 
 <!-- detime:method-animation:start -->
 ## How it works
+
+**Method maturity:** `experimental`. **Implementation:** `python`.
 
 The implemented operator replaces each sample with a centered local mean and assigns the input minus that mean to a second stream. Edge replication maintains the original length. AUTOFORMER_BLOCK, DLINEAR_BLOCK and MOVING_AVERAGE_DECOMPOSITION_BLOCK call the same numeric implementation at equal settings; their method identifiers record provenance. The animation therefore shows the same numerical mechanism for all three, with a separate named asset for each entry.
 

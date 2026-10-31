@@ -25,6 +25,7 @@ research context.
     <div class="hero-actions">
       <a href="quickstart/">Run First Example</a>
       <a class="secondary" href="install/">Install DeTime</a>
+      <a class="secondary" href="gallery/">Explore 31 method animations</a>
     </div>
   </div>
   <div class="hero-visual">

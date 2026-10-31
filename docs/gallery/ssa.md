@@ -1,4 +1,4 @@
-<a class="method-detail-back" href="../../notebook-gallery/">← Back to Gallery</a>
+[← All 31 animations](index.md)
 
 <div class="method-detail-header">
   <h1>Univariate SSA</h1>
@@ -11,11 +11,17 @@
 | **Method** | `SSA` |
 | **Input mode** | `univariate` |
 | **Trend shape** | `(96,)` |
-| **Status** | ran |
-| **Residual RMSE** | 0.00000000 |
+| **Notebook execution** | ran |
+| **Reconstruction RMSE** | 0.00000000 |
+
+<!-- detime:notebook-metric:start -->
+Notebook example metric: root mean square of `input - (trend + season + residual)` over all samples and channels. This checks additive bookkeeping; it is not a forecast error or a component-recovery score. The separate teaching input and intermediate arrays for the animation are linked below.
+<!-- detime:notebook-metric:end -->
 
 <!-- detime:method-animation:start -->
 ## How it works
+
+**Method maturity:** `maintained`. **Implementation:** `native-backed`.
 
 SSA decomposes a lag matrix and maps its grouped modes back to time-domain components.
 
@@ -106,9 +112,12 @@ run_gallery_case("SSA")
 
 <div class="gallery-out">
 <pre>
-SSA: Univariate SSA
+SSA: Singular spectrum analysis for structured univariate decomposition.
 status: ran
-...
+input mode: univariate
+trend shape: (96,)
+backend: native
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 

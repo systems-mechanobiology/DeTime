@@ -255,10 +255,10 @@ Published outputs:
 Published metadata-based shortlist excerpt:
 
 ```text
-1. MSSA (13.50)
+1. MSSA (15.75)
    Multivariate SSA for shared-structure decomposition across channels.
 2. STDR (11.75)
-   Robust seasonal-trend decomposition for noisier periodic signals.
+   Seasonal-trend-dispersion decomposition with an averaged cycle shape and a remainder.
 3. STD (9.25)
    Fast seasonal-trend decomposition with dispersion-aware diagnostics.
 ```

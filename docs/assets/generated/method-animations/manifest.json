@@ -6,11 +6,11 @@
     {
       "python_version": "3.12.14",
       "dependencies": {
-        "numpy": "2.5.4",
-        "scipy": "1.18.1",
+        "numpy": "2.3.5",
+        "scipy": "1.17.0",
         "statsmodels": "0.15.0",
-        "matplotlib": "3.11.2",
-        "Pillow": "13.0.0",
+        "matplotlib": "3.10.8",
+        "Pillow": "12.3.0",
         "PyWavelets": "1.10.0",
         "EMD-signal": "1.10.0",
         "vmdpy": "0.2",
@@ -20,13 +20,13 @@
   ],
   "method_count": 31,
   "source_hashes": {
-    "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+    "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
     "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
     "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
     "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
     "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
     "src/detime/methods/neural_blocks/neural_block_portfolio.py": "2aab635b9927d1d42bbcd8e0b4f37cb9fcdcf85cbd0331b5011621b495c4acfa",
-    "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411",
+    "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066",
     "src/detime/methods/neural_blocks/forecasting_blocks.py": "8404a89cab00a5443f75aae2b168b55218485fbb256f7723250f9470637ccb02",
     "scripts/method_animations/adaptive.py": "7d728d88b4ba1a8dd82890c7a6b017d542728b50dc477c281e9bbfcbae164a1d",
     "src/detime/methods/ceemdan.py": "3afa048be78ff8bf1671a3f80412a1e717a8574ef85a8f9a2aea5354e605c694",
@@ -146,13 +146,13 @@
       "artifacts": {
         "gif": {
           "file": "amd-block.gif",
-          "bytes": 364829,
-          "sha256": "575265ee676f02d17e4f10f9c815653a21062e8c1b10e6491df8ec590f3cbccd"
+          "bytes": 354512,
+          "sha256": "863fda873f8c64fcb72890b44d39195b2c1cb1ca5ac11eaa0320b33699ee2296"
         },
         "poster": {
           "file": "amd-block.png",
-          "bytes": 133308,
-          "sha256": "30040a6b54f1d0ad5e7b44a90ae9f216e87472efe60c39b23d1b599db7f235e2"
+          "bytes": 130403,
+          "sha256": "7023b168469580b3a8dd11aa67f7bda927b5ad2863d6787e97408e868dce8410"
         },
         "data": {
           "file": "amd-block.npz",
@@ -192,24 +192,24 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/neural_blocks/neural_block_portfolio.py": "2aab635b9927d1d42bbcd8e0b4f37cb9fcdcf85cbd0331b5011621b495c4acfa",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -303,13 +303,13 @@
       "artifacts": {
         "gif": {
           "file": "autoformer-block.gif",
-          "bytes": 318881,
-          "sha256": "91d0f1435992066cf2466ebe5fda215f7b3c21969a3d27133c0379a70834de1d"
+          "bytes": 315925,
+          "sha256": "48c3e58a33d85ac5a7757f203933ecf33e2b4da20d9e4a5c26d21dd1ceff5269"
         },
         "poster": {
           "file": "autoformer-block.png",
-          "bytes": 122421,
-          "sha256": "bbcba80b96745c12dcadab33132d07519517907717b8de68fb38200fc5089db8"
+          "bytes": 123953,
+          "sha256": "2303c0c749e218e9fa95a7710459f8be4237a1730b34901e30108397f77bb5f1"
         },
         "data": {
           "file": "autoformer-block.npz",
@@ -337,24 +337,24 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/neural_blocks/forecasting_blocks.py": "8404a89cab00a5443f75aae2b168b55218485fbb256f7723250f9470637ccb02",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -448,13 +448,13 @@
       "artifacts": {
         "gif": {
           "file": "ceemdan.gif",
-          "bytes": 1107889,
-          "sha256": "6dee2646627d165080698ede29e1b02d87e29c33c10dd032d75000f56440a016"
+          "bytes": 1104178,
+          "sha256": "356f2cd9d4ffc56bd6447684ef34bcbeeceffdef5a35b3ea3d9c2d84248ccf99"
         },
         "poster": {
           "file": "ceemdan.png",
-          "bytes": 194779,
-          "sha256": "1e02ca6f8bf8e14b0b1cf272f6b0c6eab62069649e09c7b83e711e64c00b0329"
+          "bytes": 191370,
+          "sha256": "ee73513398f425a56e30d75c9fdd7459eeb3ae026f73a6eb9833b8f8edfb387a"
         },
         "data": {
           "file": "ceemdan.npz",
@@ -495,24 +495,24 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/adaptive.py": "7d728d88b4ba1a8dd82890c7a6b017d542728b50dc477c281e9bbfcbae164a1d",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/ceemdan.py": "3afa048be78ff8bf1671a3f80412a1e717a8574ef85a8f9a2aea5354e605c694",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -605,13 +605,13 @@
       "artifacts": {
         "gif": {
           "file": "delelstm-block.gif",
-          "bytes": 341332,
-          "sha256": "b98ed962fa196d9bcddf415f08b2c6f2f880132fb040228f0c3a918baf359949"
+          "bytes": 335104,
+          "sha256": "17692b1686cabde00e6c967fddc150703b27e6f4777f154e8944df9512ab1c40"
         },
         "poster": {
           "file": "delelstm-block.png",
-          "bytes": 126380,
-          "sha256": "fd6e08106097731f8c2f2d99b2e52c2d3093e2046b5b626bf4af4986922a8296"
+          "bytes": 122208,
+          "sha256": "70f9733688c7f368d1c94cf9c661a25947b0243673ba8240048b995d979fa71c"
         },
         "data": {
           "file": "delelstm-block.npz",
@@ -651,24 +651,24 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/neural_blocks/neural_block_portfolio.py": "2aab635b9927d1d42bbcd8e0b4f37cb9fcdcf85cbd0331b5011621b495c4acfa",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -762,13 +762,13 @@
       "artifacts": {
         "gif": {
           "file": "dlinear-block.gif",
-          "bytes": 319040,
-          "sha256": "3ab12feb7e48082fe2dfb0c45b2074e4352a27c7964bdf88d833458f29da31e4"
+          "bytes": 316548,
+          "sha256": "68b90cf768b0d19055dc01f8d5406925a0c76ee6ab466323bfdf2db70493d202"
         },
         "poster": {
           "file": "dlinear-block.png",
-          "bytes": 121407,
-          "sha256": "2711b6bd464c4d7f84ec6d2c421d1d2257e662ffcce9e408a95a19853a3f913a"
+          "bytes": 122674,
+          "sha256": "a8bdad06b91d876ae9b0bc17102ee4f2e151723eea213bff2b289d13cdbcaaa4"
         },
         "data": {
           "file": "dlinear-block.npz",
@@ -796,24 +796,24 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/neural_blocks/forecasting_blocks.py": "8404a89cab00a5443f75aae2b168b55218485fbb256f7723250f9470637ccb02",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -897,13 +897,13 @@
       "artifacts": {
         "gif": {
           "file": "emd.gif",
-          "bytes": 450248,
-          "sha256": "67b3c109bce56b68f572ae368b80c9c7ec42078839fd1729c9efb242eeaf2e04"
+          "bytes": 440772,
+          "sha256": "8497a98c6627985ac005683f49831392e11e879b5fa6d2f10686d67e044adca5"
         },
         "poster": {
           "file": "emd.png",
-          "bytes": 186211,
-          "sha256": "5da1acc1afe87523606fb8f2d74e738be8310ae12ba025928ef254e870186ff8"
+          "bytes": 181639,
+          "sha256": "d66fbe52f449434fc6b1442474bd3d12f03dd374b90cb499dbb3093fda1d3341"
         },
         "data": {
           "file": "emd.npz",
@@ -939,24 +939,24 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/adaptive.py": "7d728d88b4ba1a8dd82890c7a6b017d542728b50dc477c281e9bbfcbae164a1d",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/emd.py": "ecf3932369e5df4efe553ba9a0b97daa3388c42dd9f42ccb47af01ec4a2e3e89",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -1038,7 +1038,7 @@
           "season": 0.0,
           "residual": 0.0
         },
-        "reconstruction_max_abs_error": 2.220446049250313e-16,
+        "reconstruction_max_abs_error": 4.440892098500626e-16,
         "validation_scope": "One deterministic teaching input; no benchmark claim.",
         "selected_periods": [
           24,
@@ -1057,18 +1057,18 @@
       "artifacts": {
         "gif": {
           "file": "freqmoe-block.gif",
-          "bytes": 352914,
-          "sha256": "bb289f1709465926384882ce38dc2ac8069cc40abaf4f9e5bd75a68b6372d339"
+          "bytes": 344315,
+          "sha256": "cfca14380c652bdc14891a27c0931681dff6c27d4ffeb49b7ef7f051d6534ce2"
         },
         "poster": {
           "file": "freqmoe-block.png",
-          "bytes": 131454,
-          "sha256": "2922cb0a6653f0f1cf11212edb62c8abfb108c67e8831533ba2e9cd71a82f7f3"
+          "bytes": 132464,
+          "sha256": "aa4108121655835e7a64a63f73271cc29ac9480773020ef1ff0c44ce5db3ffa4"
         },
         "data": {
           "file": "freqmoe-block.npz",
-          "bytes": 10783,
-          "sha256": "35af85962b4968cd60954fd80b92c894fd3140ed5b486adaa479e3cbf619264a"
+          "bytes": 10760,
+          "sha256": "21b779ed4252af6a8309711ba04ba9f808989ed95efbbfca31ee20b830285f84"
         }
       },
       "source_arrays": {
@@ -1107,24 +1107,24 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/neural_blocks/neural_block_portfolio.py": "2aab635b9927d1d42bbcd8e0b4f37cb9fcdcf85cbd0331b5011621b495c4acfa",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -1212,13 +1212,13 @@
       "artifacts": {
         "gif": {
           "file": "gabor-cluster.gif",
-          "bytes": 478033,
-          "sha256": "97a916480535767d7b7df51c6f0db7800fb55e9463038b2ad6c95b2367bfe6a8"
+          "bytes": 485807,
+          "sha256": "2630a00c6330661f93bba093b0530c08cf4434c0bd91870fa0140dde8fe019ef"
         },
         "poster": {
           "file": "gabor-cluster.png",
-          "bytes": 158688,
-          "sha256": "12f4ae2c69751ffb76632ba15653f6550a7e07de6eb9998332172e778845405c"
+          "bytes": 158211,
+          "sha256": "eaf6213fed290c5c172ca225ae8569d1ac201ab91b1d305f2d7d91849293e173"
         },
         "data": {
           "file": "gabor-cluster.npz",
@@ -1281,11 +1281,11 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
@@ -1293,13 +1293,13 @@
         },
         "source_hashes": {
           "native/src/gabor.cpp": "705f5c9465d1639be25bdfed903c8518748a1dbfe3d6cf883ea2438e41db6384",
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/adaptive.py": "7d728d88b4ba1a8dd82890c7a6b017d542728b50dc477c281e9bbfcbae164a1d",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/gabor_cluster.py": "e8836ac9567ada7a8a7edb3cb66b63916d721ee1e554e282987c177d2eb3e2e7",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -1391,13 +1391,13 @@
       "artifacts": {
         "gif": {
           "file": "inparformer-block.gif",
-          "bytes": 339429,
-          "sha256": "482de78269e8b5c1c934e030643c07825b856c8f9ca9d06e324a5efe5bcdf5a3"
+          "bytes": 330623,
+          "sha256": "8d695c1ca71ce2e1f9b18429c04abccee947debf098b14647b596a543518e4b6"
         },
         "poster": {
           "file": "inparformer-block.png",
-          "bytes": 128160,
-          "sha256": "e38f38032260f82c55a3510e5a1744a250288f31ed016b078c0be12bfe801c8a"
+          "bytes": 125995,
+          "sha256": "5a2a4c88053367e42071535b07d608631af1441fbc46c7d7bc4fca1f931bb265"
         },
         "data": {
           "file": "inparformer-block.npz",
@@ -1437,24 +1437,24 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/neural_blocks/neural_block_portfolio.py": "2aab635b9927d1d42bbcd8e0b4f37cb9fcdcf85cbd0331b5011621b495c4acfa",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -1539,13 +1539,13 @@
       "artifacts": {
         "gif": {
           "file": "leddam-block.gif",
-          "bytes": 304500,
-          "sha256": "28dfe1a784a5db123008720a6ad2a7690f072424263fa9f4f3210b9f1fc495c7"
+          "bytes": 303658,
+          "sha256": "e9a968b5987a4427a0c45c0c4b6a3b88c4c7882dbb161296def6ee9b11505723"
         },
         "poster": {
           "file": "leddam-block.png",
-          "bytes": 127485,
-          "sha256": "cc1a873231e2ff6838a34bc345e61ade04997a0b3b284859aa0743bc11bfad8c"
+          "bytes": 128178,
+          "sha256": "b017eaac7f9faddf93a3105dd64f082dceda5f4a39930cdeacc9e0020bd3fe34"
         },
         "data": {
           "file": "leddam-block.npz",
@@ -1573,24 +1573,24 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/neural_blocks/leddam_block.py": "f357dc97c6ce1303f9c22002966371bfabc158a4316ae050fa28f55967d9bdd2",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -1667,13 +1667,13 @@
       "artifacts": {
         "gif": {
           "file": "ma-baseline.gif",
-          "bytes": 524650,
-          "sha256": "07760a3e76bb73368f53ec2f7912c03de7c6e69bba3c5a2935e31f95322ab041"
+          "bytes": 514040,
+          "sha256": "1fbff0e095909bec14e9dec2d97cc15bbd924c5f96f2e5cabe1b3e743f275edd"
         },
         "poster": {
           "file": "ma-baseline.png",
-          "bytes": 118515,
-          "sha256": "141a8e5fd5062f51f3ed9f7345c86701d4df3aa1e029119b6e2d51cb45733aaf"
+          "bytes": 120490,
+          "sha256": "021ec8f06a80ce59ba9bb032764642393a96744b1d50a1db3fa31fe54c9c8095"
         },
         "data": {
           "file": "ma-baseline.npz",
@@ -1713,11 +1713,11 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
@@ -1725,13 +1725,13 @@
         },
         "source_hashes": {
           "native/src/ma_baseline.cpp": "752b3dfc9bea7353510ce5f7d4104d38ea6da45879af4402f7bee4618774dbc6",
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/classical.py": "8a8a9ef82936f0aa5b1c5775c6c0158c3b48d3bc7dca1de691b83d95e5c23ba3",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/ma_baseline.py": "1197a6fa5dd7f3a807f603e331986d2b75ff87962f54314521e3e149d5241d54",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -1816,13 +1816,13 @@
       "artifacts": {
         "gif": {
           "file": "memd.gif",
-          "bytes": 707599,
-          "sha256": "78c317ebdd8a6ce44a1014970253d38baf442b257eccb30a8c878e57e20014de"
+          "bytes": 706901,
+          "sha256": "3e31c78846cb89665e1d964434b60d407754f3d7c1a28ff0d7406863efbe4e4a"
         },
         "poster": {
           "file": "memd.png",
-          "bytes": 179901,
-          "sha256": "2b6d7eecdb41bd7002baa3fa78ab47c55c661cd62dc383e91f1d6d6d7038e93b"
+          "bytes": 184886,
+          "sha256": "090d85a6178fb7371abb4b7e679fe8f853918f287bca5a8cc6838170ce03cf20"
         },
         "data": {
           "file": "memd.npz",
@@ -1875,25 +1875,25 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/adaptive.py": "7d728d88b4ba1a8dd82890c7a6b017d542728b50dc477c281e9bbfcbae164a1d",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/memd.py": "e6eb06c058644f123495d3593a804b40e677f6a5bfc2f2e289cb6c3e11d6e022",
           "src/detime/methods/mvmd.py": "ee95033e6f67484e8aa0bea3dba4ecd3f540bb868e80db6450e7736fe359b3b7",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -1991,13 +1991,13 @@
       "artifacts": {
         "gif": {
           "file": "moving-average-decomposition-block.gif",
-          "bytes": 321598,
-          "sha256": "11f189c8b359e6aa9c267cb138743ee87a558d46943bd9346bccc78fa0ed86ea"
+          "bytes": 317641,
+          "sha256": "8d9142395d48d4f28f2884c3c3b90954fa21567064273e6c687611dd2ccb4b73"
         },
         "poster": {
           "file": "moving-average-decomposition-block.png",
-          "bytes": 124713,
-          "sha256": "e03b3d0081f26a6b3677c709e8f1ce8e404a95d66d57fce18363f8bc28b418e2"
+          "bytes": 127700,
+          "sha256": "b3d1fc52f2c6220fc9e9b6236c8fb64e89dbf7da4a131dcf8d2d0f77b3f8b30f"
         },
         "data": {
           "file": "moving-average-decomposition-block.npz",
@@ -2025,24 +2025,24 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/neural_blocks/forecasting_blocks.py": "8404a89cab00a5443f75aae2b168b55218485fbb256f7723250f9470637ccb02",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -2123,7 +2123,7 @@
         "grouped_trend_max_abs_error": 0.0,
         "grouped_season_max_abs_error": 0.0,
         "additive_reconstruction_max_abs_error": 4.440892098500626e-16,
-        "full_svd_matrix_reconstruction_max_abs_error": 1.1546319456101628e-14
+        "full_svd_matrix_reconstruction_max_abs_error": 1.0880185641326534e-14
       },
       "source_files": [
         "src/detime/methods/mssa.py",
@@ -2138,18 +2138,18 @@
       "artifacts": {
         "gif": {
           "file": "mssa.gif",
-          "bytes": 955821,
-          "sha256": "ae7359c610062e6a337a6f919a24316e9e9584ccd9ecdb39dfb86ac90ab7ad04"
+          "bytes": 972227,
+          "sha256": "1f192f556cb731601742fbc01d4abb29c511b99fcfb04495696ea3b68c7622fc"
         },
         "poster": {
           "file": "mssa.png",
-          "bytes": 154368,
-          "sha256": "b585fedea7accb11b14857fb91a1546f9357175acae582adb4569c7dcb37ff05"
+          "bytes": 154476,
+          "sha256": "521304f1322908a04c5d79b3d0d69d9efefe7795813a8b6bc6bf70fbbda0f251"
         },
         "data": {
           "file": "mssa.npz",
-          "bytes": 767992,
-          "sha256": "b2f7e9e935750a914fd27d65ea0b4451e635a66223c2a3569e0ff6d92c14f573"
+          "bytes": 767972,
+          "sha256": "4379295fc7755fdc3ff6c9f04d912322078b00bd36a6210d55a525b196481ba5"
         }
       },
       "source_arrays": {
@@ -2202,11 +2202,11 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
@@ -2214,14 +2214,14 @@
         },
         "source_hashes": {
           "native/src/mssa.cpp": "4aaea22b4d2dea62dc6dd942d2e116f81a646c95e3f4f610c58f79302e69da2b",
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/classical.py": "8a8a9ef82936f0aa5b1c5775c6c0158c3b48d3bc7dca1de691b83d95e5c23ba3",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/mssa.py": "ada7362bacc75c18fe034fd4d4e08f279b9887ea21944b667b37d4cc27571d51",
           "src/detime/methods/utils.py": "6963d1ecdf76f1920671a262d125f0d822ae620b1e532849a002be1b7b36e7fd",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -2328,13 +2328,13 @@
       "artifacts": {
         "gif": {
           "file": "mstl.gif",
-          "bytes": 443926,
-          "sha256": "4fe90c958c8e74748a0ffa8487b579c7cbd6c018e3f92042ab95a1f7cf2a7bc1"
+          "bytes": 443564,
+          "sha256": "2775454700149bfd468fd77d953f94d099377b368e371f982d75815ccbb8c205"
         },
         "poster": {
           "file": "mstl.png",
-          "bytes": 169840,
-          "sha256": "7f23baa2cf48e1791951837983a04a2e36a75596a7cd45ae9df28a5f550af00b"
+          "bytes": 169208,
+          "sha256": "c8a5d7e26fa2a51077a7801928422906a45e5ff1355eb1dabc00b29534d95bc1"
         },
         "data": {
           "file": "mstl.npz",
@@ -2393,24 +2393,24 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/classical.py": "8a8a9ef82936f0aa5b1c5775c6c0158c3b48d3bc7dca1de691b83d95e5c23ba3",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/stl.py": "bb9db3808691490849d06b6eff3f1d6083b6d79fa4d0ea526201e6cec11bdd4d",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -2506,13 +2506,13 @@
       "artifacts": {
         "gif": {
           "file": "mvmd.gif",
-          "bytes": 419913,
-          "sha256": "32619e36a8e1a296dc46cdf9c85818f476f9c49a463b22d8b13efea16c0e05b1"
+          "bytes": 427389,
+          "sha256": "1d8f3c856716e8645e71270f5233eec6ec3435f10bb7c13758fcf053ae811b5d"
         },
         "poster": {
           "file": "mvmd.png",
-          "bytes": 191673,
-          "sha256": "9a7171d5f66eab1c0489e69167168e6ecb43a99555d8858909209b8c7fd06cd8"
+          "bytes": 192982,
+          "sha256": "eb20a8f19518a14facd53d4c71213654661da2b81cf49b786bbe39f5ce5d782f"
         },
         "data": {
           "file": "mvmd.npz",
@@ -2571,24 +2571,24 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/adaptive.py": "7d728d88b4ba1a8dd82890c7a6b017d542728b50dc477c281e9bbfcbae164a1d",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/mvmd.py": "ee95033e6f67484e8aa0bea3dba4ecd3f540bb868e80db6450e7736fe359b3b7",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -2688,13 +2688,13 @@
       "artifacts": {
         "gif": {
           "file": "nbeats-interpretable.gif",
-          "bytes": 352136,
-          "sha256": "d52458cd3f99d1ba7a7327f9a00b1d9fcde8e3809a88c589c535ecc4bf954598"
+          "bytes": 336173,
+          "sha256": "d2b1f8e23f7f15e079579569dd451a148737d2ea6440d8e06ff7b8cb8d8fb5c2"
         },
         "poster": {
           "file": "nbeats-interpretable.png",
-          "bytes": 142282,
-          "sha256": "f7168b275825dff4725690fdfb191b050350e6f9404f40341556f98a8096fab1"
+          "bytes": 140332,
+          "sha256": "7992ac1c765fed524a06adc57265a37fc51a8ce62f4de8b393e2961f716d2e7e"
         },
         "data": {
           "file": "nbeats-interpretable.npz",
@@ -2764,24 +2764,24 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/neural_blocks/learned_priors.py": "af5a1d6b744e01a46358847aa05e156e92859d5f58334b0bc6a74d3169d2f2f0",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -2876,18 +2876,18 @@
       "artifacts": {
         "gif": {
           "file": "parsimony-block.gif",
-          "bytes": 383193,
-          "sha256": "a91cea81d5181a61ba2e2c9a1af424049015c8fcaee1e70e0a12039e9d4a7c42"
+          "bytes": 378903,
+          "sha256": "65f5f167a8383684ed8bb9ef047e02605c89c0eb4fa0c674f9fdd6eb50d355c8"
         },
         "poster": {
           "file": "parsimony-block.png",
-          "bytes": 150351,
-          "sha256": "ffb36a25935a03dcbec3d882f3634a24681860f89eb39891307b0c55dc628c0b"
+          "bytes": 147676,
+          "sha256": "d9d9578389859bedc8d1c975bbd9344f8394e517c3f1bbd547d2d7de9cff48f0"
         },
         "data": {
           "file": "parsimony-block.npz",
-          "bytes": 9875,
-          "sha256": "02513610b5dc9b8b9eba3b268528523d28a742ed53cf6d2fc61ea16030fc5927"
+          "bytes": 9888,
+          "sha256": "75509beb3764e2b80ce556f64b6637069e483a257447b4bf9fa011553c71e471"
         }
       },
       "source_arrays": {
@@ -2921,24 +2921,24 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/neural_blocks/neural_block_portfolio.py": "2aab635b9927d1d42bbcd8e0b4f37cb9fcdcf85cbd0331b5011621b495c4acfa",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -3031,18 +3031,18 @@
       "artifacts": {
         "gif": {
           "file": "robust-stl.gif",
-          "bytes": 577554,
-          "sha256": "d4aa27a1ad5ab7d4076141d12e433de4506d11f5ed5f711cc6456baa9e445536"
+          "bytes": 567267,
+          "sha256": "0ffd693725dffd72bd8886c6c088c8d5802858ec72a522f05f7d89b07a6d7e0d"
         },
         "poster": {
           "file": "robust-stl.png",
-          "bytes": 141344,
-          "sha256": "1e65faf0720fdd6af5a58552cf557150ff6df97eae6cbb4882cf6559d9ab352b"
+          "bytes": 143959,
+          "sha256": "013b0f041bbee807192b8799682d75745470aff7649d783f013c627f9319b63c"
         },
         "data": {
           "file": "robust-stl.npz",
           "bytes": 45231,
-          "sha256": "e04212aa845875bcfe149c3e4cc1d6afb4c3e4ace72ea5dbda4cec19f589c581"
+          "sha256": "739f66750ff6b2f0133866dec3e6219ed7f36d87ef4c9b9c723e8a17628b6634"
         }
       },
       "source_arrays": {
@@ -3104,24 +3104,24 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/classical.py": "8a8a9ef82936f0aa5b1c5775c6c0158c3b48d3bc7dca1de691b83d95e5c23ba3",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/stl.py": "bb9db3808691490849d06b6eff3f1d6083b6d79fa4d0ea526201e6cec11bdd4d",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -3200,7 +3200,7 @@
         "grouped_trend_max_abs_error": 0.0,
         "grouped_season_max_abs_error": 0.0,
         "additive_reconstruction_max_abs_error": 4.440892098500626e-16,
-        "full_svd_matrix_reconstruction_max_abs_error": 5.329070518200751e-15
+        "full_svd_matrix_reconstruction_max_abs_error": 5.828670879282072e-15
       },
       "source_files": [
         "src/detime/methods/ssa.py",
@@ -3215,18 +3215,18 @@
       "artifacts": {
         "gif": {
           "file": "ssa.gif",
-          "bytes": 709987,
-          "sha256": "1035a4a56536489b6a4cded7e2f8356105879f2f1095eb1f067863d6290a83eb"
+          "bytes": 721507,
+          "sha256": "9fa2090a6e9a0f444e3abd3a5233b9481ce3c7d955f7e168d72213fca41e7e3a"
         },
         "poster": {
           "file": "ssa.png",
-          "bytes": 125767,
-          "sha256": "2fa67627eb079bd2011f90e7a1b7e3223976e4bc76b44a9d81b03e08a56409b9"
+          "bytes": 128459,
+          "sha256": "9b291309678ba92a563147004a4df078fe164602adef2c92d7a5e9a825e2856c"
         },
         "data": {
           "file": "ssa.npz",
-          "bytes": 258016,
-          "sha256": "c17f134daebad6f594a7f36b9e3bab356ea743752923d90b3588eece7c7be1fd"
+          "bytes": 258022,
+          "sha256": "f4a2100b2a8b516c442251de2f6fe9c434c59348a1b9d8159aabe0a6d77866bd"
         }
       },
       "source_arrays": {
@@ -3274,11 +3274,11 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
@@ -3286,14 +3286,14 @@
         },
         "source_hashes": {
           "native/src/ssa.cpp": "9ed883b360325878d3bc7c087be5396b8052001fe9a8450f871929267b44ba08",
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/classical.py": "8a8a9ef82936f0aa5b1c5775c6c0158c3b48d3bc7dca1de691b83d95e5c23ba3",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/ssa.py": "ccb7b7d19fb9bdacedb12f8241f0ea0fc233edd498444a008b6040e21b4faac9",
           "src/detime/methods/utils.py": "6963d1ecdf76f1920671a262d125f0d822ae620b1e532849a002be1b7b36e7fd",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -3380,13 +3380,13 @@
       "artifacts": {
         "gif": {
           "file": "std.gif",
-          "bytes": 546790,
-          "sha256": "4cccdf76f8557f195acf18f66250c2f4a77837d57956342ff9773401414ef193"
+          "bytes": 515998,
+          "sha256": "20d38863184525ea57cdb9b1aebd01c06ee9eb3d07b9d5c0b1f540ce30202f50"
         },
         "poster": {
           "file": "std.png",
-          "bytes": 101149,
-          "sha256": "8dc2f42d64693db4fa14c36d45d5d6c7974adf96e9d2dcb0eec5bd452b7b06af"
+          "bytes": 101102,
+          "sha256": "f3800abeaec1687e394c09a7ebdb92d19beb6bddbfe09d3c178f65b309ee4d8f"
         },
         "data": {
           "file": "std.npz",
@@ -3442,11 +3442,11 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
@@ -3454,13 +3454,13 @@
         },
         "source_hashes": {
           "native/src/std.cpp": "5d5fddc1b7267985d73336386b9a34834b688eab60266430669b4a049c59ad4c",
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/classical.py": "8a8a9ef82936f0aa5b1c5775c6c0158c3b48d3bc7dca1de691b83d95e5c23ba3",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/std.py": "7d72be4a4bff8c15f3723eaf1198d55b6863c517caa592690a5858f3e30f3578",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -3547,13 +3547,13 @@
       "artifacts": {
         "gif": {
           "file": "stdr.gif",
-          "bytes": 596376,
-          "sha256": "159adffe7ee0cfb0717c4ae3e52ae4ad7a8e73e1104f816f495a2eef5fc8e945"
+          "bytes": 590036,
+          "sha256": "7e4fc040e546acf0c56a10d193de27d60f51cb298d201e03c7d07c79bcbdfc59"
         },
         "poster": {
           "file": "stdr.png",
-          "bytes": 106921,
-          "sha256": "508c52073998be2b2d6abc1a18b77aee53dcfae1fb705145aebc537c21095c6b"
+          "bytes": 104021,
+          "sha256": "9b00955566a630496fcf5bd390d754b1fb0e44ac15285ac877b33e40c0487772"
         },
         "data": {
           "file": "stdr.npz",
@@ -3609,11 +3609,11 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
@@ -3621,13 +3621,13 @@
         },
         "source_hashes": {
           "native/src/std.cpp": "5d5fddc1b7267985d73336386b9a34834b688eab60266430669b4a049c59ad4c",
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/classical.py": "8a8a9ef82936f0aa5b1c5775c6c0158c3b48d3bc7dca1de691b83d95e5c23ba3",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/std.py": "7d72be4a4bff8c15f3723eaf1198d55b6863c517caa592690a5858f3e30f3578",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -3719,18 +3719,18 @@
       "artifacts": {
         "gif": {
           "file": "stl.gif",
-          "bytes": 518910,
-          "sha256": "2e63e210c684248bcf1c70bc4ef5417fd471ba377905b82f02f95e189c1824d2"
+          "bytes": 501932,
+          "sha256": "01ebe001f4b1e58a3fe363f78d6d8ea611509c48eb50ec74f88fe55a8dc2f3dd"
         },
         "poster": {
           "file": "stl.png",
-          "bytes": 137129,
-          "sha256": "7669190dfc6959643c1b7c26761744b1e7e88c1a4214f706cf7bf14fb403834f"
+          "bytes": 138917,
+          "sha256": "646b3d042fe4f3425ed74fcaa0af532b8dfbd087416a8c2e716c6610ceeac01e"
         },
         "data": {
           "file": "stl.npz",
-          "bytes": 27842,
-          "sha256": "c001205ccd8b69da7a8270302443bfcb5a9803864a73108368d0012a2f281ba4"
+          "bytes": 27845,
+          "sha256": "31c41d0378263d81d2b3847bcaa0c732c6aaaf1a10a5d3144cfbbb14de42b797"
         }
       },
       "source_arrays": {
@@ -3792,24 +3792,24 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/classical.py": "8a8a9ef82936f0aa5b1c5775c6c0158c3b48d3bc7dca1de691b83d95e5c23ba3",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/stl.py": "bb9db3808691490849d06b6eff3f1d6083b6d79fa4d0ea526201e6cec11bdd4d",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -3906,13 +3906,13 @@
       "artifacts": {
         "gif": {
           "file": "st-mtm-block.gif",
-          "bytes": 347652,
-          "sha256": "0ce5cb25f89fd6999a06df1fed2bb292bfd9e6195b8cb5645ee562d1f65d7348"
+          "bytes": 341219,
+          "sha256": "c89124fc52ef1eaf7ce3e2aba90e7b83a6c5a146ebdf8f4d9dc96fb71af2d250"
         },
         "poster": {
           "file": "st-mtm-block.png",
-          "bytes": 126647,
-          "sha256": "1cc10f1485fb88ad3c2f373ca5060a8801637eb47dd388021a45c5b9f33fb358"
+          "bytes": 125264,
+          "sha256": "14e99c4f77a3bbd497111450c96fa8bc24ac536d419465d69e2e33189857a532"
         },
         "data": {
           "file": "st-mtm-block.npz",
@@ -3952,24 +3952,24 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/neural_blocks/neural_block_portfolio.py": "2aab635b9927d1d42bbcd8e0b4f37cb9fcdcf85cbd0331b5011621b495c4acfa",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -4071,18 +4071,18 @@
       "artifacts": {
         "gif": {
           "file": "timekan-block.gif",
-          "bytes": 266751,
-          "sha256": "2e97a5a9a5a0d0e3d52caf037a89259a2fb98d3e02797134f0f09912b037999e"
+          "bytes": 257497,
+          "sha256": "01cfe15be7bbe059b4fbf5810756f0410d540652e772bfbf47d910d348a85960"
         },
         "poster": {
           "file": "timekan-block.png",
-          "bytes": 175888,
-          "sha256": "2e6221758bdaf527222d2f33718238471641258d5bbc87119ed129b2bdfda1ac"
+          "bytes": 171621,
+          "sha256": "2e0a856c6e19a1b9b1299870c6ab804933b47feee7729690db707d93173c588b"
         },
         "data": {
           "file": "timekan-block.npz",
-          "bytes": 7786,
-          "sha256": "2787d8786c2e34eb52d3497747d3166d01b279a8ef8e5d7b95b256b11102b51a"
+          "bytes": 7762,
+          "sha256": "df3ef98ddd8e49cb6164cd0682f8bbef61269ffb06b2ac5a525023190138f29f"
         }
       },
       "source_arrays": {
@@ -4121,24 +4121,24 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/neural_blocks/neural_block_portfolio.py": "2aab635b9927d1d42bbcd8e0b4f37cb9fcdcf85cbd0331b5011621b495c4acfa",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -4238,18 +4238,18 @@
       "artifacts": {
         "gif": {
           "file": "times2d-block.gif",
-          "bytes": 289266,
-          "sha256": "9371a33901b3662d3842ea5ab1a5c3142e19ceeefd95a7e953d2d060c930ff73"
+          "bytes": 279388,
+          "sha256": "9d7b4fc77b31e37e181ac9991123178b15040039ccbe80bccc4cc8ae78b90403"
         },
         "poster": {
           "file": "times2d-block.png",
-          "bytes": 113118,
-          "sha256": "386220631068d619cf71037c5f054ce03c7c72f91236ed21ce26d7777e919542"
+          "bytes": 116023,
+          "sha256": "bcaefc457289056cc78fe83ed40f61f51786e2500361af56dea5fbc827077812"
         },
         "data": {
           "file": "times2d-block.npz",
-          "bytes": 11013,
-          "sha256": "71ae3b889f5a804e76ebeeaf631c52c2bc398d9277d74a7473a5ef2597bca116"
+          "bytes": 11014,
+          "sha256": "e79710bccc89e33a310467a0519a265e1d65dd8abdbb83f70bc6e20a3f2083d9"
         }
       },
       "source_arrays": {
@@ -4288,24 +4288,24 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/neural_blocks/neural_block_portfolio.py": "2aab635b9927d1d42bbcd8e0b4f37cb9fcdcf85cbd0331b5011621b495c4acfa",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -4401,13 +4401,13 @@
       "artifacts": {
         "gif": {
           "file": "vmd.gif",
-          "bytes": 399253,
-          "sha256": "847bfe96e5ebeb3695fe6d45a3af338f02b549724f28ab777f291b43346fc8cb"
+          "bytes": 386229,
+          "sha256": "393aa5469c3be66c3e63fc63b82ec94b7ee2143cedf1e69280391635effddb2d"
         },
         "poster": {
           "file": "vmd.png",
-          "bytes": 179243,
-          "sha256": "1d69db3c4af2c1486d1a940875ab9b45b1636250df729557cfc10bb80f6c9237"
+          "bytes": 178926,
+          "sha256": "e7ddb7c2a9096d00502c068868116cd7f0ae7c91acb669998e8b4c1cde9d363a"
         },
         "data": {
           "file": "vmd.npz",
@@ -4453,11 +4453,11 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
@@ -4465,13 +4465,13 @@
         },
         "source_hashes": {
           "native/src/vmd.cpp": "27b730744b4c17b2b0cfa4d2c4c0d29798d335294a71fb6a7a3e077e3012041b",
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/adaptive.py": "7d728d88b4ba1a8dd82890c7a6b017d542728b50dc477c281e9bbfcbae164a1d",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/vmd.py": "79dff465440e6d991dc5f65bdf65540b7599c4356c7455481f20d6208693f294",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -4566,13 +4566,13 @@
       "artifacts": {
         "gif": {
           "file": "waveform-block.gif",
-          "bytes": 318921,
-          "sha256": "713fa8572c950d03197078ca3b275a33ed8f3dc2baefd52f8bf27f7f65e943f5"
+          "bytes": 310085,
+          "sha256": "e07af7df8ab25c740fcf5738d4dfa37b18379e9fd4c29e204cc82a5e6385b6ee"
         },
         "poster": {
           "file": "waveform-block.png",
-          "bytes": 151980,
-          "sha256": "066240bdbeb1785f4d2b918da6948e23c9a1e0b425e1632fb9fec7d02999c569"
+          "bytes": 149688,
+          "sha256": "4abe2a46f24a648ac6521cb72009efcec9d05a81200c454c1bec36e8f62143a6"
         },
         "data": {
           "file": "waveform-block.npz",
@@ -4617,24 +4617,24 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/neural_blocks/neural_block_portfolio.py": "2aab635b9927d1d42bbcd8e0b4f37cb9fcdcf85cbd0331b5011621b495c4acfa",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -4730,13 +4730,13 @@
       "artifacts": {
         "gif": {
           "file": "wavelet.gif",
-          "bytes": 224879,
-          "sha256": "e8b5919ea6ab46442a1b0faaf9be326061ef49011404657afc776cfd8bf20a43"
+          "bytes": 226237,
+          "sha256": "76e2029cd628c60a7542df8b9f8feb9aea7ac7292aabaa556c46cc94a63290c2"
         },
         "poster": {
           "file": "wavelet.png",
-          "bytes": 196224,
-          "sha256": "3ef9540e849b983074547f38faae19f210e80ff4fc0c63de87e5bcfd5ed43e24"
+          "bytes": 194914,
+          "sha256": "4ea9def42c329cabb85e3ca79d5c381510a93cd08942a19c7d8b4ca742d8597c"
         },
         "data": {
           "file": "wavelet.npz",
@@ -4786,24 +4786,24 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/adaptive.py": "7d728d88b4ba1a8dd82890c7a6b017d542728b50dc477c281e9bbfcbae164a1d",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/wavelet.py": "a2a416a768bb7e2ac516e14b5f8a57d6641f40068890b91dc0c1a5db780779a0",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -4899,13 +4899,13 @@
       "artifacts": {
         "gif": {
           "file": "waveletmixer-block.gif",
-          "bytes": 292371,
-          "sha256": "f083e1c622f59eca8d8c5f620d161a0e1ecfa401ec26ef46e10a7d58d1c31b7a"
+          "bytes": 286896,
+          "sha256": "fdcf974583c885592f27e1888350b52ebc0424e49c82b77747a172fb241c44a4"
         },
         "poster": {
           "file": "waveletmixer-block.png",
-          "bytes": 139082,
-          "sha256": "14e69f52a5032178f7811b9f5aeebc144d1799f7426105db6fc1e6d90dec1e4a"
+          "bytes": 137730,
+          "sha256": "160533b43ab4cd77f30578d2c6e768db59280a366d14e8ccad676ea9ced24d70"
         },
         "data": {
           "file": "waveletmixer-block.npz",
@@ -4953,24 +4953,24 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/neural_blocks/neural_block_portfolio.py": "2aab635b9927d1d42bbcd8e0b4f37cb9fcdcf85cbd0331b5011621b495c4acfa",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     },
@@ -5064,13 +5064,13 @@
       "artifacts": {
         "gif": {
           "file": "xpatch-block.gif",
-          "bytes": 413182,
-          "sha256": "5386eb99bc0f3302fbd2952ed57b8a5a06f028e7dee1ef556d5278ac9964c5be"
+          "bytes": 410144,
+          "sha256": "f4173936d517a865481558a7c5ef8a0ce137e8d52f226f62d041f70784e9ad98"
         },
         "poster": {
           "file": "xpatch-block.png",
-          "bytes": 164309,
-          "sha256": "a00b55f3f7222b12c78d47e3255d848e3e5ddbd56e3a5ec5ed629cdc8a7fc2dc"
+          "bytes": 165512,
+          "sha256": "662d4d1ddc0504fa7f3a82f9e5084843d1ccb23b01c56abddb52a6b65e4d1dfd"
         },
         "data": {
           "file": "xpatch-block.npz",
@@ -5101,24 +5101,24 @@
       "render_provenance": {
         "python_version": "3.12.14",
         "dependencies": {
-          "numpy": "2.5.4",
-          "scipy": "1.18.1",
+          "numpy": "2.3.5",
+          "scipy": "1.17.0",
           "statsmodels": "0.15.0",
-          "matplotlib": "3.11.2",
-          "Pillow": "13.0.0",
+          "matplotlib": "3.10.8",
+          "Pillow": "12.3.0",
           "PyWavelets": "1.10.0",
           "EMD-signal": "1.10.0",
           "vmdpy": "0.2",
           "PySDKit": "0.5.0"
         },
         "source_hashes": {
-          "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+          "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/neural_blocks/xpatch_block.py": "4630da9874dd75fbc23dc688b29124ec6944d2dc9f56a200929a36ace4919ffc",
-          "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+          "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
     }

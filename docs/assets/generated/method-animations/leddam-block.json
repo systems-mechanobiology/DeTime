@@ -79,13 +79,13 @@
   "artifacts": {
     "gif": {
       "file": "leddam-block.gif",
-      "bytes": 304500,
-      "sha256": "28dfe1a784a5db123008720a6ad2a7690f072424263fa9f4f3210b9f1fc495c7"
+      "bytes": 303658,
+      "sha256": "e9a968b5987a4427a0c45c0c4b6a3b88c4c7882dbb161296def6ee9b11505723"
     },
     "poster": {
       "file": "leddam-block.png",
-      "bytes": 127485,
-      "sha256": "cc1a873231e2ff6838a34bc345e61ade04997a0b3b284859aa0743bc11bfad8c"
+      "bytes": 128178,
+      "sha256": "b017eaac7f9faddf93a3105dd64f082dceda5f4a39930cdeacc9e0020bd3fe34"
     },
     "data": {
       "file": "leddam-block.npz",
@@ -113,24 +113,24 @@
   "render_provenance": {
     "python_version": "3.12.14",
     "dependencies": {
-      "numpy": "2.5.4",
-      "scipy": "1.18.1",
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
       "statsmodels": "0.15.0",
-      "matplotlib": "3.11.2",
-      "Pillow": "13.0.0",
+      "matplotlib": "3.10.8",
+      "Pillow": "12.3.0",
       "PyWavelets": "1.10.0",
       "EMD-signal": "1.10.0",
       "vmdpy": "0.2",
       "PySDKit": "0.5.0"
     },
     "source_hashes": {
-      "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+      "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
       "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
       "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
       "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
       "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
       "src/detime/methods/neural_blocks/leddam_block.py": "f357dc97c6ce1303f9c22002966371bfabc158a4316ae050fa28f55967d9bdd2",
-      "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+      "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
     }
   }
 }

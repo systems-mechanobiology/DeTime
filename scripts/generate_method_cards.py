@@ -64,11 +64,11 @@ def _table_cell(value: object) -> str:
     return text.replace("|", "\\|").replace("\n", "<br>")
 
 
-def _default_label(value: object, required: bool) -> str:
+def _default_label(value: object, required: bool, type_name: str = "") -> str:
     if required:
         return "required"
     if value is None:
-        return "`None`"
+        return "`None`" if "None" in type_name else "derived; see description"
     return f"`{json.dumps(value)}`"
 
 
@@ -89,7 +89,7 @@ def _param_table(params: list[dict[str, object]]) -> str:
                     f"`{_table_cell(param.get('name', ''))}`",
                     _table_cell(param.get("type", "")),
                     "yes" if required else "no",
-                    _default_label(param.get("default"), required),
+                    _default_label(param.get("default"), required, str(param.get("type", ""))),
                     _table_cell(param.get("description", "")),
                 ]
             )
@@ -104,7 +104,7 @@ def _common_params(params: list[dict[str, object]]) -> str:
         if bool(param.get("common", True)) or bool(param.get("required", False)):
             name = str(param.get("name", ""))
             required = bool(param.get("required", False))
-            default = "required" if required else json.dumps(param.get("default"))
+            default = _default_label(param.get("default"), required, str(param.get("type", ""))).strip("`")
             rendered.append(f"`{name}` ({default})")
     return ", ".join(rendered) if rendered else "none declared"
 

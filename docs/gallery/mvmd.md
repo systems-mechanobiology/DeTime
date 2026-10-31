@@ -1,4 +1,4 @@
-<a class="method-detail-back" href="../../notebook-gallery/">← Back to Gallery</a>
+[← All 31 animations](index.md)
 
 <div class="method-detail-header">
   <h1>Optional multivariate VMD backend</h1>
@@ -11,11 +11,17 @@
 | **Method** | `MVMD` |
 | **Input mode** | `multivariate` |
 | **Trend shape** | `(96, 3)` |
-| **Status** | ran |
-| **Residual RMSE** | 0.08323657 |
+| **Notebook execution** | ran |
+| **Reconstruction RMSE** | 0.00000000 |
+
+<!-- detime:notebook-metric:start -->
+Notebook example metric: root mean square of `input - (trend + season + residual)` over all samples and channels. This checks additive bookkeeping; it is not a forecast error or a component-recovery score. The separate teaching input and intermediate arrays for the animation are linked below.
+<!-- detime:notebook-metric:end -->
 
 <!-- detime:method-animation:start -->
 ## How it works
+
+**Method maturity:** `optional-backend`. **Implementation:** `optional-backend`.
 
 MVMD couples channel-specific mode spectra through shared center frequencies. The modes can have different amplitudes and phases in each channel.
 
@@ -101,9 +107,12 @@ run_gallery_case("MVMD")
 
 <div class="gallery-out">
 <pre>
-MVMD: Optional multivariate VMD backend
+MVMD: Optional multivariate VMD backend for shared frequency structure.
 status: ran
-...
+input mode: multivariate
+trend shape: (96, 3)
+backend: python
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 

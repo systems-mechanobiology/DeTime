@@ -94,7 +94,7 @@ def run_gallery_case(name):
             "reason": case["skip"],
             "input_mode": metadata["input_mode"],
             "output_shape": "",
-            "residual_rmse": np.nan,
+            "reconstruction_rmse": np.nan,
         }
         GALLERY_RESULTS.append(row)
         display(pd.DataFrame([row]))
@@ -111,7 +111,7 @@ def run_gallery_case(name):
             "reason": f"{type(exc).__name__}: {exc}",
             "input_mode": metadata["input_mode"],
             "output_shape": "",
-            "residual_rmse": np.nan,
+            "reconstruction_rmse": np.nan,
         }
         GALLERY_RESULTS.append(row)
         display(pd.DataFrame([row]))
@@ -121,8 +121,8 @@ def run_gallery_case(name):
     trend = _plot_vector(result.trend)
     season = _plot_vector(result.season)
     residual = _plot_vector(result.residual)
-    reconstruction = trend + season + residual
-    rmse = float(np.sqrt(np.mean((original - reconstruction) ** 2)))
+    reconstruction = np.asarray(result.trend) + np.asarray(result.season) + np.asarray(result.residual)
+    rmse = float(np.sqrt(np.mean((np.asarray(data) - reconstruction) ** 2)))
 
     row = {
         "method": name,
@@ -130,7 +130,7 @@ def run_gallery_case(name):
         "reason": "",
         "input_mode": metadata["input_mode"],
         "output_shape": str(np.asarray(result.trend).shape),
-        "residual_rmse": round(rmse, 8),
+        "reconstruction_rmse": round(rmse, 8),
     }
     GALLERY_RESULTS.append(row)
     display(pd.DataFrame([row]))

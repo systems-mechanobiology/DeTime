@@ -1,4 +1,4 @@
-<a class="method-detail-back" href="../../notebook-gallery/">← Back to Gallery</a>
+[← All 31 animations](index.md)
 
 <div class="method-detail-header">
   <h1>Experimental Gabor clustering path</h1>
@@ -11,11 +11,17 @@
 | **Method** | `GABOR_CLUSTER` |
 | **Input mode** | `univariate` |
 | **Trend shape** | `` |
-| **Status** | skipped |
-| **Residual RMSE** | n/a |
+| **Notebook execution** | skipped |
+| **Reconstruction RMSE** | n/a |
+
+<!-- detime:notebook-metric:start -->
+Notebook example metric: root mean square of `input - (trend + season + residual)` over all samples and channels. This checks additive bookkeeping; it is not a forecast error or a component-recovery score. The separate teaching input and intermediate arrays for the animation are linked below.
+<!-- detime:notebook-metric:end -->
 
 <!-- detime:method-animation:start -->
 ## How it works
+
+**Method maturity:** `experimental`. **Implementation:** `native-backed`.
 
 DeTime's experimental operator builds windowed Fourier atoms, assigns their features to a supplied codebook, and reconstructs cluster-specific contributions with overlap-add.
 
@@ -101,8 +107,6 @@ print(case["skip"])
 
 <div class="gallery-out">
 <pre>
-GABOR_CLUSTER: Experimental Gabor clustering path
-status: skipped
-...
+requires a trained GaborClusterModel or model_path plus the experimental clustering backend
 </pre>
 </div>

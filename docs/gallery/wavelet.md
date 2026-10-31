@@ -1,4 +1,4 @@
-<a class="method-detail-back" href="../../notebook-gallery/">← Back to Gallery</a>
+[← All 31 animations](index.md)
 
 <div class="method-detail-header">
   <h1>Wavelet decomposition</h1>
@@ -11,11 +11,17 @@
 | **Method** | `WAVELET` |
 | **Input mode** | `univariate` |
 | **Trend shape** | `(96,)` |
-| **Status** | ran |
-| **Residual RMSE** | 0.00000000 |
+| **Notebook execution** | ran |
+| **Reconstruction RMSE** | 0.00000000 |
+
+<!-- detime:notebook-metric:start -->
+Notebook example metric: root mean square of `input - (trend + season + residual)` over all samples and channels. This checks additive bookkeeping; it is not a forecast error or a component-recovery score. The separate teaching input and intermediate arrays for the animation are linked below.
+<!-- detime:notebook-metric:end -->
 
 <!-- detime:method-animation:start -->
 ## How it works
+
+**Method maturity:** `stable`. **Implementation:** `wrapper`.
 
 A discrete wavelet transform separates scales through paired low-pass and high-pass filters. DeTime reconstructs selected coefficient blocks onto the original sample grid.
 
@@ -108,9 +114,12 @@ run_gallery_case("WAVELET")
 
 <div class="gallery-out">
 <pre>
-WAVELET: Wavelet decomposition
+WAVELET: Wavelet-based decomposition exposed through the common output contract.
 status: ran
-...
+input mode: univariate
+trend shape: (96,)
+backend: python
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 

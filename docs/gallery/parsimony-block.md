@@ -5,12 +5,12 @@ description: "PARSIMONY_BLOCK: This implementation first smooths the observed se
 
 # Parsimony block: a compact harmonic fit
 
-[Back to methods](../methods.md#animated-method-explanations)
-
-**Method:** `PARSIMONY_BLOCK`. **Status:** experimental. **Implementation:** python.
+[← All 31 animations](index.md)
 
 <!-- detime:method-animation:start -->
 ## How it works
+
+**Method maturity:** `experimental`. **Implementation:** `python`.
 
 This implementation first smooths the observed series, then projects the remaining signal onto cosine and sine columns at a supplied period. It is a fixed-basis least-squares operator. The trace makes the design matrix, fitted coefficients and additive contributions visible; it does not reproduce a complete forecasting architecture from the cited paper.
 

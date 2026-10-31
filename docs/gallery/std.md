@@ -1,8 +1,8 @@
-<a class="method-detail-back" href="../../notebook-gallery/">← Back to Gallery</a>
+[← All 31 animations](index.md)
 
 <div class="method-detail-header">
-  <h1>Seasonal-trend decomposition</h1>
-  <p>Seasonal-trend decomposition</p>
+  <h1>Seasonal-trend-dispersion decomposition</h1>
+  <p>Seasonal-trend-dispersion decomposition</p>
   <svg viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke-linecap="round"><path d="M0 50 C30 20 60 78 90 42 S150 16 180 52 S240 80 300 34 S360 14 400 50" stroke="#1F4FFF" stroke-width="2.6" stroke-opacity=".28"/><path d="M0 62 C80 58 160 48 240 38 S340 26 400 24" stroke="#00A6A6" stroke-width="2.2" stroke-opacity=".18"/><path d="M0 74 C20 66 40 82 60 72 S100 64 120 74 S160 82 180 72 S220 64 240 74 S300 82 400 68" stroke="#9AA8C7" stroke-width="1.8" stroke-opacity=".14"/></g></svg>
 </div>
 
@@ -11,11 +11,17 @@
 | **Method** | `STD` |
 | **Input mode** | `channelwise` |
 | **Trend shape** | `(96,)` |
-| **Status** | ran |
-| **Residual RMSE** | 0.00000000 |
+| **Notebook execution** | ran |
+| **Reconstruction RMSE** | 0.00000000 |
+
+<!-- detime:notebook-metric:start -->
+Notebook example metric: root mean square of `input - (trend + season + residual)` over all samples and channels. This checks additive bookkeeping; it is not a forecast error or a component-recovery score. The separate teaching input and intermediate arrays for the animation are linked below.
+<!-- detime:notebook-metric:end -->
 
 <!-- detime:method-animation:start -->
 ## How it works
+
+**Method maturity:** `maintained`. **Implementation:** `native-backed`.
 
 STD represents each cycle using its mean, an L2 dispersion, and its own normalized shape.
 
@@ -101,9 +107,12 @@ run_gallery_case("STD")
 
 <div class="gallery-out">
 <pre>
-STD: Seasonal-trend decomposition
+STD: Fast seasonal-trend decomposition with dispersion-aware diagnostics.
 status: ran
-...
+input mode: channelwise
+trend shape: (96,)
+backend: native
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 

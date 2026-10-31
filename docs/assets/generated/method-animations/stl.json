@@ -86,18 +86,18 @@
   "artifacts": {
     "gif": {
       "file": "stl.gif",
-      "bytes": 518910,
-      "sha256": "2e63e210c684248bcf1c70bc4ef5417fd471ba377905b82f02f95e189c1824d2"
+      "bytes": 501932,
+      "sha256": "01ebe001f4b1e58a3fe363f78d6d8ea611509c48eb50ec74f88fe55a8dc2f3dd"
     },
     "poster": {
       "file": "stl.png",
-      "bytes": 137129,
-      "sha256": "7669190dfc6959643c1b7c26761744b1e7e88c1a4214f706cf7bf14fb403834f"
+      "bytes": 138917,
+      "sha256": "646b3d042fe4f3425ed74fcaa0af532b8dfbd087416a8c2e716c6610ceeac01e"
     },
     "data": {
       "file": "stl.npz",
-      "bytes": 27842,
-      "sha256": "c001205ccd8b69da7a8270302443bfcb5a9803864a73108368d0012a2f281ba4"
+      "bytes": 27845,
+      "sha256": "31c41d0378263d81d2b3847bcaa0c732c6aaaf1a10a5d3144cfbbb14de42b797"
     }
   },
   "source_arrays": {
@@ -159,24 +159,24 @@
   "render_provenance": {
     "python_version": "3.12.14",
     "dependencies": {
-      "numpy": "2.5.4",
-      "scipy": "1.18.1",
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
       "statsmodels": "0.15.0",
-      "matplotlib": "3.11.2",
-      "Pillow": "13.0.0",
+      "matplotlib": "3.10.8",
+      "Pillow": "12.3.0",
       "PyWavelets": "1.10.0",
       "EMD-signal": "1.10.0",
       "vmdpy": "0.2",
       "PySDKit": "0.5.0"
     },
     "source_hashes": {
-      "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+      "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
       "scripts/method_animations/classical.py": "8a8a9ef82936f0aa5b1c5775c6c0158c3b48d3bc7dca1de691b83d95e5c23ba3",
       "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
       "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
       "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
       "src/detime/methods/stl.py": "bb9db3808691490849d06b6eff3f1d6083b6d79fa4d0ea526201e6cec11bdd4d",
-      "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+      "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
     }
   }
 }

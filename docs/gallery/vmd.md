@@ -1,4 +1,4 @@
-<a class="method-detail-back" href="../../notebook-gallery/">← Back to Gallery</a>
+[← All 31 animations](index.md)
 
 <div class="method-detail-header">
   <h1>Variational mode decomposition</h1>
@@ -11,11 +11,17 @@
 | **Method** | `VMD` |
 | **Input mode** | `univariate` |
 | **Trend shape** | `(96,)` |
-| **Status** | ran |
-| **Residual RMSE** | 0.03421948 |
+| **Notebook execution** | ran |
+| **Reconstruction RMSE** | 0.00000000 |
+
+<!-- detime:notebook-metric:start -->
+Notebook example metric: root mean square of `input - (trend + season + residual)` over all samples and channels. This checks additive bookkeeping; it is not a forecast error or a component-recovery score. The separate teaching input and intermediate arrays for the animation are linked below.
+<!-- detime:notebook-metric:end -->
 
 <!-- detime:method-animation:start -->
 ## How it works
+
+**Method maturity:** `stable`. **Implementation:** `native-backed`.
 
 VMD alternates between frequency-domain mode updates and spectral-energy centers. DeTime's grouping into trend and season is a separate step after this optimization.
 
@@ -107,9 +113,12 @@ run_gallery_case("VMD")
 
 <div class="gallery-out">
 <pre>
-VMD: Variational mode decomposition
+VMD: Variational mode decomposition integrated into the common workflow layer.
 status: ran
-...
+input mode: univariate
+trend shape: (96,)
+backend: native
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 

@@ -1,4 +1,4 @@
-<a class="method-detail-back" href="../../notebook-gallery/">← Back to Gallery</a>
+[← All 31 animations](index.md)
 
 <div class="method-detail-header">
   <h1>Empirical mode decomposition</h1>
@@ -11,11 +11,17 @@
 | **Method** | `EMD` |
 | **Input mode** | `univariate` |
 | **Trend shape** | `(96,)` |
-| **Status** | ran |
-| **Residual RMSE** | 0.00000000 |
+| **Notebook execution** | ran |
+| **Reconstruction RMSE** | 0.00000000 |
+
+<!-- detime:notebook-metric:start -->
+Notebook example metric: root mean square of `input - (trend + season + residual)` over all samples and channels. This checks additive bookkeeping; it is not a forecast error or a component-recovery score. The separate teaching input and intermediate arrays for the animation are linked below.
+<!-- detime:notebook-metric:end -->
 
 <!-- detime:method-animation:start -->
 ## How it works
+
+**Method maturity:** `stable`. **Implementation:** `wrapper`.
 
 EMD adapts its oscillatory modes to the extrema of the current signal. DeTime then groups upstream modes into its trend/season/residual result.
 
@@ -99,9 +105,12 @@ run_gallery_case("EMD")
 
 <div class="gallery-out">
 <pre>
-EMD: Empirical mode decomposition
+EMD: Empirical mode decomposition under the DeTime result contract.
 status: ran
-...
+input mode: univariate
+trend shape: (96,)
+backend: python
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 

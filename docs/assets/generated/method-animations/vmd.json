@@ -90,13 +90,13 @@
   "artifacts": {
     "gif": {
       "file": "vmd.gif",
-      "bytes": 399253,
-      "sha256": "847bfe96e5ebeb3695fe6d45a3af338f02b549724f28ab777f291b43346fc8cb"
+      "bytes": 386229,
+      "sha256": "393aa5469c3be66c3e63fc63b82ec94b7ee2143cedf1e69280391635effddb2d"
     },
     "poster": {
       "file": "vmd.png",
-      "bytes": 179243,
-      "sha256": "1d69db3c4af2c1486d1a940875ab9b45b1636250df729557cfc10bb80f6c9237"
+      "bytes": 178926,
+      "sha256": "e7ddb7c2a9096d00502c068868116cd7f0ae7c91acb669998e8b4c1cde9d363a"
     },
     "data": {
       "file": "vmd.npz",
@@ -142,11 +142,11 @@
   "render_provenance": {
     "python_version": "3.12.14",
     "dependencies": {
-      "numpy": "2.5.4",
-      "scipy": "1.18.1",
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
       "statsmodels": "0.15.0",
-      "matplotlib": "3.11.2",
-      "Pillow": "13.0.0",
+      "matplotlib": "3.10.8",
+      "Pillow": "12.3.0",
       "PyWavelets": "1.10.0",
       "EMD-signal": "1.10.0",
       "vmdpy": "0.2",
@@ -154,13 +154,13 @@
     },
     "source_hashes": {
       "native/src/vmd.cpp": "27b730744b4c17b2b0cfa4d2c4c0d29798d335294a71fb6a7a3e077e3012041b",
-      "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+      "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
       "scripts/method_animations/adaptive.py": "7d728d88b4ba1a8dd82890c7a6b017d542728b50dc477c281e9bbfcbae164a1d",
       "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
       "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
       "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
       "src/detime/methods/vmd.py": "79dff465440e6d991dc5f65bdf65540b7599c4356c7455481f20d6208693f294",
-      "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+      "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
     }
   }
 }

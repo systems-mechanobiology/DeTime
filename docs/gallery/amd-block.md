@@ -5,12 +5,12 @@ description: "AMD_BLOCK: Several fixed moving-average windows are evaluated on t
 
 # AMD block: average smoothing scales
 
-[Back to methods](../methods.md#animated-method-explanations)
-
-**Method:** `AMD_BLOCK`. **Status:** experimental. **Implementation:** python.
+[← All 31 animations](index.md)
 
 <!-- detime:method-animation:start -->
 ## How it works
+
+**Method maturity:** `experimental`. **Implementation:** `python`.
 
 Several fixed moving-average windows are evaluated on the prefix, then averaged with equal weights. The next step uses phase-wise means of the detrended prefix. The frames expose those buckets, their cumulative averages and the repeated seasonal output. The source architecture's adaptive weighting is represented here by a nonlearned, equal-weight average of fixed smoothers.
 

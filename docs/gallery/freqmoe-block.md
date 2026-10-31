@@ -5,12 +5,12 @@ description: "FREQMOE_BLOCK: This standalone operator obtains candidate periods 
 
 # FreqMoE block: average frequency fits
 
-[Back to methods](../methods.md#animated-method-explanations)
-
-**Method:** `FREQMOE_BLOCK`. **Status:** experimental. **Implementation:** python.
+[← All 31 animations](index.md)
 
 <!-- detime:method-animation:start -->
 ## How it works
+
+**Method maturity:** `experimental`. **Implementation:** `python`.
 
 This standalone operator obtains candidate periods from an FFT magnitude ranking and fits a separate harmonic projection for each one. The selected seasonal estimate is their equal-weight average. The frames expose the selection signal, rounded periods, candidate curves and averaging operation. The parameter expert_width determines the harmonic count by rounding expert_width / 64. It does not size a fitted mixture-of-experts network here.
 

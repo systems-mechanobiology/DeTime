@@ -91,13 +91,13 @@
   "artifacts": {
     "gif": {
       "file": "st-mtm-block.gif",
-      "bytes": 347652,
-      "sha256": "0ce5cb25f89fd6999a06df1fed2bb292bfd9e6195b8cb5645ee562d1f65d7348"
+      "bytes": 341219,
+      "sha256": "c89124fc52ef1eaf7ce3e2aba90e7b83a6c5a146ebdf8f4d9dc96fb71af2d250"
     },
     "poster": {
       "file": "st-mtm-block.png",
-      "bytes": 126647,
-      "sha256": "1cc10f1485fb88ad3c2f373ca5060a8801637eb47dd388021a45c5b9f33fb358"
+      "bytes": 125264,
+      "sha256": "14e99c4f77a3bbd497111450c96fa8bc24ac536d419465d69e2e33189857a532"
     },
     "data": {
       "file": "st-mtm-block.npz",
@@ -137,24 +137,24 @@
   "render_provenance": {
     "python_version": "3.12.14",
     "dependencies": {
-      "numpy": "2.5.4",
-      "scipy": "1.18.1",
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
       "statsmodels": "0.15.0",
-      "matplotlib": "3.11.2",
-      "Pillow": "13.0.0",
+      "matplotlib": "3.10.8",
+      "Pillow": "12.3.0",
       "PyWavelets": "1.10.0",
       "EMD-signal": "1.10.0",
       "vmdpy": "0.2",
       "PySDKit": "0.5.0"
     },
     "source_hashes": {
-      "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+      "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
       "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
       "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
       "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
       "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
       "src/detime/methods/neural_blocks/neural_block_portfolio.py": "2aab635b9927d1d42bbcd8e0b4f37cb9fcdcf85cbd0331b5011621b495c4acfa",
-      "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+      "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
     }
   }
 }

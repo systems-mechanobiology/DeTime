@@ -167,7 +167,11 @@ def render_frame(spec: AnimationSpec, index: int, count: int) -> Image.Image:
         raise ValueError(f"{spec.method}: four stages and four panels are required")
     with plt.rc_context({"font.family": "DejaVu Sans", "text.color": COLORS["dark"],
                          "axes.labelcolor": COLORS["dark"], "axes.titlecolor": COLORS["dark"]}):
-        fig = plt.figure(figsize=(WIDTH / 100, HEIGHT / 100), dpi=100, facecolor="#F5F7FC")
+        # Agg truncates the product of inches and DPI to whole pixels. Round
+        # the inch size upward by one float step so 8.2 * 100 cannot become
+        # 819.999... and silently drop a row of pixels on some versions.
+        figsize = np.nextafter(np.asarray([WIDTH, HEIGHT], dtype=float) / 100, np.inf)
+        fig = plt.figure(figsize=figsize, dpi=100, facecolor="#F5F7FC")
         title = f"{spec.method}  |  {spec.title}"
         fig.text(0.045, 0.958, title, fontsize=18 if len(title) < 80 else 15,
                  fontweight="bold", ha="left", va="top")
@@ -203,6 +207,8 @@ def render_frame(spec: AnimationSpec, index: int, count: int) -> Image.Image:
         fig.canvas.draw()
         image = Image.fromarray(np.asarray(fig.canvas.buffer_rgba())[..., :3].copy())
         plt.close(fig)
+        if image.size != (WIDTH, HEIGHT):
+            raise ValueError(f"{spec.method}: rendered canvas is {image.size}, expected {(WIDTH, HEIGHT)}")
         return image
 
 
@@ -282,10 +288,15 @@ def _replace_block(text: str, start: str, end: str, block: str, *, before: str |
 
 def explanation(row: dict) -> str:
     name, method = row["slug"], row["method"]
+    entry = MethodRegistry.get_metadata(method)
+    scope = (f"**Method maturity:** `{entry['maturity']}`. "
+             f"**Implementation:** `{entry['implementation']}`.")
+    if entry.get("alias_of"):
+        scope += f" **Numerical alias of:** `{entry['alias_of']}`."
     asset = "../assets/generated/method-animations/"
     alt = f"{method}: " + "; ".join(s["title"] for s in row["steps"])
     lines = [
-        "## How it works", "", row["summary"], "",
+        "## How it works", "", scope, "", row["summary"], "",
         f"[![{alt}]({asset}{name}.png)]({asset}{name}.gif)", "",
         row["input_note"], "",
         f"[Open GIF]({asset}{name}.gif) · [Static PNG]({asset}{name}.png) · "
@@ -377,9 +388,7 @@ def write_docs(rows: list[dict]) -> None:
             text = ("---\n" + f"title: {json.dumps(title)}\n"
                     + f"description: {json.dumps(row['method'] + ': ' + textwrap.shorten(row['summary'], width=145))}\n" + "---\n\n"
                     + f"# {row['title']}\n\n"
-                    + "[Back to methods](../methods.md#animated-method-explanations)\n\n"
-                    + f"**Method:** `{row['method']}`. **Status:** {entry['maturity']}. "
-                    + f"**Implementation:** {entry['implementation']}.\n")
+                    + "[Back to methods](../methods.md#animated-method-explanations)\n")
         block = explanation(row)
         path.write_text(_replace_block(text, START, END, block, before="## Code"), encoding="utf-8")
     methods = ROOT / "docs/methods.md"

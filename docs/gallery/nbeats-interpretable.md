@@ -5,12 +5,12 @@ description: "NBEATS_INTERPRETABLE: This teaching illustration follows the sourc
 
 # N-BEATS: untrained basis illustration
 
-[Back to methods](../methods.md#animated-method-explanations)
-
-**Method:** `NBEATS_INTERPRETABLE`. **Status:** experimental. **Implementation:** python.
+[← All 31 animations](index.md)
 
 <!-- detime:method-animation:start -->
 ## How it works
+
+**Method maturity:** `experimental`. **Implementation:** `python`.
 
 This teaching illustration follows the source's polynomial and Fourier basis formulas and its separate backcast/output branches. All coefficients are explicitly chosen constants. The actual NBEATS_INTERPRETABLE method trains an MLP for each decomposition call using Torch, but that optional backend is not executed for this asset. The animation explains the basis mechanism and residual bookkeeping without presenting an untrained curve as a learned decomposition.
 

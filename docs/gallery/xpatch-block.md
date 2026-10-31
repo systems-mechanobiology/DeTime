@@ -5,12 +5,12 @@ description: "XPATCH_BLOCK: The implemented xPatch-inspired block offers EMA and
 
 # xPatch block: exponential level updates
 
-[Back to methods](../methods.md#animated-method-explanations)
-
-**Method:** `XPATCH_BLOCK`. **Status:** experimental. **Implementation:** python.
+[← All 31 animations](index.md)
 
 <!-- detime:method-animation:start -->
 ## How it works
+
+**Method maturity:** `experimental`. **Implementation:** `python`.
 
 The implemented xPatch-inspired block offers EMA and a Holt-style level/slope option named dema. This animation uses EMA with alpha = 0.25, followed by the optional five-sample smoother of the nontrend stream. It shows the exact two-term update and the effect of a second alpha. The raw EMA is one-sided; the selected centered seasonal smoother changes that information boundary.
 

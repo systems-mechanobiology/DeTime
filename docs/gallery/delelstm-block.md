@@ -5,12 +5,12 @@ description: "DELELSTM_BLOCK: A Holt-style recurrence updates a level and slope 
 
 # DeLELSTM block: level, slope and phase
 
-[Back to methods](../methods.md#animated-method-explanations)
-
-**Method:** `DELELSTM_BLOCK`. **Status:** experimental. **Implementation:** python.
+[← All 31 animations](index.md)
 
 <!-- detime:method-animation:start -->
 ## How it works
+
+**Method maturity:** `experimental`. **Implementation:** `python`.
 
 A Holt-style recurrence updates a level and slope on the prefix; its last slope extrapolates the trend afterward. The next step uses phase-wise means of the detrended prefix. The frames expose those buckets, their cumulative averages and the repeated seasonal output. The implemented trend is a level/slope recurrence with a phase template. No LSTM cell is trained or evaluated.
 

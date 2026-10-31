@@ -115,7 +115,7 @@ def run_gallery_case(name):
             "reason": case["skip"],
             "input_mode": metadata["input_mode"],
             "output_shape": "",
-            "residual_rmse": np.nan,
+            "reconstruction_rmse": np.nan,
         }
         GALLERY_RESULTS.append(row)
         display(pd.DataFrame([row]))
@@ -132,7 +132,7 @@ def run_gallery_case(name):
             "reason": f"{type(exc).__name__}: {exc}",
             "input_mode": metadata["input_mode"],
             "output_shape": "",
-            "residual_rmse": np.nan,
+            "reconstruction_rmse": np.nan,
         }
         GALLERY_RESULTS.append(row)
         display(pd.DataFrame([row]))
@@ -142,8 +142,8 @@ def run_gallery_case(name):
     trend = _plot_vector(result.trend)
     season = _plot_vector(result.season)
     residual = _plot_vector(result.residual)
-    reconstruction = trend + season + residual
-    rmse = float(np.sqrt(np.mean((original - reconstruction) ** 2)))
+    reconstruction = np.asarray(result.trend) + np.asarray(result.season) + np.asarray(result.residual)
+    rmse = float(np.sqrt(np.mean((np.asarray(data) - reconstruction) ** 2)))
 
     row = {
         "method": name,
@@ -151,7 +151,7 @@ def run_gallery_case(name):
         "reason": "",
         "input_mode": metadata["input_mode"],
         "output_shape": str(np.asarray(result.trend).shape),
-        "residual_rmse": round(rmse, 8),
+        "reconstruction_rmse": round(rmse, 8),
     }
     GALLERY_RESULTS.append(row)
     display(pd.DataFrame([row]))
@@ -186,13 +186,13 @@ status: ran
 input mode: univariate
 trend shape: (96,)
 backend: native
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
 ![SSA decomposition](assets/generated/notebooks/method-gallery/ssa.png)
 
-## Seasonal-trend decomposition
+## Seasonal-trend-dispersion decomposition
 
 [Watch how STD works](gallery/std.md#how-it-works).
 
@@ -210,13 +210,13 @@ status: ran
 input mode: channelwise
 trend shape: (96,)
 backend: native
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
 ![STD decomposition](assets/generated/notebooks/method-gallery/std.png)
 
-## Robust seasonal-trend decomposition
+## Seasonal-trend-dispersion decomposition with a remainder
 
 [Watch how STDR works](gallery/stdr.md#how-it-works).
 
@@ -229,12 +229,12 @@ Out:
 
 <div class="gallery-out">
 <pre>
-STDR: Robust seasonal-trend decomposition for noisier periodic signals.
+STDR: Seasonal-trend-dispersion decomposition with an averaged cycle shape and a remainder.
 status: ran
 input mode: channelwise
 trend shape: (96,)
 backend: native
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
@@ -258,7 +258,7 @@ status: ran
 input mode: multivariate
 trend shape: (96, 3)
 backend: python
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
@@ -282,7 +282,7 @@ status: ran
 input mode: univariate
 trend shape: (96,)
 backend: python
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
@@ -306,7 +306,7 @@ status: ran
 input mode: univariate
 trend shape: (96,)
 backend: python
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
@@ -330,7 +330,7 @@ status: ran
 input mode: univariate
 trend shape: (96,)
 backend: python
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
@@ -354,7 +354,7 @@ status: ran
 input mode: univariate
 trend shape: (96,)
 backend: python
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
@@ -373,12 +373,12 @@ Out:
 
 <div class="gallery-out">
 <pre>
-CEEMDAN: Noise-assisted EMD variant for more stable IMF extraction.
+CEEMDAN: Noise-assisted EMD wrapper with IMFs in (mode, time, channel) layout.
 status: ran
 input mode: univariate
 trend shape: (96,)
 backend: python
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
@@ -402,7 +402,7 @@ status: ran
 input mode: univariate
 trend shape: (96,)
 backend: native
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
@@ -426,7 +426,7 @@ status: ran
 input mode: univariate
 trend shape: (96,)
 backend: python
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
@@ -450,7 +450,7 @@ status: ran
 input mode: univariate
 trend shape: (96,)
 backend: native
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
@@ -474,7 +474,7 @@ status: ran
 input mode: multivariate
 trend shape: (96, 3)
 backend: python
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
@@ -498,7 +498,7 @@ status: ran
 input mode: multivariate
 trend shape: (96, 3)
 backend: python
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
@@ -523,7 +523,11 @@ requires a trained GaborClusterModel or model_path plus the experimental cluster
 
 ## Summary
 
-| Method | Status | Input mode | Trend shape | Residual RMSE |
+Reconstruction RMSE is computed from input minus the sum of trend, season, and residual
+over all samples and channels. It checks additive bookkeeping, not forecasting accuracy
+or recovery of ground-truth components.
+
+| Method | Status | Input mode | Trend shape | Reconstruction RMSE |
 |---|---|---|---|---:|
 | `SSA` | ran | `univariate` | `(96,)` | 0.00000000 |
 | `STD` | ran | `channelwise` | `(96,)` | 0.00000000 |
@@ -541,7 +545,7 @@ requires a trained GaborClusterModel or model_path plus the experimental cluster
 | `MEMD` | ran | `multivariate` | `(96, 3)` | 0.00000000 |
 | `GABOR_CLUSTER` | skipped | `univariate` | `` | n/a |
 
-Total running time of the gallery script: 7.257 seconds.
+Total running time of the gallery script: 10.234 seconds.
 
 Methods run: 14; skipped with explicit reason: 1.
 

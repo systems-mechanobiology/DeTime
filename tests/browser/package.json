@@ -1,0 +1,14 @@
+{
+  "name": "detime-docs-browser-acceptance",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Chromium acceptance checks for the existing MkDocs method animations",
+  "scripts": {
+    "test": "playwright test",
+    "test:list": "playwright test --list"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "pngjs": "7.0.0"
+  }
+}

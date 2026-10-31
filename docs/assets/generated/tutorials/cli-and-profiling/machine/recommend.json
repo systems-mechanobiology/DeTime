@@ -55,18 +55,18 @@
           {
             "common": true,
             "default": null,
-            "description": "Shared embedding window length for aligned channels.",
+            "description": "Shared embedding window length. When omitted, max(4, T // 4), clipped to [2, T - 1]. Omit the parameter to select this rule; explicit null is not accepted.",
             "name": "window",
             "required": false,
-            "type": "int | None"
+            "type": "int"
           },
           {
             "common": true,
             "default": null,
-            "description": "Number of shared elementary components to retain.",
+            "description": "Number of shared elementary components. When omitted, min(10, window * channels, T - window + 1). Explicit null is not accepted.",
             "name": "rank",
             "required": false,
-            "type": "int | None"
+            "type": "int"
           },
           {
             "common": true,
@@ -206,34 +206,34 @@
           },
           {
             "common": false,
-            "default": null,
-            "description": "Optional search horizon when period inference is enabled.",
+            "default": 128,
+            "description": "Upper bound for the inferred seasonal period when period is omitted.",
             "name": "max_period_search",
             "required": false,
-            "type": "int | None"
+            "type": "int"
           },
           {
             "common": false,
-            "default": 1e-08,
-            "description": "Small numerical guard for robust dispersion calculations.",
+            "default": 1e-12,
+            "description": "Centered blocks with L2 norm at or below this threshold receive zero dispersion; this does not apply robust weighting.",
             "name": "eps",
             "required": false,
             "type": "float"
           }
         ],
         "recommended_for": [
-          "robust seasonal-trend decomposition",
+          "shared normalized seasonal shapes with cycle-dependent dispersion",
           "channelwise multivariate workflows",
           "native-backed seasonal structure recovery"
         ],
         "references": [
           {
-            "note": "Primary reference for STD and the robust seasonal-trend-dispersion family.",
+            "note": "Primary reference for STD and STDR; STDR adds an irregular remainder to the seasonal-trend-dispersion representation.",
             "title": "Dudek (2022), STD: A Seasonal-Trend-Dispersion Decomposition of Time Series",
             "url": "https://doi.org/10.48550/arXiv.2204.10398"
           }
         ],
-        "summary": "Robust seasonal-trend decomposition for noisier periodic signals.",
+        "summary": "Seasonal-trend-dispersion decomposition with an averaged cycle shape and a remainder.",
         "typical_failure_modes": [
           "period omitted or mis-specified",
           "heavy structural breaks that violate shared seasonal assumptions"
@@ -249,7 +249,7 @@
         "long_series_native"
       ],
       "score": 11.75,
-      "summary": "Robust seasonal-trend decomposition for noisier periodic signals."
+      "summary": "Seasonal-trend-dispersion decomposition with an averaged cycle shape and a remainder."
     },
     {
       "metadata": {
@@ -301,16 +301,16 @@
           },
           {
             "common": false,
-            "default": null,
-            "description": "Optional search horizon when period inference is enabled.",
+            "default": 128,
+            "description": "Upper bound for the inferred seasonal period when period is omitted.",
             "name": "max_period_search",
             "required": false,
-            "type": "int | None"
+            "type": "int"
           },
           {
             "common": false,
-            "default": 1e-08,
-            "description": "Small numerical guard for dispersion calculations.",
+            "default": 1e-12,
+            "description": "Centered blocks with L2 norm at or below this threshold receive zero dispersion.",
             "name": "eps",
             "required": false,
             "type": "float"
@@ -323,7 +323,7 @@
         ],
         "references": [
           {
-            "note": "Primary reference for STD and the robust seasonal-trend-dispersion family.",
+            "note": "Primary reference for STD and STDR; STDR adds an irregular remainder to the seasonal-trend-dispersion representation.",
             "title": "Dudek (2022), STD: A Seasonal-Trend-Dispersion Decomposition of Time Series",
             "url": "https://doi.org/10.48550/arXiv.2204.10398"
           }

@@ -5,12 +5,12 @@ description: "ST_MTM_BLOCK: A centered moving average estimates the prefix trend
 
 # ST-MTM block: smooth a phase template
 
-[Back to methods](../methods.md#animated-method-explanations)
-
-**Method:** `ST_MTM_BLOCK`. **Status:** experimental. **Implementation:** python.
+[← All 31 animations](index.md)
 
 <!-- detime:method-animation:start -->
 ## How it works
+
+**Method maturity:** `experimental`. **Implementation:** `python`.
 
 A centered moving average estimates the prefix trend and the final trend level is held constant afterward. The next step uses phase-wise means of the detrended prefix. The frames expose those buckets, their cumulative averages and the repeated seasonal output. The computation shown has a smoothed template. It does not perform masked-time-series pretraining.
 

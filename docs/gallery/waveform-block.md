@@ -5,12 +5,12 @@ description: "WAVEFORM_BLOCK: The implemented operator delegates the transform t
 
 # WaveForM block: reconstruct wavelet bands
 
-[Back to methods](../methods.md#animated-method-explanations)
-
-**Method:** `WAVEFORM_BLOCK`. **Status:** experimental. **Implementation:** python.
+[← All 31 animations](index.md)
 
 <!-- detime:method-animation:start -->
 ## How it works
+
+**Method maturity:** `experimental`. **Implementation:** `python`.
 
 The implemented operator delegates the transform to PyWavelets. It reconstructs the coarsest approximation as trend and selected detail arrays as season, then derives the residual by subtraction. The animation exposes the analysis filter taps, coefficient arrays and inverse reconstructions. The WaveForM and WaveletMixer identifiers have different default wavelets and selected bands; neither operator runs the cited complete forecasting backbone.
 

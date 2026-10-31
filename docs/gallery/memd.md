@@ -1,4 +1,4 @@
-<a class="method-detail-back" href="../../notebook-gallery/">← Back to Gallery</a>
+[← All 31 animations](index.md)
 
 <div class="method-detail-header">
   <h1>Optional multivariate EMD backend</h1>
@@ -11,11 +11,17 @@
 | **Method** | `MEMD` |
 | **Input mode** | `multivariate` |
 | **Trend shape** | `(96, 3)` |
-| **Status** | ran |
-| **Residual RMSE** | 0.00000000 |
+| **Notebook execution** | ran |
+| **Reconstruction RMSE** | 0.00000000 |
+
+<!-- detime:notebook-metric:start -->
+Notebook example metric: root mean square of `input - (trend + season + residual)` over all samples and channels. This checks additive bookkeeping; it is not a forecast error or a component-recovery score. The separate teaching input and intermediate arrays for the animation are linked below.
+<!-- detime:notebook-metric:end -->
 
 <!-- detime:method-animation:start -->
 ## How it works
+
+**Method maturity:** `optional-backend`. **Implementation:** `optional-backend`.
 
 MEMD uses many projection directions to construct a multivariate local mean. Its sifting preserves aligned mode slices across the input channels.
 
@@ -100,9 +106,12 @@ run_gallery_case("MEMD")
 
 <div class="gallery-out">
 <pre>
-MEMD: Optional multivariate EMD backend
+MEMD: Optional multivariate EMD backend for shared oscillatory structure.
 status: ran
-...
+input mode: multivariate
+trend shape: (96, 3)
+backend: python
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 

@@ -6,7 +6,7 @@ description: Rebuild and audit the numerical teaching animations, source arrays,
 # Reproducing the Method Animations
 
 All **31 registered method entries** have a numerical teaching animation and
-an English explanation in the [method gallery](../methods.md#animated-method-explanations).
+an English explanation in the [complete method gallery](../gallery/index.md).
 Each animation follows **four stages**, uses **32 frames** by default, and
 places four plots in a **1280 × 820** frame. The coverage includes eight
 classical entries, seven adaptive or time-frequency entries, and sixteen
@@ -247,9 +247,10 @@ records the bounded solver settings used for the comparisons.
 
 ## Website behavior
 
-The existing MkDocs navigation groups and gallery URLs are retained. The
-Methods page links to all registered entries, including the experimental
-blocks. Generated sections are enclosed by marker comments so that
+The existing MkDocs navigation groups and gallery URLs are retained. Gallery
+now includes a complete index and all 31 method entries. The homepage links
+directly to this index; the Methods page also links to all entries, including
+the experimental blocks. Generated sections are enclosed by marker comments so that
 regeneration updates the explanations within the existing pages.
 
 Each page initially displays a static frame. **Play animation** loads the
@@ -259,12 +260,32 @@ surrounding explanation work without JavaScript, including when viewed on
 GitHub. Playback is opt-in, and enabling a reduced-motion preference during
 playback returns the figure to its still frame.
 
+If a GIF fails to load, the control restores the static preview and reports
+the failure. If the preview also fails, the four written steps and direct
+image links remain available, and Play can retry the GIF. The complete
+Gallery menu scrolls on short screens and uses a single column on mobile.
+
+The documentation CI runs real Chromium at a 1440 × 1000 desktop viewport
+and a 390 × 844 viewport with touch emulation. Every method must load its
+PNG, play its GIF, stop, and fit the viewport. Additional tests exercise
+navigation, Tab/Enter/Space, reduced motion, failed requests, retry, and
+JavaScript-disabled links. For SSA, MVMD, and N-BEATS, screenshot comparisons
+verify changing plotted data while excluding headings and progress bars.
+These checks cover mobile emulation; they do not claim physical-device or
+Safari testing. See the [browser test instructions](https://github.com/systems-mechanobiology/DeTime/tree/main/tests/browser).
+
+The Pages workflow checks the published manifest and all method pages, then
+runs the same browser tests against the public deployment URL. Its
+`de-time-public-browser-acceptance` artifact records screenshots and test
+results. Public checks cannot fall back to local HTML. The source site also
+passes a local-link and HTML-fragment audit before deployment.
+
 Local integrity checks cover the generated assets, static image links,
 explanation sections, and changing plot content. After deployment, record
 the live browser playback and keyboard-control checks on the deployment
 pull request.
 
-## Verification record
+## Original PR verification record (29 October 2026)
 
 | Check | Recorded result |
 |---|---|
@@ -278,3 +299,10 @@ pull request.
 
 The manifest and per-method metadata contain the detailed array inventories,
 numerical checks, dependency versions, and artifact hashes for this record.
+
+The delivery revision corrects STDR's remainder terminology, documents the
+actual parameter defaults, and labels notebook output as **Reconstruction
+RMSE** over all samples and channels. All 31 animations were recomputed after
+the source documentation changes. The renderer now checks the exact
+1280 × 820 pixel canvas for every frame, including on Matplotlib versions
+whose floating-point size conversion can otherwise lose one pixel.

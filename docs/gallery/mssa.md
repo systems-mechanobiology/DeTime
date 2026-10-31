@@ -1,4 +1,4 @@
-<a class="method-detail-back" href="../../notebook-gallery/">← Back to Gallery</a>
+[← All 31 animations](index.md)
 
 <div class="method-detail-header">
   <h1>Multivariate SSA</h1>
@@ -11,11 +11,17 @@
 | **Method** | `MSSA` |
 | **Input mode** | `multivariate` |
 | **Trend shape** | `(96, 3)` |
-| **Status** | ran |
-| **Residual RMSE** | 0.00000000 |
+| **Notebook execution** | ran |
+| **Reconstruction RMSE** | 0.00000000 |
+
+<!-- detime:notebook-metric:start -->
+Notebook example metric: root mean square of `input - (trend + season + residual)` over all samples and channels. This checks additive bookkeeping; it is not a forecast error or a component-recovery score. The separate teaching input and intermediate arrays for the animation are linked below.
+<!-- detime:notebook-metric:end -->
 
 <!-- detime:method-animation:start -->
 ## How it works
+
+**Method maturity:** `maintained`. **Implementation:** `native-backed`.
 
 A joint trajectory-matrix SVD produces modes that are reconstructed separately for each channel.
 
@@ -108,9 +114,12 @@ run_gallery_case("MSSA")
 
 <div class="gallery-out">
 <pre>
-MSSA: Multivariate SSA
+MSSA: Multivariate SSA for shared-structure decomposition across channels.
 status: ran
-...
+input mode: multivariate
+trend shape: (96, 3)
+backend: python
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 

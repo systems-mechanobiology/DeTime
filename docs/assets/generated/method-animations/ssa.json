@@ -73,7 +73,7 @@
     "grouped_trend_max_abs_error": 0.0,
     "grouped_season_max_abs_error": 0.0,
     "additive_reconstruction_max_abs_error": 4.440892098500626e-16,
-    "full_svd_matrix_reconstruction_max_abs_error": 5.329070518200751e-15
+    "full_svd_matrix_reconstruction_max_abs_error": 5.828670879282072e-15
   },
   "source_files": [
     "src/detime/methods/ssa.py",
@@ -88,18 +88,18 @@
   "artifacts": {
     "gif": {
       "file": "ssa.gif",
-      "bytes": 709987,
-      "sha256": "1035a4a56536489b6a4cded7e2f8356105879f2f1095eb1f067863d6290a83eb"
+      "bytes": 721507,
+      "sha256": "9fa2090a6e9a0f444e3abd3a5233b9481ce3c7d955f7e168d72213fca41e7e3a"
     },
     "poster": {
       "file": "ssa.png",
-      "bytes": 125767,
-      "sha256": "2fa67627eb079bd2011f90e7a1b7e3223976e4bc76b44a9d81b03e08a56409b9"
+      "bytes": 128459,
+      "sha256": "9b291309678ba92a563147004a4df078fe164602adef2c92d7a5e9a825e2856c"
     },
     "data": {
       "file": "ssa.npz",
-      "bytes": 258016,
-      "sha256": "c17f134daebad6f594a7f36b9e3bab356ea743752923d90b3588eece7c7be1fd"
+      "bytes": 258022,
+      "sha256": "f4a2100b2a8b516c442251de2f6fe9c434c59348a1b9d8159aabe0a6d77866bd"
     }
   },
   "source_arrays": {
@@ -147,11 +147,11 @@
   "render_provenance": {
     "python_version": "3.12.14",
     "dependencies": {
-      "numpy": "2.5.4",
-      "scipy": "1.18.1",
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
       "statsmodels": "0.15.0",
-      "matplotlib": "3.11.2",
-      "Pillow": "13.0.0",
+      "matplotlib": "3.10.8",
+      "Pillow": "12.3.0",
       "PyWavelets": "1.10.0",
       "EMD-signal": "1.10.0",
       "vmdpy": "0.2",
@@ -159,14 +159,14 @@
     },
     "source_hashes": {
       "native/src/ssa.cpp": "9ed883b360325878d3bc7c087be5396b8052001fe9a8450f871929267b44ba08",
-      "scripts/generate_method_animations.py": "ea5f187204ea6f5a88c4517ed049352d255c55429bb5f2fb7522e3387ff296ac",
+      "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
       "scripts/method_animations/classical.py": "8a8a9ef82936f0aa5b1c5775c6c0158c3b48d3bc7dca1de691b83d95e5c23ba3",
       "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
       "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
       "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
       "src/detime/methods/ssa.py": "ccb7b7d19fb9bdacedb12f8241f0ea0fc233edd498444a008b6040e21b4faac9",
       "src/detime/methods/utils.py": "6963d1ecdf76f1920671a262d125f0d822ae620b1e532849a002be1b7b36e7fd",
-      "src/detime/registry.py": "3cf84661c201380c9f77dd83e4155f63f51a2c3e7c75704c3408fefe585e6411"
+      "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
     }
   }
 }

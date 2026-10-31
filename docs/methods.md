@@ -32,7 +32,7 @@ data or comparison need points there.
   </div>
   <div class="method-use-card">
     <h3><code>STDR</code></h3>
-    <p><strong>Use when:</strong> the same seasonal-trend task has outliers or noisier cycles.</p>
+    <p><strong>Use when:</strong> cycles share a normalized seasonal shape while their levels and dispersions vary.</p>
     <p><strong>Avoid when:</strong> structural breaks dominate the seasonal pattern.</p>
     <p><strong>Key params:</strong> <code>period</code>.</p>
   </div>
@@ -50,7 +50,7 @@ data or comparison need points there.
   <div class="pipeline-flow">
     <div class="pipeline-step">
       <strong>One regular seasonal series?</strong>
-      <span>Start with <code>STD</code>. Use <code>STDR</code> if outliers matter.</span>
+      <span>Use <code>STD</code> for each cycle's own shape, or <code>STDR</code> for a shared shape and remainder. For outlier reweighting, compare <code>ROBUST_STL</code>.</span>
     </div>
     <div class="pipeline-step">
       <strong>One series, unknown components?</strong>
