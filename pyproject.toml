@@ -70,6 +70,7 @@ neural = [
 ]
 docs = [
   "mkdocs>=1.6",
+  "Pillow>=10",
 ]
 notebook = [
   "jupyterlab>=4",
@@ -141,6 +142,7 @@ include = [
   "docs/assets/brand/**",
   "docs/assets/illustrations/**",
   "docs/assets/generated/home/**",
+  "docs/assets/generated/method-animations/**",
   "docs/assets/generated/evidence/comparison_*.csv",
   "docs/assets/generated/evidence/comparison_evidence.json",
   "docs/assets/generated/evidence/comparison_evidence.md",
@@ -149,6 +151,7 @@ include = [
   "docs/assets/generated/evidence/performance_snapshot.*",
   "docs/assets/generated/evidence/workflow_comparison.json",
   "docs/stylesheets/*.css",
+  "docs/javascripts/*.js",
   "overrides/*.html",
   "docs/robots.txt",
   "docs/googlec8d99a452cb93b2a.html",
@@ -174,6 +177,7 @@ include = [
   "tests/**/*.py",
   "scripts/check_dist_contents.py",
   "scripts/check_doc_consistency.py",
+  "scripts/check_site_links.py",
   "scripts/_repo_source.py",
   "scripts/release_smoke_matrix.py",
   "scripts/smoke_optional_univariate_backends.py",
@@ -181,6 +185,8 @@ include = [
   "scripts/generate_method_runtime_matrix.py",
   "scripts/generate_schema_assets.py",
   "scripts/generate_method_cards.py",
+  "scripts/generate_method_animations.py",
+  "scripts/method_animations/*.py",
   "scripts/generate_notebook_gallery.py",
   "scripts/generate_tutorial_assets.py",
 ]

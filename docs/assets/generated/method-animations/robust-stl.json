@@ -1,0 +1,183 @@
+{
+  "method": "ROBUST_STL",
+  "slug": "robust-stl",
+  "title": "Reweight observations and refit",
+  "summary": "Residual-based robustness weights limit how strongly unusual observations influence subsequent STL smooths.",
+  "steps": [
+    {
+      "title": "Fit initial smooths",
+      "text": "DeTime's ROBUST_STL selects statsmodels STL with robust=True by default. The initial inner loop estimates seasonal and trend structure before robustness weights are updated."
+    },
+    {
+      "title": "Compute robustness weights",
+      "text": "The first outer update uses absolute residuals from the initial fit. With h equal to six times their median, the bisquare rule assigns (1 - (abs(residual)/h)^2)^2 below h and zero above h. This example computes those weights and checks them against statsmodels."
+    },
+    {
+      "title": "Refit and update the weights",
+      "text": "Repeated outer iterations recalculate robustness weights and refit seasonal and trend smooths. Each shown checkpoint is a fresh deterministic statsmodels fit with the indicated iteration budget; it reaches the same state for that budget."
+    },
+    {
+      "title": "Retain a residual",
+      "text": "The wrapper returns the final trend, seasonal component, and residual. Downweighted observations remain in the input, so their unexplained values appear in the residual. The animation also displays upstream weights, which the current DeTime wrapper does not export as a result component."
+    }
+  ],
+  "parameters": [
+    {
+      "name": "period",
+      "effect": "Specified number of samples in a seasonal cycle; this example uses 12."
+    },
+    {
+      "name": "seasonal",
+      "effect": "Odd LOESS span across cycles for the seasonal subseries; smaller spans allow faster seasonal change."
+    },
+    {
+      "name": "trend / low_pass",
+      "effect": "Odd smoothing spans controlling trend and low-pass behavior; this example uses 23 and 13."
+    },
+    {
+      "name": "robust",
+      "effect": "Controls the outer reweighting loop. ROBUST_STL defaults to True; setting it False disables robustness."
+    }
+  ],
+  "cautions": [
+    "ROBUST_STL is the registry name for statsmodels STL with its robust option. This name does not establish implementation of other published algorithms also called RobustSTL.",
+    "Smoothing spans, seasonal period, endpoint handling, and outliers influence the estimated components.",
+    "The animation uses statsmodels' actual checkpoints. Internal fits are restarted for each budget; frame count is not an execution-time measure.",
+    "STL is an offline smoother. Use only available history when constructing forecasting features."
+  ],
+  "references": [
+    {
+      "title": "Cleveland et al. (1990), STL: A Seasonal-Trend Decomposition Procedure Based on Loess",
+      "url": "https://www.scb.se/contentassets/ca21efb41fee47d293bbee5bf7be7fb3/stl-a-seasonal-trend-decomposition-procedure-based-on-loess.pdf"
+    },
+    {
+      "title": "statsmodels STL: parameters and implementation contract",
+      "url": "https://www.statsmodels.org/stable/generated/statsmodels.tsa.seasonal.STL.html"
+    }
+  ],
+  "trace_kind": "computed iteration trace",
+  "trace_note": "All robustness weights and iteration checkpoints are computed from statsmodels; the first bisquare update is independently calculated and compared. Final arrays match DeTime's Python wrapper.",
+  "input_note": "Deterministic synthetic teaching signal; not a benchmark.",
+  "example_config": {
+    "method": "ROBUST_STL",
+    "backend": "python",
+    "params": {
+      "period": 12,
+      "seasonal": 7,
+      "trend": 23,
+      "low_pass": 13,
+      "robust": true
+    }
+  },
+  "checks": {
+    "checkpoint_trend_max_abs_error": 0.0,
+    "checkpoint_season_max_abs_error": 0.0,
+    "checkpoint_residual_max_abs_error": 0.0,
+    "additive_reconstruction_max_abs_error": 4.440892098500626e-16,
+    "first_bisquare_weights_max_abs_error": 7.771561172376096e-16
+  },
+  "source_files": [
+    "src/detime/methods/stl.py"
+  ],
+  "frames": 32,
+  "duration_ms": 12050,
+  "poster_frame": 15,
+  "width": 1280,
+  "height": 820,
+  "artifacts": {
+    "gif": {
+      "file": "robust-stl.gif",
+      "bytes": 567267,
+      "sha256": "0ffd693725dffd72bd8886c6c088c8d5802858ec72a522f05f7d89b07a6d7e0d"
+    },
+    "poster": {
+      "file": "robust-stl.png",
+      "bytes": 143959,
+      "sha256": "013b0f041bbee807192b8799682d75745470aff7649d783f013c627f9319b63c"
+    },
+    "data": {
+      "file": "robust-stl.npz",
+      "bytes": 45231,
+      "sha256": "739f66750ff6b2f0133866dec3e6219ed7f36d87ef4c9b9c723e8a17628b6634"
+    }
+  },
+  "source_arrays": {
+    "t": [
+      144
+    ],
+    "observed": [
+      144
+    ],
+    "iteration_budgets": [
+      8
+    ],
+    "checkpoint_trend": [
+      8,
+      144
+    ],
+    "checkpoint_season": [
+      8,
+      144
+    ],
+    "checkpoint_residual": [
+      8,
+      144
+    ],
+    "checkpoint_weights": [
+      8,
+      144
+    ],
+    "first_bisquare_weights": [
+      144
+    ],
+    "bisquare_curve_residuals": [
+      100
+    ],
+    "bisquare_curve_weights": [
+      100
+    ],
+    "loess_phase_values": [
+      12
+    ],
+    "loess_local_weights": [
+      12,
+      12
+    ],
+    "loess_local_fits": [
+      12,
+      12
+    ],
+    "trend": [
+      144
+    ],
+    "season": [
+      144
+    ],
+    "residual": [
+      144
+    ]
+  },
+  "render_provenance": {
+    "python_version": "3.12.14",
+    "dependencies": {
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "statsmodels": "0.15.0",
+      "matplotlib": "3.10.8",
+      "Pillow": "12.3.0",
+      "PyWavelets": "1.10.0",
+      "EMD-signal": "1.10.0",
+      "vmdpy": "0.2",
+      "PySDKit": "0.5.0"
+    },
+    "source_hashes": {
+      "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
+      "scripts/method_animations/classical.py": "8a8a9ef82936f0aa5b1c5775c6c0158c3b48d3bc7dca1de691b83d95e5c23ba3",
+      "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
+      "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
+      "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
+      "src/detime/methods/stl.py": "bb9db3808691490849d06b6eff3f1d6083b6d79fa4d0ea526201e6cec11bdd4d",
+      "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
+    }
+  }
+}

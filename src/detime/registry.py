@@ -77,9 +77,9 @@ METHOD_METADATA: Dict[str, Dict[str, Any]] = {
         "multivariate_support": "channelwise",
         "native_backed": True,
         "min_length": 8,
-        "summary": "Robust seasonal-trend decomposition for noisier periodic signals.",
+        "summary": "Seasonal-trend-dispersion decomposition with an averaged cycle shape and a remainder.",
         "recommended_for": [
-            "robust seasonal-trend decomposition",
+            "shared normalized seasonal shapes with cycle-dependent dispersion",
             "channelwise multivariate workflows",
             "native-backed seasonal structure recovery",
         ],
@@ -623,14 +623,14 @@ METHOD_REFERENCE_LINKS: Dict[str, list[Dict[str, str]]] = {
         {
             "title": "Dudek (2022), STD: A Seasonal-Trend-Dispersion Decomposition of Time Series",
             "url": "https://doi.org/10.48550/arXiv.2204.10398",
-            "note": "Primary reference for STD and the robust seasonal-trend-dispersion family.",
+            "note": "Primary reference for STD and STDR; STDR adds an irregular remainder to the seasonal-trend-dispersion representation.",
         }
     ],
     "STDR": [
         {
             "title": "Dudek (2022), STD: A Seasonal-Trend-Dispersion Decomposition of Time Series",
             "url": "https://doi.org/10.48550/arXiv.2204.10398",
-            "note": "Primary reference for STD and the robust seasonal-trend-dispersion family.",
+            "note": "Primary reference for STD and STDR; STDR adds an irregular remainder to the seasonal-trend-dispersion representation.",
         }
     ],
     "STL": [
@@ -955,29 +955,29 @@ def _param_doc(
 
 METHOD_PARAMETER_GUIDE: Dict[str, list[Dict[str, Any]]] = {
     "SSA": [
-        _param_doc("window", "int | None", "Embedding window length for trajectory-matrix construction.", default=None),
-        _param_doc("rank", "int | None", "Number of elementary components to retain before grouping.", default=None),
+        _param_doc("window", "int", "Embedding window length. When omitted, max(4, T // 4), clipped to [2, T - 1]. Omit the parameter to select this rule; explicit null is not accepted.", default=None),
+        _param_doc("rank", "int", "Number of elementary components, clipped to the trajectory-matrix dimensions.", default=10),
         _param_doc("primary_period", "int | None", "Dominant seasonal period used by automatic grouping.", default=None),
         _param_doc("fs", "float", "Sampling frequency used by frequency-based grouping.", default=1.0, common=False),
         _param_doc("trend_components", "list[int] | None", "Explicit component indexes assigned to trend.", default=None, common=False),
         _param_doc("season_components", "list[int] | None", "Explicit component indexes assigned to season.", default=None, common=False),
         _param_doc("season_freq_tol_ratio", "float", "Relative frequency tolerance for automatic seasonal grouping.", default=0.25, common=False),
         _param_doc("trend_freq_threshold", "float | None", "Low-frequency threshold for automatic trend grouping.", default=None, common=False),
-        _param_doc("power_iterations", "int", "Fast native mode iteration count when speed_mode='fast'.", default=4, common=False),
+        _param_doc("power_iterations", "int", "Fast native mode iteration count when speed_mode='fast'.", default=12, common=False),
     ],
     "STD": [
         _param_doc("period", "int | None", "Seasonal period in samples. If omitted, DeTime estimates it.", default=None),
-        _param_doc("max_period_search", "int | None", "Optional search horizon when period inference is enabled.", default=None, common=False),
-        _param_doc("eps", "float", "Small numerical guard for dispersion calculations.", default=1e-8, common=False),
+        _param_doc("max_period_search", "int", "Upper bound for the inferred seasonal period when period is omitted.", default=128, common=False),
+        _param_doc("eps", "float", "Centered blocks with L2 norm at or below this threshold receive zero dispersion.", default=1e-12, common=False),
     ],
     "STDR": [
         _param_doc("period", "int | None", "Seasonal period in samples. If omitted, DeTime estimates it.", default=None),
-        _param_doc("max_period_search", "int | None", "Optional search horizon when period inference is enabled.", default=None, common=False),
-        _param_doc("eps", "float", "Small numerical guard for robust dispersion calculations.", default=1e-8, common=False),
+        _param_doc("max_period_search", "int", "Upper bound for the inferred seasonal period when period is omitted.", default=128, common=False),
+        _param_doc("eps", "float", "Centered blocks with L2 norm at or below this threshold receive zero dispersion; this does not apply robust weighting.", default=1e-12, common=False),
     ],
     "MSSA": [
-        _param_doc("window", "int | None", "Shared embedding window length for aligned channels.", default=None),
-        _param_doc("rank", "int | None", "Number of shared elementary components to retain.", default=None),
+        _param_doc("window", "int", "Shared embedding window length. When omitted, max(4, T // 4), clipped to [2, T - 1]. Omit the parameter to select this rule; explicit null is not accepted.", default=None),
+        _param_doc("rank", "int", "Number of shared elementary components. When omitted, min(10, window * channels, T - window + 1). Explicit null is not accepted.", default=None),
         _param_doc("primary_period", "int | None", "Dominant shared period used by automatic grouping.", default=None),
         _param_doc("fs", "float", "Sampling frequency used by frequency-based grouping.", default=1.0, common=False),
         _param_doc("trend_components", "list[int] | None", "Explicit component indexes assigned to trend.", default=None, common=False),
@@ -1038,8 +1038,8 @@ METHOD_PARAMETER_GUIDE: Dict[str, list[Dict[str, Any]]] = {
         _param_doc("season_band_factor", "float", "Multiplier around the primary seasonal frequency.", default=2.0, common=False),
     ],
     "VMD": [
-        _param_doc("K", "int", "Number of variational modes.", default=4),
-        _param_doc("alpha", "float", "Bandwidth penalty parameter.", default=2000.0),
+        _param_doc("K", "int", "Number of variational modes. When omitted, max(5, 2 * n_periods + 2), using periods or the primary_period hint and n_periods=1 without either hint. Explicit null is not accepted.", default=None),
+        _param_doc("alpha", "float", "Bandwidth penalty parameter.", default=300.0),
         _param_doc("periods", "list[int] | None", "Optional seasonal periods used to derive the mode count.", default=None, common=False),
         _param_doc("tau", "float", "Dual ascent time step.", default=0.0, common=False),
         _param_doc("DC", "bool", "Keep the first mode at zero frequency.", default=False, common=False),
@@ -1053,16 +1053,16 @@ METHOD_PARAMETER_GUIDE: Dict[str, list[Dict[str, Any]]] = {
     ],
     "WAVELET": [
         _param_doc("wavelet", "str", "PyWavelets wavelet family name.", default="db4"),
-        _param_doc("level", "int | None", "Decomposition depth. Defaults to PyWavelets maximum usable level.", default=None),
-        _param_doc("trend_levels", "list[int] | None", "Detail levels assigned to trend reconstruction.", default=None, common=False),
-        _param_doc("season_levels", "list[int] | None", "Detail levels assigned to seasonal reconstruction.", default=None, common=False),
+        _param_doc("level", "int | None", "Decomposition depth. When omitted or null, max(1, min(5, PyWavelets maximum usable level)).", default=None),
+        _param_doc("trend_levels", "list[int] | None", "Coefficient-list positions in [cA_L, cD_L, ..., cD_1]. Defaults to [0], the coarsest approximation.", default=None, common=False),
+        _param_doc("season_levels", "list[int] | None", "Coefficient-list positions in [cA_L, cD_L, ..., cD_1]. Defaults to [1, 2] when available, otherwise the available detail position.", default=None, common=False),
     ],
     "MA_BASELINE": [
-        _param_doc("trend_window", "int", "Moving-average window used for the trend estimate.", default=7),
+        _param_doc("trend_window", "int", "Centered moving-average width. When omitted, max(3, T // 20); even values advance to the next odd integer. Explicit null is not accepted.", default=None),
         _param_doc("season_period", "int | None", "Optional period for a simple seasonal average.", default=None),
     ],
     "MVMD": [
-        _param_doc("K", "int", "Number of shared variational modes requested from PySDKit.", default=4),
+        _param_doc("K", "int", "Number of shared variational modes requested from PySDKit.", default=3),
         _param_doc("alpha", "float", "Bandwidth penalty parameter for the MVMD backend.", default=2000.0),
         _param_doc("primary_period", "int | None", "Shared period hint for grouping modes.", default=None),
         _param_doc("fs", "float", "Sampling frequency used by grouping heuristics.", default=1.0, common=False),
@@ -1157,6 +1157,11 @@ _NEURAL_FIT_SCOPE_PARAMS = [
     _param_doc("train_fraction", "float", "Prefix fraction used when fit_scope='prefix'.", default=0.6, common=False),
 ]
 
+_NEURAL_PREFIX_FIT_SCOPE_PARAMS = [
+    {**item, "default": "prefix"} if item["name"] == "fit_scope" else dict(item)
+    for item in _NEURAL_FIT_SCOPE_PARAMS
+]
+
 _NEURAL_MOVING_AVG_PARAMS = [
     _param_doc("moving_avg", "int | None", "Moving-average window used by the extracted forecasting block.", default=None),
     _param_doc("window", "int | None", "Alias for moving_avg.", default=None, common=False),
@@ -1171,11 +1176,11 @@ METHOD_PARAMETER_GUIDE.update(
         "DLINEAR_BLOCK": list(_NEURAL_MOVING_AVG_PARAMS),
         "MOVING_AVERAGE_DECOMPOSITION_BLOCK": list(_NEURAL_MOVING_AVG_PARAMS),
         "NBEATS_INTERPRETABLE": [
-            _param_doc("degree_of_polynomial", "int", "Polynomial trend basis degree.", default=3),
+            _param_doc("degree_of_polynomial", "int", "Polynomial trend basis degree.", default=2),
             _param_doc("num_harmonics", "int", "Number of Fourier harmonics in the seasonality stack.", default=8),
-            _param_doc("trend_blocks", "int", "Number of interpretable trend blocks.", default=2, common=False),
-            _param_doc("seasonality_blocks", "int", "Number of interpretable seasonality blocks.", default=2, common=False),
-            _param_doc("layers", "int", "Fully connected layers per block.", default=6, common=False),
+            _param_doc("trend_blocks", "int", "Number of interpretable trend blocks.", default=3, common=False),
+            _param_doc("seasonality_blocks", "int", "Number of interpretable seasonality blocks.", default=3, common=False),
+            _param_doc("layers", "int", "Fully connected layers per block.", default=4, common=False),
             _param_doc("layer_size", "int", "Hidden width for each block.", default=128, common=False),
             _param_doc("fit_scope", "str", "Whether to fit on the full series or prefix window.", default="full"),
             _param_doc("train_fraction", "float", "Prefix fraction used when fit_scope='prefix'.", default=0.6, common=False),
@@ -1185,7 +1190,7 @@ METHOD_PARAMETER_GUIDE.update(
             _param_doc("learning_rate", "float", "Adam learning rate.", default=1e-3, common=False),
             _param_doc("weight_decay", "float", "Adam weight decay.", default=1e-4, common=False),
             _param_doc("device", "str", "Torch device: auto, cpu, cuda, or gpu.", default="auto", common=False),
-            _param_doc("seed", "int", "Base random seed for torch restarts.", default=0, common=False),
+            _param_doc("seed", "int", "Base random seed for torch restarts.", default=42, common=False),
         ],
         "XPATCH_BLOCK": [
             _param_doc("ma_type", "str", "Smoothing type, either 'ema' or 'dema'.", default="ema"),
@@ -1199,16 +1204,16 @@ METHOD_PARAMETER_GUIDE.update(
             _param_doc("sigma", "float", "Gaussian smoothing kernel sigma.", default=1.0),
         ],
         "INPARFORMER_BLOCK": [
-            *_NEURAL_FIT_SCOPE_PARAMS,
+            *_NEURAL_PREFIX_FIT_SCOPE_PARAMS,
             _param_doc("trend_window", "int | None", "Moving-average trend window.", default=None),
         ],
         "DELELSTM_BLOCK": [
-            *_NEURAL_FIT_SCOPE_PARAMS,
+            *_NEURAL_PREFIX_FIT_SCOPE_PARAMS,
             _param_doc("alpha", "float", "Holt level smoothing coefficient.", default=0.4),
             _param_doc("beta", "float", "Holt slope smoothing coefficient.", default=0.2),
         ],
         "AMD_BLOCK": [
-            *_NEURAL_FIT_SCOPE_PARAMS,
+            *_NEURAL_PREFIX_FIT_SCOPE_PARAMS,
             _param_doc("multiscale_windows", "list[int] | None", "Smoothing windows averaged into the multiscale trend.", default=None),
         ],
         "PARSIMONY_BLOCK": [
@@ -1217,7 +1222,7 @@ METHOD_PARAMETER_GUIDE.update(
             _param_doc("num_harmonics", "int", "Number of harmonic seasonal terms.", default=2),
         ],
         "ST_MTM_BLOCK": [
-            *_NEURAL_FIT_SCOPE_PARAMS,
+            *_NEURAL_PREFIX_FIT_SCOPE_PARAMS,
             _param_doc("trend_window", "int | None", "Moving-average trend window.", default=None),
             _param_doc("season_smooth_window", "int | None", "Smoother applied to the periodic seasonal template.", default=None),
         ],
@@ -1231,10 +1236,10 @@ METHOD_PARAMETER_GUIDE.update(
             *_NEURAL_FIT_SCOPE_PARAMS,
             _param_doc("trend_window", "int | None", "Moving-average trend window.", default=None),
             _param_doc("num_bands", "int", "Number of frequency bands in the mixture.", default=4),
-            _param_doc("expert_width", "int", "Frequency expert width used by the scaffold.", default=64, common=False),
+            _param_doc("expert_width", "int", "Controls harmonic capacity via max(1, round(expert_width / 64)); no mixture-of-experts network is trained.", default=64, common=False),
         ],
         "TIMEKAN_BLOCK": [
-            *_NEURAL_FIT_SCOPE_PARAMS,
+            *_NEURAL_PREFIX_FIT_SCOPE_PARAMS,
             _param_doc("trend_window", "int | None", "Moving-average trend window.", default=None),
             _param_doc("num_bands", "int", "Number of dominant periods/templates to blend.", default=2),
             _param_doc("kan_width", "int", "KAN-inspired width used to choose harmonic capacity.", default=32, common=False),

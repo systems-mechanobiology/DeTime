@@ -1,0 +1,136 @@
+{
+  "method": "LEDDAM_BLOCK",
+  "slug": "leddam-block",
+  "title": "LEDDAM block: fixed Gaussian smoothing",
+  "summary": "This standalone implementation evaluates a fixed Gaussian-weighted convolution. Its kernel is normalized to sum to one, the edge samples are replicated, and the filtered signal becomes the trend stream. Subtracting that stream from the input creates the second stream. The animation displays actual weights and local products before assembling the output. The kernel is not trained in this operator.",
+  "steps": [
+    {
+      "title": "Specify the filter",
+      "text": "Inspect the normalized filter weights and the replicated-edge input window used for a local mean."
+    },
+    {
+      "title": "Move along the series",
+      "text": "At each sample, multiply the local values by the same fixed kernel and sum them to form the trend."
+    },
+    {
+      "title": "Subtract the trend",
+      "text": "Compute the nontrend stream as the input minus the smoothed trend, sample by sample."
+    },
+    {
+      "title": "Inspect the output contract",
+      "text": "The two streams already reconstruct the input, leaving a derived residual of zero up to arithmetic precision."
+    }
+  ],
+  "parameters": [
+    {
+      "name": "kernel_size",
+      "effect": "Sets the odd filter support; even requests are rounded to an odd size and clipped to input length."
+    },
+    {
+      "name": "sigma",
+      "effect": "Controls the Gaussian weight spread in sample units. The example uses 4.0; the implementation default is 1.0."
+    }
+  ],
+  "cautions": [
+    "The package computes a fixed Gaussian kernel. Its LEDDAM-inspired name does not imply trained convolution weights or the complete dual-attention architecture.",
+    "Centered windows use samples on both sides of an interior point. Use only the history available at each forecast origin for forecasting features.",
+    "The second stream contains everything removed by smoothing; its name does not establish periodicity. The derived residual is zero by construction."
+  ],
+  "references": [
+    {
+      "title": "Implemented DeTime operator",
+      "url": "https://github.com/systems-mechanobiology/DeTime/blob/main/src/detime/methods/neural_blocks/leddam_block.py"
+    },
+    {
+      "title": "Yu et al. (2024), Revitalizing Multivariate Time Series Forecasting: Learnable Decomposition with Inter-Series Dependencies and Intra-Series Variations Modeling",
+      "url": "https://arxiv.org/abs/2402.12694"
+    }
+  ],
+  "trace_kind": "computed_operator_trace",
+  "trace_note": "Intermediate arrays are computed with the implemented operator helpers. The final trend, season and residual are checked against public decompose(). The animation explains this standalone experimental block; its source architecture is cited for provenance.",
+  "input_note": "Deterministic synthetic teaching signal; not a benchmark.",
+  "example_config": {
+    "method": "LEDDAM_BLOCK",
+    "params": {
+      "kernel_size": 25,
+      "sigma": 4.0
+    },
+    "backend": "python"
+  },
+  "checks": {
+    "public_method_executed": true,
+    "method_output_max_abs_errors": {
+      "trend": 0.0,
+      "season": 0.0,
+      "residual": 0.0
+    },
+    "reconstruction_max_abs_error": 5.551115123125783e-17,
+    "validation_scope": "One deterministic teaching input; no benchmark claim.",
+    "kernel_sum": 1.0000000000000002
+  },
+  "source_files": [
+    "src/detime/methods/neural_blocks/leddam_block.py"
+  ],
+  "frames": 32,
+  "duration_ms": 12050,
+  "poster_frame": 15,
+  "width": 1280,
+  "height": 820,
+  "artifacts": {
+    "gif": {
+      "file": "leddam-block.gif",
+      "bytes": 303658,
+      "sha256": "e9a968b5987a4427a0c45c0c4b6a3b88c4c7882dbb161296def6ee9b11505723"
+    },
+    "poster": {
+      "file": "leddam-block.png",
+      "bytes": 128178,
+      "sha256": "b017eaac7f9faddf93a3105dd64f082dceda5f4a39930cdeacc9e0020bd3fe34"
+    },
+    "data": {
+      "file": "leddam-block.npz",
+      "bytes": 4574,
+      "sha256": "156c9f9385505f015ea268de01b39c80dfb220d0d98b2422d478defc52f381c3"
+    }
+  },
+  "source_arrays": {
+    "observed": [
+      144
+    ],
+    "kernel": [
+      25
+    ],
+    "trend": [
+      144
+    ],
+    "season": [
+      144
+    ],
+    "residual": [
+      144
+    ]
+  },
+  "render_provenance": {
+    "python_version": "3.12.14",
+    "dependencies": {
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "statsmodels": "0.15.0",
+      "matplotlib": "3.10.8",
+      "Pillow": "12.3.0",
+      "PyWavelets": "1.10.0",
+      "EMD-signal": "1.10.0",
+      "vmdpy": "0.2",
+      "PySDKit": "0.5.0"
+    },
+    "source_hashes": {
+      "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
+      "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
+      "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
+      "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
+      "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
+      "src/detime/methods/neural_blocks/leddam_block.py": "f357dc97c6ce1303f9c22002966371bfabc158a4316ae050fa28f55967d9bdd2",
+      "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
+    }
+  }
+}

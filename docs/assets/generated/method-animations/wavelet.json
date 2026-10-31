@@ -1,0 +1,169 @@
+{
+  "method": "WAVELET",
+  "slug": "wavelet",
+  "title": "Wavelets: filter, downsample, and reconstruct selected scales",
+  "summary": "A discrete wavelet transform separates scales through paired low-pass and high-pass filters. DeTime reconstructs selected coefficient blocks onto the original sample grid.",
+  "steps": [
+    {
+      "title": "Choose the filter bank",
+      "text": "The wavelet fixes the analysis and synthesis filters; this trace uses db4."
+    },
+    {
+      "title": "Build the pyramid",
+      "text": "Low-pass and high-pass filtering are followed by decimation; repeat on the approximation."
+    },
+    {
+      "title": "Select coefficient blocks",
+      "text": "Retain a block, zero the others, and apply the inverse transform to obtain a sample-aligned contribution."
+    },
+    {
+      "title": "Assign outputs",
+      "text": "This example assigns A3 to trend and D3+D2 to season; the remainder is input minus those outputs."
+    }
+  ],
+  "parameters": [
+    {
+      "name": "wavelet",
+      "effect": "Controls filters and their support; db4 has eight analysis taps."
+    },
+    {
+      "name": "level",
+      "effect": "Controls pyramid depth; the example uses three levels."
+    },
+    {
+      "name": "trend_levels / season_levels",
+      "effect": "Indexes the wavedec list [A3,D3,D2,D1] here, not ascending physical scales."
+    },
+    {
+      "name": "Boundary convention",
+      "effect": "The current wrapper uses PyWavelets' default symmetric mode."
+    }
+  ],
+  "cautions": [
+    "Wavelet detail coefficients are decimated and should not be mistaken for sample-aligned output curves.",
+    "Assigning scales to trend or season is an application choice; the transform does not identify physical mechanisms.",
+    "The animation uses a safe fixed depth; excessive levels make boundary effects dominate."
+  ],
+  "references": [
+    {
+      "title": "PyWavelets discrete transform",
+      "url": "https://pywavelets.readthedocs.io/en/stable/ref/dwt-discrete-wavelet-transform.html"
+    },
+    {
+      "title": "Inverse transform and partial reconstruction",
+      "url": "https://pywavelets.readthedocs.io/en/stable/ref/idwt-inverse-discrete-wavelet-transform.html"
+    },
+    {
+      "title": "Signal-extension modes",
+      "url": "https://pywavelets.readthedocs.io/en/stable/ref/signal-extension-modes.html"
+    }
+  ],
+  "trace_kind": "upstream numerical stages",
+  "trace_note": "Computed with PyWavelets 1.10.0; inverse band reconstructions call the current DeTime helper. Moving filter support is a labeled illustration; coefficient values are actual library outputs.",
+  "input_note": "Deterministic synthetic teaching signal; not a benchmark.",
+  "example_config": {
+    "method": "WAVELET",
+    "params": {
+      "wavelet": "db4",
+      "level": 3,
+      "trend_levels": [
+        0
+      ],
+      "season_levels": [
+        1,
+        2
+      ]
+    }
+  },
+  "checks": {
+    "all_band_reconstruction_max_abs_error": 1.7763568394002505e-15,
+    "pyramid_matches_wavedec": 0.0
+  },
+  "source_files": [
+    "src/detime/methods/wavelet.py"
+  ],
+  "frames": 32,
+  "duration_ms": 12050,
+  "poster_frame": 15,
+  "width": 1280,
+  "height": 820,
+  "artifacts": {
+    "gif": {
+      "file": "wavelet.gif",
+      "bytes": 226237,
+      "sha256": "76e2029cd628c60a7542df8b9f8feb9aea7ac7292aabaa556c46cc94a63290c2"
+    },
+    "poster": {
+      "file": "wavelet.png",
+      "bytes": 194914,
+      "sha256": "4ea9def42c329cabb85e3ca79d5c381510a93cd08942a19c7d8b4ca742d8597c"
+    },
+    "data": {
+      "file": "wavelet.npz",
+      "bytes": 14888,
+      "sha256": "ee04357085b42f960e622d1c70bc071f1afae4e1c9884d585dc326c7fa440f82"
+    }
+  },
+  "source_arrays": {
+    "time": [
+      192
+    ],
+    "input": [
+      192
+    ],
+    "analysis_lowpass": [
+      8
+    ],
+    "analysis_highpass": [
+      8
+    ],
+    "reconstructed_bands": [
+      4,
+      192
+    ],
+    "approximation_0": [
+      192
+    ],
+    "approximation_1": [
+      99
+    ],
+    "approximation_2": [
+      53
+    ],
+    "approximation_3": [
+      30
+    ],
+    "detail_1": [
+      99
+    ],
+    "detail_2": [
+      53
+    ],
+    "detail_3": [
+      30
+    ]
+  },
+  "render_provenance": {
+    "python_version": "3.12.14",
+    "dependencies": {
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "statsmodels": "0.15.0",
+      "matplotlib": "3.10.8",
+      "Pillow": "12.3.0",
+      "PyWavelets": "1.10.0",
+      "EMD-signal": "1.10.0",
+      "vmdpy": "0.2",
+      "PySDKit": "0.5.0"
+    },
+    "source_hashes": {
+      "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
+      "scripts/method_animations/adaptive.py": "7d728d88b4ba1a8dd82890c7a6b017d542728b50dc477c281e9bbfcbae164a1d",
+      "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
+      "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
+      "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
+      "src/detime/methods/wavelet.py": "a2a416a768bb7e2ac516e14b5f8a57d6641f40068890b91dc0c1a5db780779a0",
+      "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
+    }
+  }
+}

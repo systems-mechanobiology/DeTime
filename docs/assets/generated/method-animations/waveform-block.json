@@ -1,0 +1,163 @@
+{
+  "method": "WAVEFORM_BLOCK",
+  "slug": "waveform-block",
+  "title": "WaveForM block: reconstruct wavelet bands",
+  "summary": "The implemented operator delegates the transform to PyWavelets. It reconstructs the coarsest approximation as trend and selected detail arrays as season, then derives the residual by subtraction. The animation exposes the analysis filter taps, coefficient arrays and inverse reconstructions. The WaveForM and WaveletMixer identifiers have different default wavelets and selected bands; neither operator runs the cited complete forecasting backbone.",
+  "steps": [
+    {
+      "title": "Analyze with fixed wavelet filters",
+      "text": "PyWavelets applies the selected analysis filters to produce approximation and detail coefficients at several resolutions."
+    },
+    {
+      "title": "Reconstruct the approximation",
+      "text": "Keep only the coarsest approximation coefficients, zero the other coefficient arrays and apply inverse reconstruction to obtain the trend."
+    },
+    {
+      "title": "Reconstruct selected detail bands",
+      "text": "Keep the explicitly selected coefficient-list positions and reconstruct their combined sample-aligned contribution as season."
+    },
+    {
+      "title": "Inspect the remaining detail",
+      "text": "The residual is the observed input minus the approximation and selected details. All displayed components match the public operator."
+    }
+  ],
+  "parameters": [
+    {
+      "name": "wavelet",
+      "effect": "Selects the fixed analysis/synthesis wavelet family; db4 and sym4 are used by these two examples."
+    },
+    {
+      "name": "level",
+      "effect": "Requests decomposition depth, limited by the implementation using the input length and filter length."
+    },
+    {
+      "name": "season_levels",
+      "effect": "Contains coefficient-list positions: 1 denotes cD_L, 2 denotes cD_(L-1), and so on; position 0 is the trend approximation."
+    }
+  ],
+  "cautions": [
+    "WaveForM's graph enhancement and WaveletMixer's trained mixing layers are outside these standalone operators.",
+    "The source uses PyWavelets' default symmetric boundary extension; boundary values depend on that convention.",
+    "A selected frequency-scale band is called season by the common result contract; periodic interpretation requires separate evidence.",
+    "The coefficient heatmap pads unequal-length arrays with zeros for display only. Computation uses their original lengths."
+  ],
+  "references": [
+    {
+      "title": "Implemented DeTime operator",
+      "url": "https://github.com/systems-mechanobiology/DeTime/blob/main/src/detime/methods/neural_blocks/neural_block_portfolio.py"
+    },
+    {
+      "title": "Yang et al. (2023), WaveForM: Graph Enhanced Wavelet Learning for Long Sequence Forecasting of Multivariate Time Series",
+      "url": "https://ojs.aaai.org/index.php/AAAI/article/view/26276"
+    }
+  ],
+  "trace_kind": "computed_operator_trace",
+  "trace_note": "Intermediate arrays are computed with the implemented operator helpers. The final trend, season and residual are checked against public decompose(). The animation explains this standalone experimental block; its source architecture is cited for provenance.",
+  "input_note": "Deterministic synthetic teaching signal; not a benchmark.",
+  "example_config": {
+    "method": "WAVEFORM_BLOCK",
+    "params": {
+      "wavelet": "db4",
+      "level": 3,
+      "season_levels": [
+        1,
+        2
+      ]
+    },
+    "backend": "python"
+  },
+  "checks": {
+    "public_method_executed": true,
+    "method_output_max_abs_errors": {
+      "trend": 0.0,
+      "season": 0.0,
+      "residual": 0.0
+    },
+    "reconstruction_max_abs_error": 2.220446049250313e-16,
+    "validation_scope": "One deterministic teaching input; no benchmark claim.",
+    "all_bands_reconstruction_max_abs_error": 1.3322676295501878e-15,
+    "effective_level": 3
+  },
+  "source_files": [
+    "src/detime/methods/neural_blocks/neural_block_portfolio.py"
+  ],
+  "frames": 32,
+  "duration_ms": 12050,
+  "poster_frame": 15,
+  "width": 1280,
+  "height": 820,
+  "artifacts": {
+    "gif": {
+      "file": "waveform-block.gif",
+      "bytes": 310085,
+      "sha256": "e07af7df8ab25c740fcf5738d4dfa37b18379e9fd4c29e204cc82a5e6385b6ee"
+    },
+    "poster": {
+      "file": "waveform-block.png",
+      "bytes": 149688,
+      "sha256": "4abe2a46f24a648ac6521cb72009efcec9d05a81200c454c1bec36e8f62143a6"
+    },
+    "data": {
+      "file": "waveform-block.npz",
+      "bytes": 13809,
+      "sha256": "9a66fe09e98ff47914dfe485408a256cdb779eaaecbf9c592df21cbcd675c292"
+    }
+  },
+  "source_arrays": {
+    "observed": [
+      144
+    ],
+    "coefficient_display": [
+      4,
+      75
+    ],
+    "reconstructed_bands": [
+      4,
+      144
+    ],
+    "trend": [
+      144
+    ],
+    "season": [
+      144
+    ],
+    "residual": [
+      144
+    ],
+    "coefficient_0": [
+      24
+    ],
+    "coefficient_1": [
+      24
+    ],
+    "coefficient_2": [
+      41
+    ],
+    "coefficient_3": [
+      75
+    ]
+  },
+  "render_provenance": {
+    "python_version": "3.12.14",
+    "dependencies": {
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "statsmodels": "0.15.0",
+      "matplotlib": "3.10.8",
+      "Pillow": "12.3.0",
+      "PyWavelets": "1.10.0",
+      "EMD-signal": "1.10.0",
+      "vmdpy": "0.2",
+      "PySDKit": "0.5.0"
+    },
+    "source_hashes": {
+      "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
+      "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
+      "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
+      "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
+      "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
+      "src/detime/methods/neural_blocks/neural_block_portfolio.py": "2aab635b9927d1d42bbcd8e0b4f37cb9fcdcf85cbd0331b5011621b495c4acfa",
+      "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
+    }
+  }
+}

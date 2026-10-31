@@ -13,6 +13,8 @@ theme:
 extra_css:
   - stylesheets/brand.css
   - stylesheets/extra.css
+extra_javascript:
+  - javascripts/method-animations.js
 nav:
   - Home: index.md
   - Start:
@@ -74,6 +76,7 @@ nav:
           - Public Attention, Markets, and Crypto: tutorials/hot-trend-lab/wiki-market-crypto-attention.md
           - Release Calendar: tutorials/hot-trend-lab/release-calendar.md
   - Gallery:
+      - All 31 animations: gallery/index.md
       - SSA: gallery/ssa.md
       - STD: gallery/std.md
       - STDR: gallery/stdr.md
@@ -89,6 +92,22 @@ nav:
       - MVMD: gallery/mvmd.md
       - MEMD: gallery/memd.md
       - GABOR_CLUSTER: gallery/gabor-cluster.md
+      - AMD_BLOCK: gallery/amd-block.md
+      - AUTOFORMER_BLOCK: gallery/autoformer-block.md
+      - DELELSTM_BLOCK: gallery/delelstm-block.md
+      - DLINEAR_BLOCK: gallery/dlinear-block.md
+      - FREQMOE_BLOCK: gallery/freqmoe-block.md
+      - INPARFORMER_BLOCK: gallery/inparformer-block.md
+      - LEDDAM_BLOCK: gallery/leddam-block.md
+      - MOVING_AVERAGE_DECOMPOSITION_BLOCK: gallery/moving-average-decomposition-block.md
+      - NBEATS_INTERPRETABLE: gallery/nbeats-interpretable.md
+      - PARSIMONY_BLOCK: gallery/parsimony-block.md
+      - ST_MTM_BLOCK: gallery/st-mtm-block.md
+      - TIMEKAN_BLOCK: gallery/timekan-block.md
+      - TIMES2D_BLOCK: gallery/times2d-block.md
+      - WAVEFORM_BLOCK: gallery/waveform-block.md
+      - WAVELETMIXER_BLOCK: gallery/waveletmixer-block.md
+      - XPATCH_BLOCK: gallery/xpatch-block.md
   - Reference:
       - API Overview: api.md
       - Config Reference: config-reference.md

@@ -1,0 +1,168 @@
+{
+  "method": "FREQMOE_BLOCK",
+  "slug": "freqmoe-block",
+  "title": "FreqMoE block: average frequency fits",
+  "summary": "This standalone operator obtains candidate periods from an FFT magnitude ranking and fits a separate harmonic projection for each one. The selected seasonal estimate is their equal-weight average. The frames expose the selection signal, rounded periods, candidate curves and averaging operation. The parameter expert_width determines the harmonic count by rounding expert_width / 64. It does not size a fitted mixture-of-experts network here.",
+  "steps": [
+    {
+      "title": "Separate trend and selection input",
+      "text": "Compute the moving-average trend. FreqMoE selects frequencies from the detrended signal; Times2D selects them from the original signal after mean removal."
+    },
+    {
+      "title": "Select discrete spectral peaks",
+      "text": "Rank FFT magnitudes, convert bin positions into rounded integer periods, and retain distinct periods as implemented."
+    },
+    {
+      "title": "Fit and average candidate seasons",
+      "text": "Fit a harmonic projection of the detrended signal for each selected period, then take the arithmetic mean of these projections."
+    },
+    {
+      "title": "Inspect actual output streams",
+      "text": "The final trend, averaged projection and derived residual are checked against the public registered operator."
+    }
+  ],
+  "parameters": [
+    {
+      "name": "trend_window",
+      "effect": "Sets the centered moving-average trend."
+    },
+    {
+      "name": "num_bands",
+      "effect": "Controls how many distinct rounded FFT periods are retained."
+    },
+    {
+      "name": "expert_width",
+      "effect": "Sets harmonic capacity through round(expert_width / 64)."
+    },
+    {
+      "name": "fit_scope",
+      "effect": "Explicitly full in this animation; prefix settings restrict the fitting interval."
+    }
+  ],
+  "cautions": [
+    "The parameter expert_width determines the harmonic count by rounding expert_width / 64. It does not size a fitted mixture-of-experts network here.",
+    "A large FFT bin need not correspond to a stable physical oscillation. Trends, finite windows and rounding affect the selected periods.",
+    "The independent candidate projections are averaged, rather than jointly fitted as one combined design.",
+    "All coefficients use the selected fitting interval; no held-out forecast accuracy is shown."
+  ],
+  "references": [
+    {
+      "title": "Implemented DeTime operator",
+      "url": "https://github.com/systems-mechanobiology/DeTime/blob/main/src/detime/methods/neural_blocks/neural_block_portfolio.py"
+    },
+    {
+      "title": "Liu (2025), FreqMoE: Enhancing Time Series Forecasting through Frequency Decomposition Mixture of Experts",
+      "url": "https://arxiv.org/abs/2501.15125"
+    }
+  ],
+  "trace_kind": "computed_operator_trace",
+  "trace_note": "Intermediate arrays are computed with the implemented operator helpers. The final trend, season and residual are checked against public decompose(). The animation explains this standalone experimental block; its source architecture is cited for provenance.",
+  "input_note": "Deterministic synthetic teaching signal; not a benchmark.",
+  "example_config": {
+    "method": "FREQMOE_BLOCK",
+    "params": {
+      "primary_period": 24,
+      "trend_window": 49,
+      "fit_scope": "full",
+      "num_bands": 3,
+      "expert_width": 128
+    },
+    "backend": "python"
+  },
+  "checks": {
+    "public_method_executed": true,
+    "method_output_max_abs_errors": {
+      "trend": 0.0,
+      "season": 0.0,
+      "residual": 0.0
+    },
+    "reconstruction_max_abs_error": 4.440892098500626e-16,
+    "validation_scope": "One deterministic teaching input; no benchmark claim.",
+    "selected_periods": [
+      24,
+      12,
+      48
+    ]
+  },
+  "source_files": [
+    "src/detime/methods/neural_blocks/neural_block_portfolio.py"
+  ],
+  "frames": 32,
+  "duration_ms": 12050,
+  "poster_frame": 15,
+  "width": 1280,
+  "height": 820,
+  "artifacts": {
+    "gif": {
+      "file": "freqmoe-block.gif",
+      "bytes": 344315,
+      "sha256": "cfca14380c652bdc14891a27c0931681dff6c27d4ffeb49b7ef7f051d6534ce2"
+    },
+    "poster": {
+      "file": "freqmoe-block.png",
+      "bytes": 132464,
+      "sha256": "aa4108121655835e7a64a63f73271cc29ac9480773020ef1ff0c44ce5db3ffa4"
+    },
+    "data": {
+      "file": "freqmoe-block.npz",
+      "bytes": 10760,
+      "sha256": "21b779ed4252af6a8309711ba04ba9f808989ed95efbbfca31ee20b830285f84"
+    }
+  },
+  "source_arrays": {
+    "observed": [
+      144
+    ],
+    "trend": [
+      144
+    ],
+    "detrended": [
+      144
+    ],
+    "selection_input": [
+      144
+    ],
+    "spectrum": [
+      73
+    ],
+    "fft_frequencies": [
+      73
+    ],
+    "selected_periods": [
+      3
+    ],
+    "candidate_seasons": [
+      3,
+      144
+    ],
+    "season": [
+      144
+    ],
+    "residual": [
+      144
+    ]
+  },
+  "render_provenance": {
+    "python_version": "3.12.14",
+    "dependencies": {
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "statsmodels": "0.15.0",
+      "matplotlib": "3.10.8",
+      "Pillow": "12.3.0",
+      "PyWavelets": "1.10.0",
+      "EMD-signal": "1.10.0",
+      "vmdpy": "0.2",
+      "PySDKit": "0.5.0"
+    },
+    "source_hashes": {
+      "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
+      "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
+      "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
+      "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
+      "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
+      "src/detime/methods/neural_blocks/neural_block_portfolio.py": "2aab635b9927d1d42bbcd8e0b4f37cb9fcdcf85cbd0331b5011621b495c4acfa",
+      "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
+    }
+  }
+}

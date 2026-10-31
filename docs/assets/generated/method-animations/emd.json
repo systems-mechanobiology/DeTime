@@ -1,0 +1,143 @@
+{
+  "method": "EMD",
+  "slug": "emd",
+  "title": "EMD: estimate envelopes, subtract their mean, and sift",
+  "summary": "EMD adapts its oscillatory modes to the extrema of the current signal. DeTime then groups upstream modes into its trend/season/residual result.",
+  "steps": [
+    {
+      "title": "Locate extrema",
+      "text": "Local maxima and minima anchor the envelope construction."
+    },
+    {
+      "title": "Build envelopes",
+      "text": "PyEMD interpolates upper and lower envelopes with its boundary treatment."
+    },
+    {
+      "title": "Sift",
+      "text": "Subtract their pointwise mean, recompute extrema, and apply the stopping criteria."
+    },
+    {
+      "title": "Remove the IMF",
+      "text": "Subtract the accepted mode from the signal and continue on the remainder."
+    }
+  ],
+  "parameters": [
+    {
+      "name": "n_imfs",
+      "effect": "Limits extracted modes in DeTime's PyEMD call; a final residue can also be returned."
+    },
+    {
+      "name": "primary_period / explicit IMF groups",
+      "effect": "Controls DeTime's subsequent grouping; it does not determine the sifting envelopes."
+    },
+    {
+      "name": "PyEMD stopping criteria",
+      "effect": "This trace uses the upstream defaults; DeTime's wrapper exposes a narrower parameter surface."
+    }
+  ],
+  "cautions": [
+    "EMD modes are not uniquely identified physical sources; the first mode is not automatically the desired season.",
+    "Spline boundary choices and added observations can change previously estimated components.",
+    "The animation records the first IMF; it does not imply the algorithm stops after one mode."
+  ],
+  "references": [
+    {
+      "title": "PyEMD EMD algorithm and envelope API",
+      "url": "https://pyemd.readthedocs.io/en/latest/emd.html"
+    },
+    {
+      "title": "Huang et al. (1998)",
+      "url": "https://doi.org/10.1098/rspa.1998.0193"
+    }
+  ],
+  "trace_kind": "upstream execution trace",
+  "trace_note": "Envelope calls recorded from EMD-signal 1.10.0 with default sifting settings and max_imf=1. All curves are computed; no intermediate curve is interpolated between final results.",
+  "input_note": "Deterministic synthetic teaching signal; not a benchmark.",
+  "example_config": {
+    "method": "EMD",
+    "params": {
+      "n_imfs": 3,
+      "primary_period": 24
+    }
+  },
+  "checks": {
+    "recorded_sifts": 11,
+    "imf_plus_remainder_max_abs_error": 2.220446049250313e-16,
+    "sequential_sift_update_error": 0.0,
+    "final_sift_matches_first_imf": 0.0,
+    "finite_sifts": true
+  },
+  "source_files": [
+    "src/detime/methods/emd.py"
+  ],
+  "frames": 32,
+  "duration_ms": 12050,
+  "poster_frame": 15,
+  "width": 1280,
+  "height": 820,
+  "artifacts": {
+    "gif": {
+      "file": "emd.gif",
+      "bytes": 440772,
+      "sha256": "8497a98c6627985ac005683f49831392e11e879b5fa6d2f10686d67e044adca5"
+    },
+    "poster": {
+      "file": "emd.png",
+      "bytes": 181639,
+      "sha256": "d66fbe52f449434fc6b1442474bd3d12f03dd374b90cb499dbb3093fda1d3341"
+    },
+    "data": {
+      "file": "emd.npz",
+      "bytes": 49095,
+      "sha256": "a806e05788002115eb646dade93e46952e44542728461eb9d24eeddea886a3e1"
+    }
+  },
+  "source_arrays": {
+    "time": [
+      192
+    ],
+    "input": [
+      192
+    ],
+    "sift_candidate_upper_lower": [
+      11,
+      3,
+      192
+    ],
+    "first_imf": [
+      192
+    ],
+    "remainder": [
+      192
+    ],
+    "maxima": [
+      23
+    ],
+    "minima": [
+      23
+    ]
+  },
+  "render_provenance": {
+    "python_version": "3.12.14",
+    "dependencies": {
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "statsmodels": "0.15.0",
+      "matplotlib": "3.10.8",
+      "Pillow": "12.3.0",
+      "PyWavelets": "1.10.0",
+      "EMD-signal": "1.10.0",
+      "vmdpy": "0.2",
+      "PySDKit": "0.5.0"
+    },
+    "source_hashes": {
+      "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
+      "scripts/method_animations/adaptive.py": "7d728d88b4ba1a8dd82890c7a6b017d542728b50dc477c281e9bbfcbae164a1d",
+      "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
+      "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
+      "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
+      "src/detime/methods/emd.py": "ecf3932369e5df4efe553ba9a0b97daa3388c42dd9f42ccb47af01ec4a2e3e89",
+      "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
+    }
+  }
+}

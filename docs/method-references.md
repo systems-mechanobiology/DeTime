@@ -39,18 +39,18 @@ Related packages:
 - Optional/runtime dependencies: none
 
 Primary references:
-- [Dudek (2022), STD: A Seasonal-Trend-Dispersion Decomposition of Time Series](https://doi.org/10.48550/arXiv.2204.10398) - Primary reference for STD and the robust seasonal-trend-dispersion family.
+- [Dudek (2022), STD: A Seasonal-Trend-Dispersion Decomposition of Time Series](https://doi.org/10.48550/arXiv.2204.10398) - Primary reference for STD and STDR; STDR adds an irregular remainder to the seasonal-trend-dispersion representation.
 
 Related packages:
 - none declared
 
 ### `STDR`
 
-- Summary: Robust seasonal-trend decomposition for noisier periodic signals.
+- Summary: Seasonal-trend-dispersion decomposition with an averaged cycle shape and a remainder.
 - Optional/runtime dependencies: none
 
 Primary references:
-- [Dudek (2022), STD: A Seasonal-Trend-Dispersion Decomposition of Time Series](https://doi.org/10.48550/arXiv.2204.10398) - Primary reference for STD and the robust seasonal-trend-dispersion family.
+- [Dudek (2022), STD: A Seasonal-Trend-Dispersion Decomposition of Time Series](https://doi.org/10.48550/arXiv.2204.10398) - Primary reference for STD and STDR; STDR adds an irregular remainder to the seasonal-trend-dispersion representation.
 
 Related packages:
 - none declared

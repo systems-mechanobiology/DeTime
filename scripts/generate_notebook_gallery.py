@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import contextlib
 import io
+import re
 import shutil
 import textwrap
 import time
@@ -27,8 +28,8 @@ ASSET_ZIP = ASSET_DIR / "de_time_method_gallery.zip"
 
 METHODS = [
     ("SSA", "Univariate SSA"),
-    ("STD", "Seasonal-trend decomposition"),
-    ("STDR", "Robust seasonal-trend decomposition"),
+    ("STD", "Seasonal-trend-dispersion decomposition"),
+    ("STDR", "Seasonal-trend-dispersion decomposition with a remainder"),
     ("MSSA", "Multivariate SSA"),
     ("STL", "Statsmodels STL wrapper"),
     ("MSTL", "Statsmodels MSTL wrapper"),
@@ -143,7 +144,7 @@ def run_gallery_case(name):
             "reason": case["skip"],
             "input_mode": metadata["input_mode"],
             "output_shape": "",
-            "residual_rmse": np.nan,
+            "reconstruction_rmse": np.nan,
         }
         GALLERY_RESULTS.append(row)
         display(pd.DataFrame([row]))
@@ -160,7 +161,7 @@ def run_gallery_case(name):
             "reason": f"{type(exc).__name__}: {exc}",
             "input_mode": metadata["input_mode"],
             "output_shape": "",
-            "residual_rmse": np.nan,
+            "reconstruction_rmse": np.nan,
         }
         GALLERY_RESULTS.append(row)
         display(pd.DataFrame([row]))
@@ -170,8 +171,8 @@ def run_gallery_case(name):
     trend = _plot_vector(result.trend)
     season = _plot_vector(result.season)
     residual = _plot_vector(result.residual)
-    reconstruction = trend + season + residual
-    rmse = float(np.sqrt(np.mean((original - reconstruction) ** 2)))
+    reconstruction = np.asarray(result.trend) + np.asarray(result.season) + np.asarray(result.residual)
+    rmse = float(np.sqrt(np.mean((np.asarray(data) - reconstruction) ** 2)))
 
     row = {
         "method": name,
@@ -179,7 +180,7 @@ def run_gallery_case(name):
         "reason": "",
         "input_mode": metadata["input_mode"],
         "output_shape": str(np.asarray(result.trend).shape),
-        "residual_rmse": round(rmse, 8),
+        "reconstruction_rmse": round(rmse, 8),
     }
     GALLERY_RESULTS.append(row)
     display(pd.DataFrame([row]))
@@ -328,7 +329,7 @@ def _render_case_asset(name: str, case: dict[str, Any], asset_dir: Path) -> dict
             "image": None,
             "input_mode": metadata["input_mode"],
             "shape": "",
-            "residual_rmse": "",
+            "reconstruction_rmse": "",
         }
 
     np.random.seed(42)
@@ -344,14 +345,15 @@ def _render_case_asset(name: str, case: dict[str, Any], asset_dir: Path) -> dict
             "image": None,
             "input_mode": metadata["input_mode"],
             "shape": "",
-            "residual_rmse": "",
+            "reconstruction_rmse": "",
         }
 
     original = _plot_vector(case["data"])
     trend = _plot_vector(result.trend)
     season = _plot_vector(result.season)
     residual = _plot_vector(result.residual)
-    rmse = float(np.sqrt(np.mean((original - trend - season - residual) ** 2)))
+    reconstruction = np.asarray(result.trend) + np.asarray(result.season) + np.asarray(result.residual)
+    rmse = float(np.sqrt(np.mean((np.asarray(case["data"]) - reconstruction) ** 2)))
     image_name = f"{name.lower()}.png"
     image_path = asset_dir / image_name
 
@@ -378,7 +380,7 @@ def _render_case_asset(name: str, case: dict[str, Any], asset_dir: Path) -> dict
             f"input mode: {metadata['input_mode']}",
             f"trend shape: {np.asarray(result.trend).shape}",
             f"backend: {result.meta.get('backend_used', 'python')}",
-            f"residual RMSE: {rmse:.8f}",
+            f"reconstruction RMSE: {rmse:.8f}",
         ]
     )
     return {
@@ -388,7 +390,7 @@ def _render_case_asset(name: str, case: dict[str, Any], asset_dir: Path) -> dict
         "image": image_name,
         "input_mode": metadata["input_mode"],
         "shape": str(np.asarray(result.trend).shape),
-        "residual_rmse": f"{rmse:.8f}",
+        "reconstruction_rmse": f"{rmse:.8f}",
     }
 
 
@@ -425,12 +427,49 @@ def _write_zip() -> Path:
     return ASSET_ZIP
 
 
+def _sync_method_page(row: dict[str, Any]) -> None:
+    """Refresh legacy notebook evidence without replacing animation sections."""
+    method = row["method"]
+    path = ROOT / "docs" / "gallery" / f"{method.lower().replace('_', '-')}.md"
+    if not path.is_file():
+        return
+    page = path.read_text(encoding="utf-8")
+    table = "\n".join([
+        "| Property | Value |", "|---|---|",
+        f"| **Method** | `{method}` |",
+        f"| **Input mode** | `{row['input_mode']}` |",
+        f"| **Trend shape** | `{row['shape']}` |",
+        f"| **Notebook execution** | {row['status']} |",
+        f"| **Reconstruction RMSE** | {row['reconstruction_rmse'] or 'n/a'} |",
+    ])
+    page, count = re.subn(r"\| Property \| Value \|\n(?:\|[^\n]*\n)+", table + "\n", page, count=1)
+    if not count:
+        return
+    note = (
+        "Notebook example metric: root mean square of `input - (trend + season + residual)` "
+        "over all samples and channels. This checks additive bookkeeping; it is not a forecast "
+        "error or a component-recovery score. The separate teaching input and intermediate "
+        "arrays for the animation are linked below."
+    )
+    note_start, note_end = "<!-- detime:notebook-metric:start -->", "<!-- detime:notebook-metric:end -->"
+    note_block = f"{note_start}\n{note}\n{note_end}"
+    if note_start in page:
+        page = re.sub(re.escape(note_start) + r".*?" + re.escape(note_end), lambda _: note_block, page, flags=re.S)
+    else:
+        page = page.replace("<!-- detime:method-animation:start -->", note_block + "\n\n<!-- detime:method-animation:start -->", 1)
+    page = re.sub(r'(<div class="gallery-out">\s*<pre>).*?(</pre>)',
+                  lambda m: m[1] + "\n" + row["stdout"] + "\n" + m[2], page, count=1, flags=re.S)
+    path.write_text(page, encoding="utf-8")
+
+
 def write_markdown_gallery() -> Path:
     ASSET_DIR.mkdir(parents=True, exist_ok=True)
     namespace = _runtime_namespace()
     cases: dict[str, dict[str, Any]] = namespace["CASES"]
     start = time.perf_counter()
     rows = [_render_case_asset(method, cases[method], ASSET_DIR) for method, _ in METHODS]
+    for row in rows:
+        _sync_method_page(row)
     elapsed = time.perf_counter() - start
 
     lines = [
@@ -448,6 +487,9 @@ def write_markdown_gallery() -> Path:
         "",
         "Regenerate this page and its assets with `python scripts/generate_notebook_gallery.py`.",
         "",
+        "[Animated method explanations](methods.md#animated-method-explanations) show the",
+        "calculation steps for every registered method, with GIFs, static images and source arrays.",
+        "",
         "## Imports and synthetic data",
         "",
         "```python",
@@ -464,6 +506,8 @@ def write_markdown_gallery() -> Path:
         lines.extend(
             [
                 f"## {title}",
+                "",
+                f"[Watch how {method} works](gallery/{method.lower().replace('_', '-')}.md#how-it-works).",
                 "",
                 "```python",
                 _case_code(method),
@@ -493,13 +537,17 @@ def write_markdown_gallery() -> Path:
         [
             "## Summary",
             "",
-            "| Method | Status | Input mode | Trend shape | Residual RMSE |",
+            "Reconstruction RMSE is computed from input minus the sum of trend, season, and residual",
+            "over all samples and channels. It checks additive bookkeeping, not forecasting accuracy",
+            "or recovery of ground-truth components.",
+            "",
+            "| Method | Status | Input mode | Trend shape | Reconstruction RMSE |",
             "|---|---|---|---|---:|",
         ]
     )
     for row in rows:
         lines.append(
-            f"| `{row['method']}` | {row['status']} | `{row['input_mode']}` | `{row['shape']}` | {row['residual_rmse'] or 'n/a'} |"
+            f"| `{row['method']}` | {row['status']} | `{row['input_mode']}` | `{row['shape']}` | {row['reconstruction_rmse'] or 'n/a'} |"
         )
     lines.extend(
         [

@@ -1,0 +1,193 @@
+{
+  "method": "NBEATS_INTERPRETABLE",
+  "slug": "nbeats-interpretable",
+  "title": "N-BEATS: untrained basis illustration",
+  "summary": "This teaching illustration follows the source's polynomial and Fourier basis formulas and its separate backcast/output branches. All coefficients are explicitly chosen constants. The actual NBEATS_INTERPRETABLE method trains an MLP for each decomposition call using Torch, but that optional backend is not executed for this asset. The animation explains the basis mechanism and residual bookkeeping without presenting an untrained curve as a learned decomposition.",
+  "steps": [
+    {
+      "title": "Construct fixed basis functions",
+      "text": "The source creates polynomial trend bases and integer Fourier harmonics on a normalized grid from zero to one."
+    },
+    {
+      "title": "Separate backcast and output weights",
+      "text": "An actual trained block predicts separate coefficients for backcast subtraction and output accumulation. Here both coefficient vectors are explicitly chosen teaching values."
+    },
+    {
+      "title": "Pass a remainder to seasonal blocks",
+      "text": "Subtract the backcast contribution, then illustrate a seasonal block's separate backcast and output branches using the Fourier bases."
+    },
+    {
+      "title": "Distinguish the two residuals",
+      "text": "The internal remainder subtracts backcasts. The public wrapper instead derives its residual from the observed input minus the accumulated trend and seasonal outputs."
+    }
+  ],
+  "parameters": [
+    {
+      "name": "degree_of_polynomial",
+      "effect": "Sets the degree of the trend basis on the normalized full-record grid."
+    },
+    {
+      "name": "num_harmonics",
+      "effect": "Sets integer Fourier harmonics on normalized time; primary_period does not set these frequencies."
+    },
+    {
+      "name": "trend_blocks / seasonality_blocks",
+      "effect": "Set the numbers of residual-processing MLP blocks in an actual Torch execution."
+    },
+    {
+      "name": "n_epochs / restarts / seed",
+      "effect": "Control actual optimization when the optional method is run; they do not generate the fixed coefficients in this animation."
+    }
+  ],
+  "cautions": [
+    "This is an untrained basis illustration. No neural checkpoint, optimization trace or public-method output is claimed for this asset.",
+    "The example configuration below would train the optional method and will not reproduce the illustration's chosen coefficients.",
+    "The current source standardizes using the full record before applying a prefix loss mask. fit_scope='prefix' therefore must not be described as leakage-free forecasting.",
+    "The source fits a decomposition to one supplied series. Its same-length outputs do not establish generalization to unseen future observations.",
+    "The public residual is recomputed from the named outputs and differs from the internal remainder produced by subtracting backcasts."
+  ],
+  "references": [
+    {
+      "title": "Implemented DeTime operator",
+      "url": "https://github.com/systems-mechanobiology/DeTime/blob/main/src/detime/methods/neural_blocks/learned_priors.py"
+    },
+    {
+      "title": "Oreshkin et al. (2020), N-BEATS: Neural basis expansion analysis for interpretable time series forecasting",
+      "url": "https://openreview.net/forum?id=r1ecqn4YwB"
+    }
+  ],
+  "trace_kind": "basis_illustration_untrained",
+  "trace_note": "NumPy evaluates the polynomial/Fourier basis formulas with recorded, fixed teaching coefficients. Torch is not required, the public method is not run, and equality to a trained model is not asserted.",
+  "input_note": "Deterministic synthetic teaching signal; not a benchmark.",
+  "example_config": {
+    "method": "NBEATS_INTERPRETABLE",
+    "backend": "python",
+    "params": {
+      "degree_of_polynomial": 2,
+      "num_harmonics": 6,
+      "trend_blocks": 1,
+      "seasonality_blocks": 1,
+      "layers": 1,
+      "layer_size": 16,
+      "fit_scope": "full",
+      "n_epochs": 30,
+      "restarts": 1,
+      "device": "cpu",
+      "seed": 42
+    }
+  },
+  "checks": {
+    "public_method_executed": false,
+    "trained_checkpoint_used": false,
+    "coefficient_provenance": "Explicit fixed teaching constants in neural.py",
+    "basis_formula_source_inspected": true,
+    "illustrative_reconstruction_max_abs_error": 2.220446049250313e-16
+  },
+  "source_files": [
+    "src/detime/methods/neural_blocks/learned_priors.py"
+  ],
+  "frames": 32,
+  "duration_ms": 12050,
+  "poster_frame": 15,
+  "width": 1280,
+  "height": 820,
+  "artifacts": {
+    "gif": {
+      "file": "nbeats-interpretable.gif",
+      "bytes": 336173,
+      "sha256": "d2b1f8e23f7f15e079579569dd451a148737d2ea6440d8e06ff7b8cb8d8fb5c2"
+    },
+    "poster": {
+      "file": "nbeats-interpretable.png",
+      "bytes": 140332,
+      "sha256": "7992ac1c765fed524a06adc57265a37fc51a8ce62f4de8b393e2961f716d2e7e"
+    },
+    "data": {
+      "file": "nbeats-interpretable.npz",
+      "bytes": 18539,
+      "sha256": "3e478e580ebaf53688689721e8bf89a318d9f33faf0a3e9d3bf19a498ef8e6d2"
+    }
+  },
+  "source_arrays": {
+    "observed": [
+      144
+    ],
+    "normalized_input": [
+      144
+    ],
+    "normalized_time": [
+      144
+    ],
+    "polynomial_basis": [
+      3,
+      144
+    ],
+    "cosine_basis": [
+      6,
+      144
+    ],
+    "sine_basis": [
+      6,
+      144
+    ],
+    "trend_backcast_coefficients": [
+      3
+    ],
+    "trend_output_coefficients": [
+      3
+    ],
+    "season_backcast_cos_coefficients": [
+      6
+    ],
+    "season_backcast_sin_coefficients": [
+      6
+    ],
+    "season_output_cos_coefficients": [
+      6
+    ],
+    "season_output_sin_coefficients": [
+      6
+    ],
+    "trend_backcast": [
+      144
+    ],
+    "season_backcast": [
+      144
+    ],
+    "internal_remainder": [
+      144
+    ],
+    "illustrative_trend_output": [
+      144
+    ],
+    "illustrative_season_output": [
+      144
+    ],
+    "illustrative_public_residual": [
+      144
+    ]
+  },
+  "render_provenance": {
+    "python_version": "3.12.14",
+    "dependencies": {
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "statsmodels": "0.15.0",
+      "matplotlib": "3.10.8",
+      "Pillow": "12.3.0",
+      "PyWavelets": "1.10.0",
+      "EMD-signal": "1.10.0",
+      "vmdpy": "0.2",
+      "PySDKit": "0.5.0"
+    },
+    "source_hashes": {
+      "scripts/generate_method_animations.py": "f62989af55a7e48495c24afcfee31751d3785e5f78bb4b900bef23a429deaa84",
+      "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
+      "scripts/method_animations/neural.py": "fc1c2a73490391f0f863ede52e38f12924cc1fec572b7188356a2308216716e6",
+      "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
+      "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
+      "src/detime/methods/neural_blocks/learned_priors.py": "af5a1d6b744e01a46358847aa05e156e92859d5f58334b0bc6a74d3169d2f2f0",
+      "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
+    }
+  }
+}

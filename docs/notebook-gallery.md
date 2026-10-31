@@ -12,6 +12,9 @@ in docs builds and local checkouts.
 
 Regenerate this page and its assets with `python scripts/generate_notebook_gallery.py`.
 
+[Animated method explanations](methods.md#animated-method-explanations) show the
+calculation steps for every registered method, with GIFs, static images and source arrays.
+
 ## Imports and synthetic data
 
 ```python
@@ -112,7 +115,7 @@ def run_gallery_case(name):
             "reason": case["skip"],
             "input_mode": metadata["input_mode"],
             "output_shape": "",
-            "residual_rmse": np.nan,
+            "reconstruction_rmse": np.nan,
         }
         GALLERY_RESULTS.append(row)
         display(pd.DataFrame([row]))
@@ -129,7 +132,7 @@ def run_gallery_case(name):
             "reason": f"{type(exc).__name__}: {exc}",
             "input_mode": metadata["input_mode"],
             "output_shape": "",
-            "residual_rmse": np.nan,
+            "reconstruction_rmse": np.nan,
         }
         GALLERY_RESULTS.append(row)
         display(pd.DataFrame([row]))
@@ -139,8 +142,8 @@ def run_gallery_case(name):
     trend = _plot_vector(result.trend)
     season = _plot_vector(result.season)
     residual = _plot_vector(result.residual)
-    reconstruction = trend + season + residual
-    rmse = float(np.sqrt(np.mean((original - reconstruction) ** 2)))
+    reconstruction = np.asarray(result.trend) + np.asarray(result.season) + np.asarray(result.residual)
+    rmse = float(np.sqrt(np.mean((np.asarray(data) - reconstruction) ** 2)))
 
     row = {
         "method": name,
@@ -148,7 +151,7 @@ def run_gallery_case(name):
         "reason": "",
         "input_mode": metadata["input_mode"],
         "output_shape": str(np.asarray(result.trend).shape),
-        "residual_rmse": round(rmse, 8),
+        "reconstruction_rmse": round(rmse, 8),
     }
     GALLERY_RESULTS.append(row)
     display(pd.DataFrame([row]))
@@ -167,6 +170,8 @@ def run_gallery_case(name):
 
 ## Univariate SSA
 
+[Watch how SSA works](gallery/ssa.md#how-it-works).
+
 ```python
 case = CASES["SSA"]
 run_gallery_case("SSA")
@@ -181,13 +186,15 @@ status: ran
 input mode: univariate
 trend shape: (96,)
 backend: native
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
 ![SSA decomposition](assets/generated/notebooks/method-gallery/ssa.png)
 
-## Seasonal-trend decomposition
+## Seasonal-trend-dispersion decomposition
+
+[Watch how STD works](gallery/std.md#how-it-works).
 
 ```python
 case = CASES["STD"]
@@ -203,13 +210,15 @@ status: ran
 input mode: channelwise
 trend shape: (96,)
 backend: native
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
 ![STD decomposition](assets/generated/notebooks/method-gallery/std.png)
 
-## Robust seasonal-trend decomposition
+## Seasonal-trend-dispersion decomposition with a remainder
+
+[Watch how STDR works](gallery/stdr.md#how-it-works).
 
 ```python
 case = CASES["STDR"]
@@ -220,18 +229,20 @@ Out:
 
 <div class="gallery-out">
 <pre>
-STDR: Robust seasonal-trend decomposition for noisier periodic signals.
+STDR: Seasonal-trend-dispersion decomposition with an averaged cycle shape and a remainder.
 status: ran
 input mode: channelwise
 trend shape: (96,)
 backend: native
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
 ![STDR decomposition](assets/generated/notebooks/method-gallery/stdr.png)
 
 ## Multivariate SSA
+
+[Watch how MSSA works](gallery/mssa.md#how-it-works).
 
 ```python
 case = CASES["MSSA"]
@@ -247,13 +258,15 @@ status: ran
 input mode: multivariate
 trend shape: (96, 3)
 backend: python
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
 ![MSSA decomposition](assets/generated/notebooks/method-gallery/mssa.png)
 
 ## Statsmodels STL wrapper
+
+[Watch how STL works](gallery/stl.md#how-it-works).
 
 ```python
 case = CASES["STL"]
@@ -269,13 +282,15 @@ status: ran
 input mode: univariate
 trend shape: (96,)
 backend: python
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
 ![STL decomposition](assets/generated/notebooks/method-gallery/stl.png)
 
 ## Statsmodels MSTL wrapper
+
+[Watch how MSTL works](gallery/mstl.md#how-it-works).
 
 ```python
 case = CASES["MSTL"]
@@ -291,13 +306,15 @@ status: ran
 input mode: univariate
 trend shape: (96,)
 backend: python
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
 ![MSTL decomposition](assets/generated/notebooks/method-gallery/mstl.png)
 
 ## Robust STL wrapper
+
+[Watch how ROBUST_STL works](gallery/robust-stl.md#how-it-works).
 
 ```python
 case = CASES["ROBUST_STL"]
@@ -313,13 +330,15 @@ status: ran
 input mode: univariate
 trend shape: (96,)
 backend: python
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
 ![ROBUST_STL decomposition](assets/generated/notebooks/method-gallery/robust_stl.png)
 
 ## Empirical mode decomposition
+
+[Watch how EMD works](gallery/emd.md#how-it-works).
 
 ```python
 case = CASES["EMD"]
@@ -335,13 +354,15 @@ status: ran
 input mode: univariate
 trend shape: (96,)
 backend: python
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
 ![EMD decomposition](assets/generated/notebooks/method-gallery/emd.png)
 
 ## Noise-assisted EMD
+
+[Watch how CEEMDAN works](gallery/ceemdan.md#how-it-works).
 
 ```python
 case = CASES["CEEMDAN"]
@@ -352,18 +373,20 @@ Out:
 
 <div class="gallery-out">
 <pre>
-CEEMDAN: Noise-assisted EMD variant for more stable IMF extraction.
+CEEMDAN: Noise-assisted EMD wrapper with IMFs in (mode, time, channel) layout.
 status: ran
 input mode: univariate
 trend shape: (96,)
 backend: python
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
 ![CEEMDAN decomposition](assets/generated/notebooks/method-gallery/ceemdan.png)
 
 ## Variational mode decomposition
+
+[Watch how VMD works](gallery/vmd.md#how-it-works).
 
 ```python
 case = CASES["VMD"]
@@ -379,13 +402,15 @@ status: ran
 input mode: univariate
 trend shape: (96,)
 backend: native
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
 ![VMD decomposition](assets/generated/notebooks/method-gallery/vmd.png)
 
 ## Wavelet decomposition
+
+[Watch how WAVELET works](gallery/wavelet.md#how-it-works).
 
 ```python
 case = CASES["WAVELET"]
@@ -401,13 +426,15 @@ status: ran
 input mode: univariate
 trend shape: (96,)
 backend: python
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
 ![WAVELET decomposition](assets/generated/notebooks/method-gallery/wavelet.png)
 
 ## Moving-average baseline
+
+[Watch how MA_BASELINE works](gallery/ma-baseline.md#how-it-works).
 
 ```python
 case = CASES["MA_BASELINE"]
@@ -423,13 +450,15 @@ status: ran
 input mode: univariate
 trend shape: (96,)
 backend: native
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
 ![MA_BASELINE decomposition](assets/generated/notebooks/method-gallery/ma_baseline.png)
 
 ## Optional multivariate VMD backend
+
+[Watch how MVMD works](gallery/mvmd.md#how-it-works).
 
 ```python
 case = CASES["MVMD"]
@@ -445,13 +474,15 @@ status: ran
 input mode: multivariate
 trend shape: (96, 3)
 backend: python
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
 ![MVMD decomposition](assets/generated/notebooks/method-gallery/mvmd.png)
 
 ## Optional multivariate EMD backend
+
+[Watch how MEMD works](gallery/memd.md#how-it-works).
 
 ```python
 case = CASES["MEMD"]
@@ -467,13 +498,15 @@ status: ran
 input mode: multivariate
 trend shape: (96, 3)
 backend: python
-residual RMSE: 0.00000000
+reconstruction RMSE: 0.00000000
 </pre>
 </div>
 
 ![MEMD decomposition](assets/generated/notebooks/method-gallery/memd.png)
 
 ## Experimental Gabor clustering path
+
+[Watch how GABOR_CLUSTER works](gallery/gabor-cluster.md#how-it-works).
 
 ```python
 case = CASES["GABOR_CLUSTER"]
@@ -490,7 +523,11 @@ requires a trained GaborClusterModel or model_path plus the experimental cluster
 
 ## Summary
 
-| Method | Status | Input mode | Trend shape | Residual RMSE |
+Reconstruction RMSE is computed from input minus the sum of trend, season, and residual
+over all samples and channels. It checks additive bookkeeping, not forecasting accuracy
+or recovery of ground-truth components.
+
+| Method | Status | Input mode | Trend shape | Reconstruction RMSE |
 |---|---|---|---|---:|
 | `SSA` | ran | `univariate` | `(96,)` | 0.00000000 |
 | `STD` | ran | `channelwise` | `(96,)` | 0.00000000 |
@@ -508,7 +545,7 @@ requires a trained GaborClusterModel or model_path plus the experimental cluster
 | `MEMD` | ran | `multivariate` | `(96, 3)` | 0.00000000 |
 | `GABOR_CLUSTER` | skipped | `univariate` | `` | n/a |
 
-Total running time of the gallery script: 7.257 seconds.
+Total running time of the gallery script: 10.234 seconds.
 
 Methods run: 14; skipped with explicit reason: 1.
 

@@ -25,6 +25,7 @@ research context.
     <div class="hero-actions">
       <a href="quickstart/">Run First Example</a>
       <a class="secondary" href="install/">Install DeTime</a>
+      <a class="secondary" href="gallery/">Explore 31 method animations</a>
     </div>
   </div>
   <div class="hero-visual">
@@ -238,7 +239,7 @@ claim.
   <a class="info-card" href="methods/">
     <span class="card-icon icon-overview"></span>
     <h3>Methods Overview</h3>
-    <p>Method families, maturity levels, and where to start on the retained surface.</p>
+    <p>Choose a method, then follow its four-step animation, parameter guide, and numerical explanation.</p>
   </a>
   <a class="info-card" href="method-matrix/">
     <span class="card-icon icon-matrix"></span>

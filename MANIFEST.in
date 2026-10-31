@@ -19,6 +19,7 @@ include docs/tutorials/hot-trend-lab/*.md
 recursive-include docs/assets/brand *
 recursive-include docs/assets/illustrations *
 recursive-include docs/assets/generated/home *
+recursive-include docs/assets/generated/method-animations *
 include docs/assets/generated/evidence/comparison_*.csv
 include docs/assets/generated/evidence/comparison_evidence.json
 include docs/assets/generated/evidence/comparison_evidence.md
@@ -27,6 +28,10 @@ include docs/assets/generated/evidence/method_runtime_matrix.*
 include docs/assets/generated/evidence/performance_snapshot.*
 include docs/assets/generated/evidence/workflow_comparison.json
 recursive-include docs/stylesheets *.css
+recursive-include docs/javascripts *.js
+include scripts/generate_method_animations.py
+include scripts/check_site_links.py
+recursive-include scripts/method_animations *.py
 recursive-include overrides *.html
 include docs/robots.txt
 include docs/googlec8d99a452cb93b2a.html

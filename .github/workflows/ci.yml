@@ -17,7 +17,7 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
-          - macos-14
+          - macos-15
           - windows-latest
         python-version:
           - "3.10"
@@ -117,13 +117,16 @@ jobs:
       - name: Install docs dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -e .[dev,docs,notebook,gabor]
+          python -m pip install -e .[dev,docs,notebook,gabor,emd,multivar]
 
       - name: Check schema asset freshness
         run: python scripts/generate_schema_assets.py --check
 
       - name: Check documentation consistency
         run: python scripts/check_doc_consistency.py
+
+      - name: Check method animation coverage and source arrays
+        run: python scripts/generate_method_animations.py --check
 
       - name: Regenerate schema assets
         run: python scripts/generate_schema_assets.py
@@ -154,6 +157,35 @@ jobs:
           mkdocs build --strict
           python -m unittest discover -s tests/docs -p test_site_seo.py
           python scripts/check_site_seo.py
+          python scripts/check_site_links.py
+
+      - name: Set up Node for browser acceptance
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: tests/browser/package-lock.json
+
+      - name: Install browser acceptance dependencies
+        working-directory: tests/browser
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+
+      - name: Check method animations in desktop and mobile Chromium
+        working-directory: tests/browser
+        run: npm test
+
+      - name: Upload browser acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: de-time-browser-acceptance
+          path: |
+            tests/browser/playwright-report
+            tests/browser/test-results
+          retention-days: 14
+          if-no-files-found: warn
 
   optional-backend-smoke:
     name: Optional backends (ubuntu, py3.11)
@@ -179,8 +211,9 @@ jobs:
       - name: Run optional backend smoke tests
         run: |
           python -c "from PyEMD import CEEMDAN, EMD; print(CEEMDAN, EMD)"
+          python -c "from pysdkit import MEMD, MVMD; print(MEMD, MVMD)"
           python scripts/smoke_optional_univariate_backends.py
-          python -m pytest tests/optional/test_multivar_optional_backends.py -q
+          python -m pytest tests/optional/test_multivar_optional_backends.py tests/wrappers/test_mvmd_orientation.py -q
 
       - name: Run optional backend example smoke
         run: python examples/optional_multivariate_backends.py
