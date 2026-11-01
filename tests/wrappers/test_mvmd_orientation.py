@@ -125,3 +125,82 @@ def test_real_pysdkit_matches_a_direct_channels_by_time_call(monkeypatch, channe
     assert np.isfinite(modes).all()
     np.testing.assert_allclose(modes, expected, rtol=1e-6, atol=1e-7)
     np.testing.assert_allclose(result.trend + result.season + result.residual, y, atol=1e-14)
+
+
+FS = 0.5  # samples per second, e.g. a 2 s sampling interval
+TONES = (0.03, 0.2)  # cycles per second; exact FFT bins at length 500
+
+
+def _two_tone_panel(channels: int = 6, length: int = 500) -> tuple[np.ndarray, np.ndarray]:
+    t = np.arange(length, dtype=float) / FS
+    parts = np.stack([
+        np.column_stack([
+            amp * np.sin(2 * np.pi * freq * t + phase * channel)
+            for channel in range(channels)
+        ])
+        for freq, amp, phase in zip(TONES, (1.0, 0.6), (0.4, -0.3))
+    ])
+    return parts.sum(axis=0), parts
+
+
+def _uniform_init_mvmd(upstream):
+    # PySDKit's default zero initialization is kept by DeTime; this test
+    # subclass only selects the upstream uniform start for a known answer.
+    class UniformInitMVMD(upstream.MVMD):
+        def __init__(self, **kwargs):
+            super().__init__(**kwargs, init="uniform")
+
+    return UniformInitMVMD
+
+
+def _two_tone_mvmd(monkeypatch):
+    upstream = pytest.importorskip("pysdkit")
+    monkeypatch.setattr(mvmd, "_load_optional_backend", lambda method: _uniform_init_mvmd(upstream))
+    y, parts = _two_tone_panel()
+    result = decompose(
+        y,
+        DecompositionConfig(
+            method="MVMD", backend="python",
+            params={"K": 2, "alpha": 2000.0, "fs": FS},
+        ),
+    )
+    return y, parts, result
+
+
+def test_real_pysdkit_documented_layout_recovers_two_tones_in_every_channel(monkeypatch):
+    y, parts, result = _two_tone_mvmd(monkeypatch)
+
+    modes = result.components["modes"]
+    assert modes.shape == (2, *y.shape)
+    order = np.argsort(result.meta["dominant_frequencies"])
+    np.testing.assert_allclose(np.asarray(result.meta["dominant_frequencies"])[order], TONES, rtol=1e-12)
+    for mode, part in zip(modes[order], parts):
+        for channel in range(y.shape[1]):
+            assert np.corrcoef(mode[:, channel], part[:, channel])[0, 1] > 0.99
+
+
+def test_real_pysdkit_center_frequencies_are_reported_in_sampling_units(monkeypatch):
+    _, _, result = _two_tone_mvmd(monkeypatch)
+
+    center = np.asarray(result.meta["center_frequencies"])
+    assert center.shape == (2,)
+    order = np.argsort(result.meta["dominant_frequencies"])
+    # Shared solver centres, in the same unit as fs and dominant_frequencies.
+    np.testing.assert_allclose(center[order], TONES, rtol=0.02)
+
+
+def test_mvmd_documented_defaults_reach_the_backend_unchanged(monkeypatch):
+    settings = []
+
+    class RecordingMVMD:
+        def __init__(self, **kwargs):
+            settings.append(kwargs)
+
+        def fit_transform(self, signal):
+            return _accept_either_layout(signal)
+
+    monkeypatch.setattr(mvmd, "_load_optional_backend", lambda method: RecordingMVMD)
+    decompose(_panel(3), DecompositionConfig(method="MVMD", backend="python"))
+
+    # No initialization override: PySDKit's own default ("zero") applies.
+    assert settings == [{"alpha": 2000.0, "K": 3, "tau": 0.0}]

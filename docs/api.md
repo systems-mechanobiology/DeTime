@@ -69,6 +69,12 @@ Validation errors come from Pydantic. Invalid backend names, non-positive
   `backend_requested`, `backend_used`, `speed_mode`, `result_layout`,
   `n_channels`, `channel_names`, and `runtime_ms` when profiling is enabled.
 
+Frequency-valued metadata from the mode-based wrappers, such as
+`dominant_frequencies` and the VMD and MVMD solver `center_frequencies`, is
+in cycles per unit time: cycles per sample multiplied by the method's `fs`
+parameter. With the default `fs=1.0` the values are cycles per sample; with
+`fs` in hertz they are in hertz.
+
 The core reconstruction contract is:
 
 ```python

@@ -8,6 +8,22 @@ aliases remain available for compatibility.
 
 ## [Unreleased]
 
+### Result-contract fixes from downstream fMRI analyses
+
+- reports VMD `meta["center_frequencies"]` in cycles per unit time (solver
+  cycles/sample multiplied by `fs`), the unit of `fs` and
+  `dominant_frequencies`; earlier values were too small by a factor of 2π
+- decomposes odd-length VMD input instead of failing with a shape error; both
+  backends need an even length, so the wrapper appends one repeat of the final
+  sample, crops the modes back, and records `meta["padded_samples"]`
+- returns EMD IMFs as `components["imfs"]` in CEEMDAN's
+  `(mode, time, channel)` layout
+- reports MVMD's final shared solver centres as `meta["center_frequencies"]`
+  in the same unit as VMD; MVMD defaults are unchanged, and the note below
+  documents how PySDKit's default zero initialization can merge two tones
+  into one mode
+- documents the unit of frequency-valued metadata in the API reference
+
 ### Maintenance
 
 - sends MVMD inputs to PySDKit in its documented `(channels, time)` layout;
@@ -51,7 +67,9 @@ aliases remain available for compatibility.
 These are source-branch changes. The existing `detime-toolkit==0.1.3` wheel
 and release tag are unchanged. The
 [maintenance note](docs/maintenance/2026-10-29.md) records verification and
-the compatibility changes relevant to reproducing prior results.
+the compatibility changes relevant to reproducing prior results. The
+[1 November note](docs/maintenance/2026-11-01.md) does the same for the VMD,
+EMD, and MVMD result-contract fixes.
 
 ## [0.1.3] - 2026-07-14
 

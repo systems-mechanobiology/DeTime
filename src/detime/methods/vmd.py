@@ -100,7 +100,9 @@ def _assemble_vmd_result(
         omega = omega[-1]
 
     fs = float(cfg.get("fs", 1.0))
-    scale = fs / (2 * np.pi) if fs > 0 else 1.0
+    # Both backends return omega in cycles/sample on [0, 0.5], so this gives
+    # cycles per unit time, the same unit as fs and dominant_frequencies.
+    scale = fs if fs > 0 else 1.0
     freqs = np.abs(omega) * scale
     dom_freqs = np.array([dominant_frequency(mode, fs) for mode in modes])
 
@@ -165,12 +167,19 @@ def vmd_decompose(
     cfg, runtime = split_runtime_params(params)
     backend = resolve_backend("VMD", runtime, native_methods=("vmd_decompose",))
     y_arr = np.asarray(y, dtype=float).ravel()
+    # Both backends drop the final sample of an odd-length series. Append the
+    # first sample of VMD's own half-sample-symmetric boundary mirror (a
+    # repeat of the last value) and crop the modes back to the input length.
+    padded_samples = int(y_arr.size % 2)
+    y_fit = np.append(y_arr, y_arr[-1]) if padded_samples else y_arr
     modes, omega, backend_meta = _run_vmd_backend(
-        y_arr,
+        y_fit,
         cfg=cfg,
         backend=backend,
         seed=runtime.seed,
     )
+    modes = np.asarray(modes, dtype=float)[..., : y_arr.size]
+    backend_meta = {**backend_meta, "padded_samples": padded_samples}
     result = _assemble_vmd_result(modes, omega, original=y_arr, cfg=cfg, backend_meta=backend_meta)
     return finalize_result(
         result,
