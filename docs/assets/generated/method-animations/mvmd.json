@@ -171,7 +171,7 @@
       "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
       "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
       "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
-      "src/detime/methods/mvmd.py": "3f3a8dc7f2dd83d5ce13db1c949e5751eb6dab6fb6136127bfb0382a1030fd7d",
+      "src/detime/methods/mvmd.py": "3e66ea12f131795eeb5ebbb24bd6affe7bfc104ac94ef7d8cdeaff6073413fd7",
       "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
     }
   }

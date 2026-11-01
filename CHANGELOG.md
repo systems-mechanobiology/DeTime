@@ -22,6 +22,8 @@ aliases remain available for compatibility.
   in the same unit as VMD; MVMD defaults are unchanged, and the note below
   documents how PySDKit's default zero initialization can merge two tones
   into one mode
+- accepts MVMD's documented `trend_imfs` and `season_imfs` aliases; they
+  were passed to the PySDKit constructor, which raised a `TypeError`
 - documents the unit of frequency-valued metadata in the API reference
 
 ### Maintenance

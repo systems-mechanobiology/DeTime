@@ -52,7 +52,7 @@
     "scripts/method_animations/classical.py": "8a8a9ef82936f0aa5b1c5775c6c0158c3b48d3bc7dca1de691b83d95e5c23ba3",
     "src/detime/methods/ma_baseline.py": "1197a6fa5dd7f3a807f603e331986d2b75ff87962f54314521e3e149d5241d54",
     "src/detime/methods/memd.py": "e6eb06c058644f123495d3593a804b40e677f6a5bfc2f2e289cb6c3e11d6e022",
-    "src/detime/methods/mvmd.py": "3f3a8dc7f2dd83d5ce13db1c949e5751eb6dab6fb6136127bfb0382a1030fd7d",
+    "src/detime/methods/mvmd.py": "3e66ea12f131795eeb5ebbb24bd6affe7bfc104ac94ef7d8cdeaff6073413fd7",
     "native/src/mssa.cpp": "4aaea22b4d2dea62dc6dd942d2e116f81a646c95e3f4f610c58f79302e69da2b",
     "src/detime/methods/mssa.py": "ada7362bacc75c18fe034fd4d4e08f279b9887ea21944b667b37d4cc27571d51",
     "src/detime/methods/utils.py": "6963d1ecdf76f1920671a262d125f0d822ae620b1e532849a002be1b7b36e7fd",
@@ -1906,7 +1906,7 @@
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
           "src/detime/methods/memd.py": "e6eb06c058644f123495d3593a804b40e677f6a5bfc2f2e289cb6c3e11d6e022",
-          "src/detime/methods/mvmd.py": "3f3a8dc7f2dd83d5ce13db1c949e5751eb6dab6fb6136127bfb0382a1030fd7d",
+          "src/detime/methods/mvmd.py": "3e66ea12f131795eeb5ebbb24bd6affe7bfc104ac94ef7d8cdeaff6073413fd7",
           "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }
@@ -2601,7 +2601,7 @@
           "scripts/method_animations/common.py": "73ad7e8b4e5b67f87d13e59adab2c93e983fe1aaf06ee627d22cb7c7e696016a",
           "src/detime/backends.py": "7432dcf59e382580dfb32f1f57e61ff71a30567c049b35243e24e3644523eda6",
           "src/detime/core.py": "d95b348cd8b16b56d18840965579c947a11628d969dd6c32c4af7723f5a027f4",
-          "src/detime/methods/mvmd.py": "3f3a8dc7f2dd83d5ce13db1c949e5751eb6dab6fb6136127bfb0382a1030fd7d",
+          "src/detime/methods/mvmd.py": "3e66ea12f131795eeb5ebbb24bd6affe7bfc104ac94ef7d8cdeaff6073413fd7",
           "src/detime/registry.py": "e934ffca17880cefe5add728aa497e63ea811d7ae43abec1ea498de718094066"
         }
       }

@@ -204,3 +204,47 @@ def test_mvmd_documented_defaults_reach_the_backend_unchanged(monkeypatch):
 
     # No initialization override: PySDKit's own default ("zero") applies.
     assert settings == [{"alpha": 2000.0, "K": 3, "tau": 0.0}]
+
+
+MODE_INDEX_ALIASES = [
+    ("trend_imfs", "trend_modes", "trend_components"),
+    ("season_imfs", "season_modes", "season_components"),
+]
+
+
+@pytest.mark.parametrize("alias, canonical, meta_key", MODE_INDEX_ALIASES)
+def test_mvmd_mode_index_aliases_group_modes_without_reaching_the_backend(
+    monkeypatch, alias, canonical, meta_key
+):
+    settings = []
+
+    class StrictMVMD:
+        # PySDKit's MVMD constructor: unknown keywords raise TypeError.
+        def __init__(self, alpha, K, tau, init="zero", DC=False, tol=1e-7, max_iter=100):
+            settings.append({"alpha": alpha, "K": K, "tau": tau})
+
+        def fit_transform(self, signal):
+            return _accept_either_layout(signal)
+
+    monkeypatch.setattr(mvmd, "_load_optional_backend", lambda method: StrictMVMD)
+    y = _panel(3)
+    by_alias = decompose(y, DecompositionConfig(method="MVMD", backend="python", params={"K": 2, alias: [1]}))
+    by_name = decompose(y, DecompositionConfig(method="MVMD", backend="python", params={"K": 2, canonical: [1]}))
+
+    assert settings == [{"alpha": 2000.0, "K": 2, "tau": 0.0}] * 2
+    assert by_alias.meta[meta_key] == by_name.meta[meta_key] == [1]
+    for part in ("trend", "season", "residual"):
+        np.testing.assert_array_equal(getattr(by_alias, part), getattr(by_name, part))
+
+
+@pytest.mark.parametrize("alias, canonical, meta_key", MODE_INDEX_ALIASES)
+def test_real_pysdkit_accepts_documented_mode_index_aliases(alias, canonical, meta_key):
+    pytest.importorskip("pysdkit")
+    y = _panel(2)
+    by_alias = decompose(y, DecompositionConfig(method="MVMD", backend="python", params={"K": 2, alias: [0]}))
+    by_name = decompose(y, DecompositionConfig(method="MVMD", backend="python", params={"K": 2, canonical: [0]}))
+
+    assert by_alias.meta[meta_key] == [0]
+    np.testing.assert_array_equal(by_alias.components["modes"], by_name.components["modes"])
+    for part in ("trend", "season", "residual"):
+        np.testing.assert_array_equal(getattr(by_alias, part), getattr(by_name, part))

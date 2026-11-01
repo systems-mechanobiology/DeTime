@@ -183,6 +183,8 @@ def _instantiate_backend(backend_cls: Any, cfg: Dict[str, Any], method_name: str
             "primary_period",
             "trend_modes",
             "season_modes",
+            "trend_imfs",
+            "season_imfs",
             "seasonal_num_modes",
             "season_freq_tol_ratio",
             "trend_freq_threshold",
