@@ -58,7 +58,13 @@ def emd_decompose(
             trend=zeros,
             season=zeros,
             residual=y_arr.copy(),
-            meta={"method": "EMD", "imfs": [], "dominant_frequencies": []}
+            components={"imfs": np.empty((0, T, 1), dtype=float)},
+            meta={
+                "method": "EMD",
+                "imfs": [],
+                "dominant_frequencies": [],
+                "component_layouts": {"imfs": "mode,time,channel"},
+            }
         )
 
     dom_freqs = [_dominant_frequency(comp, fs=fs) for comp in imfs]
@@ -110,6 +116,7 @@ def emd_decompose(
         "dominant_frequencies": dom_freqs,
         "trend_components": trend_imfs,
         "season_components": season_imfs,
+        "component_layouts": {"imfs": "mode,time,channel"},
     }
     if extra_freq:
         meta.update(extra_freq)
@@ -118,5 +125,8 @@ def emd_decompose(
         trend=trend,
         season=season,
         residual=residual,
+        # Same layout as CEEMDAN: a channel axis keeps the established 3D NPZ
+        # export, rather than flattening modes as if they were time.
+        components={"imfs": imfs[:, :, np.newaxis]},
         meta=meta,
     )

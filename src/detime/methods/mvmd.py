@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from importlib import import_module
+from inspect import signature
 from time import perf_counter
 from typing import Any, Dict, Iterable, List, Sequence
 
@@ -182,6 +183,8 @@ def _instantiate_backend(backend_cls: Any, cfg: Dict[str, Any], method_name: str
             "primary_period",
             "trend_modes",
             "season_modes",
+            "trend_imfs",
+            "season_imfs",
             "seasonal_num_modes",
             "season_freq_tol_ratio",
             "trend_freq_threshold",
@@ -205,6 +208,15 @@ def _instantiate_backend(backend_cls: Any, cfg: Dict[str, Any], method_name: str
         return backend_cls()
 
 
+def _return_all_kwargs(fn: Any) -> Dict[str, bool]:
+    """Request PySDKit's (modes, spectra, omega) result when the entry point accepts it."""
+    try:
+        parameters = signature(fn).parameters
+    except (TypeError, ValueError):
+        return {}
+    return {"return_all": True} if "return_all" in parameters else {}
+
+
 def _call_backend(instance: Any, y_arr: np.ndarray, method_name: str) -> Any:
     if method_name == "MVMD":
         # PySDKit MVMD requires (channels, time). It may silently accept the
@@ -215,9 +227,9 @@ def _call_backend(instance: Any, y_arr: np.ndarray, method_name: str) -> Any:
         for attr_name in ("fit_transform", "transform", "decompose"):
             fn = getattr(instance, attr_name, None)
             if callable(fn):
-                return fn(backend_input)
+                return fn(backend_input, **_return_all_kwargs(fn))
         if callable(instance):
-            return instance(backend_input)
+            return instance(backend_input, **_return_all_kwargs(instance))
         raise RuntimeError(f"Could not execute the optional backend for {method_name}.")
 
     last_error: Exception | None = None
@@ -251,18 +263,41 @@ def _call_backend(instance: Any, y_arr: np.ndarray, method_name: str) -> Any:
     raise RuntimeError(f"Could not execute the optional backend for {method_name}.")
 
 
-def _run_backend(method_name: str, y_arr: np.ndarray, cfg: Dict[str, Any]) -> np.ndarray:
+def _run_backend_with_omega(
+    method_name: str, y_arr: np.ndarray, cfg: Dict[str, Any]
+) -> tuple[np.ndarray, np.ndarray | None]:
     backend_cls = _load_optional_backend(method_name)
     instance = _instantiate_backend(backend_cls, cfg, method_name)
     raw = _call_backend(instance, y_arr, method_name)
+    omega = None
     if isinstance(raw, dict):
         for key in ("modes", "imfs", "components"):
             if key in raw:
                 raw = raw[key]
                 break
     elif isinstance(raw, (list, tuple)) and raw:
+        if method_name == "MVMD" and len(raw) == 3:
+            # PySDKit return_all: (modes, mode spectra, omega per iteration).
+            omega = raw[2]
         raw = raw[0]
-    return _coerce_mode_stack(raw, y_arr.shape[0], y_arr.shape[1], method_name)
+    modes = _coerce_mode_stack(raw, y_arr.shape[0], y_arr.shape[1], method_name)
+    return modes, omega
+
+
+def _run_backend(method_name: str, y_arr: np.ndarray, cfg: Dict[str, Any]) -> np.ndarray:
+    return _run_backend_with_omega(method_name, y_arr, cfg)[0]
+
+
+def _center_frequencies(omega: Any, n_modes: int, fs: float) -> List[float] | None:
+    """Final solver centres (cycles/sample) in cycles per unit time, like VMD."""
+    if omega is None:
+        return None
+    final = np.real(np.asarray(omega))
+    if final.ndim == 2:
+        final = final[-1]
+    if final.shape != (n_modes,):
+        return None
+    return (np.abs(final.astype(float)) * (fs if fs > 0 else 1.0)).tolist()
 
 
 @MethodRegistry.register("MVMD", input_mode="multivariate")
@@ -278,8 +313,11 @@ def mvmd_decompose(
         raise ValueError("MVMD does not provide a GPU backend.")
 
     y_arr = _ensure_multivariate_input(y, "MVMD")
-    modes = _run_backend("MVMD", y_arr, cfg)
+    modes, omega = _run_backend_with_omega("MVMD", y_arr, cfg)
     result = _group_multivariate_modes(modes, cfg, method="MVMD", original=y_arr)
+    center = _center_frequencies(omega, modes.shape[0], float(cfg.get("fs", 1.0)))
+    if center is not None:
+        result.meta["center_frequencies"] = center
     return finalize_result(
         result,
         method="MVMD",
